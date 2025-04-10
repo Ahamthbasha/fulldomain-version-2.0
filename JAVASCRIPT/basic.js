@@ -1685,3 +1685,479 @@ const str='3a2b3c'
 
 // const binding=person.greet.bind(anotherPerson)
 // console.log(binding("hello","basha"))
+
+// function getNo(callback){
+//     let no=10
+//     callback(no)
+// }
+
+// function addition(no,callback){
+//     let number=no+no
+//     callback(number)
+// }
+
+// function Check(no,callback){
+//     callback(no % 2 === 0 ? 'even' :'odd')
+// }
+
+// getNo((no)=>{
+//     addition(no,(result)=>{
+//         console.log("result",result)
+//        Check(no,(result)=>{
+//         console.log(result)
+//        })
+//     })
+// })
+
+// function getUser(callback){
+//     setTimeout(()=>{
+//         callback({userId:1,name:"Ahamathbasha"})
+//     },1000)
+// }
+
+// function getPosts(callback){
+//     setTimeout(()=>{
+//         callback(['post1','post2'])
+//     })
+// }
+
+// getUser((userInfo)=>{
+//     getPosts((postInfo)=>{
+//         console.log(userInfo,postInfo)
+//     })
+// })
+
+// function getUser(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             console.log("fetched user")
+//             resolve({id:1,name:"ahamathbasha"})
+//         },2000)
+//     })
+// }
+
+// function getPost(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             console.log("fetched post")
+//             resolve(['post1','post2'])
+//         },3000)
+//     })
+// }
+
+// Promise.allSettled([getPost(),getUser()])
+// .then((resolve)=>{
+//     console.log(resolve)
+// })
+// .catch((reject)=>{
+//     console.log(reject)
+// })
+
+// function getUser(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             resolve({id:1,name:"ahamathbasha"})
+//         },1000)
+//     })
+// }
+
+// function getPost(){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             resolve(['post1','post2'])
+//         },1000)
+//     })
+// }
+
+// async function getValue(){
+//     try {
+//         const getUserVal = await getUser()
+//         const getPostVal = await getPost()
+
+//         console.log(getUserVal,getPostVal)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// getValue()
+
+// let promise1=new Promise((resolve,reject)=>{
+//     setTimeout(()=>{
+//         resolve(10)
+//     },1000)
+// })
+
+// let promise2=new Promise((resolve,reject)=>{
+//     setTimeout(()=>{
+//         resolve(20)
+//     },2000)
+// })
+
+// let promise3=new Promise((resolve,reject)=>{
+//     setTimeout(()=>{
+//         resolve(30)
+//     },3000)
+// })
+
+// async function handlePromise(){
+//     try {
+//         const [result1,result2,result3] =await Promise.all([promise1,promise2,promise3])
+//         console.log(result1+result2+result3)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// handlePromise()
+
+//RETRY MECHANISMS
+
+// function fakeApiCall() {
+//     return new Promise((resolve, reject) => {
+//         const success = Math.random() > 0.7; // 30% chance of success
+//         setTimeout(() => {
+//             if (success) {
+//                 resolve("✅ Success");
+//             } else {
+//                 reject("❌ Failed");
+//             }
+//         }, 1000);
+//     });
+// }
+
+// // async function retry(fn, retries = 3, delay = 1000) {
+// //     for (let i = 0; i < retries; i++) {
+// //         try {
+// //             const result = await fn();
+// //             console.log(`Attempt ${i + 1}:`, result);
+// //             return result;
+// //         } catch (error) {
+// //             console.log(`Attempt ${i + 1}:`, error);
+// //             if (i < retries - 1) {
+// //                 await new Promise(res => setTimeout(res, delay)); // wait before retry
+// //             }
+// //         }
+// //     }
+// //     throw new Error("All retries failed");
+// // }
+
+// async function retryAlways(fn, retries = 3, delay = 1000) {
+//     const results = [];
+
+//     for (let i = 0; i < retries; i++) {
+//         try {
+//             const result = await fn();
+//             console.log(`Attempt ${i + 1}: Success ->`, result);
+//             results.push({ attempt: i + 1, result });
+//         } catch (error) {
+//             console.log(`Attempt ${i + 1}: Failed ->`, error);
+//             results.push({ attempt: i + 1, error });
+//         }
+//     }
+
+//     return results;
+// }
+
+// retryAlways(fakeApiCall, 3, 1500)
+//     .then(res => console.log("Final Result:", res))
+//     .catch(err => console.log("Final Error:", err.message));
+
+
+// function fackeApiCall(){
+//     return new Promise((resolve,reject)=>{
+//         const success=Math.random() > 0.7
+//         setTimeout(()=>{
+//             if(success){
+//                 resolve("success")
+//             }
+//             else{
+//                 reject("failed")
+//             }
+//         },1000)
+//     })
+// }
+
+// async function retry(fn,retry){
+//     for(let i=0;i<retry;i++){
+//         try {
+//             const data=await fn()
+//             console.log(`${i+1} ${data}`)
+//         } catch (error) {
+//             console.log(`${i+1} ${error}`)
+//         }
+//     }
+// }
+
+// retry(fackeApiCall,3)
+
+// const user={
+//     name:"ahamathbasha",
+//     age:10
+// }
+
+// const handler={
+//     get (target,property){
+//         return target[property]
+//     } ,
+
+//     set (target,property,value){
+//         target[property]=value
+//     }
+// }
+
+// const proxyUser=new Proxy(user,handler)
+// console.log(proxyUser)
+
+// proxyUser.age=21
+
+// console.log(proxyUser)
+// console.log(user)
+
+// const object={
+//     name:"Ahamathbasha",
+//     age:30
+// }
+
+// const handler={
+//     get (target,property){
+//         return target[property]
+//     },
+
+//     set(target,property,value){
+//         console.log(`${target[property]} but you did not able to modify`)
+//         return 
+//     }
+// }
+
+// const proxyObject=new Proxy(object,handler)
+
+// console.log(proxyObject)
+// proxyObject.age=21
+// console.log(proxyObject)
+
+// const user={
+//     name:"ahamathbasha",
+//     age:23
+// }
+
+// const handler={
+//     get (target,property){
+//         return target[property]
+//     },
+
+//     set(target,property,value){
+//         if(property == 'name' && value !== ''){
+//             target[property]=value
+//         }else{
+//             console.log("cannot set empty values in string")
+//         }
+
+//         if(property == 'age' && value >0){
+//             target[property]=value
+//         }else{
+//             console.log("age should be greater and positive")
+//         }
+//     }
+// }
+
+// const proxyObject=new Proxy(user,handler)
+// console.log(proxyObject)
+
+// proxyObject.age=21
+
+// console.log(proxyObject)
+
+// const defaultObject=new Proxy({},{
+//     set(target,property,value){
+//         target[property]=value || `default${property}`
+//     }
+// })
+
+// defaultObject.name=''
+// console.log(defaultObject)
+
+// const object={
+//     name:"ahamathbasha",
+//     age:20
+// }
+
+// const handler={
+//     get(target,property){
+//         return target[property]
+//     },
+
+//     deleteProperty(target,property){
+//         if(property == 'age'){
+//             console.log("you cannot delete age")
+//         }else{
+//             delete target[property]
+//         }
+//     }
+// }
+
+// const proxyObject=new Proxy(object,handler)
+
+// console.log(proxyObject)
+
+// delete proxyObject.age
+
+// console.log(proxyObject)
+
+
+// const arr = [[1, 2], [3, 4], [5]];
+// const flat = arr.reduce((acc,curr)=>{
+//    return acc.concat(curr)
+// },[])
+// console.log(flat)
+
+// const fruits = ["apple", "banana", "apple", "orange", "banana", "apple"];
+// // Output: { apple: 3, banana: 2, orange: 1 }
+
+// const obj=fruits.reduce((acc,curr)=>{
+//     acc[curr]=(acc[curr]||0)+1
+//     return acc
+// },{})
+
+// console.log(obj)
+
+// const arr = [1, 2, 2, 3, 1, 4];
+
+// const unique=arr.reduce((acc,curr)=>{
+
+//     if(!acc.includes(curr)){
+//         acc.push(curr)
+//     }
+
+//     return acc
+// },[])
+
+
+// console.log(unique)
+
+// const words = ["apple", "banana", "cherry", "date"];
+
+// const LongestWord=words.reduce((acc,curr)=>{
+//     return curr.length > acc.length ? curr : acc
+// },'')
+
+// console.log(LongestWord)
+
+// const nums = [1, 2, 3];
+
+// // const dNo=nums.map((no)=>{
+// //     return no*no
+// // })
+
+// // console.log(dNo)
+
+// const doubleNo=nums.reduce((acc,curr)=>{
+//     acc.push(curr*2)
+//     return acc
+// },[])
+
+// console.log(doubleNo)
+
+// const nums = [1, 2, 3, 4, 5];
+
+// const evenNo=nums.reduce((acc,curr)=>{
+//     if(curr % 2== 0){
+//         acc.push(curr)
+//     }
+//     return acc
+// },[])
+
+// console.log(evenNo)
+
+// const people = [
+//     { name: "Alice", age: 21 },
+//     { name: "Bob", age: 21 },
+//     { name: "Charlie", age: 25 }
+//   ];
+
+
+// const groupByAge=people.reduce((acc,curr)=>{
+//     if(!acc[curr.age]){
+//         acc[curr.age] = []
+//     }
+
+//     acc[curr.age].push(curr)
+//     return acc
+// },{})
+
+// console.log(groupByAge)
+
+//largest
+
+// const nums = [10, 25, 14, 7, 63, 82, 53, 29, 15];
+
+// const result=nums.reduce((acc,curr)=>{
+//     if(curr > acc.largest){
+//         acc.fourthLargest=acc.thirdLargest
+//         acc.thirdLargest=acc.secondLargest
+//         acc.secondLargest=acc.largest
+//         acc.largest=curr
+//     }
+//     else if(curr > acc.secondLargest){
+//         acc.fourthLargest=acc.thirdLargest
+//         acc.thirdLargest=acc.secondLargest
+//         acc.secondLargest=curr
+//     }
+//     else if(curr > acc.thirdLargest){
+//         acc.fourthLargest=acc.thirdLargest
+//         acc.thirdLargest=curr
+//     }else if(curr > acc.fourthLargest){
+//         acc.fourthLargest=curr
+//     }
+
+//     return acc
+// },{
+//     largest:-Infinity,
+//     secondLargest:-Infinity,
+//     thirdLargest:-Infinity,
+//     fourthLargest:-Infinity
+// })
+
+// console.log("First largest:", result.largest);
+// console.log("Second largest:", result.secondLargest);
+// console.log("Third largest:", result.thirdLargest);
+// console.log("Fourth largest:", result.fourthLargest);
+
+
+// //smallest
+
+// const nums = [10, 25, 14, 7, 63, 82, 53, 29, 15];
+
+// const result=nums.reduce((acc,curr)=>{
+//     if(curr < acc.smallest){
+//     acc.fourthSmallest=acc.thirdSmallest
+//     acc.thirdSmallest=acc.secondSmallest
+//     acc.secondSmallest=acc.smallest
+//     acc.smallest=curr
+//     }
+//     else if(curr < acc.secondSmallest){
+//         acc.fourthSmallest=acc.thirdSmallest
+//         acc.thirdSmallest=acc.secondSmallest
+//         acc.secondSmallest=curr
+//     }
+//     else if(curr < acc.thirdSmallest){
+//         acc.fourthSmallest=acc.thirdSmallest
+//         acc.thirdSmallest=curr
+//     }
+//     else if(curr < acc.fourthSmallest){
+//         acc.fourthSmallest=curr
+//     }
+//     return acc
+// },
+// {
+// smallest:Infinity,
+// secondSmallest:Infinity,
+// thirdSmallest:Infinity,
+// fourthSmallest:Infinity
+// })
+
+// console.log('1',result.smallest)
+// console.log('2',result.secondSmallest)
+// console.log('3',result.thirdSmallest)
+// console.log('4',result.fourthSmallest)
+
