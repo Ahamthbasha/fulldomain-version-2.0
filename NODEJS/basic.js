@@ -404,4 +404,56 @@
 //         console.log(error)
 //     }
 //     console.log(hostname)
+// }
+
+//cookie
+
+// const express=require('express')
+// const cookieParser=require('cookie-parser')
+
+// const app=express()
+// app.use(cookieParser())
+
+// app.get('/set-cookie',(req,res)=>{
+//     res.cookie('username','ahamathbasha',{maxAge:86400000})
+//     res.write("cookie set")
+//     res.end("finsish")
 // })
+
+// app.get('/get-cookie',(req,res)=>{
+//     const username=req.cookies.username
+//     res.send(username)
+// })
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//session
+
+const express=require('express')
+const session=require('express-session')
+
+const app=express()
+
+app.use(session({
+    secret:'mySeckretKey',
+    resave:false,
+    saveUninitialized:true,
+    cookie:{maxAge:60000}
+}))
+
+app.get('/login',(req,res)=>{
+    req.session.user="ahamathbasha"
+    res.send("session created")
+})
+
+app.get('/user',(req,res)=>{
+    if(req.session.user){
+        res.send(req.session.user)
+    }else{
+        res.send("no user")
+    }
+})
+app.listen(3000,()=>{
+    console.log("server is running")
+})
