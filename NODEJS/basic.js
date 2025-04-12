@@ -430,30 +430,365 @@
 
 //session
 
-const express=require('express')
-const session=require('express-session')
+// const express=require('express')
+// const session=require('express-session')
 
+// const app=express()
+
+// app.use(session({
+//     secret:'mySeckretKey',
+//     resave:false,
+//     saveUninitialized:true,
+//     cookie:{maxAge:60000}
+// }))
+
+// app.get('/login',(req,res)=>{
+//     req.session.user="ahamathbasha"
+//     res.send("session created")
+// })
+
+// app.get('/user',(req,res)=>{
+//     if(req.session.user){
+//         res.send(req.session.user)
+//     }else{
+//         res.send("no user")
+//     }
+// })
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//cors
+
+// const express=require('express')
+// const cors=require('cors')
+
+// const app=express()
+
+// app.use(cors({
+//     origin:'http://localhost:3000',
+//     methods:['GET','POST'],
+//     allowedHeaders:['Content-Type','Authorization'],
+//     credentials:true
+// }))
+
+// app.get('/setData',(req,res)=>{
+//     res.json({message:"cors is working"})
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//preflightRequest
+
+// const express=require('express')
+// const cors=require('cors')
+
+// const app=express()
+
+// app.use(cors({
+//     origin:'http://localhost:3000',
+//     methods:['GET','POST','PUT'],
+//     allowedHeaders:['Content-Type','Authorization'],
+//     credentials:true
+// }))
+
+// app.use(express.json())
+
+// app.put('/update',(req,res)=>{
+//     res.json('put request received and updated')
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// //client code trigger preflight request
+
+// fetch('http://localhost:3000/update',{
+//     method:'PUT',
+//     headers:{
+//         'Content-Type':'application/json',
+//         'Authorization':'token'
+//     },
+//     credentials:'include'
+// }).then((res)=>res.json())
+// .then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
+
+
+//options
+
+// const express=require('express')
+// const app=express()
+
+// app.options('/update',(req,res)=>{
+//     res.setHeader('Access-Control-Allow-Origin','http://localhost:3000')
+
+//     res.setHeader('Access-control-Allow-Methods','PUT,POST,DELETE')
+
+//     res.setHeader('Access-Control-Allow-Heders','Content-Type,Authorization')
+
+//     res.setHeader('Access-Control-Allow-Credentials',true)
+
+//     res.statusCode(204)
+// })
+
+// app.use(express.json())
+
+// app.put('/update',(req,res)=>{
+//     res.json({message:"patch request and response"})
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// fetch('http://localhost:3000/update',{
+//     method:'PUT',
+//     headers:{
+//         'Content-Type':'application/json',
+//         'Authorization':'i'
+//     },
+//     credentials:'include'
+// })
+// .then((res)=>res.json())
+// .then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
+
+// const express=require('express')
+// const app=express()
+
+// app.set('title','kaatubharani')
+// console.log(app.get('title'))
+
+// app.get('/go',(req,res)=>{
+//     res.send("hello")
+// })
+
+// app.post('/submit',(req,res)=>{
+//     res.send("data is submitted")
+// })
+
+// app.put('/user/:id',(req,res)=>{
+//     res.send(`${req.params.id} updated`)
+// })
+
+// app.patch('/user/:id',(req,res)=>{
+//     res.send(`${req.params.id} updated`)
+// })
+
+// app.delete('/user/:id',(req,res)=>{
+//     res.send(`${req.params.id} user deleted`)
+// })
+
+// app.all('/handle',(req,res)=>{
+//     res.send('handled')
+// })
+
+// app.route('/hello')
+// .get((req,res)=>res.send("hello route"))
+// .post((req,res)=>res.send("hello post"))
+
+
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const express=require('express')
+// const app=express()
+
+// app.use(express.json())
+// app.use(express.urlencoded({extended:true}))
+
+// app.use((req,res,next)=>{
+//     console.log(req.method)
+//     next()
+// })
+
+// app.get('/see',(req,res)=>{
+//     res.send("hello")
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const express=require('express')
+// const app=express()
+
+// app.use(express.static('public'))
+
+// app.listen(3000,()=>{
+//     console.log("hello world")
+// })
+
+//route params
+
+// const express=require('express')
+// const app=express()
+
+// app.get('/user/:id',(req,res)=>{
+//     res.send(`id is ${req.params.id}`)
+// })
+
+// app.get('/search',(req,res)=>{
+//     res.send(`${req.query.name}`)
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//APPLICATION LEVEL MIDDLEWARE
+
+// const express=require('express')
+// const app=express()
+
+// app.use((req,res,next)=>{
+//     console.log(req.method)
+//     next()
+// })
+
+
+// app.get('/get',(req,res)=>{
+//     res.send("response sended")
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server si running")
+// })
+
+//authentication middleware
+
+// const express=require('express')
+// const app=express()
+
+// function auth(req,res,next){
+//     const token=req.headers['authorization']
+
+//     if(token === 'seckretToken'){
+//         next()
+//     }else{
+//         res.send('err')
+//     }
+// }
+
+// app.get('/payment',auth,(req,res)=>{
+//     res.send('see the page')
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+
+// const express=require('express')
+// const app=express()
+
+// app.use((req,res,next)=>{
+//     if(req.method==='GET'){
+//         res.status(403).json({message:"access blocked"})
+//     }else{
+//         next()
+//     }
+// })
+
+// app.get('/get',(req,res)=>{
+//     res.send('i am back')
+// })
+
+// app.post('/user',(req,res)=>{
+//     res.send('post method have access)
+// })
+
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//error handling middleware
+// const express=require('express')
+// const app=express()
+
+// app.get('/error',(req,res)=>{
+//     throw new Error("something went wrong")
+// })
+
+// app.use((err,req,res,next)=>{
+//     console.error(err.message)
+//     res.status(500).json({error:err.message})
+// })
+
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//third party middleware
+
+// const express=require('express')
+// const app=express()
+
+// const morgan=require('morgan')
+
+// app.use(morgan('dev'))
+
+// app.get('/hello',(req,res)=>{
+//     res.send("hello")
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//middleware function
+
+// const express=require('express')
+// const app=express()
+
+// const loggerMiddleware=((req,res,next)=>{
+//     console.log(`${req.method} and ${req.url}`)
+//     next()
+// })
+
+
+// app.use(loggerMiddleware)
+
+// app.get('/get',(req,res)=>{
+//     res.write("hello")
+//     res.end()
+// })
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//middleware lifecycle
+
+const express=require('express')
 const app=express()
 
-app.use(session({
-    secret:'mySeckretKey',
-    resave:false,
-    saveUninitialized:true,
-    cookie:{maxAge:60000}
-}))
-
-app.get('/login',(req,res)=>{
-    req.session.user="ahamathbasha"
-    res.send("session created")
+app.use((req,res,next)=>{
+    console.log(`${req.method} and ${req.url}`)
+    next()
 })
 
-app.get('/user',(req,res)=>{
-    if(req.session.user){
-        res.send(req.session.user)
-    }else{
-        res.send("no user")
-    }
+app.use((req,res,next)=>{
+    req.requestTime=new Date()
+    console.log('middleware2 time added')
+    next()
 })
+
+app.get('/get',(req,res)=>{
+    res.send(req.requestTime)
+})
+
+app.use((err,req,res,next)=>{
+    res.status(500).json({error:err.message})
+})
+
 app.listen(3000,()=>{
     console.log("server is running")
 })
