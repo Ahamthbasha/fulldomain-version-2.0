@@ -14,4 +14,7 @@ router.get('/:id',(req,res)=>{
     res.send(`${req.params.id}`)
 })
 
+router.all('/help',(req,res)=>{
+    res.send("handle all methods")
+})
 module.exports=router

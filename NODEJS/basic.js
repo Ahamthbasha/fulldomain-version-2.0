@@ -767,28 +767,214 @@
 
 //middleware lifecycle
 
-const express=require('express')
-const app=express()
+// const express=require('express')
+// const app=express()
 
-app.use((req,res,next)=>{
-    console.log(`${req.method} and ${req.url}`)
-    next()
-})
+// app.use((req,res,next)=>{
+//     console.log(`${req.method} and ${req.url}`)
+//     next()
+// })
 
-app.use((req,res,next)=>{
-    req.requestTime=new Date()
-    console.log('middleware2 time added')
-    next()
-})
+// app.use((req,res,next)=>{
+//     req.requestTime=new Date()
+//     console.log('middleware2 time added')
+//     next()
+// })
 
-app.get('/get',(req,res)=>{
-    res.send(req.requestTime)
-})
+// app.get('/get',(req,res)=>{
+//     res.send(req.requestTime)
+// })
 
-app.use((err,req,res,next)=>{
-    res.status(500).json({error:err.message})
-})
+// app.use((err,req,res,next)=>{
+//     res.status(500).json({error:err.message})
+// })
 
-app.listen(3000,()=>{
-    console.log("server is running")
-})
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//passing two middlewares in a route
+
+// const express=require('express')
+// const app=express()
+
+// const logMethod=((req,res,next)=>{
+//     console.log(req.method)
+//     next()
+// })
+
+// const logRequest=((req,res,next)=>{
+//     console.log(req.url)
+//     next()
+// })
+
+// app.get('/get',logMethod,logRequest,(req,res)=>{
+//     res.status(200).json({message:"success"})
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//DYNAMIC ROUTING
+
+// const express=require('express')
+// const app=express()
+
+// app.get('/user/:id',(req,res)=>{
+//     res.send(`user id is:${req.params.id}`)
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//url encoder
+
+// const query='node.js @##!'
+// const encodeUri=encodeURIComponent(query)
+// console.log(encodeUri)
+
+//session
+
+// const express=require('express')
+// const session=require('express-session')
+
+// const app=express()
+
+// app.use(session({
+//     secret:'mySecretKey',
+//     resave:false,
+//     saveUninitialized:false
+// }))
+
+// app.get('/user',(req,res)=>{
+//     req.session.username='ahamathabasha'
+//     console.log(req.session)
+//     res.json({message:"session created"})
+// })
+
+// app.get('/checksession',(req,res)=>{
+//     if(req.session.username){
+//         res.json({message:req.session.username})
+//     }else{
+//         res.json({message:"no session created"})
+//     }
+// })
+
+// app.get('/logout',(req,res)=>{
+//    req.session.destroy()
+//    console.log(req.session)
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//cookie
+
+// const express=require('express')
+// const cookieParser=require('cookie-parser')
+// const app=express()
+
+// app.use(cookieParser('mySecretKey'))
+
+// app.get('/set-cookie',(req,res)=>{
+//     res.cookie('username','ahamathbasha',{
+//         maxAge:1000 * 60 * 60,
+//         httpOnly:true,
+//         signed:true
+//     })
+//     res.send('cookie setted')
+// })
+
+
+// app.get('/get-cookie',(req,res)=>{
+//     res.json({message:req.signedCookies.username})
+// })
+
+// app.get('/clear-cookie',(req,res)=>{
+//     res.clearCookie('username')
+//     res.send("cookie cleared")
+// })
+
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const express=require('express')
+// const cookieParser=require('cookie-parser')
+// const session=require('express-session')
+// const app=express()
+
+// app.use(cookieParser('myCookieparseSecret'))
+
+// app.use(session({
+//     secret:'mySessionSecret',
+//     resave:false,
+//     saveUninitialized:false,
+//     cookie:{
+//         maxAge:1000*60*5,
+//         httpOnly:true
+//     }
+// }))
+
+// app.get('/login',(req,res)=>{
+//     req.session.username="ahamathbasha"
+
+//     res.cookie('visitor',true,{
+//         maxAge:1000*60*5,
+//         httpOnly:true,
+//         signed:true
+//     })
+
+//     res.send('cookie and session is set')
+// })
+
+// app.get('/profile',(req,res)=>{
+//     if(req.session.username){
+//         res.send(`${req.session.username} sessions cookie is ${req.sessionID} and ${req.cookies}`)        
+//     }else{
+//         res.send(`no session and cookie`)
+//     }
+// })
+
+// app.get('/logout',(req,res)=>{
+//     req.session.destroy()
+//     res.clearCookie('connect-sid')
+//     res.clearCookie('visitor')
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//build own api
+
+// const express=require('express')
+// const app=express()
+
+// app.use(express.json())
+
+// const user=[{id:101,name:"ahamathbasha"}]
+
+// app.get('/user',(req,res)=>{
+//     res.json({message:user})
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const express=require('express')
+// const mongoose=require('mongoose')
+// const app=express()
+
+// mongoose.connect('mongodb://127.0.0.1:27017/mydb')
+// .then(()=>console.log('connected to mongodb'))
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
