@@ -978,3 +978,238 @@
 //     console.log("server is running")
 // })
 
+//request and response
+
+// const express=require('express')
+// const app=express()
+
+// app.use(express.json())
+
+// app.get('/get',(req,res)=>{
+//     res.send(req.query.name)
+// })
+
+// app.get('/value/:id',(req,res)=>{
+//     res.send(req.params.id)
+// })
+
+// app.post('/data',(req,res)=>{
+//     const {name,age} = req.body
+//     res.send(`name is ${name} and age is ${age}`)
+// })
+
+// app.get('/url',(req,res)=>{
+//     res.send(req.url)
+// })
+
+// app.get('/method',(req,res)=>{
+//     res.send(req.method)
+// })
+
+// app.get('/check',(req,res)=>{
+//     const userAgent=req.headers['user-agent']
+//     const customHeader=req.headers['x-custom-header']
+
+//     res.send(`user agent is ${userAgent} and customHeader is ${customHeader}`)
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+// const http=require('http')
+
+// const server=http.createServer((req,res)=>{
+//     if(req.method== 'POST' && req.url == '/submit'){
+//         let body=''
+
+//         req.on('data',(chunk)=>{
+//             body+=chunk.toString()
+//         })
+
+//         req.on('end',()=>{
+//             const data=JSON.parse(body)
+//             res.writeHead(200,{"content-type":"application/json"})
+//             res.end(JSON.stringify({message:"data received",data}))
+//         })
+//     }
+// })
+
+// server.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const http=require('http')
+
+// const server=http.createServer((req,res)=>{
+//     if(req.url='/'){
+//         res.setHeader('Content-Type','application/json')
+//         res.setHeader('x-Custom-Header','HelloWorld')
+
+//         res.writeHead(200)
+//         res.end(JSON.stringify({message:"header setted"}))
+//     }
+// })
+
+// server.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const express=require('express')
+// const app=express()
+
+// app.get('/',(req,res)=>{
+//     res.set('Content-Type','application/json')
+//     res.set('x-Custom-Header','express')
+
+//     res.send({message:"header set"})
+// })
+
+// app.get('/string',(req,res)=>{
+//     res.send('hello world')
+// })
+
+// app.get('/obj',(req,res)=>{
+//     res.send({name:"ahamath",age:30})
+// })
+
+// app.get('/arr',(req,res)=>{
+//     res.send([1,2,3,4])
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//res.redirect
+
+// const express=require('express')
+// const app=express()
+
+// app.get('/',(req,res)=>{
+//     res.redirect(301,'/new')
+// })
+
+// app.get('/new',(req,res)=>{
+//     res.send("this is permanent")
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+// const http=require('http')
+// const server=http.createServer((req,res)=>{
+//     res.writeHead(200,{'Content-Type':'text/plain'})
+//     res.write('hello')
+//     res.write("basha")
+
+//     res.end()
+// })
+
+// server.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+// const http=require('http')
+
+// const server=http.createServer((req,res)=>{
+    
+// })
+
+// server.listen(3000,'localhost',()=>{
+//     console.log(server.address())
+//     console.log("server is running")
+// })
+
+// setTimeout(()=>{
+//     server.close(()=>{
+//         console.log("server is closed")
+//     })
+// },5000)
+
+
+//http
+
+// const http=require('http')
+
+// const server=http.createServer((req,res)=>{
+    
+//     http.get('http://jsonplaceholder.typicode.com/posts/1',(apiRes)=>{
+//         let data=''
+
+//         apiRes.on('data',(chunk)=>{
+//             data+=chunk.toString()
+//         })
+
+//         apiRes.on('end',()=>{
+//             console.log(data)
+//         res.writeHead(200,{'Content-Type':'application/json'})
+
+//         res.end(data)
+//         })
+//     })
+// })
+
+// server.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+// const http=require('http')
+
+// const data=JSON.stringify({
+//     title:"hello",
+//     body:'This is from node.js',
+//     userId:10
+// })
+
+// const options={
+//     hostname:'jsonplaceholder.typicode.com',
+//     path:'/posts',
+//     method:'POST',
+//     headers:{
+//         'Content-Type':'application/json',
+//         'Content-Length':data.length
+//     }
+// }
+
+// let req=http.request(options,(res)=>{
+    
+//     let result=''
+
+//     res.on('data',(chunk)=>{
+//         result+=chunk
+//     })
+
+//     res.on('end',()=>{
+//         console.log(result)
+//     })
+// })
+
+// req.write(data)
+// req.end()
+
+// const EventEmitter=require('events')
+// const { emit } = require('process')
+// const emitter=new EventEmitter()
+
+// emitter.on('greet',(name)=>{
+//     console.log(`hello ${name}`)
+// })
+
+// emitter.emit('greet','ahamathbasha')
+
+const http=require('http')
+
+const server=http.createServer((req,res)=>{
+    res.writeHead(200,{'Content-Type':'text/plain'})
+    res.end('hello')
+})
+
+server.on('connection',()=>{
+    console.log("new connection request")
+})
+
+server.listen(3000,()=>{
+    console.log("server is running")
+})
