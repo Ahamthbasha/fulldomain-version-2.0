@@ -1199,17 +1199,35 @@
 
 // emitter.emit('greet','ahamathbasha')
 
-const http=require('http')
+// const http=require('http')
 
-const server=http.createServer((req,res)=>{
-    res.writeHead(200,{'Content-Type':'text/plain'})
-    res.end('hello')
-})
+// const server=http.createServer((req,res)=>{
+//     res.writeHead(200,{'Content-Type':'text/plain'})
+//     res.end('hello')
+// })
 
-server.on('connection',()=>{
-    console.log("new connection request")
-})
+// server.on('connection',()=>{
+//     console.log("new connection request")
+// })
 
-server.listen(3000,()=>{
-    console.log("server is running")
-})
+// server.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+const fs = require('fs');
+setTimeout(() => {
+  console.log("1. setTimeout (Timers Phase)");
+}, 0);
+setImmediate(() => {
+  console.log("2. setImmediate (Check Phase)");
+});
+fs.readFile(__filename, () => {
+  console.log("3. fs.readFile (Poll Phase)");
+  setImmediate(() => {
+    console.log("4. Inside I/O: setImmediate (Check Phase)");
+  });
+  setTimeout(() => {
+    console.log("5. Inside I/O: setTimeout (Timers Phase)");
+  }, 0);
+});
+console.log("6. Synchronous Log");
