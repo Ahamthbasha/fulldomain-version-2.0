@@ -63,3 +63,10 @@
 // console.time()
 // console.log(eff(10))
 // console.timeEnd()
+
+let todayDate = new Date();
+console.log(todayDate);
+
+//15 days 
+let fifteen=todayDate.setDate(todayDate.getDate()+15)
+console.log(todayDate)
