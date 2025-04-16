@@ -64,9 +64,41 @@
 // console.log(eff(10))
 // console.timeEnd()
 
-let todayDate = new Date();
-console.log(todayDate);
+// let todayDate = new Date();
+// console.log(todayDate);
 
-//15 days 
-let fifteen=todayDate.setDate(todayDate.getDate()+15)
-console.log(todayDate)
+// //15 days 
+// let fifteen=todayDate.setDate(todayDate.getDate()+15)
+// console.log(todayDate)
+
+// 1 2 4 7 11 16 
+
+// function* series(){
+//     let start=1
+//     let result=1
+//     while(true){
+//         yield result
+//         result += start
+//         start++
+//     }
+// }
+
+// let print=series(11)
+// for(let i=1;i<=11;i++){
+//     console.log(print.next().value)
+// }
+
+// function* evenNo(){
+//     let even=2
+
+//     while(true){
+//         yield even
+//         even+=2
+//     }
+// }
+
+// let print=evenNo(11)
+// while(true){
+//     console.log(print.next().value)
+// }
+
