@@ -320,3 +320,21 @@ const { cursorTo } = require("readline")
 // }
 
 // console.log(sum([1,2,3,4,5]))
+
+let arr=[[1,2,-3],[-11,2,3], [8,-10,2]]
+// let min=Infinity
+// let index=0
+// for(let i=0;i<arr.length;i++){
+//     for(let j=0;j<arr[i].length;j++){
+//         if(arr[i][j] < min){
+//             min=arr[i][j]
+//             index=i
+//         }
+//     }
+// }
+
+// console.log(min)
+// console.log(index)
+// arr.splice(index,1)
+// console.log(arr)
+
