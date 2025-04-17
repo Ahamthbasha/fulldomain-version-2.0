@@ -265,3 +265,58 @@ const { cursorTo } = require("readline")
 
 // console.log(subArray([2, 3, 4, 5, 1, 22, 0, 4]))
 
+
+// function subArraySum(arr){
+//     let cs=arr[0]
+//     let max=arr[0]
+
+//     for(let i=1;i<arr.length;i++){
+//         cs=Math.max(cs,cs+arr[i])
+//         max=Math.max(cs,max)
+//     }
+
+//     return max
+// }
+
+// console.log(subArraySum([2, 3, 4, 5, 1, 22, 0, 4]))
+
+// function reverseArrayRecursive(arr){
+//     if(arr.length === 0){
+//         return arr
+//     }
+
+//     let first=arr[0]
+//     let restArray=arr.slice(1)
+//     let reverseArray=reverseArrayRecursive(restArray)
+
+//     return reverseArray.concat(first)
+// }
+
+// console.log(reverseArrayRecursive([1,2,3,4,5]))
+
+//flat array recursively
+
+// function flatArray(arr){
+//     let result=[]
+
+//     for(let i=0;i<arr.length;i++){
+//         if(Array.isArray(arr[i])){
+//             result=result.concat(flatArray(arr[i]))
+//         }else{
+//             result.push(arr[i])
+//         }
+//     }
+//     return result
+// }
+
+// console.log(flatArray([2, 4, 5, [4, [9, [9, [0, 4]]]], 5, [4, [44, 5]]]))
+
+// function sum(arr){
+//     if(arr.length == 0){
+//         return 0
+//     }
+
+//     return sum(arr.slice(0,arr.length-1))+arr[arr.length-1]
+// }
+
+// console.log(sum([1,2,3,4,5]))
