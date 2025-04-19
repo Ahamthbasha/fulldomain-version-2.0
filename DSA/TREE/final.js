@@ -7,12 +7,12 @@ class Node{
 }
 
 class bst{
-    constructor(){
-        this.root=null
+    constructor() {
+        this.root= null
     }
 
     isEmpty(){
-        return this.root == null
+        return this.root === null
     }
 
     insert(value){
@@ -24,7 +24,7 @@ class bst{
         }
     }
 
-    insertNode(root, node){
+    insertNode(root,node){
         if(node.value < root.value){
             if(root.left == null){
                 root.left=node
@@ -33,7 +33,7 @@ class bst{
             }
         }else{
             if(root.right == null){
-                root.right = node
+                root.right=node
             }else{
                 this.insertNode(root.right,node)
             }
@@ -42,7 +42,7 @@ class bst{
 
     search(root,value){
         if(!root){
-            return false
+            return null
         }
         else if(root.value == value){
             return true
@@ -54,7 +54,6 @@ class bst{
             return this.search(root.right,value)
         }
     }
-
 
     preOrder(root){
         if(root){
@@ -85,7 +84,7 @@ class bst{
         queue.push(this.root)
 
         while(queue.length > 0){
-            let cur = queue.shift()
+            let cur=queue.shift()
 
             if(cur){
                 console.log(cur.value)
@@ -154,18 +153,18 @@ class bst{
             }
 
             root.value=this.min(root.right)
-            root.right-this.deleteNode(root.right,root.value)
+            root.right=this.deleteNode(root.right,root.value)
         }
         return root
     }
 
-    isPrime(value){
-        if(value <= 1){
+    isPrime(num){
+        if(num < 2){
             return false
         }
 
-        for(let i=2;i<=Math.sqrt(value);i++){
-            if(value % i == 0){
+        for(let i=2;i<=Math.sqrt(num);i++){
+            if(num % i==0 ){
                 return false
             }
         }
@@ -173,29 +172,30 @@ class bst{
         return true
     }
 
-    findPrime(root,result=[]){
+    findPrimes(root,result=[]){
         if(root){
-            this.findPrime(root.left,result)
+            this.findPrimes(root.left,result)
 
             if(this.isPrime(root.value)){
                 result.push(root.value)
             }
 
-            this.findPrime(root.right,result)
+            this.findPrimes(root.right,result)
         }
+
         return result
     }
 
-    isBst(root,min=null,max=null){
+    isbst(root,min=null,max=null){
         if(!root){
             return true
         }
 
-        if((min != null && root.value <= min) || (max !=null && root.value >= max)){
+        if((min!=null && root.value <= min) || (max != null && root.value >= max)){
             return false
         }
 
-        return this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
+        return this.isbst(root.left,min,root.value) && this.isbst(root.right,root.value,max)
     }
 
     isIdentical(tree1,tree2){
@@ -206,40 +206,8 @@ class bst{
         if(!tree1 || !tree2){
             return false
         }
-         
+
         return (tree1.value == tree2.value) && this.isIdentical(tree1.left,tree2.left) && this.isIdentical(tree1.right,tree2.right)
-    }
-
-    findHeight(root){
-
-        if(!root){
-            return null
-        }
-
-        let queue=[]
-        queue.push(root)
-        let height=0
-
-        while(queue.length > 0){
-            let nodeCount=queue.length
-            height++
-
-            while(nodeCount > 0){
-                let cur=queue.shift()
-                if(cur){
-                    if(cur.left){
-                        queue.push(cur.left)
-                    }
-    
-                    if(cur.right){
-                        queue.push(cur.right)
-                    }
-                }
-                nodeCount--
-            }
-        }
-
-        return height
     }
 
     inOrderTraversal(root,result=[]){
@@ -257,7 +225,6 @@ class bst{
         }
 
         let result=this.inOrderTraversal(root)
-
         return result[k-1] || null
     }
 
@@ -267,7 +234,6 @@ class bst{
         }
 
         let result=this.inOrderTraversal(root)
-
         return result[result.length-k] || null
     }
 
@@ -279,7 +245,7 @@ class bst{
         let result=this.inOrderTraversal(root)
         let closest=null
         for(let i=0;i<result.length;i++){
-            if(result[i]>=target){
+            if(result[i] >= target){
                 closest=result[i]
                 break
             }
@@ -287,15 +253,14 @@ class bst{
         return closest
     }
 
-    successor(root,target){
+    successor(root,value){
         if(!root){
             return null
         }
-
         let result=this.inOrderTraversal(root)
         let successor=null
         for(let i=0;i<result.length;i++){
-            if(result[i]==target){
+            if(result[i]==value){
                 if(i+1 < result.length-1){
                     successor=result[i+1]
                 }
@@ -305,7 +270,7 @@ class bst{
         return successor
     }
 
-    predecessor(root,target){
+    predecessor(root,value){
         if(!root){
             return null
         }
@@ -313,24 +278,27 @@ class bst{
         let result=this.inOrderTraversal(root)
         let predecessor=null
         for(let i=0;i<result.length;i++){
-            if(result[i] == target){
+            if(result[i] == value){
                 if(i-1 >= 0){
                     predecessor=result[i-1]
                 }
-                break
             }
         }
         return predecessor
     }
 
     removeDuplicates(root){
+        if(!root){
+            return null
+        }
+
         let unique=new Set()
 
         function inOrder(root){
             if(root){
-                inOrder(root.left)
-                unique.add(root.value)
-                inOrder(root.right)
+            inOrder(root.left)
+            unique.add(root.value)
+            inOrder(root.right)
             }
         }
 
@@ -338,8 +306,7 @@ class bst{
 
         this.root=null
 
-        unique.forEach(values=>this.insert(values))
-
+        unique.forEach(values => this.insert(values))
     }
 
     findParent(root,target){
@@ -353,22 +320,22 @@ class bst{
             if(root){
                 inOrder(root.left)
 
-                if(root.left && root.left.value == target){
-                    parent=root
-                    return parent
-                }
+            if(root.left && root.left.value == target){
+                parent=root
 
-                if(root.right && root.right.value == target){
-                    parent=root
-                    return parent
-                }
+                return parent
+            }
 
-                inOrder(root.right)
+            if(root.right && root.right.value == target){
+                parent=root
+                return parent
+            }
             }
         }
 
         inOrder(root)
         return parent
+
     }
 
     findChildren(root,target){
@@ -378,43 +345,23 @@ class bst{
         else if(root.value == target){
             const children={
                 leftChild:root.left ? root.left.value : null,
-                rightChild:root.right ? root.right.value :null
+                rightChild:root.right ? root.right.value : null
             }
 
             return children
         }
-
         else if(target < root.value){
             return this.findChildren(root.left,target)
-        }
-        else{
+        }else{
             return this.findChildren(root.right,target)
         }
     }
 
-    findSiblings(root,target){
+    findLeafNode(root,result=[]){
         if(!root){
             return null
         }
 
-        let parent=this.findParent(root,target)
-
-        if(!parent){
-            return null
-        }
-        else if(parent.left && parent.left.value === target){
-            return parent.right.value
-        }
-        else if(parent.right && parent.right.value === target){
-            return parent.left.value
-        }
-        else{
-            return -1
-        }
-    }
-
-    //preOrder and descendant preOrder
-    findLeafNode(root,result=[]){
         if(root){
             if(!root.left && !root.right){
                 result.push(root.value)
@@ -425,12 +372,41 @@ class bst{
         return result
     }
 
-    findAncestor(root,target,result=[]){
+    findSiblings(root,target){
         if(!root){
             return null
         }
 
-        if(root.value==target){
+        let siblings=null
+
+        function inOrder(root){
+            if(root){
+                inOrder(root.left)
+
+            if(root.left && root.left.value==target){
+                siblings = root.right.value
+                return siblings
+            }
+
+            if(root.right && root.right.value == target){
+                siblings= root.left.value
+                return siblings
+            }
+
+            inOrder(root.right)
+            }
+        }
+
+        inOrder(root)
+        return siblings
+    }
+
+    findAncestor(root,target,result=[]){
+        if(!root){
+            return null
+        }
+        
+        if(root.value == target){
             return result
         }
 
@@ -452,7 +428,6 @@ class bst{
             this.collectDescendant(root,descendant)
             return descendant
         }
-        
         else if(target < root.value){
             return this.findDescendant(root.left,target,descendant)
         }
@@ -467,6 +442,38 @@ class bst{
             this.collectDescendant(root.left,descendant)
             this.collectDescendant(root.right,descendant)
         }
+        return descendant
+    }
+
+    findHeight(root){
+        if(!root){
+            return null
+        }
+
+        let queue=[]
+        queue.push(root)
+        let height=0
+
+        while(queue.length > 0){
+            let nodeCount=queue.length
+            height++
+
+            while(nodeCount > 0){
+                let cur=queue.shift()
+
+                if(cur){
+                    if(cur.left){
+                        queue.push(cur.left)
+                    }
+
+                    if(cur.right){
+                        queue.push(cur.right)
+                    }
+                }
+                nodeCount--
+            }
+        }
+        return height
     }
 
     findDegree(root,target){
@@ -474,24 +481,27 @@ class bst{
             return null
         }
         let c=0
-        if(root.value == target){
-            if(root.left) c++
-            if(root.right) c++ 
+        if(root.value==target){
+            if(root.left){
+                c++
+            }
+
+            if(root.right){
+                c++
+            }
+            return c
         }
         else if(target < root.value){
-            return this.findDegree(root.left,target)
-        }
-        else{
+           return this.findDegree(root.left,target)
+        }else{
             return this.findDegree(root.right,target)
         }
-        return c
     }
 
     findDepth(root,target){
         if(!root){
             return null
         }
-
         let depth=0
         while(root){
             if(target < root.value){
@@ -532,6 +542,24 @@ class bst{
         return -1
     }
 
+    path(root,target){
+        if(!root){
+            return null
+        }
+        let path=[]
+        while(root){
+            path.push(root.value)
+            if(target < root.value){
+                root=root.left
+            }else if(target > root.value){
+                root=root.right
+            }else{
+                break
+            }
+        }
+        return path
+    }
+
     findLCA(root,n1,n2){
         if(!root){
             return null
@@ -548,32 +576,23 @@ class bst{
                 return root
             }
         }
-        return -1
     }
 
-    path(root,target){
-        if(!root){
-            return null
-        }
-        let path=[]
-        while(root){
-            path.push(root.value)
-            if(target < root.value){
-                root=root.left
-            }
-            else if(target > root.value){
-                root=root.right
-            }
-            else{
-                break
-            }
+    findPathBetweenTwoNodes(n1,n2){
+        let lca=this.findLCA(this.root,n1,n2)
+
+        if(!lca){
+            return []
         }
 
-        return path
+        let path1=this.path(lca,n1)
+        let path2=this.path(lca,n2)
+
+        return [...path1.reverse(),...path2.slice(1)]
     }
 
     findDistancBetweenTwoNodes(n1,n2){
-        let lca=this.findLCA(this.root,n1,n2)
+        let lca = this.findLCA(this.root,n1,n2)
 
         if(!lca){
             return null
@@ -584,21 +603,31 @@ class bst{
         return distance1+distance2
     }
 
-    findPathBetweenTwoNodes(n1,n2){
-        let lca=this.findLCA(this.root,n1,n2)
+    OnlyChildNodes(root){
+        let result=[]
+        let count=0
 
-        if(!lca){
-            return null
+        function inOrder(root){
+            if(root){
+                if((root.left && !root.right) || (!root.left && root.right)){
+                    count++
+                    result.push(root.value)
+                }
+    
+                inOrder(root.left)
+                inOrder(root.right)
+            }
         }
+        inOrder(root)
 
-        let path1=this.path(lca,n1)
-        let path2=this.path(lca,n2)
-        return [...path1.reverse(),...path2.slice(1)]
+        return {result,count}
     }
+
 }
 
-let b = new bst()
 
+let b = new bst()
+// let b1=new bst()
 b.insert(10);
 b.insert(5);
 b.insert(15);
@@ -606,18 +635,16 @@ b.insert(3);
 b.insert(7);
 b.insert(12);
 b.insert(18);
-b.insert(20)
+b.insert(17);
 
-let b1 = new bst()
-
-b1.insert(10);
-b1.insert(5);
-b1.insert(15);
-b1.insert(3);
-b1.insert(7);
-b1.insert(12);
-b1.insert(18);
-
+// b1.insert(10);
+// b1.insert(5);
+// b1.insert(15);
+// b1.insert(3);
+// b1.insert(7);
+// b1.insert(12);
+// b1.insert(18);
+//search works
 // console.log(b.search(b.root,20))
 // console.log(b.search(b.root,18))
 
@@ -629,7 +656,7 @@ b1.insert(18);
 
 //BFS
 
-// b.levelOrder()
+b.levelOrder()
 
 //minimum and maximum
 
@@ -646,11 +673,11 @@ b1.insert(18);
 
 //findPrime
 
-// console.log(b.findPrime(b.root))
+// console.log(b.findPrimes(b.root))
 
 //IsBst
 
-// console.log(b.isBst(b.root))
+// console.log(b.isbst(b.root))
 
 //isIdentical
 
@@ -664,15 +691,15 @@ b1.insert(18);
 
 // console.log(b.inOrderTraversal(b.root))
 
-//kth largest
+// kth largest 
 
 // console.log(b.findKthLargest(b.root,3))
 
-//kth smallest
+// // kth smallest
 
 // console.log(b.findKthSmallest(b.root,2))
 
-//closest value
+// //closest value
 
 // console.log(b.closestValue(b.root,5))
 
@@ -680,19 +707,23 @@ b1.insert(18);
 
 // console.log(b.successor(b.root,5))
 
-//predecessor:Befor value
+// predecessor:Befor value
 
 // console.log(b.predecessor(b.root,5))
 
+//removeDuplicates
+
+// b.levelOrder()
 // b.removeDuplicates(b.root)
 // console.log("After removing duplicates")
 // b.levelOrder()
+
 
 //finding parent
 // let parent=b.findParent(b.root,7)
 // console.log(parent?parent.value:null)
 
-// find children
+//find children
 
 // console.log(b.findChildren(b.root,15))
 
@@ -716,9 +747,11 @@ b1.insert(18);
 
 // console.log(b.findDegree(b.root,10))
 
-//findDepth:Edges from top of the root node to 7
+// //findDepth:Edges from top of the root node to 7
 // console.log(b.findDepth(b.root,7))
 
 // console.log("find path between 7 to 18",b.findPathBetweenTwoNodes(7,18))
 
 // console.log("find distance between 7 to 18",b.findDistancBetweenTwoNodes(7,18))
+
+// console.log(b.OnlyChildNodes(b.root));
