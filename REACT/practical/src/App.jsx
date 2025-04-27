@@ -75,17 +75,33 @@
 // export default App
 
 
+// import React from 'react'
+// import CreateContextProvider from './week2/contextapi/CreateContext'
+// import ShowNo from './week2/contextapi/ShowNo'
+// import Incre from './week2/contextapi/Incre'
+
+// const App = () => {
+//   return (
+//     <CreateContextProvider>
+//       <ShowNo/>
+//       <Incre/>
+//     </CreateContextProvider>
+//   )
+// }
+
+// export default App
+
+
 import React from 'react'
-import CreateContextProvider from './week2/contextapi/CreateContext'
-import ShowNo from './week2/contextapi/ShowNo'
-import Incre from './week2/contextapi/Incre'
+import Parent from './Component/Parent'
+import Child from './Component/Child'
 
 const App = () => {
   return (
-    <CreateContextProvider>
-      <ShowNo/>
-      <Incre/>
-    </CreateContextProvider>
+    <div>
+      <Parent/>
+      <Child/>
+    </div>
   )
 }
 

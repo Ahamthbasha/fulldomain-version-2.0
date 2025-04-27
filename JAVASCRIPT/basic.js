@@ -1,5 +1,8 @@
 // // object destructuring
 
+const { networkInterfaces } = require("node:os")
+const { cursorTo } = require("node:readline")
+
 // const person={
 //     name:"vishnu G.R",
 //     role:"reviewer",
@@ -2161,3 +2164,219 @@ const str='3a2b3c'
 // console.log('3',result.thirdSmallest)
 // console.log('4',result.fourthSmallest)
 
+// const ab=[{a:[3,34,33],n:34},{a:[3,34,33],n:34},{a:[3,34,33],n:34},{a:[3,34,33],n:34}]
+// let n=[]
+// for(let i of ab){
+//     for(let key in i){
+//         n.push(i[key])
+//     }
+// }
+
+// n.flat(1)
+
+// let sum=n.flat(1).reduce((acc,cur)=>{
+//    return acc+cur
+// })
+
+// console.log(sum)
+
+// function getUser(userId, callback) {
+//     setTimeout(() => {
+//         console.log("User fetched");
+//         callback({ id: userId, name: "John Doe" });
+//     }, 1000);
+// }
+
+// function getOrders(user, callback) {
+//     setTimeout(() => {
+//         console.log("Orders fetched for", user.name);
+//         callback([{ id: 1, item: "Laptop" }, { id: 2, item: "Phone" }]);
+//     }, 1000);
+// }
+
+// function getOrderDetails(order, callback) {
+//     setTimeout(() => {
+//         console.log("Order details fetched for", order.item);
+//         callback({ orderId: order.id, status: "Shipped" });
+//     }, 1000);
+// }
+
+// Callback Hell
+// getUser(101, function(user) {
+//     getOrders(user, function(orders) {
+//         getOrderDetails(orders[0], function(details) {
+//             console.log("Final order detail:", details);
+//         });
+//     });
+// });
+
+
+// const obj={
+//     name:'basha',
+
+//     getRole(name){
+//         return `${this.name} is a developer`
+//     }
+// }
+
+// const obj2={
+//     name:"sharuk",
+//     __proto__:obj
+// }
+
+// console.log(obj.getRole(obj.name))
+
+// console.log(obj2.getRole(obj2.name))
+
+// const obj={
+//     name:"basha",
+//     age:20,
+//     address:{
+//         street:"nadu street"
+//     }
+// }
+
+// const handler={
+//     get(obj,key){
+//         return obj[key]
+//     },
+
+//     set(obj,key,value){
+//         obj[key] = value
+//     }
+// }
+
+// const proxyObject=new Proxy(obj,handler)
+
+// console.log(proxyObject.name)
+
+// proxyObject.name="Ahamathbasha"
+
+// console.log(obj.name)
+
+// class Animal{
+//     constructor(name){
+//         this.name=name
+//     }
+
+//     speak(name){
+//         console.log(`${this.name} speak`)
+//     }
+// }
+
+// class Dog extends Animal{
+//     constructor(name){
+//         super(name)
+//     }
+// }
+
+// const puppy=new Dog('puppy')
+
+// puppy.speak()
+
+
+// const arr = [1, 3, 2, 1, 4, 3, 1, 5, 3, 3];
+
+// let map=new Map()
+
+// for(let i=0;i<arr.length;i++){
+//     if(map[arr[i]]){
+//         map[arr[i]]++
+//     }else{
+//         map[arr[i]]=1
+//     }
+// }
+
+// const sorted=Object.entries(map).sort((a,b)=>b[1]-a[1])
+
+// function* values(limit){
+//     let count=1
+
+//     while(count <= limit){
+//         yield count
+//         count++
+//     }
+// }
+
+// const val=values(10)
+
+// for(let i=1;i<=10;i++){
+//     console.log(val.next().value)
+// }
+
+
+// function factory(name,age){
+//     return {
+//         name:name,
+//         age:age,
+//         greet:function(){
+//             console.log(`name is ${this.name} and age is ${this.age}`)
+//         }
+//     }
+// }
+
+// const factory1=factory("ahamathbasha",20)
+
+// console.log(factory1)
+
+const arr=[21,22,90,80,100,12,1,70]
+
+let first=-Infinity
+let second=-Infinity
+let third=-Infinity
+
+
+for(let i=0;i<arr.length;i++){
+    if(arr[i] % 2 === 0){
+        if(arr[i] > first){
+            third=second
+            second=first
+            first=arr[i]
+        }
+        else if(arr[i] > second && arr[i] != first){
+            third=second
+            second=arr[i]
+        }
+        else if(arr[i] > third && arr[i] != first && arr[i] != second){
+            third=arr[i]
+        }
+    }
+}
+console.log("first",first)
+console.log("second",second)
+console.log("third",third)
+
+// let evenArr=[]
+
+// for(let i=0;i<arr.length;i++){
+//     if(arr[i] % 2 === 0){
+//         evenArr.push(arr[i])
+//     }
+// }
+
+
+// let result=evenArr.reduce((acc,cur)=>{
+
+//     if(acc.set.has(cur)){
+//         return acc 
+//     }
+
+//     acc.set.add(cur)
+
+//     if(cur > acc.firstLargest){
+//         acc.secondLargest=acc.firstLargest
+//         acc.firstLargest=cur
+//     }
+//     else if(cur > acc.secondLargest){
+//         acc.secondLargest=cur
+//     }
+
+//     return acc
+    
+// },{
+//     set:new Set(),
+//     firstLargest:-Infinity,
+//     secondLargest:-Infinity
+// })
+
+// console.log(result.secondLargest)

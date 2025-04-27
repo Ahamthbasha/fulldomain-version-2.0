@@ -781,3 +781,24 @@
 // app.listen(3000,()=>{
 //     console.log("server is running")
 // })
+
+//send data using get
+
+
+// const express=require('express')
+// const app=express()
+
+// app.use(express.json())
+
+// app.get('/data',(req,res)=>{
+//     const {name,age} = req.query
+//     if(name && age){
+//         res.send({name,age})
+//     }else{
+//         res.send('wait')
+//     }
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })

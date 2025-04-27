@@ -4,7 +4,12 @@
 //     process.send("hello parent")
 // })
 
+// process.on('message',(msg)=>{
+//     let result=msg.number * 10
+//     process.send(result)
+// })
+
 process.on('message',(msg)=>{
-    let result=msg.number * 10
-    process.send(result)
+    console.log("message from parent:",msg)
+    process.send("hello parent")
 })
