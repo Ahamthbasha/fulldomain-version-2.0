@@ -32,7 +32,7 @@
 //         }
 //     }
 // }
-
+// 
 // console.log(firstNonRepeat('cocoloco'))
 
 // let str1='pqr'
