@@ -110,122 +110,220 @@
 
 // s.display()
 
-class Node{
-    constructor(value){
-        this.value=value
-        this.next=null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value=value
+//         this.next=null
+//     }
+// }
 
-class ssLL{
-    constructor(){
-        this.head = null
-        this.size = 0
-    }
+// class ssLL{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
 
-    isEmpty(){
-        return this.size === 0
-    }
+//     isEmpty(){
+//         return this.size === 0
+//     }
 
-    getSize(){
-        return this.size
-    }
+//     getSize(){
+//         return this.size
+//     }
 
-    push(value){
-        const node=new Node(value)
+//     push(value){
+//         const node=new Node(value)
 
-        if(this.isEmpty()){
-            this.head=node
-            this.size++
-        }
-        else{
-            let temp=this.head
+//         if(this.isEmpty()){
+//             this.head=node
+//             this.size++
+//         }
+//         else{
+//             let temp=this.head
 
-            while(temp.next){
-                temp=temp.next
-            }
+//             while(temp.next){
+//                 temp=temp.next
+//             }
 
-            temp.next=node
-            node.next=null
-            this.size++
-        }
-    }
+//             temp.next=node
+//             node.next=null
+//             this.size++
+//         }
+//     }
 
-    pop(){
-        if(this.isEmpty()){
-            return 'stack is empty'
-        }
-        else if(this.size === 1){
-            let val=this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp=this.head
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         else if(this.size === 1){
+//             let val=this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp=this.head
 
-            while(temp.next.next !=null){
-                temp=temp.next
-            }
-            let val=temp.next.value
-            temp.next=null
-            this.size--
-            return val
-        }
-    }
+//             while(temp.next.next !=null){
+//                 temp=temp.next
+//             }
+//             let val=temp.next.value
+//             temp.next=null
+//             this.size--
+//             return val
+//         }
+//     }
 
-    peek(){
-        if(this.isEmpty()){
-            return 'stack is empty'
-        }
-        else{
-            let temp=this.head
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         else{
+//             let temp=this.head
 
-            while(temp.next != null){
-                temp=temp.next
-            }
+//             while(temp.next != null){
+//                 temp=temp.next
+//             }
 
-            let val=temp.value
-            return val
-        }
-    }
+//             let val=temp.value
+//             return val
+//         }
+//     }
 
-    display(){
-        let list=''
+//     display(){
+//         let list=''
 
-        let temp=this.head
+//         let temp=this.head
 
-        while(temp){
-            list+=temp.value+'<-'
-            temp=temp.next
-        }
-        list+='null'
+//         while(temp){
+//             list+=temp.value+'<-'
+//             temp=temp.next
+//         }
+//         list+='null'
 
-        console.log(list)
+//         console.log(list)
 
-    }
-}
+//     }
+// }
 
-const s= new ssLL()
+// const s= new ssLL()
 
-console.log(s.isEmpty())
-console.log(s.getSize())
+// console.log(s.isEmpty())
+// console.log(s.getSize())
 
-s.push(10)
-s.push(20)
-s.push(30)
-s.push(40)
+// s.push(10)
+// s.push(20)
+// s.push(30)
+// s.push(40)
 
-s.display()
+// s.display()
 
-console.log(s.pop())
+// console.log(s.pop())
 
-s.display()
+// s.display()
 
-console.log(s.peek())
+// console.log(s.peek())
 
-console.log(s.pop())
+// console.log(s.pop())
 
-s.display()
+// s.display()
 
-console.log(s.peek())
+// console.log(s.peek())
+
+// class stack{
+//     constructor(){
+//         this.item=[]
+//     }
+
+//     isEmpty(){
+//         return this.item.length === 0
+//     }
+
+//     getSize(){
+//         return this.item.length
+//     }
+
+//     push(value){
+//         this.item.push(value)
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return null
+//         }
+
+//         return this.item.pop()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return null
+//         }
+
+//         return this.item[this.item.length-1]
+//     }
+
+//     display(){
+//         console.log(this.item)
+//     }
+
+//     revString(input){
+//         const s=new stack()
+
+//         for(let i=0;i<input.length;i++){
+//             s.push(input[i])
+//         }
+
+//         let reversedStr=''
+
+//         while(!s.isEmpty()){
+//             reversedStr+=s.pop()
+//         }
+
+//         return reversedStr
+//     }
+
+//     revArray(input){
+//         const s=new stack()
+
+//         for(let i=0;i<input.length;i++){
+//             s.push(input[i])
+//         }
+
+//         let reversedArr=[]
+        
+//         while(!s.isEmpty()){
+//             reversedArr.push(s.pop())
+//         }
+
+//         return reversedArr
+//     }
+// }
+
+// const s= new stack()
+
+// console.log(s.isEmpty())
+// console.log(s.getSize())
+
+// s.push(10)
+// s.push(20)
+// s.push(30)
+// s.push(40)
+
+// s.display()
+
+// console.log(s.pop())
+
+// s.display()
+
+// console.log(s.peek())
+
+// console.log(s.pop())
+
+// s.display()
+
+// console.log(s.peek())
+
+// console.log(s.revString('hello'))
+
+// console.log(s.revArray([1,2,3,4,5]))
