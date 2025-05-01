@@ -97,14 +97,12 @@ class trie{
 
         for(let i=word.length-1;i>=0;i--){
             let [parentNode,char] = path[i]
-
-            if(Object.keys(node.children).length > 0 || node.isEndOfWord){
+            let childNode = parentNode.children[char]
+            if(Object.keys(childNode.children).length > 0 || childNode.isEndOfWord){
                 break
             }
 
             delete parentNode.children[char]
-
-            node=parentNode
         }
     }
 }
