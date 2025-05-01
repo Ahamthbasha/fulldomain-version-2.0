@@ -623,6 +623,74 @@ class bst{
         return {result,count}
     }
 
+    noOfNodes(root){
+        let queue = []
+        queue.push(root)
+    
+        let count = 0
+    
+        while(queue.length){
+            let cur = queue.shift()
+    
+            count++
+    
+            if(cur.left){
+                queue.push(cur.left)
+            }
+    
+            if(cur.right){
+                queue.push(cur.right)
+            }
+        }
+    
+        return count
+       }
+    
+       leftNodeOnly(root){
+        if(!root){
+            return null
+        }
+        let c = 0
+        function preOrder(root){
+            if(root){
+                if(root.left && !root.right){
+                    c++
+                }
+        
+                preOrder(root.left)
+                preOrder(root.left)
+            }
+        }
+    
+        preOrder(root)
+    
+        return c
+       }
+    
+       rightNodeOnly(root){
+        if(!root){
+            return null
+        }
+    
+        let count = 0
+    
+        function preOrder(root){
+            if(root){
+                if(root.right && !root.left){
+                    count++
+                }
+    
+                preOrder(root.left)
+                preOrder(root.right)
+            }
+        }
+    
+        preOrder(root)
+    
+        return count
+       }
+    
+
 }
 
 
