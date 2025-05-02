@@ -1,6 +1,7 @@
 // //deepcopy
 
 const { resolve } = require("path");
+const { json } = require("stream/consumers");
 
 // function deepCopy(obj){
 //     if(obj == null || typeof obj != 'object'){
@@ -265,24 +266,24 @@ const { resolve } = require("path");
 // sum(no)
 
 
-let obj={
-    name:"basha",
-    age:20,
-    address:{
-        street:"center street",
-        village:"melsolankuppam"
-    }
-}
-console.log(obj)
-let obj1=structuredClone(obj)
-console.log(obj1)
+// let obj={
+//     name:"basha",
+//     age:20,
+//     address:{
+//         street:"center street",
+//         village:"melsolankuppam"
+//     }
+// }
+// console.log(obj)
+// let obj1=structuredClone(obj)
+// console.log(obj1)
 
-obj.address.street='basha street'
+// obj.address.street='basha street'
 
-obj1.address.street="naan dhan"
+// obj1.address.street="naan dhan"
 
-console.log(obj)
-console.log(obj1)
+// console.log(obj)
+// console.log(obj1)
 
 // function DeepCopy(obj){
 //     if(obj === null || typeof obj !== 'object' ){
@@ -310,3 +311,102 @@ console.log(obj1)
 
 // console.log(obj)
 // console.log(deep)
+
+
+// function deepCopy(obj){
+//     return JSON.parse(JSON.stringify(obj))
+// }
+
+// deepCopy(obj)
+
+// function deepCopy(obj){
+//     if(obj=== null ||typeof obj !== 'object'){
+//         return obj
+//     }
+
+//     const copy = Array.isArray(obj) ? [] : {}
+
+//     for(let key in obj){
+//         copy[key] = deepCopy(obj[key])
+//     }
+
+//     return copy
+// }
+
+// console.log(deepCopy(obj))
+
+// function deepFreeze(obj){
+//     let propNames = Object.getOwnPropertyNames(obj)
+
+//     for(let name of propNames){
+//         const value = obj[name]
+
+//         if(value && typeof value === 'object'){
+//             deepFreeze(value)
+//         }
+//     }
+
+//     return Object.freeze(obj)
+// }
+
+// console.log(deepFreeze(obj))
+
+
+//deep copy
+
+function deepCopy(obj){
+    return JSON.parse(JSON.stringify(obj))
+}
+
+function deepCopy2(obj){
+    if(obj === null || typeof obj !== 'object'){
+        return obj
+    }
+
+    const copy =Array.isArray(obj) ? [] :{}
+
+    for(let key in obj){
+        copy[key] = deepCopy2(obj[key])
+    }
+
+    return copy
+}
+
+function deepFreeze(obj){
+    const propNames = Object.getOwnPropertyNames(obj)
+
+    
+    for(let name of propNames){
+        const value =obj[name]
+
+        if(value && typeof value === 'object'){
+            deepFreeze(value)
+        }
+    }
+
+    return Object.freeze(obj)
+}
+
+const factorial =(no) =>{
+    let fact = 1
+    for(let i=1;i<=no;i++){
+        fact *= i
+    }
+    return fact
+}
+
+const memoize = (fn) => {
+    let cache = {}
+
+    return function (args){
+        let no = args
+
+        if(no in cache){
+            return cache[no]
+        }else{
+            let result = fn(args)
+            cache[no] = result
+            return result
+        }
+    }
+}
