@@ -347,61 +347,161 @@
 // export default UseMemo
 
 
-import React, { useReducer, useRef } from 'react'
+// import React, { useReducer, useRef } from 'react'
 
-const UseMemo = () => {
-    const initialState = []
+// const UseMemo = () => {
+//     const initialState = []
 
-    const reducer =(state,action) =>{
-        switch(action.type){
-            case 'ADDUSER':
-                return [...state,action.payload]
-        }
-    }
-    const [state,dispatch] = useReducer(reducer,initialState)
+//     const reducer =(state,action) =>{
+//         switch(action.type){
+//             case 'ADDUSER':
+//                 return [...state,action.payload]
+//         }
+//     }
+//     const [state,dispatch] = useReducer(reducer,initialState)
 
-    const nameRef = useRef()
-    const ageRef = useRef()
+//     const nameRef = useRef()
+//     const ageRef = useRef()
 
-    const validate =()=>{
-        const name = nameRef.current.value
-        const age = Number(ageRef.current.value)
-        let category
-        if(age > 18){
-            category = 'adult'
-        }
-        else if(age >= 10){
-            category = 'school'
-        }
-        else{
-            category = 'kinder'
-        }
-        const newUser = {
-            name,
-            age,
-            category
-        }
-        dispatch({type:'ADDUSER',payload:newUser})
-        nameRef.current.value = null
-        ageRef.current.value = null
-    }
-  return (
-    <div>
-    <input type="text" placeholder='enter name' ref={nameRef} />
+//     const validate =()=>{
+//         const name = nameRef.current.value
+//         const age = Number(ageRef.current.value)
+//         let category
+//         if(age > 18){
+//             category = 'adult'
+//         }
+//         else if(age >= 10){
+//             category = 'school'
+//         }
+//         else{
+//             category = 'kinder'
+//         }
+//         const newUser = {
+//             name,
+//             age,
+//             category
+//         }
+//         dispatch({type:'ADDUSER',payload:newUser})
+//         nameRef.current.value = null
+//         ageRef.current.value = null
+//     }
+//   return (
+//     <div>
+//     <input type="text" placeholder='enter name' ref={nameRef} />
 
-    <input type="text" placeholder='enter age' ref={ageRef} />
+//     <input type="text" placeholder='enter age' ref={ageRef} />
 
-    <button onClick={validate}>Validate</button>
+//     <button onClick={validate}>Validate</button>
 
-    <div>
-        <ul>
-            {state.map((user)=>{
-                return <li key={user.name}>{user.name}-{user.age}-{user.category}</li>
-            })}
-        </ul>
-    </div>
-    </div>
-  )
-}
+//     <div>
+//         <ul>
+//             {state.map((user)=>{
+//                 return <li key={user.name}>{user.name}-{user.age}-{user.category}</li>
+//             })}
+//         </ul>
+//     </div>
+//     </div>
+//   )
+// }
 
-export default UseMemo
+// export default UseMemo
+
+// import React, { useState } from 'react'
+
+// const ChildComponent = ({sendFn}) => {
+
+//     const sendData = () => {
+//         sendFn("hi parent")
+//     }
+
+//     return(
+//     <>
+//     <h1>ChildComponent</h1>
+//     <button onClick={sendData}>Send Data</button>
+//     </>
+//     )
+// }
+
+// const UseMemo = () => {
+//     const [message,setMessage] = useState('')
+
+//     const receivedMessage = (data) => {
+//         setMessage(data)
+//     }
+
+//     return (
+//     <div>
+//     <h1>Parent component:{message}</h1>
+//     <ChildComponent sendFn={receivedMessage}/>
+//     </div>
+//   )
+// }
+
+// export default UseMemo
+
+
+//forwardRef
+
+// import React, { forwardRef, useRef } from 'react'
+
+// const ChildComponent = forwardRef((props,ref)=>{
+//     return(
+//         <input type="text" ref={ref} />
+//     )
+// })
+
+// const UseMemo = () => {
+//     const inputRef = useRef()
+
+//     const focus = () => {
+//         inputRef.current.focus()
+//     }
+
+//   return (
+//     <div>
+//     <ChildComponent ref={inputRef}/>
+//     <button onClick={focus}>Click to focus</button>  
+//     </div>
+//   )
+// }
+
+// export default UseMemo
+
+
+
+// import React, { useState } from 'react'
+
+// const UseMemo = () => {
+//     const [message,setMessage] = useState('')
+
+//   return (
+//     <div>
+//         <input type="text" placeholder='enter something' value={message} onChange={(e)=>setMessage(e.target.value)} />
+
+//         <h1>{message}</h1>  
+//     </div>
+//   )
+// }
+
+// export default UseMemo
+
+
+// import React, { useRef, useState } from 'react'
+
+// const UseMemo = () => {
+//     const [toggle,setToggle] = useState(false)
+//     const inputRef = useRef()
+//   return (
+//     <div>
+//       <input type="text" placeholder='enter text' ref={inputRef}/>
+
+//       <button onClick={()=>setToggle((toggle)=>!toggle)}>click to see</button>
+
+//       {toggle && <h1>{inputRef.current.value}</h1>}
+//     </div>
+//   )
+// }
+
+// export default UseMemo
+
+
