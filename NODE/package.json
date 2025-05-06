@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "node cli.js",
-    "dev": "nodemon cli.js"
+    "start": "node node.js",
+    "dev": "nodemon node.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

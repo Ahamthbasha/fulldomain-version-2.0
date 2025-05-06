@@ -2672,422 +2672,422 @@
 // testHashtable();
 
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
 
-class ll{
-    constructor(){
-        this.head = null
-        this.size = 0
-    }
+// class ll{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
 
-    isEmpty(){
-        return this.size === 0
-    }
+//     isEmpty(){
+//         return this.size === 0
+//     }
 
-    getSize(){
-        return this.size
-    }
+//     getSize(){
+//         return this.size
+//     }
 
-    prepend(value){
-        const node = new Node(value)
+//     prepend(value){
+//         const node = new Node(value)
 
-        if(this.isEmpty()){
-            this.head = node
-        }else{
-            node.next = this.head
-            this.head = node
-        }
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             node.next = this.head
+//             this.head = node
+//         }
 
-        this.size++
-    }
+//         this.size++
+//     }
 
-    append(value){
-        const node = new Node(value)
+//     append(value){
+//         const node = new Node(value)
 
-        if(this.isEmpty()){
-            this.head = node
-            this.size++
-        }else{
-            let temp = this.head
+//         if(this.isEmpty()){
+//             this.head = node
+//             this.size++
+//         }else{
+//             let temp = this.head
 
-            while(temp.next){
-                temp = temp.next
-            }
+//             while(temp.next){
+//                 temp = temp.next
+//             }
 
-            temp.next = node
+//             temp.next = node
 
-            node.next = null
+//             node.next = null
 
-            this.size++
-        }
-    }
+//             this.size++
+//         }
+//     }
 
-    insert(index,value){
-        const node = new Node(value)
-        if(index < 0|| index > this.size){
-            return 'index is not valid'
-        }
-        else if(index === 0){
-            this.prepend(value)
-        }
-        else if(index === this.size){
-            this.append(value)
-        }
-        else{
-            let temp = this.head
+//     insert(index,value){
+//         const node = new Node(value)
+//         if(index < 0|| index > this.size){
+//             return 'index is not valid'
+//         }
+//         else if(index === 0){
+//             this.prepend(value)
+//         }
+//         else if(index === this.size){
+//             this.append(value)
+//         }
+//         else{
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
 
-            let tempo = temp.next
-            temp.next = node
-            node.next = tempo
+//             let tempo = temp.next
+//             temp.next = node
+//             node.next = tempo
 
-            this.size++
-        }
-    }
+//             this.size++
+//         }
+//     }
 
-    removeFromStart(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
-        else if(this.size === 1){
-            let val = this.head.value
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.size === 1){
+//             let val = this.head.value
 
-            this.head = null
+//             this.head = null
 
-            this.size--
+//             this.size--
 
-            return val
-        }
-        else{
-            let val = this.head.value
+//             return val
+//         }
+//         else{
+//             let val = this.head.value
 
-            this.head = this.head.next
+//             this.head = this.head.next
 
-            this.size--
+//             this.size--
 
-            return val
-        }
-    }
+//             return val
+//         }
+//     }
 
-    removeFromEnd(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
-        else if(this.size === 1){
-            const val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.size === 1){
+//             const val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp.next.next){
-                temp = temp.next
-            }
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
 
-            let val = temp.next.value
+//             let val = temp.next.value
 
-            temp.next = null
+//             temp.next = null
 
-            this.size--
+//             this.size--
 
-            return val
-        }
-    }
+//             return val
+//         }
+//     }
 
-    search(value){
-        if(this.isEmpty()){
-            return 'empty'
-        }
-        else if(this.head.value == value){
-            return 0
-        }
-        else{
-            let temp = this.head
-            let i =0
+//     search(value){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+//         else if(this.head.value == value){
+//             return 0
+//         }
+//         else{
+//             let temp = this.head
+//             let i =0
 
-            while(temp){
-                if(temp.value == value){
-                    return i
-                }
-                temp=temp.next
-                i++
-            }
+//             while(temp){
+//                 if(temp.value == value){
+//                     return i
+//                 }
+//                 temp=temp.next
+//                 i++
+//             }
 
-            return 'not found'
-        }
-    }
+//             return 'not found'
+//         }
+//     }
 
-    removeByValue(value){
-        if(this.isEmpty()){
-            return 'empty'
-        }
-        else if(this.head.value == value){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp){
-                if(temp.next.value == value){
-                    break
-                }
-                temp=temp.next
-            }
-            let val = temp.next.value
+//             while(temp){
+//                 if(temp.next.value == value){
+//                     break
+//                 }
+//                 temp=temp.next
+//             }
+//             let val = temp.next.value
 
-            temp.next = temp.next.next
+//             temp.next = temp.next.next
 
-            this.size--
+//             this.size--
 
-            return val
-        }
-    }
+//             return val
+//         }
+//     }
 
-    removeByIndex(index){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else if(index == 0){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByIndex(index){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
-            let val = temp.next.value
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
             
-            temp.next=temp.next.next
+//             temp.next=temp.next.next
 
-            this.size--
+//             this.size--
 
-            return val
-        }
-    }
+//             return val
+//         }
+//     }
 
-    reverse(){
-        let prev=null
-        let cur = this.head
+//     reverse(){
+//         let prev=null
+//         let cur = this.head
 
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
 
-        this.head = prev
-    }
+//         this.head = prev
+//     }
 
-    print(){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
+//     print(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
 
-        let list = ''
+//         let list = ''
 
-        let temp = this.head
+//         let temp = this.head
 
-        while(temp){
-            list+=temp.value+'->'
-            temp = temp.next
-        }
+//         while(temp){
+//             list+=temp.value+'->'
+//             temp = temp.next
+//         }
 
-        list+='null'
+//         list+='null'
 
-        return list
-    }
+//         return list
+//     }
 
-    findMidAndRemove(){
-        let mid = Math.floor((this.size)/2)
+//     findMidAndRemove(){
+//         let mid = Math.floor((this.size)/2)
 
-        return this.removeByIndex(mid)
-    }
+//         return this.removeByIndex(mid)
+//     }
 
-    checkLLisPalindrome(){
-        let result =[]
+//     checkLLisPalindrome(){
+//         let result =[]
 
-        let temp = this.head
+//         let temp = this.head
 
-        while(temp){
-            result.push(temp.value)
-            temp = temp.next
-        }
+//         while(temp){
+//             result.push(temp.value)
+//             temp = temp.next
+//         }
 
 
 
-        let reversed =[...result].reverse()
-        for(let i=0;i<result.length;i++){
-            if(result[i] != reversed[i]){
-                return false
-            }
-        }
+//         let reversed =[...result].reverse()
+//         for(let i=0;i<result.length;i++){
+//             if(result[i] != reversed[i]){
+//                 return false
+//             }
+//         }
 
-        return true
-    }
+//         return true
+//     }
 
-    ArrayToLL(arr){
-        this.head=null
-        this.size=0
+//     ArrayToLL(arr){
+//         this.head=null
+//         this.size=0
 
-        for(let i=0;i<arr.length;i++){
-           this.append(arr[i])
-        }
-    }
+//         for(let i=0;i<arr.length;i++){
+//            this.append(arr[i])
+//         }
+//     }
 
-    linkedListToArray(){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
+//     linkedListToArray(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
 
-        let temp = this.head
+//         let temp = this.head
 
-        let arr =[]
+//         let arr =[]
 
-        while(temp){
-            arr.push(temp.value)
-            temp = temp.next
-        }
+//         while(temp){
+//             arr.push(temp.value)
+//             temp = temp.next
+//         }
 
-        return arr
-    }
+//         return arr
+//     }
 
-    findDuplicates(){
-        let duplicates = []
-        let unique = {}
+//     findDuplicates(){
+//         let duplicates = []
+//         let unique = {}
 
-        let temp = this.head
+//         let temp = this.head
         
-        while(temp){
-            if(unique[temp.value]){
-                unique[temp.value]++
-            }else{
-                unique[temp.value] = 1
-            }
-            temp = temp.next
-        }
+//         while(temp){
+//             if(unique[temp.value]){
+//                 unique[temp.value]++
+//             }else{
+//                 unique[temp.value] = 1
+//             }
+//             temp = temp.next
+//         }
 
-        for(let key in unique){
-            if(unique[key] > 1){
-                duplicates.push(key)
-            }
-        }
+//         for(let key in unique){
+//             if(unique[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
 
-        return duplicates
-    }
+//         return duplicates
+//     }
 
-    findUnique(){
-        let unique  = {}
+//     findUnique(){
+//         let unique  = {}
 
-        let temp = this.head
+//         let temp = this.head
 
-        while(temp){
-            if(unique[temp.value]){
-                unique[temp.value]++
-            }else{
-                unique[temp.value]=1
-            }
-            temp = temp.next
-        }
+//         while(temp){
+//             if(unique[temp.value]){
+//                 unique[temp.value]++
+//             }else{
+//                 unique[temp.value]=1
+//             }
+//             temp = temp.next
+//         }
 
-        let uniqueElement =[]
+//         let uniqueElement =[]
 
-        for(let key in unique){
-            if(unique[key] == 1){
-                uniqueElement.push(key)        
-            }
-        }
+//         for(let key in unique){
+//             if(unique[key] == 1){
+//                 uniqueElement.push(key)        
+//             }
+//         }
 
-        return uniqueElement
-    }
+//         return uniqueElement
+//     }
 
-   removeDuplicates(){
-    let temp = this.head
-    let prev = null
-    let seen = {}
+//    removeDuplicates(){
+//     let temp = this.head
+//     let prev = null
+//     let seen = {}
 
-    while(temp){
-        if(seen[temp.value]){
-            prev.next = temp.next // skip duplicate
-        }
-        else{
-            seen[temp.value] = true
-            prev = temp
-        }
-        temp = temp.next
-    }
-   }
+//     while(temp){
+//         if(seen[temp.value]){
+//             prev.next = temp.next // skip duplicate
+//         }
+//         else{
+//             seen[temp.value] = true
+//             prev = temp
+//         }
+//         temp = temp.next
+//     }
+//    }
 
    
-   makeCircular(){
-    let temp = this.head
+//    makeCircular(){
+//     let temp = this.head
 
-    while(temp.next){
-        temp = temp.next
-    }
+//     while(temp.next){
+//         temp = temp.next
+//     }
 
-    temp.next = this.head
-   }
+//     temp.next = this.head
+//    }
 
-   checkCircular(){
-    let slow = this.head
-    let fast = this.head
+//    checkCircular(){
+//     let slow = this.head
+//     let fast = this.head
 
-    while(fast && fast.next){
-        slow = slow.next
-        fast = fast.next.next
+//     while(fast && fast.next){
+//         slow = slow.next
+//         fast = fast.next.next
 
-        if(slow == fast){
-            return true
-        }
-    }
+//         if(slow == fast){
+//             return true
+//         }
+//     }
 
-    return false
-   }
+//     return false
+//    }
 
-   sorting(){
-    let swapped 
+//    sorting(){
+//     let swapped 
 
-    do{
-        let temp = this.head
-        swapped = false
+//     do{
+//         let temp = this.head
+//         swapped = false
 
-        while(temp && temp.next){
-            if(temp.value > temp.next.value){
-                [temp.value,temp.next.value] = [temp.next.value,temp.value]
-                swapped = true
-            }
+//         while(temp && temp.next){
+//             if(temp.value > temp.next.value){
+//                 [temp.value,temp.next.value] = [temp.next.value,temp.value]
+//                 swapped = true
+//             }
 
-            temp = temp.next
-        }
-    }while(swapped)
-   }
+//             temp = temp.next
+//         }
+//     }while(swapped)
+//    }
 
-}
+// }
 
-let list1 = new ll();
-[4, 2, 5, 1, 3].forEach(num => list1.append(num));
+// let list1 = new ll();
+// [4, 2, 5, 1, 3].forEach(num => list1.append(num));
 
-console.log("Before sort:", list1.print()); 
-list1.sorting();
-console.log("After sort:", list1.print());  
+// console.log("Before sort:", list1.print()); 
+// list1.sorting();
+// console.log("After sort:", list1.print());  
 // Expected: 1->2->3->4->5->null
 
 
@@ -3159,3 +3159,498 @@ console.log("After sort:", list1.print());
 //     console.log(list.getSize());
 // }
 // testLinkedList();
+
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class ll{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     prepend(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             node.next = this.head
+//             this.head = node
+//         }
+        
+//         this.size++
+//     }
+
+//     append(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//             node.next = null
+//         }
+
+//         this.size++
+//     }
+
+//     insert(index,value){
+//         const node = new Node(value)
+//         if(index < 0 || index > this.size){
+//             return 'index invalid'
+//         }
+//         else if(index == 0){
+//             this.prepend(value)
+//         }
+//         else if(index == this.size-1){
+//             this.append(value)
+//         }
+//         else{
+//             let temp = this.head
+
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+
+//             node.next = temp.next
+//             temp.next = node
+
+//             this.size++
+//         }
+//     }
+
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let val = this.head.value
+
+//             this.head = this.head.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size --
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+
+//             temp.next = null
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     removeByIndex(index){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+
+//             this.head = null
+
+//             this.size--
+
+//             return val
+//         }
+//         else if(index == 0){
+//             let val= this.head.value
+
+//             this.head = this.head.next
+
+//             this.size--
+
+//             return val
+//         }
+//         else if(index == this.size-1){
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+
+//             let val = temp.value
+
+//             temp.next = null
+
+//             this.size--
+
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+
+//             let val = temp.next.value
+
+//             temp.next = temp.next.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+
+//             this.head = this.head.next
+
+//             this.size--
+
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next && temp.next.value != value){
+//                 temp = temp.next
+//             }
+
+//             if(temp.next == null){
+//                 return 'value not found'
+//             }
+
+//             let val = temp.next.value
+
+//             temp.next = temp.next.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     reverse(){
+//         let cur = this.head
+//         let prev = null
+
+//         while(cur){
+//            let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
+
+//         this.head = prev 
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'nothing to print'
+//         }else{
+//             let temp = this.head
+            
+//             let list = ''
+
+//             while(temp){
+//                 list+=temp.value+'->'
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+
+//             return list
+//         }
+//     }
+
+//     arrayToLL(arr){
+//         for(let i=0;i<arr.length;i++){
+//             this.append(arr[i])
+//         }
+//     }
+
+//     llToArray(){
+//         let ll =[]
+
+//         let temp = this.head
+
+//         while(temp){
+//             ll.push(temp.value)
+//             temp = temp.next
+//         }
+
+//         return ll
+//     }
+
+//     findDuplicates(){
+//         let freq = {}
+//         let duplicates =[]
+
+//         let temp = this.head
+
+//         while(temp){
+//             if(freq[temp.value]){
+//                 freq[temp.value]++
+//             }
+//             else{
+//                 freq[temp.value] = 1
+//             }
+//             temp = temp.next
+//         }
+
+//         for(let key in freq){
+//             if(freq[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
+
+//         return duplicates
+//     }
+
+
+//     findUnique(){
+//         let freq ={}
+//         let unique = []
+
+//         let temp = this.head
+
+//         while(temp){
+//             if(freq[temp.value]){
+//                 freq[temp.value]++
+//             }else{
+//                 freq[temp.value] = 1
+//             }
+//             temp = temp.next
+//         }
+
+//         for(let key in freq){
+//             if(freq[key] == 1){
+//                 unique.push(key)
+//             }
+//         }
+
+//         return unique
+//     }
+
+//     removeDuplicates(){
+//         let seen = {}
+
+//         let temp = this.head
+//         let prev = null
+
+//         while(temp){
+//             if(seen[temp.value]){
+//                 prev.next = temp.next
+//             }
+//             else{
+//                 seen[temp.value] = true
+//                 prev = temp
+//             }
+//             temp = temp.next
+//         }
+//     }
+
+//     makeCircular(){
+//         let temp = this.head
+
+//         while(temp.next && temp.next != this.head){
+//             temp = temp.next
+//         }
+
+//         temp.next = this.head
+//     }
+
+//     checkCircular(){
+//         let slow = this.head
+//         let fast = this.head
+
+//         while(fast && fast.next){
+//             slow = slow.next
+//             fast = fast.next.next
+
+//             if(slow == fast){
+//                 return 'circular'
+//             }
+//         }
+//         return 'not circular'
+//     }
+
+//     sorting(){
+//         let swapped
+
+//         do{
+//             let temp = this.head
+//             swapped = false
+
+//             while(temp && temp.next){
+//                 if(temp.value > temp.next.value){
+//                     [temp.value,temp.next.value] = [temp.next.value,temp.value]
+//                     swapped = true
+//                 }
+//                 temp = temp.next
+//             }
+//         }while(swapped)
+//     }
+
+//     checkPalindrome(){
+//         let arr =[]
+
+//         let temp = this.head
+
+//         while(temp){
+//             arr.push(temp.value)
+//             temp= temp.next
+//         }
+
+//         let palindrome = arr.reverse().join('')
+
+//         return arr.join('') === palindrome
+//     }
+
+//     findMidAndRemove(){
+//         let midIndex = Math.floor(this.size/2)
+//         this.removeByIndex(midIndex)
+//     }
+// }
+
+// const list = new ll()
+
+// console.log(list.isEmpty()) // true
+// console.log(list.getSize()) // 0
+
+// list.prepend(3)
+// list.prepend(2)
+// list.prepend(1)
+// console.log(list.print()) // 1->2->3->null
+
+// list.append(4)
+// list.append(5)
+// console.log(list.print()) // 1->2->3->4->5->null
+
+// list.insert(2, 99)
+// console.log(list.print()) // 1->2->99->3->4->5->null
+
+// console.log(list.removeFromStart()) // 1
+// console.log(list.removeFromEnd())   // 5
+// console.log(list.removeByIndex(2))  // 3
+// console.log(list.print())           // 2->99->4->null
+
+// list.append(4)
+// list.append(99)
+// list.append(6)
+// console.log('Removed:', list.removeByValue(99)) // Removed: 99
+// console.log('Removed:', list.removeByValue(100)) // value not found
+// console.log(list.print()) // 2->4->99->6->null
+
+// list.reverse()
+// console.log(list.print()) // 6->99->4->2->null
+
+// console.log('LL to array:', list.llToArray()) // [6, 99, 4, 2]
+
+// let arrList = new ll()
+// arrList.arrayToLL([1, 2, 2, 3, 4, 4, 5])
+// console.log('Duplicates:', arrList.findDuplicates()) // ['2', '4']
+// console.log('Uniques:', arrList.findUnique())        // ['1', '3', '5']
+
+// arrList.removeDuplicates()
+// console.log('After removing duplicates:', arrList.print()) // 1->2->3->4->5->null
+
+// arrList.sorting()
+// console.log('Sorted:', arrList.print()) // 1->2->3->4->5->null
+
+// console.log('Palindrome check:', arrList.checkPalindrome()) // false
+
+// let palList = new ll()
+// palList.arrayToLL([1, 2, 3, 2, 1])
+// console.log('Palindrome check:', palList.checkPalindrome()) // true
+
+// palList.findMidAndRemove()
+// console.log('After removing mid:', palList.print()) // 1->2->2->1->null
+
+// palList.makeCircular()
+// console.log('Circular?', palList.checkCircular()) // circular
+
+// let notCircular = new ll()
+// notCircular.arrayToLL([1, 2, 3])
+// console.log('Not Circular?', notCircular.checkCircular()) // not circular
+
+
+// function reverseStr(str){
+//     if(str.length < 2){
+//         return str
+//     }
+
+//     let first = str[0]
+//     let rest = str.slice(1)
+
+//     return reverseStr(rest)+first
+// }
+
+// function reverseArr(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let first = arr[0]
+//     let rest = arr.slice(1)
+
+//     return reverseArr(rest).concat(first)
+// }
+
+// console.log(reverseArr([1,2,3,4,5]))
+
+// function sumOfDigits(no){
+//     if(no < 2){
+//         return no
+//     }
+
+//     return no%10 + sumOfDigits(Math.floor(no/10))
+// }
+
+// console.log(sumOfDigits(15))
