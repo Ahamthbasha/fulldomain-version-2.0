@@ -213,16 +213,133 @@ const fs = require('fs')
 
 // readFile()
 
-const events = require('events')
+// const events = require('events')
 
-class eventEmitter extends events{
+// class eventEmitter extends events{
     
-}
+// }
 
-const e = new eventEmitter()
+// const e = new eventEmitter()
 
-e.on('greet',(name)=>{
-    console.log(`good morning ${name}`)
+// e.on('greet',(name)=>{
+//     console.log(`good morning ${name}`)
+// })
+
+// e.emit('greet','basha')
+
+
+
+// const readable = fs.createReadStream('hello4.txt')
+
+// readable.on('data',(chunk)=>{
+//     console.log(chunk.toString())
+// })
+
+// readable.on('end',()=>{
+//     console.log("finished")
+// })
+
+// const writable = fs.createWriteStream('hello5.txt')
+
+// writable.write(new Date().toString())
+
+// writable.end()
+
+// console.log("finished")
+
+// const {Duplex} = require('stream')
+
+// class myDuplex extends Duplex{
+//     constructor(){
+//         super()
+//         this.data = ''
+//     }
+
+//     _write(chunk,encoding,callback){
+//         this.data += chunk.toString()
+//         callback()
+//     }
+
+//     _read(size){
+//         this.push(this.data)
+//         this.push(null)
+//     }
+// }
+
+// const d = new myDuplex()
+
+// d.write("hello basha")
+
+// d.on('data',(chunk)=>{
+//     console.log(chunk.toString())
+// })
+
+// const {Transform} = require('stream')
+
+// class myTransform extends Transform{
+//     _transform(chunk,encoding,callback){
+//         const upperCase = chunk.toString().toUpperCase()
+//         this.push(upperCase)
+//         callback()
+//     }
+// }
+
+// const t = new myTransform()
+
+// const read = fs.createReadStream('hello4.txt')
+
+// const write = fs.createWriteStream('hello7.txt')
+
+// read
+// .pipe(t)
+// .pipe(write)
+// .on('close',()=>{
+//     console.log('finished')
+// })
+
+const {exec, spawn, fork} = require('child_process')
+const { stderr } = require('process')
+
+exec('/dir',(stderr,stdout,error)=>{
+    if(stderr){
+        console.log(stderr)
+    }
+
+    if(stdout){
+        console.log(stdout)
+    }
+
 })
 
-e.emit('greet','basha')
+
+execFile('node',['helloMamay.js'],(stderr,stdout,error)=>{
+    if(stderr){
+        console.log(stderr)
+    }
+
+    if(stdout){
+        console.log(stdout)
+    }
+
+    console.log(error)
+})
+
+
+const child = spawn('cmd.exe',['/c',])
+
+child.on('data',(chunk)=>{
+    console.log(chunk.toString())
+})
+
+child.on('close',()=>{
+    console.log(` code is exited with ${code}`)
+})
+
+
+const children = fork('helloMamay.js')
+
+children.on('message',(data)=>{
+    console.log(data.toString())
+})
+
+children.on('')
