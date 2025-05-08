@@ -1703,3 +1703,1286 @@
 
 // g.removeVertex('C');
 // g.print(); // C should be gone
+
+// function bubbleSort(arr){
+//     let swapped
+
+//     do{
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }while(swapped)
+//         return arr
+// }
+
+// function insertionSort(arr){
+//     for(let i=0;i<arr.length;i++){
+//         let cur = arr[i]
+
+//         let j =i - 1
+
+//         while(j >= 0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+
+//         arr[j+1] = cur
+//     }
+
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+
+//         let temp = arr[minElement]
+//         arr[minElement] = arr[i]
+//         arr[i] = temp
+//     }
+
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let mid = Math.floor(arr.length/2)
+//     let left = arr.slice(0,mid)
+//     let right = arr.slice(mid)
+
+//     return merge(mergeSort(left),mergeSort(right))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+    
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// const testArrays = [
+//     [],
+//     [1],
+//     [5, 4, 3, 2, 1],
+//     [1, 2, 3, 4, 5],
+//     [3, 1, 4, 1, 5, 9, 2],
+//     [5, 3, 8, 4, 2],
+// ];
+
+// const sortingAlgos = {
+//     bubbleSort,
+//     insertionSort,
+//     selectionSort,
+//     quickSort,
+//     mergeSort
+// };
+
+// for (const [name, sortFunc] of Object.entries(sortingAlgos)) {
+//     console.log(`--- ${name} ---`);
+//     for (const arr of testArrays) {
+//         const result = sortFunc([...arr]); // copy to avoid in-place mutation
+//         console.log(`Input: [${arr}] => Output: [${result}]`);
+//     }
+// }
+
+// class stack{
+//     constructor(){
+//         this.item= []
+//     }
+
+//     isEmpty(){
+//         return this.item.length === 0
+//     }
+
+//     getSize(){
+//         return this.item.length
+//     }
+
+//     push(value){
+//         this.item.push(value)
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item.pop()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[this.item.length-1]
+//     }
+
+//     reverseStr(str){
+//         let s = new stack()
+
+//         for(let i=0;i<str.length;i++){
+//             s.push(str[i])
+//         }
+
+//         let reversedStr =''
+
+//         while(s.item.length){
+//             reversedStr+=s.pop()
+//         }
+
+//         return reversedStr
+//     }
+
+//     reverseArr(arr){
+//         let s = new stack()
+
+//         for(let i=0;i<arr.length;i++){
+//             s.push(arr[i])
+//         }
+
+//         let reversedArr =[]
+
+//         while(s.item.length){
+//             reversedArr.push(s.pop())
+//         }
+
+//         return reversedArr
+//     }
+// }
+// const s = new stack()
+
+// console.log("Is empty:", s.isEmpty()) // true
+
+// s.push(10)
+// s.push(20)
+// s.push(30)
+
+// console.log("Peek:", s.peek()) // 30
+// console.log("Size:", s.getSize()) // 3
+// console.log("Pop:", s.pop()) // 30
+// console.log("Pop:", s.pop()) // 20
+// console.log("Pop:", s.pop()) // 10
+// console.log("Pop on empty:", s.pop()) // 'empty'
+// console.log("Is empty now:", s.isEmpty()) // true
+
+// // Test reverseStr
+// console.log("Reverse 'hello':", s.reverseStr("hello")) // "olleh"
+
+// // Test reverseArr
+// console.log("Reverse [1, 2, 3]:", s.reverseArr([1, 2, 3])) // [3, 2, 1]
+
+
+// class stack{
+//     constructor(){
+//         this.item = {}
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size  === 0
+//     }
+
+//     getSize(){
+//         return this.size 
+//     }
+
+//     push(value){
+//         this.item[this.size] = value
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         let val = this.item[this.size - 1]
+//         delete this.item[this.size-1]
+//         this.size--
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[this.size-1]
+//     }
+    
+// }
+
+// const s = new stack()
+
+// console.log("Is empty:", s.isEmpty())           // true
+// console.log("Size:", s.getSize())               // 0
+
+// s.push(100)
+// s.push(200)
+// s.push(300)
+
+// console.log("Size after 3 pushes:", s.getSize()) // 3
+// console.log("Peek:", s.peek())                   // 300
+// console.log("Pop:", s.pop())                     // 300
+// console.log("Peek after pop:", s.peek())         // 200
+// console.log("Pop:", s.pop())                     // 200
+// console.log("Pop:", s.pop())                     // 100
+// console.log("Pop on empty:", s.pop())            // 'empty'
+// console.log("Is empty now:", s.isEmpty())        // true
+
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class stack{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.head == null
+//     }
+
+//     getSize(){
+//         return this.size 
+//     }
+
+//     push(value){
+//         let node = new Node(value)
+
+//         node.next = this.head
+
+//         this.head = node
+
+//         this.size ++
+//     }
+
+//     pop(){
+
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         let val = this.head.value
+
+//         this.head = this.head.next
+
+//         this.size--
+
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.head.value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }else{
+//             let list = ''
+
+//             let temp = this.head
+
+
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+
+//             return list
+//         }
+//     }
+// }
+
+// const s = new stack()
+
+// console.log("Is empty?", s.isEmpty())       // true
+// console.log("Size:", s.getSize())           // 0
+
+// s.push(10)
+// s.push(20)
+// s.push(30)
+
+// console.log("Stack:", s.print())            // 30 -> 20 -> 10 -> null
+// console.log("Peek:", s.peek())              // 30
+// console.log("Pop:", s.pop())                // 30
+// console.log("Peek after pop:", s.peek())    // 20
+// console.log("Size:", s.getSize())           // 2
+// console.log("Pop:", s.pop())                // 20
+// console.log("Pop:", s.pop())                // 10
+// console.log("Pop on empty:", s.pop())       // 'empty'
+// console.log("Stack:", s.print())            // 'empty'
+
+// class queue{
+//     constructor(){
+//         this.item = []
+//     }
+
+//     isEmpty(){
+//         return this.item.length == 0
+//     }
+
+//     getSize(){
+//         return this.item.length
+//     }
+
+//     enqueue(value){
+//         this.item.push(value)
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+
+//         return this.item.shift()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[0]
+//     }
+
+//     print(){
+//         console.log(this.item)
+//     }
+// }
+
+// const q = new queue()
+
+// console.log(q.isEmpty())         // true
+// console.log(q.getSize())         // 0
+
+// q.enqueue(10)
+// q.enqueue(20)
+// q.enqueue(30)
+
+// q.print()                        // [10, 20, 30]
+// console.log(q.peek())           // 10
+
+// console.log(q.dequeue())        // 10
+// console.log(q.dequeue())        // 20
+
+// q.print()                        // [30]
+// console.log(q.getSize())         // 1
+// console.log(q.dequeue())        // 30
+// console.log(q.dequeue())        // 'nothing to remove'
+// console.log(q.peek())           // 'empty'
+
+
+// class queue{
+//     constructor() {
+//         this.item ={}
+//         this.head = 0
+//         this.tail = 0
+//     }
+
+//     isEmpty(){
+//         return this.tail - this.head === 0
+//     }
+
+//     getSize(){
+//         return this.tail - this.head
+//     }
+
+//     enqueue(value){
+//         this.item[this.tail] = value
+//         this.tail++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'isEmpty'
+//         }
+
+//         let val  = this.item[this.head]
+
+//         delete this.item[this.head]
+//         this.head++
+
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[this.front]
+//     }
+
+//     print(){
+//         console.log(this.item)
+//     }
+// }
+
+// const q = new queue();
+
+// console.log(q.isEmpty());    // true
+// console.log(q.getSize());    // 0
+
+// q.enqueue(1);
+// q.enqueue(2);
+// q.enqueue(3);
+
+// console.log(q.peek());       // 1
+// console.log(q.dequeue());    // 1
+// console.log(q.peek());       // 2
+// console.log(q.getSize());    // 2
+
+// q.enqueue(4);
+// q.print();                   // {1: 2, 2: 3, 3: 4}
+
+// console.log(q.dequeue());    // 2
+// console.log(q.dequeue());    // 3
+// console.log(q.dequeue());    // 4
+// console.log(q.dequeue());    // isEmpty
+// console.log(q.peek());       // empty
+
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class qll{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     enqueue(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//             this.size++
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp= temp.next
+//             }
+
+//             temp.next = node
+//             node.next = null
+
+//             this.size++
+//         }
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }else{
+//             let val = this.head.value
+
+//             this.head = this.head.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.head.value
+//     }
+// }
+
+// const queue = new qll();
+
+// console.log(queue.isEmpty());   // true
+// console.log(queue.getSize());   // 0
+
+// queue.enqueue(10);
+// queue.enqueue(20);
+// queue.enqueue(30);
+
+// console.log(queue.peek());      // 10
+// console.log(queue.getSize());   // 3
+// console.log(queue.isEmpty());   // false
+
+// console.log(queue.dequeue());   // 10
+// console.log(queue.peek());      // 20
+// console.log(queue.getSize());   // 2
+
+// console.log(queue.dequeue());   // 20
+// console.log(queue.dequeue());   // 30
+// console.log(queue.dequeue());   // "empty"
+// console.log(queue.peek());      // "empty"
+
+
+// class hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+//         this.table[index] = value
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+
+//         return this.table[index] || null
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+
+//         this.table[index] = undefined
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const ht = new hashtable(10);
+
+// ht.set("name", "Alice");
+// ht.set("age", 25);
+// ht.set("city", "Delhi");
+
+// // Test retrieval
+// console.log(ht.get("name")); // Alice
+// console.log(ht.get("age"));  // 25
+// console.log(ht.get("city")); // Delhi
+// console.log(ht.get("country")); // null (not found)
+
+// // Test overwrite
+// ht.set("age", 30);
+// console.log(ht.get("age"));  // 30
+
+// // Test removal
+// ht.remove("name");
+// console.log(ht.get("name")); // null
+
+// // Test print
+// ht.print();
+
+
+// class hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+
+//         for(let i=0;i<key.length;i++){
+//             total+=key.charCodeAt(i)
+//         }
+
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(!bucket){
+//             this.table[index] = [[key,value]]
+//         }else{
+//             let sameElement = bucket.find((item)=>item[0]==key)
+
+//             if(sameElement){
+//                 sameElement[1] = value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let sameElement = bucket.find((item)=>item[0]==key)
+
+//             if(sameElement){
+//                 return sameElement[1]
+//             }else{
+//                 return null
+//             }
+//         }
+//         return null
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let sameElementIndex = bucket.findIndex((item)=>item[0]==key)
+
+//             if(sameElementIndex != -1){
+//                 return bucket.splice(sameElementIndex,1)
+//             }else{
+//                 return 'invalid key'
+//             }
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+
+//     findDuplicates(){
+//         let valMap = {}
+
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(valMap[value]){
+//                         valMap[value]++
+//                     }else{
+//                         valMap[value] = 1
+//                     }
+//                 }
+//             }
+//         }
+
+//         let duplicates = []
+
+//         for(let key in valMap){
+//             if(valMap[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
+
+//         return duplicates
+//     }
+
+//     removeDuplicates(){
+//         let seen = {}
+
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+
+//             if(bucket){
+//                 const newBucket = []
+//                 for(let j=0;j<bucket.length;j++){
+//                     const [key,value] = bucket[j]
+//                      if(!seen[value]){
+//                         seen[value] = true
+//                         newBucket.push([key,value])
+//                      }
+//                 }
+
+//                 this.table[i] = newBucket.length > 0 ? newBucket : undefined
+//             }
+//         }
+//     }
+
+//     findDuplicatesFromInput(input){
+//         let value = Array.isArray(input) ? input : input.split('')
+
+//         let temp = new hashtable(50)
+
+//         for(let i=0;i<value.length;i++){
+//             let val = value[i].toString()
+//             let count = temp.get(val) || 0
+//             temp.set(val,count+1)
+//         }
+
+//         let duplicates = []
+
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(value > 1){
+//                         duplicates.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return Array.isArray(input) ? duplicates : duplicates.join('')
+//     }
+
+//     removeDuplicatesFromInput(input){
+//         const value = Array.isArray(input) ? input : input.split('')
+
+//         let temp = new hashtable(50)
+
+//         for(let i=0;i<value.length;i++){
+//             let val = value[i].toString()
+//             let count = temp.get(val) || 0
+//             temp.set(val,count+1)
+//         }
+
+//         let unique = []
+
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(value == 1){
+//                         unique.push(key)
+//                     }
+//                 }
+//             } 
+//         }
+
+//         return Array.isArray(input) ? unique : unique.join('')
+//     }
+
+//     nthMostFrequent(arr,k){
+//         if(arr.length < k){
+//             return 'invalid k'
+//         }
+
+//         let value = Array.isArray(arr) ? arr : arr.split('')
+
+//         let temp = new hashtable(50)
+
+//         for(let i=0;i<value.length;i++){
+//             let val = value[i].toString()
+//             let count = temp.get(val) || 0
+//             temp.set(val,count+1)
+//         }
+
+//         let result = []
+
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     result.push([key,value])
+//                 }
+//             }
+//         }
+
+//         result.sort((a,b)=>b[1]-a[1])
+
+//         return result[k-1] || null
+//     }
+// }
+
+
+// let ht = new hashtable(10);
+
+// // Test set and get
+// ht.set('a', 1);
+// ht.set('b', 2);
+// ht.set('c', 3);
+// console.log(ht.get('a')); // 1
+// console.log(ht.get('b')); // 2
+// console.log(ht.get('z')); // null
+
+// // Test update value
+// ht.set('a', 100);
+// console.log(ht.get('a')); // 100
+
+// // Test remove
+// console.log(ht.remove('a')); // [['a', 100]]
+// console.log(ht.get('a')); // null
+// console.log(ht.remove('z')); // 'invalid key'
+
+// // Insert duplicates
+// ht.set('x', 10);
+// ht.set('y', 10);
+// ht.set('z', 20);
+// ht.set('m', 20);
+
+// // Test findDuplicates
+// console.log(ht.findDuplicates()); // ['10','20']
+
+// // Test removeDuplicates
+// ht.removeDuplicates();
+// ht.print(); // Only one of each value remains
+
+// // Test findDuplicatesFromInput
+// console.log(ht.findDuplicatesFromInput('programming')); // 'rmg'
+// console.log(ht.findDuplicatesFromInput([1,2,2,3,4,4,5])); // ['2','4']
+
+// // Test removeDuplicatesFromInput
+// console.log(ht.removeDuplicatesFromInput('programming')); // 'poain'
+// console.log(ht.removeDuplicatesFromInput([1,2,2,3,4,4,5])); // ['1','3','5']
+
+// // Test nthMostFrequent
+// console.log(ht.nthMostFrequent('aabbcccddddeeeee', 1)); // ['e',5]
+// console.log(ht.nthMostFrequent('aabbcccddddeeeee', 3)); // ['c',3]
+// console.log(ht.nthMostFrequent([1,2,2,3,3,3,4,4,4,4], 2)); // ['3',3]
+// console.log(ht.nthMostFrequent([1,2,3], 5)); // 'invalid k'
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class linkedlist{
+    constructor() {
+        this.head = null
+        this.size = 0
+    }
+
+    isEmpty(){
+        return this.size == 0
+    }
+
+    getSize(){
+        return this.size
+    }
+
+    prepend(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+            this.size++
+        }else{
+            node.next = this.head
+
+            this.head = node
+
+            this.size++
+        }
+    }
+
+    append(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node   
+        }
+        this.size++
+    }
+
+    insert(index,value){
+        const node = new Node(value)
+        if(index < 0 || index > this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            this.prepend(value)
+        }
+        else if(index == this.size){
+            this.append(value)
+        }
+        else{
+            let temp = this.head
+
+            for(let i=0;i<index - 1;i++){
+                temp = temp.next
+            }
+
+            node.next = temp.next
+            temp.next = node
+            this.size++
+        }
+    }
+
+    removeFromStart(){
+        if(this.isEmpty()){
+            return 'empty'
+        }else{
+            let val = this.head.value
+
+            this.head = this.head.next
+
+            this.size --
+
+            return val
+        }
+    }
+
+    removeFromEnd(){
+        if(this.isEmpty()){
+            return 'empty'
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next.next){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
+        }
+    }
+
+    removeByIndex(index){
+        if(index < 0 || index > this.size){
+            return ' invalid index'
+        }
+        else if(index == 0){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else if(index == this.size-1){
+            let temp = this.head
+
+            while(temp.next.next){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = temp.next.next
+
+            this.size--
+
+            return val
+        }
+    }
+
+    removeByVal(value){
+        if(this.isEmpty()){
+            return 'empty'
+        }
+        else if(this.head.value == value){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next && temp.next.value != value){
+                temp = temp.next
+            }
+
+            if(temp.next == null){
+                return 'no value found'
+            }
+
+            let val = temp.next.value
+
+            temp.next = temp.next.next
+
+            this.size--
+
+            return val
+        }
+    }
+
+    reverse(){
+        let prev = null
+        let cur = this.head
+
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
+        }
+
+        this.head = prev
+    }
+
+    print(){
+        if(this.isEmpty()){
+            return 'empty'
+        }else{
+            let list = ''
+
+            let temp = this.head
+
+            while(temp){
+                list+=temp.value+'->'
+                temp = temp.next
+            }
+
+            list+='null'
+            return list
+        }
+    }
+
+    arrayToLinkedList(arr){
+        for(let i=0;i<arr.length;i++){
+            this.append(arr[i])
+        }
+    }
+
+    linkedlistToArr(){
+        let arr= []
+
+        let temp = this.head
+
+        while(temp){
+            arr.push(temp.value)
+            temp = temp.next
+        }
+
+        return arr
+    }
+
+    checkPalindrome(){
+        let arr = []
+
+        let temp = this.head
+
+        while(temp){
+            arr.push(temp.value)
+            temp = temp.next
+        }
+
+        let given = arr.reverse()
+
+        return arr.join('') === given.join('')
+    }
+
+    makeCircular(){
+        let temp = this.head
+
+        while(temp.next && temp.next != this.head){
+            temp = temp.next
+        }
+
+        temp.next = this.head
+    }
+
+    checkCircular(){
+        let slow = this.head
+
+        let fast = this.head
+
+        while(fast && fast.next){
+            slow = slow.next
+            fast = fast.next.next
+
+            if(slow == fast){
+                return 'cycle found'
+            }
+        }
+
+        return 'not cycle'
+    }
+
+    removeDuplicates(){
+        let prev = null
+        let temp = this.head
+
+        let seen ={}
+
+        while(temp){
+            if(seen[temp.value]){
+                prev.next = temp.next
+            }else{
+                seen[temp.value] = true
+                prev = temp
+            }
+
+            temp = temp.next
+        }
+    }
+
+    sorting(){
+        let swapped 
+
+        do{
+            swapped = false
+            let temp = this.head
+
+            while(temp && temp.next){
+                if(temp.value > temp.next.value){
+                    [temp.value,temp.next.value] = [temp.next.value,temp.value]
+                    swapped = true
+                }
+                temp = temp.next
+            }
+        }while(swapped)
+    }
+
+    findDuplicates(){
+        let temp = this.head
+        let valMap = {}
+
+        while(temp){
+            if(valMap[temp.value]){
+                valMap[temp.value]++
+            }else{
+                valMap[temp.value] = 1
+            }
+
+            temp = temp.next
+        }
+
+        let duplicates =[]
+
+        for(let key in valMap){
+            if(valMap[key] > 1){
+                duplicates.push(key)
+            }
+        }
+
+        return duplicates
+    }
+
+    findMidAndRemove(){
+        let mid = Math.floor(this.size/2)
+        return this.removeByIndex(mid)
+    }
+}
+
+const ll = new linkedlist();
+
+ll.append(1);
+ll.append(2);
+ll.append(3);
+ll.append(2);
+ll.append(4);
+ll.append(3);
+console.log("List:", ll.print()); // 1->2->3->2->4->3->null
+
+console.log("Size:", ll.getSize()); // 6
+
+console.log("Find Duplicates:", ll.findDuplicates()); // ['2', '3']
+
+ll.removeDuplicates();
+console.log("After Removing Duplicates:", ll.print()); // 1->2->3->4->null
+
+ll.reverse();
+console.log("After Reverse:", ll.print()); // 4->3->2->1->null
+
+console.log("Is Palindrome:", ll.checkPalindrome()); // false
+
+ll.makeCircular();
+console.log("Cycle check:", ll.checkCircular()); // "cycle found"
+
+const ll2 = new linkedlist();
+ll2.arrayToLinkedList([1, 2, 3, 2, 1]);
+console.log("Check palindrome:", ll2.checkPalindrome()); // true
+
+ll2.sorting();
+console.log("Sorted List:", ll2.print()); // 1->1->2->2->3->null
+
+console.log("Mid Removed:", ll2.findMidAndRemove()); // Should remove middle element (2)
+console.log("After Mid Removed:", ll2.print());
