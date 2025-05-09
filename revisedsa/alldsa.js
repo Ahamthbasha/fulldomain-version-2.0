@@ -6,6 +6,8 @@
 //     }
 // }
 
+const { jsx } = require("react/jsx-runtime")
+
 // class tree{
 //     constructor(){
 //         this.root = null
@@ -2612,377 +2614,464 @@
 // console.log(ht.nthMostFrequent([1,2,2,3,3,3,4,4,4,4], 2)); // ['3',3]
 // console.log(ht.nthMostFrequent([1,2,3], 5)); // 'invalid k'
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class linkedlist{
+//     constructor() {
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     prepend(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//             this.size++
+//         }else{
+//             node.next = this.head
+
+//             this.head = node
+
+//             this.size++
+//         }
+//     }
+
+//     append(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node   
+//         }
+//         this.size++
+//     }
+
+//     insert(index,value){
+//         const node = new Node(value)
+//         if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             this.prepend(value)
+//         }
+//         else if(index == this.size){
+//             this.append(value)
+//         }
+//         else{
+//             let temp = this.head
+
+//             for(let i=0;i<index - 1;i++){
+//                 temp = temp.next
+//             }
+
+//             node.next = temp.next
+//             temp.next = node
+//             this.size++
+//         }
+//     }
+
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }else{
+//             let val = this.head.value
+
+//             this.head = this.head.next
+
+//             this.size --
+
+//             return val
+//         }
+//     }
+
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+
+//             let val = temp.next.value
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     removeByIndex(index){
+//         if(index < 0 || index > this.size){
+//             return ' invalid index'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else if(index == this.size-1){
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+
+//             let val = temp.next.value
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = temp.next.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     removeByVal(value){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next && temp.next.value != value){
+//                 temp = temp.next
+//             }
+
+//             if(temp.next == null){
+//                 return 'no value found'
+//             }
+
+//             let val = temp.next.value
+
+//             temp.next = temp.next.next
+
+//             this.size--
+
+//             return val
+//         }
+//     }
+
+//     reverse(){
+//         let prev = null
+//         let cur = this.head
+
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
+
+//         this.head = prev
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }else{
+//             let list = ''
+
+//             let temp = this.head
+
+//             while(temp){
+//                 list+=temp.value+'->'
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+//             return list
+//         }
+//     }
+
+//     arrayToLinkedList(arr){
+//         for(let i=0;i<arr.length;i++){
+//             this.append(arr[i])
+//         }
+//     }
+
+//     linkedlistToArr(){
+//         let arr= []
+
+//         let temp = this.head
+
+//         while(temp){
+//             arr.push(temp.value)
+//             temp = temp.next
+//         }
+
+//         return arr
+//     }
+
+//     checkPalindrome(){
+//         let arr = []
+
+//         let temp = this.head
+
+//         while(temp){
+//             arr.push(temp.value)
+//             temp = temp.next
+//         }
+
+//         let given = arr.reverse()
+
+//         return arr.join('') === given.join('')
+//     }
+
+//     makeCircular(){
+//         let temp = this.head
+
+//         while(temp.next && temp.next != this.head){
+//             temp = temp.next
+//         }
+
+//         temp.next = this.head
+//     }
+
+//     checkCircular(){
+//         let slow = this.head
+
+//         let fast = this.head
+
+//         while(fast && fast.next){
+//             slow = slow.next
+//             fast = fast.next.next
+
+//             if(slow == fast){
+//                 return 'cycle found'
+//             }
+//         }
+
+//         return 'not cycle'
+//     }
+
+//     removeDuplicates(){
+//         let prev = null
+//         let temp = this.head
+
+//         let seen ={}
+
+//         while(temp){
+//             if(seen[temp.value]){
+//                 prev.next = temp.next
+//             }else{
+//                 seen[temp.value] = true
+//                 prev = temp
+//             }
+
+//             temp = temp.next
+//         }
+//     }
+
+//     sorting(){
+//         let swapped 
+
+//         do{
+//             swapped = false
+//             let temp = this.head
+
+//             while(temp && temp.next){
+//                 if(temp.value > temp.next.value){
+//                     [temp.value,temp.next.value] = [temp.next.value,temp.value]
+//                     swapped = true
+//                 }
+//                 temp = temp.next
+//             }
+//         }while(swapped)
+//     }
+
+//     findDuplicates(){
+//         let temp = this.head
+//         let valMap = {}
+
+//         while(temp){
+//             if(valMap[temp.value]){
+//                 valMap[temp.value]++
+//             }else{
+//                 valMap[temp.value] = 1
+//             }
+
+//             temp = temp.next
+//         }
+
+//         let duplicates =[]
+
+//         for(let key in valMap){
+//             if(valMap[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
+
+//         return duplicates
+//     }
+
+//     findMidAndRemove(){
+//         let mid = Math.floor(this.size/2)
+//         return this.removeByIndex(mid)
+//     }
+// }
+
+// const ll = new linkedlist();
+
+// ll.append(1);
+// ll.append(2);
+// ll.append(3);
+// ll.append(2);
+// ll.append(4);
+// ll.append(3);
+// console.log("List:", ll.print()); // 1->2->3->2->4->3->null
+
+// console.log("Size:", ll.getSize()); // 6
+
+// console.log("Find Duplicates:", ll.findDuplicates()); // ['2', '3']
+
+// ll.removeDuplicates();
+// console.log("After Removing Duplicates:", ll.print()); // 1->2->3->4->null
+
+// ll.reverse();
+// console.log("After Reverse:", ll.print()); // 4->3->2->1->null
+
+// console.log("Is Palindrome:", ll.checkPalindrome()); // false
+
+// ll.makeCircular();
+// console.log("Cycle check:", ll.checkCircular()); // "cycle found"
+
+// const ll2 = new linkedlist();
+// ll2.arrayToLinkedList([1, 2, 3, 2, 1]);
+// console.log("Check palindrome:", ll2.checkPalindrome()); // true
+
+// ll2.sorting();
+// console.log("Sorted List:", ll2.print()); // 1->1->2->2->3->null
+
+// console.log("Mid Removed:", ll2.findMidAndRemove()); // Should remove middle element (2)
+// console.log("After Mid Removed:", ll2.print());
+
+
+// const ab = [[2,6],[8,10],[-1,5],[19,23],[-1,3],[45,34],[-1,3]]
+
+// function print(ab,visitedNode={}){
+//     if(ab.length == 0){
+//         return 0
+//     }
+
+//     let elem = ab[0]
+
+//     let min = Math.min(...elem)
+//     let max = Math.max(...elem)
+//     let str = ''
+//     let display = ''
+//     for(let i=min;i<=max;i++){
+//         if(!visitedNode[i]){
+//             visitedNode[i] = true
+//             str+=i + "+"
+//             display += i+'+'
+//         }
+//     }
+
+
+//     if(str){
+//         str = str.slice(0,-1)
+//         display = display.slice(0,-1)
+
+//         let out = eval(str)
+
+//         console.log(display+'='+out)
+//     }
+
+    
+//     ab.shift()
+
+//     return print(ab,visitedNode)
+// }
+
+
+// console.log(print(ab))
+
+// let visitedNode = {}
+
+// for(let i=0;i<ab.length;i++){
+//     let min = Math.min(...ab[i])
+//     let max = Math.max(...ab[i])
+//     let sum = 0
+//     let str = ''
+//     for(let j=min;j<=max;j++){
+//         if(!visitedNode[j]){
+//             visitedNode[j] = true
+//             sum+=j
+//             str+=j+"+"
+//         }   
+//     }
+
+//     let result = str + '=' + String(sum)
+
+//     console.log(result)
+// }
+
+
+// const ab = [[{a:1,pn:232}],[{a:1,pn:232}],[{a:1,pn:232}]]
+
+
+// let sum =0
+
+// for(let val of ab){
+//     for(let value of val){
+//         sum+=value.a+value.pn
+//     }
+// }
+
+// console.log(sum)
+
+function greet(message){
+    return `${this.name}+${message}`
 }
 
-class linkedlist{
-    constructor() {
-        this.head = null
-        this.size = 0
-    }
-
-    isEmpty(){
-        return this.size == 0
-    }
-
-    getSize(){
-        return this.size
-    }
-
-    prepend(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-            this.size++
-        }else{
-            node.next = this.head
-
-            this.head = node
-
-            this.size++
-        }
-    }
-
-    append(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-        }
-        else{
-            let temp = this.head
-
-            while(temp.next){
-                temp = temp.next
-            }
-
-            temp.next = node   
-        }
-        this.size++
-    }
-
-    insert(index,value){
-        const node = new Node(value)
-        if(index < 0 || index > this.size){
-            return 'invalid index'
-        }
-        else if(index == 0){
-            this.prepend(value)
-        }
-        else if(index == this.size){
-            this.append(value)
-        }
-        else{
-            let temp = this.head
-
-            for(let i=0;i<index - 1;i++){
-                temp = temp.next
-            }
-
-            node.next = temp.next
-            temp.next = node
-            this.size++
-        }
-    }
-
-    removeFromStart(){
-        if(this.isEmpty()){
-            return 'empty'
-        }else{
-            let val = this.head.value
-
-            this.head = this.head.next
-
-            this.size --
-
-            return val
-        }
-    }
-
-    removeFromEnd(){
-        if(this.isEmpty()){
-            return 'empty'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
-
-            while(temp.next.next){
-                temp = temp.next
-            }
-
-            let val = temp.next.value
-            temp.next = null
-            this.size--
-            return val
-        }
-    }
-
-    removeByIndex(index){
-        if(index < 0 || index > this.size){
-            return ' invalid index'
-        }
-        else if(index == 0){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else if(index == this.size-1){
-            let temp = this.head
-
-            while(temp.next.next){
-                temp = temp.next
-            }
-
-            let val = temp.next.value
-            temp.next = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
-            let val = temp.next.value
-            temp.next = temp.next.next
-
-            this.size--
-
-            return val
-        }
-    }
-
-    removeByVal(value){
-        if(this.isEmpty()){
-            return 'empty'
-        }
-        else if(this.head.value == value){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
-
-            while(temp.next && temp.next.value != value){
-                temp = temp.next
-            }
-
-            if(temp.next == null){
-                return 'no value found'
-            }
-
-            let val = temp.next.value
-
-            temp.next = temp.next.next
-
-            this.size--
-
-            return val
-        }
-    }
-
-    reverse(){
-        let prev = null
-        let cur = this.head
-
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
-
-        this.head = prev
-    }
-
-    print(){
-        if(this.isEmpty()){
-            return 'empty'
-        }else{
-            let list = ''
-
-            let temp = this.head
-
-            while(temp){
-                list+=temp.value+'->'
-                temp = temp.next
-            }
-
-            list+='null'
-            return list
-        }
-    }
-
-    arrayToLinkedList(arr){
-        for(let i=0;i<arr.length;i++){
-            this.append(arr[i])
-        }
-    }
-
-    linkedlistToArr(){
-        let arr= []
-
-        let temp = this.head
-
-        while(temp){
-            arr.push(temp.value)
-            temp = temp.next
-        }
-
-        return arr
-    }
-
-    checkPalindrome(){
-        let arr = []
-
-        let temp = this.head
-
-        while(temp){
-            arr.push(temp.value)
-            temp = temp.next
-        }
-
-        let given = arr.reverse()
-
-        return arr.join('') === given.join('')
-    }
-
-    makeCircular(){
-        let temp = this.head
-
-        while(temp.next && temp.next != this.head){
-            temp = temp.next
-        }
-
-        temp.next = this.head
-    }
-
-    checkCircular(){
-        let slow = this.head
-
-        let fast = this.head
-
-        while(fast && fast.next){
-            slow = slow.next
-            fast = fast.next.next
-
-            if(slow == fast){
-                return 'cycle found'
-            }
-        }
-
-        return 'not cycle'
-    }
-
-    removeDuplicates(){
-        let prev = null
-        let temp = this.head
-
-        let seen ={}
-
-        while(temp){
-            if(seen[temp.value]){
-                prev.next = temp.next
-            }else{
-                seen[temp.value] = true
-                prev = temp
-            }
-
-            temp = temp.next
-        }
-    }
-
-    sorting(){
-        let swapped 
-
-        do{
-            swapped = false
-            let temp = this.head
-
-            while(temp && temp.next){
-                if(temp.value > temp.next.value){
-                    [temp.value,temp.next.value] = [temp.next.value,temp.value]
-                    swapped = true
-                }
-                temp = temp.next
-            }
-        }while(swapped)
-    }
-
-    findDuplicates(){
-        let temp = this.head
-        let valMap = {}
-
-        while(temp){
-            if(valMap[temp.value]){
-                valMap[temp.value]++
-            }else{
-                valMap[temp.value] = 1
-            }
-
-            temp = temp.next
-        }
-
-        let duplicates =[]
-
-        for(let key in valMap){
-            if(valMap[key] > 1){
-                duplicates.push(key)
-            }
-        }
-
-        return duplicates
-    }
-
-    findMidAndRemove(){
-        let mid = Math.floor(this.size/2)
-        return this.removeByIndex(mid)
-    }
+const obj={
+    name:'ahamathbasha'
 }
 
-const ll = new linkedlist();
+const result = greet.call(obj)
 
-ll.append(1);
-ll.append(2);
-ll.append(3);
-ll.append(2);
-ll.append(4);
-ll.append(3);
-console.log("List:", ll.print()); // 1->2->3->2->4->3->null
-
-console.log("Size:", ll.getSize()); // 6
-
-console.log("Find Duplicates:", ll.findDuplicates()); // ['2', '3']
-
-ll.removeDuplicates();
-console.log("After Removing Duplicates:", ll.print()); // 1->2->3->4->null
-
-ll.reverse();
-console.log("After Reverse:", ll.print()); // 4->3->2->1->null
-
-console.log("Is Palindrome:", ll.checkPalindrome()); // false
-
-ll.makeCircular();
-console.log("Cycle check:", ll.checkCircular()); // "cycle found"
-
-const ll2 = new linkedlist();
-ll2.arrayToLinkedList([1, 2, 3, 2, 1]);
-console.log("Check palindrome:", ll2.checkPalindrome()); // true
-
-ll2.sorting();
-console.log("Sorted List:", ll2.print()); // 1->1->2->2->3->null
-
-console.log("Mid Removed:", ll2.findMidAndRemove()); // Should remove middle element (2)
-console.log("After Mid Removed:", ll2.print());
+console.log(result)
