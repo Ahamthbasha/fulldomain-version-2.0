@@ -55,24 +55,24 @@
 // console.log(object)
 
 
-const person = {
-    name:"ahamathbasha",
+// const person = {
+//     name:"ahamathbasha",
     
 
-    get fullName(){
-        return `${this.name}`
-    },
+//     get fullName(){
+//         return `${this.name}`
+//     },
 
-    set fullName(name){
-        this.name = name
-    }
-}
+//     set fullName(name){
+//         this.name = name
+//     }
+// }
 
-console.log(person.fullName)
+// console.log(person.fullName)
 
-person.name = 'basha'
+// person.name = 'basha'
 
-console.log(person.fullName)
+// console.log(person.fullName)
 
 
 // const obj={
@@ -97,3 +97,91 @@ console.log(person.fullName)
 // console.log(proxy.name)
 
 // console.log(obj)
+
+
+// function deepCopy(obj){
+//     if(obj === null || typeof obj != 'object'){
+//         return obj
+//     }
+
+//     const copy = Array.isArray(obj) ? [] : {}
+
+//     for(let key in obj){
+//         copy[key] = deepCopy(obj[key])
+//     }
+
+// }
+
+// function deepFreeze(obj){
+//     let propNames = Object.getOwnPropertyNames(obj)
+
+//     for(let name of propNames){
+//         let value = obj[name]
+
+//         if(value && typeof value === 'object'){
+//             deepFreeze(value)
+//         }
+//     }
+
+//     return Object.freeze(obj)
+// }
+
+// function factorial(no){
+//     let fact = 1
+//     for(let i=1;i<=no;i++){
+//         fact*=i
+//     }
+//     return fact
+// }
+
+// const memoization =(fn) =>{
+//     let cache ={}
+
+//     return function(args){
+//         let no = args
+
+//         if(no in cache){
+//             return cache[no]
+//         }
+//         else{
+//             let result = fn(args)
+//             cache[no] = result
+//             return result
+//         }
+//     }
+// }
+
+// const memoFactorial = memoization(factorial)
+
+// console.log(memoFactorial(5))
+
+
+// const ab =[[1],[23],[32],[76]]
+
+// let output =[]
+
+
+// for(let val of ab){
+//     for(let value of val){
+//         output.push({a:value})
+//     }
+// }
+
+// console.log(output)
+
+// let input =[4,5,2,25]
+// let output = []
+
+// for(let i=0;i<input.length;i++){
+//     let nextGreater = -1
+//     for(let j=i+1;j<input.length;j++){
+//         if(input[j] > input[i]){
+//             nextGreater = input[j]
+//             break
+//         }
+//     }
+//     output.push(nextGreater)
+// }
+
+// console.log(output)
+
