@@ -432,27 +432,27 @@
 //     return 'not found'
 // }
 
-function bst(arr,target){
-    return binarySearchTree(arr,target,0,arr.length-1)
-}
+// function bst(arr,target){
+//     return binarySearchTree(arr,target,0,arr.length-1)
+// }
 
-function binarySearchTree(arr,target,leftIndex,rightIndex){
-    if(leftIndex > rightIndex){
-        return -1
-    }
+// function binarySearchTree(arr,target,leftIndex,rightIndex){
+//     if(leftIndex > rightIndex){
+//         return -1
+//     }
 
-    let mid = Math.floor((leftIndex+rightIndex)/2)
+//     let mid = Math.floor((leftIndex+rightIndex)/2)
 
-    if(arr[mid] == target){
-        return mid
-    }
-    else if(target < arr[mid]){
-        return binarySearchTree(arr,target,leftIndex,mid-1)
-    }
-    else{
-        return binarySearchTree(arr,target,mid+1,rightIndex)
-    }
-}
+//     if(arr[mid] == target){
+//         return mid
+//     }
+//     else if(target < arr[mid]){
+//         return binarySearchTree(arr,target,leftIndex,mid-1)
+//     }
+//     else{
+//         return binarySearchTree(arr,target,mid+1,rightIndex)
+//     }
+// }
 
 // const arr = [1, 3, 5, 7, 9, 11, 13];
 // const target = 7;
@@ -466,3 +466,93 @@ function binarySearchTree(arr,target,leftIndex,rightIndex){
 
 // const result = bst(arr, target);
 // console.log(result); // Expected output: -1 (target not found)
+
+
+function binarySearch(arr,target){
+    let start = 0
+    let end = arr.length-1
+
+    while(start <= end){
+        let mid = Math.floor((start+end)/2)
+
+        if(arr[mid] === target){
+            return mid
+        }
+        else if(target < arr[mid]){
+            end = mid - 1
+        }
+        else{
+            start = mid + 1
+        }
+    }
+
+    return -1
+}
+
+function bst(arr,target){
+    return binarySearchRecursion(arr,target,0,arr.lenght-1)
+}
+
+function binarySearchRecursion(arr,target,leftIndex,rightIndex){
+
+    if(leftIndex > rightIndex){
+        return -1
+    }
+
+    let mid = Math.floor((leftIndex+rightIndex)/2)
+
+    if(arr[mid] == target){
+        return mid
+    }
+    else if(target < arr[mid]){
+        return binarySearchRecursion(arr,target,leftIndex,mid-1)
+    }
+    else{
+        return binarySearchRecursion(arr,target,mid+1,rightIndex)
+    }
+}
+
+
+// IsBs(root,min=-Infinity,max=Infinity){
+//     if(!root){
+//         return true
+//     }
+
+//     if(root.value <= min || root.value >= max){
+//         return false
+//     }
+
+//     return this.isBs(root.left,min,root.value) && this.isBs(root.right,root.value,max)
+// }
+
+
+// b(start){
+//     let visitedNode = new Set()
+//     visitedNode.add(start)
+
+//     let queue = []
+//     queue.push(start)
+
+//     while(queue.length){
+//         let vertex = queue.shift()
+
+//         console.log(vertex)
+
+//         this.adjancyList(vertex).forEach((neeighbor)=>{
+//             if(!visitedNode.has(neeighbor)){
+//                 visitedNode.add(neeighbor)
+//                 queue.push(neeighbor)
+//             }
+//         })
+//     }
+// }
+
+// Dfs(start,visitedNode = new Set()){
+//     visitedNode.add(start)
+
+//     this.adjancency[start].forEach((neighbor)=>{
+//         if(!visitedNode.has(neighbor)){
+//             this.Dfs(neighbor,visitedNode)
+//         }
+//     })
+// }
