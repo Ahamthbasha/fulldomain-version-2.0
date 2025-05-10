@@ -185,3 +185,284 @@
 
 // console.log(output)
 
+// function findSmallest(arr){
+//   const result =  arr.reduce((acc,cur)=>{
+
+//     if([acc.first,acc.second,acc.third,acc.fourth].includes(cur)){
+//         return acc
+//     }
+
+//         if(cur < acc.first){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = acc.first
+//             acc.first = cur
+//         }
+//         else if(cur < acc.second){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = cur
+//         }
+//         else if(cur < acc.third){
+//             acc.fourth = acc.third
+//             acc.third = cur
+//         }
+//         else if(cur < acc.fourth){
+//             acc.fourth = cur
+//         }
+
+//         return acc
+
+//     },{
+//         first:Infinity,
+//         second:Infinity,
+//         third:Infinity,
+//         fourth:Infinity
+//     })
+
+//     return result
+// }
+
+// const arr = [4, 12, 7, 3, 19, 5, 10, 3, 4, 7];
+
+// console.log(findSmallest(arr));
+// Expected Output: { first: 19, second: 12, third: 10, fourth: 7 }
+
+// function findLargest(arr){
+//     const result = arr.reduce((acc,cur)=>{
+//         if([acc.first,acc.second,acc.third,acc.fourth].includes(cur)){
+//             return acc
+//         }
+
+//         if(cur > acc.first){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = acc.first
+//             acc.first = cur
+//         }
+//         else if(cur > acc.second){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = cur
+//         }
+//         else if(cur > acc.third){
+//             acc.fourth = acc.third
+//             acc.third =  cur
+//         }
+//         else if(cur > acc.fourth){
+//             acc.fourth = cur
+//         }
+
+//         return acc
+
+//     },{
+//         first:-Infinity,
+//         second:-Infinity,
+//         third:-Infinity,
+//         fourth:-Infinity
+//     })
+
+//     return result
+// }
+
+// const arr = [4, 12, 7, 3, 19, 5, 10, 3, 4, 7];
+
+
+// let fourth = findLargest(arr).fourth
+// console.log(fourth)
+
+// const arr = [4, -2, 12, -5, 3, 0, -1, 7, -5];
+
+// const evenNo = arr.filter((no)=>{
+//     return no % 2 == 0 
+// })
+
+// console.log(evenNo)
+
+// const square = arr.map((no)=>{
+//     return no * no
+// })
+
+// console.log(square)
+
+// const sum = arr.reduce((acc,cur)=>{
+//     if(cur > 0){
+//      acc+=cur
+//     }
+//     return acc
+// },0)
+
+// console.log(sum)
+
+// const sum = arr.reduce((acc,cur)=>{
+//     return acc+cur
+// })
+
+// console.log(sum)
+
+// const result = arr.flatMap((x)=>[x,x*2])
+// console.log(result)
+
+// function modify(input){
+//     return input.toUpperCase()
+// }
+
+// function execute(callback){
+//     let name ='ahamathbasha'
+
+//      return callback(name)
+// }
+
+// console.log(execute(modify))
+
+// const obj = {
+//     name:"ahamathbasha",
+//     address: "msk"
+// }
+
+// const handler = {
+//     set(target,key,value){
+//         target[key] = value
+//         return true
+//     },
+
+//     get(target,key){
+//         return target[key] || null
+//     }
+// }
+
+// const proxy = new Proxy(obj,handler)
+
+// console.log(proxy.name)
+
+// proxy.name = 'i am the king of the world'
+
+// console.log(proxy.name)
+
+// console.log(obj.name)
+
+
+// function getUser(id){
+//     return new Promise((resolve,reject)=>{
+//         getUser(id,(err,user)=>{
+//             resolve(user)
+//             reject(err)
+//         })
+//     })
+// }
+
+// async function getUser(id,callback){
+//     try {
+//         if(id > 0){
+//             const data = await callback(id)
+//             console.log(data)
+//         }
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// function binarySearch(arr,target){
+//     let start = 0
+//     let end = arr.length-1
+
+//     while(start <= end){
+//         let mid = arr[Math.floor((start+end)/2)]
+
+//         if(mid == target){
+//             return mid
+//         }
+//         else if(target < mid){
+//             end = mid-1
+//         }else{
+//             start = mid+1
+//         }
+//     }
+
+//     return 'no match'
+// }
+
+// const arr = [1, 3, 5, 7, 9, 11, 13];  // Sorted array
+// const target = 7;
+
+// const result = binarySearch(arr, target);
+// console.log(result); // Expected output: 7
+
+
+// function binarySearch(arr,target){
+//     return recursiveBinary(arr,target,0,arr.length-1)
+// }
+
+// function recursiveBinary(arr,target,leftIndex,rightIndex){
+//     if(leftIndex > rightIndex){
+//         return -1
+//     }
+
+//     let mid = arr[Math.floor(Math.floor(leftIndex+rightIndex)/2)]
+
+//     if(mid == target){
+//         return mid
+//     }
+//     else if(target < mid){
+//         return recursiveBinary(arr,target,leftIndex,mid-1)
+//     }
+//     else{
+//         return recursiveBinary(arr,target,mid+1,rightIndex)
+//     }
+// }
+
+
+// function binarySearch(arr,target){
+//     let start = 0
+//     let end = arr.length - 1
+
+//     while(start <= end){
+//         let mid = arr[Math.floor((start+end)/2)]
+
+//         if(target == mid){
+//             return mid
+//         }
+//         else if(target < mid){
+//             end = mid-1
+//         }else{
+//             start = mid+1
+//         }
+//     }
+
+//     return 'not found'
+// }
+
+function bst(arr,target){
+    return binarySearchTree(arr,target,0,arr.length-1)
+}
+
+function binarySearchTree(arr,target,leftIndex,rightIndex){
+    if(leftIndex > rightIndex){
+        return -1
+    }
+
+    let mid = Math.floor((leftIndex+rightIndex)/2)
+
+    if(arr[mid] == target){
+        return mid
+    }
+    else if(target < arr[mid]){
+        return binarySearchTree(arr,target,leftIndex,mid-1)
+    }
+    else{
+        return binarySearchTree(arr,target,mid+1,rightIndex)
+    }
+}
+
+// const arr = [1, 3, 5, 7, 9, 11, 13];
+// const target = 7;
+
+// const result = bst(arr, target);
+// console.log(result); // Expected output: 3 (index of 7)
+
+
+// const arr = [1, 3, 5, 7, 9, 11, 13];
+// const target = 6;
+
+// const result = bst(arr, target);
+// console.log(result); // Expected output: -1 (target not found)
