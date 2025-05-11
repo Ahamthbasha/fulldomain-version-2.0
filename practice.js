@@ -556,3 +556,17 @@ function binarySearchRecursion(arr,target,leftIndex,rightIndex){
 //         }
 //     })
 // }
+
+//recursive min
+
+// min(root){
+//     if(!root){
+//         return null
+//     }
+
+//     if(!root.left){
+//         return root
+//     }
+
+//     return min(root.left)
+// }
