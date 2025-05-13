@@ -209,170 +209,416 @@
 // tree.inOrder(tree.root); // Remaining nodes
 
 
-class graph{
+// class graph{
+//     constructor(){
+//         this.adjancencyList = {}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjancencyList[vertex]){
+//             this.adjancencyList[vertex] = new Set()
+//         }
+//     }
+
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjancencyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjancencyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+        
+//         this.adjancencyList[vertex1].add(vertex2)
+//         this.adjancencyList[vertex2].add(vertex1)
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         if(!this.adjancencyList[vertex1] || !this.adjancencyList[vertex2]){
+//             return 'invalid vertex'
+//         }
+
+//         return this.adjancencyList[vertex1].has(vertex2) && this.adjancencyList[vertex2].has(vertex1)
+//     }
+
+//     print(){
+//         for(let vertex in this.adjancencyList){
+//             console.log(`${vertex} => ${[...this.adjancencyList[vertex]]}`)
+//         }
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         if(!this.adjancencyList[vertex1] || !this.adjancencyList[vertex2]){
+//             return "invalid vertex"
+//         }
+
+//         this.adjancencyList[vertex1].delete(vertex2)
+//         this.adjancencyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         if(!this.adjancencyList[vertex]){
+//             return 'invalid vertex'
+//         }
+
+//         for(let adjancyVertex of this.adjancencyList[vertex]){
+//             this.removeEdge(vertex,adjancyVertex)
+//         }
+
+//         delete this.adjancencyList[vertex]
+
+//         return 'deleted'
+//     }
+
+//     bfs(start){
+//         let queue = []
+
+//         queue.push(start)
+
+//         let visitedNode = new Set()
+
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let vertex = queue.shift()
+
+//             console.log(vertex)
+
+//             this.adjancencyList[vertex].forEach((neighbor)=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
+
+//     dfs(start,visitedNode = new Set()){
+//         visitedNode.add(start)
+
+//         console.log(start)
+
+//         this.adjancencyList[start].forEach((neighbor)=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+
+//     bfsCycleDetection(start){
+//         let queue = []
+
+//         queue.push({vertex:start,parent:null})
+
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent} = queue.shift()
+
+//             for(let neighbor of this.adjancencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:vertex})
+//                 }else if(neighbor != parent){
+//                     return 'cycle detected'
+//                 }
+//             }
+//         }
+//         return 'no cycle detected'
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent = null){
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjancencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }else if(neighbor != parent){
+//                 return true
+//             }
+//         }
+
+//         return false
+//     }
+// }
+
+// const g = new graph();
+
+// g.addEdge('A', 'B');
+// g.addEdge('A', 'C');
+// g.addEdge('B', 'D');
+// g.addEdge('D', 'E');
+// g.addEdge('E', 'B'); // Creates a cycle
+
+// console.log("Graph:");
+// g.print();
+
+// console.log("\nHas Edge A-B:", g.hasEdge('A', 'B')); // true
+// console.log("Has Edge A-D:", g.hasEdge('A', 'D')); // false
+// console.log("Has Edge X-Y:", g.hasEdge('X', 'Y')); // invalid vertex
+
+// console.log("\nBFS from A:");
+// g.bfs('A');
+
+// console.log("\nDFS from A:");
+// g.dfs('A');
+
+// console.log("\nCycle Detection (BFS):", g.bfsCycleDetection('A')); // cycle detected
+// console.log("Cycle Detection (DFS):", g.dfsCycleDetection('A') ? "cycle detected" : "no cycle");
+
+// console.log("\nRemove Edge D-E:");
+// g.removeEdge('D', 'E');
+// g.print();
+
+// console.log("\nRemove Vertex B:");
+// console.log(g.removeVertex('B'));
+// g.print();
+
+class Node{
     constructor(){
-        this.adjancencyList = {}
+        this.children = {}
+        this.isEndOfWord = false
+    }
+}
+class trie{
+    constructor(){
+        this.root = new Node()
     }
 
-    addVertex(vertex){
-        if(!this.adjancencyList[vertex]){
-            this.adjancencyList[vertex] = new Set()
+    insert(word){
+        let node = this.root
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+
+            if(!node.children[char]){
+                node.children[char] = new Node()
+            }
+
+            node = node.children[char]
         }
+
+        node.isEndOfWord = true
     }
 
-    addEdge(vertex1,vertex2){
-        if(!this.adjancencyList[vertex1]){
-            this.addVertex(vertex1)
+    search(word){
+        let node = this.root
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+            if(!node.children[char]){
+                return false
+            }
+            node = node.children[char]
         }
 
-        if(!this.adjancencyList[vertex2]){
-            this.addVertex(vertex2)
+        return node.isEndOfWord
+    }
+
+    startsWith(prefix){
+        let node = this.root
+        for(let i=0;i<prefix.length;i++){
+            let char = prefix[i]
+            if(!node.children[char]){
+                return false
+            }
+            node = node.children[char]
+        }
+
+        return true
+    }
+
+    autoComplete(word){
+        let node = this.root
+
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+
+            if(!node.children[char]){
+                return []
+            }
+
+            node = node.children[char]
         }
         
-        this.adjancencyList[vertex1].add(vertex2)
-        this.adjancencyList[vertex2].add(vertex1)
+
+        let list = []
+
+        return this.collectWord(node,word)
     }
 
-    hasEdge(vertex1,vertex2){
-        if(!this.adjancencyList[vertex1] || !this.adjancencyList[vertex2]){
-            return 'invalid vertex'
+    collectWord(node,word,list=[]){
+        if(node.isEndOfWord){
+            list.push(word)
         }
 
-        return this.adjancencyList[vertex1].has(vertex2) && this.adjancencyList[vertex2].has(vertex1)
+        for(let char in node.children){
+            this.collectWord(node.children[char],word+char,list)
+        }
+
+        return list
     }
 
     print(){
-        for(let vertex in this.adjancencyList){
-            console.log(`${vertex} => ${[...this.adjancencyList[vertex]]}`)
-        }
+        return this.collectWord(this.root,'')
     }
 
-    removeEdge(vertex1,vertex2){
-        if(!this.adjancencyList[vertex1] || !this.adjancencyList[vertex2]){
-            return "invalid vertex"
+    delete(word){
+        let node = this.root
+        let path = []
+
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+
+            if(!node.children[char]){
+                return 'no match'
+            }
+
+            path.push([node,char])
+            node = node.children[char]
         }
 
-        this.adjancencyList[vertex1].delete(vertex2)
-        this.adjancencyList[vertex2].delete(vertex1)
+        if(!node.isEndOfWord){
+            return 'this is not end of word'
+        }
+
+        node.isEndOfWord = false
+
+        for(let i=word.length-1;i>=0;i--){
+            let [parentNode,char] = path[i]
+
+            let childrenNode = parentNode.children[char]
+
+            if(Object.keys(childrenNode.children).length > 0 || childrenNode.isEndOfWord){
+                break
+            }
+
+            delete parentNode.children[char]
+        }
+
+        return 'word deleted'
     }
 
-    removeVertex(vertex){
-        if(!this.adjancencyList[vertex]){
-            return 'invalid vertex'
-        }
+    countWords(){
+        let node = this.root
 
-        for(let adjancyVertex of this.adjancencyList[vertex]){
-            this.removeEdge(vertex,adjancyVertex)
-        }
-
-        delete this.adjancencyList[vertex]
-
-        return 'deleted'
-    }
-
-    bfs(start){
         let queue = []
 
-        queue.push(start)
+        queue.push(node)
 
-        let visitedNode = new Set()
-
-        visitedNode.add(start)
+        let count = 0
 
         while(queue.length){
-            let vertex = queue.shift()
+            let cur = queue.shift()
 
-            console.log(vertex)
-
-            this.adjancencyList[vertex].forEach((neighbor)=>{
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push(neighbor)
-                }
-            })
-        }
-    }
-
-    dfs(start,visitedNode = new Set()){
-        visitedNode.add(start)
-
-        console.log(start)
-
-        this.adjancencyList[start].forEach((neighbor)=>{
-            if(!visitedNode.has(neighbor)){
-                this.dfs(neighbor,visitedNode)
+            if(cur.isEndOfWord){
+                count++
             }
-        })
+
+            for(let char in cur.children){
+                queue.push(cur.children[char])
+            }
+        }
+
+        return count
     }
 
-    bfsCycleDetection(start){
+    longestPrefix(word){
+        let node = this.root
+
+        let longestPrefix = ''
+
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+
+            if(!node.children[char]){
+                 break
+            }
+
+            longestPrefix+=char
+            node = node.children[char]
+        }
+
+        return longestPrefix
+    }
+
+    countPrefix(word){
+        let node = this.root
+
+        for(let i=0;i<word.length;i++){
+            let char = word[i]
+            if(!node.children[char]){
+                return 'no match'
+            }
+            node = node.children[char]
+        }
+
         let queue = []
 
-        queue.push({vertex:start,parent:null})
+        queue.push(node)
 
-        let visitedNode = new Set()
-        visitedNode.add(start)
+        let countPrefix =0
 
         while(queue.length){
-            let {vertex,parent} = queue.shift()
+            let cur = queue.shift()
 
-            for(let neighbor of this.adjancencyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push({vertex:neighbor,parent:vertex})
-                }else if(neighbor != parent){
-                    return 'cycle detected'
-                }
+            if(cur.isEndOfWord){
+                countPrefix++
             }
-        }
-        return 'no cycle detected'
-    }
 
-    dfsCycleDetection(start,visitedNode=new Set(),parent = null){
-        visitedNode.add(start)
-
-        for(let neighbor of this.adjancencyList[start]){
-            if(!visitedNode.has(neighbor)){
-                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
-                    return true
-                }
-            }else if(neighbor != parent){
-                return true
+            for(let char in cur.children){
+                queue.push(cur.children[char])
             }
         }
 
-        return false
+        return countPrefix
     }
 }
 
-const g = new graph();
+const t = new trie();
 
-g.addEdge('A', 'B');
-g.addEdge('A', 'C');
-g.addEdge('B', 'D');
-g.addEdge('D', 'E');
-g.addEdge('E', 'B'); // Creates a cycle
+// Insert words
+t.insert("apple");
+t.insert("app");
+t.insert("apricot");
+t.insert("bat");
+t.insert("batch");
+t.insert("batman");
+t.insert("banana");
 
-console.log("Graph:");
-g.print();
+// Test search
+console.log(t.search("apple"));     // true
+console.log(t.search("app"));       // true
+console.log(t.search("appl"));      // false
 
-console.log("\nHas Edge A-B:", g.hasEdge('A', 'B')); // true
-console.log("Has Edge A-D:", g.hasEdge('A', 'D')); // false
-console.log("Has Edge X-Y:", g.hasEdge('X', 'Y')); // invalid vertex
+// Test startsWith
+console.log(t.startsWith("ap"));    // true
+console.log(t.startsWith("bat"));   // true
+console.log(t.startsWith("cat"));   // false
 
-console.log("\nBFS from A:");
-g.bfs('A');
+// Test autoComplete
+console.log(t.autoComplete("app"));     // ["app", "apple"]
+console.log(t.autoComplete("bat"));     // ["bat", "batch", "batman"]
+console.log(t.autoComplete("ba"));      // ["bat", "batch", "batman", "banana"]
 
-console.log("\nDFS from A:");
-g.dfs('A');
+// Test print all words
+console.log(t.print());  // ['apple', 'app', 'apricot', 'bat', 'batch', 'batman', 'banana']
 
-console.log("\nCycle Detection (BFS):", g.bfsCycleDetection('A')); // cycle detected
-console.log("Cycle Detection (DFS):", g.dfsCycleDetection('A') ? "cycle detected" : "no cycle");
+// Test delete
+console.log(t.delete("bat"));      // word deleted
+console.log(t.search("bat"));      // false
+console.log(t.search("batman"));   // true (still exists)
 
-console.log("\nRemove Edge D-E:");
-g.removeEdge('D', 'E');
-g.print();
+// Test countWords
+console.log(t.countWords());       // 6 (after deleting "bat")
 
-console.log("\nRemove Vertex B:");
-console.log(g.removeVertex('B'));
-g.print();
+// Test longestPrefix
+console.log(t.longestPrefix("batmobile")); // "bat"
+console.log(t.longestPrefix("applesauce")); // "apple"
+console.log(t.longestPrefix("xyz"));       // ""
+
+// Test countPrefix
+console.log(t.countPrefix("app")); // 2 ("app", "apple")
+console.log(t.countPrefix("bat")); // 2 ("batch", "batman")
+console.log(t.countPrefix("z"));   // "no match"
