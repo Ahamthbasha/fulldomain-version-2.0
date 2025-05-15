@@ -797,183 +797,395 @@
 // // Expected: "nothing to remove"
 
 
-class minHeap{
-    constructor(){
-        this.heap = []
-    }
+// class minHeap{
+//     constructor(){
+//         this.heap = []
+//     }
 
-    isEmpty(){
-        return this.heap.length == 0
-    }
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
 
-    getSize(){
-        return this.heap.length
-    }
+//     getSize(){
+//         return this.heap.length
+//     }
 
-    getParentIndex(index){
-        return Math.floor((index-1)/2)
-    }
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
 
-    getLeftIndex(index){
-        return 2 * index + 1
-    }
+//     getLeftIndex(index){
+//         return 2 * index + 1
+//     }
 
-    getRightIndex(index){
-        return 2 * index + 2
-    }
+//     getRightIndex(index){
+//         return 2 * index + 2
+//     }
 
-    getParent(index){
-        return this.heap[this.getParentIndex(index)]
-    }
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
 
-    getLeft(index){
-        return this.heap[this.getLeftIndex(index)]
-    }
+//     getLeft(index){
+//         return this.heap[this.getLeftIndex(index)]
+//     }
 
-    getRight(index){
-        return this.heap[this.getRightIndex(index)]
-    }
+//     getRight(index){
+//         return this.heap[this.getRightIndex(index)]
+//     }
 
-    hasParent(index){
-        return this.getParentIndex(index) >= 0
-    }
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
 
-    hasLeft(index){
-        return this.getLeftIndex(index) < this.heap.length
-    }
+//     hasLeft(index){
+//         return this.getLeftIndex(index) < this.heap.length
+//     }
 
-    hasRight(index){
-        return this.getRightIndex(index) < this.heap.length
-    }
+//     hasRight(index){
+//         return this.getRightIndex(index) < this.heap.length
+//     }
 
-    swap(index1,index2){
-        let temp = this.heap[index1]
-        this.heap[index1] = this.heap[index2]
-        this.heap[index2] = temp
-    }
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
 
-    peek(){
-        if(this.isEmpty()){
-            return 'empty'
-        }
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
 
-        return this.heap[0]
-    }
+//         return this.heap[0]
+//     }
 
-    add(value){
-        this.heap.push(value)
-        this.heapifyUp()
-    }
+//     add(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
 
-    heapifyUp(){
-        let index = this.heap.length-1
+//     heapifyUp(){
+//         let index = this.heap.length-1
 
-        while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
-            this.swap(this.getParentIndex(index),index)
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
 
-            index = this.getParentIndex(index)
-        }
-    }
+//             index = this.getParentIndex(index)
+//         }
+//     }
 
-    remove(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
 
-        let val = this.heap[0]
+//         let val = this.heap[0]
 
-        this.heap[0] = this.heap[this.heap.length-1]
+//         this.heap[0] = this.heap[this.heap.length-1]
 
-        this.heap.pop()
+//         this.heap.pop()
 
-        this.heapifyDown()
+//         this.heapifyDown()
 
-        return val
-    }
+//         return val
+//     }
 
-    heapifyDown(){
-        let index = 0
+//     heapifyDown(){
+//         let index = 0
 
-        let smallest
+//         let smallest
         
-        while(this.hasLeft(index)){
-            smallest = this.getLeftIndex(index)
+//         while(this.hasLeft(index)){
+//             smallest = this.getLeftIndex(index)
 
-            if(this.hasRight(index) && this.getRight(index) < this.getLeft(index)){
-                smallest = this.getRightIndex(index)
-            }
+//             if(this.hasRight(index) && this.getRight(index) < this.getLeft(index)){
+//                 smallest = this.getRightIndex(index)
+//             }
 
-            if(this.heap[index] <= this.heap[smallest]){
-                break
-            }else{
-                this.swap(index,smallest)
-            }
+//             if(this.heap[index] <= this.heap[smallest]){
+//                 break
+//             }else{
+//                 this.swap(index,smallest)
+//             }
 
-            index = smallest
-        }
-    }
+//             index = smallest
+//         }
+//     }
 
-    heapSort(arr){
-        let h = new minHeap()
+//     heapSort(arr){
+//         let h = new minHeap()
 
-        for(let i=0;i<arr.length;i++){
-            h.add(arr[i])
-        }
+//         for(let i=0;i<arr.length;i++){
+//             h.add(arr[i])
+//         }
 
-        let sortedArr = []
+//         let sortedArr = []
 
-        while(h.heap.length){
-            sortedArr.push(h.remove())
-        }
+//         while(h.heap.length){
+//             sortedArr.push(h.remove())
+//         }
 
-        return sortedArr
-    }
+//         return sortedArr
+//     }
 
-    findKthLargest(arr,k){
-        if(arr.length < k){
-            return 'invalid k'
-        }
+//     findKthLargest(arr,k){
+//         if(arr.length < k){
+//             return 'invalid k'
+//         }
 
-        const h = new minHeap()
+//         const h = new minHeap()
 
-        for(let i=0;i<arr.length;i++){
-            h.add(arr[i])
-            if(h.heap.length > k){
-                h.remove()
-            }
-        }
+//         for(let i=0;i<arr.length;i++){
+//             h.add(arr[i])
+//             if(h.heap.length > k){
+//                 h.remove()
+//             }
+//         }
 
-        return h.peek()
+//         return h.peek()
+//     }
+// }
+
+// let heap = new minHeap();
+// heap.add(20);
+// heap.add(10);
+// heap.add(30);
+// console.log(heap.peek()); // Expected: 10
+
+
+// heap = new minHeap();
+// heap.add(5);
+// heap.add(2);
+// heap.add(8);
+// console.log(heap.remove()); // Expected: 2
+// console.log(heap.peek());   // Expected: 5
+
+
+// heap = new minHeap();
+// console.log(heap.heapSort([7, 1, 3, 5, 9])); 
+// // Expected: [1, 3, 5, 7, 9]
+
+// heap = new minHeap();
+// console.log(heap.findKthLargest([3, 2, 1, 5, 6, 4], 2)); 
+// // Expected: 5 (2nd largest is 5)
+
+// heap = new minHeap();
+// console.log(heap.peek()); // Expected: "empty"
+// console.log(heap.remove()); // Expected: "nothing to remove"
+
+// heap = new minHeap();
+// console.log(heap.findKthLargest([4, 2], 5)); 
+// // Expected: "invalid k"
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
     }
 }
 
-let heap = new minHeap();
-heap.add(20);
-heap.add(10);
-heap.add(30);
-console.log(heap.peek()); // Expected: 10
+class tree{
+    constructor(){
+        this.root = null
+    }
 
+    isEmpty(){
+        return this.root === null
+    }
 
-heap = new minHeap();
-heap.add(5);
-heap.add(2);
-heap.add(8);
-console.log(heap.remove()); // Expected: 2
-console.log(heap.peek());   // Expected: 5
+    insert(value){
+        const node = new Node(value)
 
+        if(this.isEmpty()){
+            this.root = node
+        }else{
+            this.insertNode(this.root,node)
+        }
+    }
 
-heap = new minHeap();
-console.log(heap.heapSort([7, 1, 3, 5, 9])); 
-// Expected: [1, 3, 5, 7, 9]
+    insertNode(root,node){
+        if(node.value < root.value){
+            if(root.left == null){
+                root.left = node
+            }else{
+                this.insertNode(root.left,node)
+            }
+        }else{
+            if(root.right == null){
+                root.right = node
+            }else{
+                this.insertNode(root.right,node)
+            }
+        }
+    }
 
-heap = new minHeap();
-console.log(heap.findKthLargest([3, 2, 1, 5, 6, 4], 2)); 
-// Expected: 5 (2nd largest is 5)
+    search(root,target){
+        if(!root){
+            return false
+        }
+        else if(root.value == target){
+            return true
+        }
+        else if(target < root.value){
+            return this.search(root.left,target)
+        }
+        else{
+            return this.search(root.right,target)
+        }
+    }
 
-heap = new minHeap();
-console.log(heap.peek()); // Expected: "empty"
-console.log(heap.remove()); // Expected: "nothing to remove"
+    preOrder(root){
+        if(root){
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
+        }
+    }
 
-heap = new minHeap();
-console.log(heap.findKthLargest([4, 2], 5)); 
-// Expected: "invalid k"
+    inOrder(root){
+        if(root){
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
+
+    postOrder(root){
+        if(root){
+            this.postOrder(root.left)
+            this.postOrder(root.right)
+            console.log(root.value)
+        }
+    }
+
+    levelOrder(root){
+        let queue = []
+        queue.push(root)
+
+        while(queue.length){
+            let cur = queue.shift()
+
+            if(cur){
+                console.log(cur.value)
+
+                if(cur.left){
+                    queue.push(cur.left)
+                }
+
+                if(cur.right){
+                    queue.push(cur.right)
+                }
+            }
+        }
+    }
+
+    min(root){
+        if(!root){
+            return null
+        }
+
+        while(root.left){
+            root = root.left
+        }
+
+        return root
+    }
+
+    max(root){
+        if(!root){
+            return null
+        }
+
+        while(root.right){
+            root = root.right
+        }
+
+        return root
+    }
+
+    delete(root,value){
+        this.root = this.deleteNode(root,value)
+    }
+
+    deleteNode(root,value){
+        if(!root){
+            return null
+        }
+
+        if(value < root.value){
+            root.left = this.deleteNode(root.left,value)
+        }
+        else if(value > root.value){
+            root.right = this.deleteNode(root.right,value)
+        }
+        else{
+            if(!root.left && !root.right){
+                return null
+            }
+
+            if(!root.left){
+                return root.right
+            }
+
+            if(!root.right){
+                return root.left
+            }
+
+            root.value = this.min(root.right).value
+            root.right = this.deleteNode(root.right,root.value)
+        }
+        return root
+    }
+}
+
+const bst = new tree();
+
+// Insert nodes
+bst.insert(50);
+bst.insert(30);
+bst.insert(70);
+bst.insert(20);
+bst.insert(40);
+bst.insert(60);
+bst.insert(80);
+
+// InOrder (should be sorted)
+console.log("InOrder:");
+bst.inOrder(bst.root); // Output: 20 30 40 50 60 70 80
+
+// PreOrder
+console.log("PreOrder:");
+bst.preOrder(bst.root); // Output: 50 30 20 40 70 60 80
+
+// PostOrder
+console.log("PostOrder:");
+bst.postOrder(bst.root); // Output: 20 40 30 60 80 70 50
+
+// LevelOrder
+console.log("LevelOrder:");
+bst.levelOrder(bst.root); // Output: 50 30 70 20 40 60 80
+
+// Search
+console.log("Search 40:", bst.search(bst.root, 40)); // true
+console.log("Search 100:", bst.search(bst.root, 100)); // false
+
+// Min and Max
+console.log("Min:", bst.min(bst.root).value); // 20
+console.log("Max:", bst.max(bst.root).value); // 80
+
+// Delete Leaf Node (20)
+bst.delete(bst.root, 20);
+console.log("After deleting 20 (leaf):");
+bst.inOrder(bst.root); // 30 40 50 60 70 80
+
+// Delete Node with One Child (30)
+bst.delete(bst.root, 30);
+console.log("After deleting 30 (one child):");
+bst.inOrder(bst.root); // 40 50 60 70 80
+
+// Delete Node with Two Children (70)
+bst.delete(bst.root, 70);
+console.log("After deleting 70 (two children):");
+bst.inOrder(bst.root); // 40 50 60 80
