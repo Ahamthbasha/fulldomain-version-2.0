@@ -2069,68 +2069,249 @@
 // testSort(mergeSort, 'Merge Sort');
 
 
-class stack{
-    constructor(){
-        this.item = []
-    }
+// class stack{
+//     constructor(){
+//         this.item = []
+//     }
 
-    isEmpty(){
-        return this.item.length == 0
-    }
+//     isEmpty(){
+//         return this.item.length == 0
+//     }
 
-    getSize(){
-        return this.item.length
-    }
+//     getSize(){
+//         return this.item.length
+//     }
 
-    push(value){
-        this.item.push(value)
-    }
+//     push(value){
+//         this.item.push(value)
+//     }
 
-    pop(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
 
-        let val = this.item[this.item.length-1]
-        this.item.pop()
-        return val
-    }
+//         let val = this.item[this.item.length-1]
+//         this.item.pop()
+//         return val
+//     }
 
-    peek(){
-        if(this.isEmpty()){
-            return 'stack is empty'
-        }
-        return this.item[this.item.length-1]
-    }
-}
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         return this.item[this.item.length-1]
+//     }
+// }
 
-const s = new stack();
+// const s = new stack();
 
-// Test 1: Stack should be empty initially
-console.log(s.isEmpty()); // true
-console.log(s.getSize()); // 0
-console.log(s.peek());    // "stack is empty"
-console.log(s.pop());     // "nothing to remove"
+// // Test 1: Stack should be empty initially
+// console.log(s.isEmpty()); // true
+// console.log(s.getSize()); // 0
+// console.log(s.peek());    // "stack is empty"
+// console.log(s.pop());     // "nothing to remove"
 
-// Test 2: Push elements
-s.push(10);
-s.push(20);
-s.push(30);
+// // Test 2: Push elements
+// s.push(10);
+// s.push(20);
+// s.push(30);
 
-console.log(s.isEmpty()); // false
-console.log(s.getSize()); // 3
-console.log(s.peek());    // 30
+// console.log(s.isEmpty()); // false
+// console.log(s.getSize()); // 3
+// console.log(s.peek());    // 30
 
-// Test 3: Pop top element
-console.log(s.pop());     // 30
-console.log(s.getSize()); // 2
-console.log(s.peek());    // 20
+// // Test 3: Pop top element
+// console.log(s.pop());     // 30
+// console.log(s.getSize()); // 2
+// console.log(s.peek());    // 20
 
-// Test 4: Pop remaining elements
-console.log(s.pop());     // 20
-console.log(s.pop());     // 10
+// // Test 4: Pop remaining elements
+// console.log(s.pop());     // 20
+// console.log(s.pop());     // 10
 
-// Test 5: Try popping from empty stack again
-console.log(s.pop());     // "nothing to remove"
-console.log(s.peek());    // "stack is empty"
-console.log(s.isEmpty()); // true
+// // Test 5: Try popping from empty stack again
+// console.log(s.pop());     // "nothing to remove"
+// console.log(s.peek());    // "stack is empty"
+// console.log(s.isEmpty()); // true
+
+// class stack{
+//     constructor(){
+//         this.item = {}
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     push(value){
+//         this.item[this.size] = value
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+
+//         let val = this.item[this.size-1]
+//         delete this.item[this.size-1]
+//         this.size--
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[this.size-1]
+//     }
+
+//     print(){
+//         console.log(this.item)
+//     }
+// }
+
+// const s = new stack();
+
+// // Test 1: Initial state
+// console.log(s.isEmpty()); // true
+// console.log(s.getSize()); // 0
+// console.log(s.peek());    // "empty"
+// console.log(s.pop());     // "nothing to remove"
+// s.print();                // {}
+
+// // Test 2: Push elements
+// s.push("A");
+// s.push("B");
+// s.push("C");
+
+// console.log(s.isEmpty()); // false
+// console.log(s.getSize()); // 3
+// console.log(s.peek());    // "C"
+// s.print();                // { '0': 'A', '1': 'B', '2': 'C' }
+
+// // Test 3: Pop an element
+// console.log(s.pop());     // "C"
+// console.log(s.getSize()); // 2
+// console.log(s.peek());    // "B"
+// s.print();                // { '0': 'A', '1': 'B' }
+
+// // Test 4: Clear the stack
+// console.log(s.pop());     // "B"
+// console.log(s.pop());     // "A"
+// console.log(s.pop());     // "nothing to remove"
+// console.log(s.peek());    // "empty"
+// console.log(s.isEmpty()); // true
+// s.print();                // {}
+
+// class Node{
+//     constructor(value) {
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class stack{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     push(value){
+//         let node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             node.next = this.head
+//             this.head = node
+//         }
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return "empty"
+//         }
+//         else{
+//             return this.head.value
+//         }
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return "empty"
+//         }else{
+//             let list = ''
+
+//             let temp = this.head
+
+//             while(temp){
+//                 list += temp.value+'->'
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+
+//             return list
+//         }
+//     }
+// }
+
+// const s = new stack();
+
+// // Test 1: Initial state
+// console.log(s.isEmpty());   // true
+// console.log(s.getSize());   // 0
+// console.log(s.peek());      // "empty"
+// console.log(s.pop());       // "nothing to remove"
+// console.log(s.print());     // "empty"
+
+// // Test 2: Push elements
+// s.push(10);
+// s.push(20);
+// s.push(30);
+
+// console.log(s.isEmpty());   // false
+// console.log(s.getSize());   // 3
+// console.log(s.peek());      // 30
+// console.log(s.print());     // "30->20->10->null"
+
+// // Test 3: Pop one
+// console.log(s.pop());       // 30
+// console.log(s.getSize());   // 2
+// console.log(s.peek());      // 20
+// console.log(s.print());     // "20->10->null"
+
+// // Test 4: Pop all
+// console.log(s.pop());       // 20
+// console.log(s.pop());       // 10
+// console.log(s.pop());       // "nothing to remove"
+// console.log(s.peek());      // "empty"
+// console.log(s.print());     // "empty"
