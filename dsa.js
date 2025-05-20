@@ -1946,124 +1946,191 @@
 // console.log(ht.findDuplicatesFromInput("aabccdee"))      // Output: 'ace' or similar
 // console.log(ht.findDuplicatesFromInput([1, 2, 3, 2, 3]))
 
-function bubbleSort(arr){
-    let swapped 
+// function bubbleSort(arr){
+//     let swapped 
 
-    do{
-        swapped = false
-        for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                let temp = arr[i]
-                arr[i] = arr[i+1]
-                arr[i+1] = temp
-                swapped = true
-            }
+//     do{
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }while(swapped)
+//         return arr
+// }
+
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let cur = arr[i]
+//         let j = i-1
+
+//         while(j>=0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+
+//         arr[j+1] = cur
+//     }
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let min = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[min] > arr[j]){
+//                 min = j
+//             }
+//         }
+
+//         let temp = arr[min]
+//         arr[min] = arr[i]
+//         arr[i]= temp
+//     }
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// const testCases = [
+//     [],
+//     [5],
+//     [5, 3],
+//     [5, 1, 4, 2, 8],
+//     [3, 3, 3],
+//     [9, 7, 5, 3, 1],
+//     [1, 2, 3, 4, 5],
+//     [100, -50, 20, 0, -1],
+// ];
+
+// function testSort(sortFn, name) {
+//     console.log(`\nTesting ${name}:`);
+//     for (let test of testCases) {
+//         const input = [...test];  // clone to prevent in-place effects
+//         const output = sortFn([...input]);  // clone again for safety
+//         const expected = [...input].sort((a, b) => a - b);
+//         const pass = JSON.stringify(output) === JSON.stringify(expected);
+//         console.log(`Input: ${input} ➜ Output: ${output} ➜ ${pass ? '✅ PASS' : '❌ FAIL'}`);
+//     }
+// }
+
+// testSort(bubbleSort, 'Bubble Sort');
+// testSort(insertionSort, 'Insertion Sort');
+// testSort(selectionSort, 'Selection Sort');
+// testSort(quickSort, 'Quick Sort');
+// testSort(mergeSort, 'Merge Sort');
+
+
+class stack{
+    constructor(){
+        this.item = []
+    }
+
+    isEmpty(){
+        return this.item.length == 0
+    }
+
+    getSize(){
+        return this.item.length
+    }
+
+    push(value){
+        this.item.push(value)
+    }
+
+    pop(){
+        if(this.isEmpty()){
+            return 'nothing to remove'
         }
-    }while(swapped)
-        return arr
-}
 
-function insertionSort(arr){
-    for(let i=1;i<arr.length;i++){
-        let cur = arr[i]
-        let j = i-1
+        let val = this.item[this.item.length-1]
+        this.item.pop()
+        return val
+    }
 
-        while(j>=0 && arr[j] > cur){
-            arr[j+1] = arr[j]
-            j--
+    peek(){
+        if(this.isEmpty()){
+            return 'stack is empty'
         }
-
-        arr[j+1] = cur
-    }
-    return arr
-}
-
-function selectionSort(arr){
-    for(let i=0;i<arr.length-1;i++){
-        let min = i
-        for(let j=i+1;j<arr.length;j++){
-            if(arr[min] > arr[j]){
-                min = j
-            }
-        }
-
-        let temp = arr[min]
-        arr[min] = arr[i]
-        arr[i]= temp
-    }
-    return arr
-}
-
-function quickSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
-
-    let pivot = arr[arr.length-1]
-    let leftArr = []
-    let rightArr = []
-
-    for(let i=0;i<arr.length-1;i++){
-        if(arr[i] < pivot){
-            leftArr.push(arr[i])
-        }else{
-            rightArr.push(arr[i])
-        }
-    }
-
-    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
-}
-
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
-
-    let mid = Math.floor(arr.length/2)
-    let leftArr = arr.slice(0,mid)
-    let rightArr = arr.slice(mid)
-
-    return merge(mergeSort(leftArr),mergeSort(rightArr))
-}
-
-function merge(leftArr,rightArr){
-    let sortedArr = []
-
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0] < rightArr[0]){
-            sortedArr.push(leftArr.shift())
-        }else{
-            sortedArr.push(rightArr.shift())
-        }
-    }
-
-    return sortedArr.concat(leftArr,rightArr)
-}
-
-const testCases = [
-    [],
-    [5],
-    [5, 3],
-    [5, 1, 4, 2, 8],
-    [3, 3, 3],
-    [9, 7, 5, 3, 1],
-    [1, 2, 3, 4, 5],
-    [100, -50, 20, 0, -1],
-];
-
-function testSort(sortFn, name) {
-    console.log(`\nTesting ${name}:`);
-    for (let test of testCases) {
-        const input = [...test];  // clone to prevent in-place effects
-        const output = sortFn([...input]);  // clone again for safety
-        const expected = [...input].sort((a, b) => a - b);
-        const pass = JSON.stringify(output) === JSON.stringify(expected);
-        console.log(`Input: ${input} ➜ Output: ${output} ➜ ${pass ? '✅ PASS' : '❌ FAIL'}`);
+        return this.item[this.item.length-1]
     }
 }
 
-testSort(bubbleSort, 'Bubble Sort');
-testSort(insertionSort, 'Insertion Sort');
-testSort(selectionSort, 'Selection Sort');
-testSort(quickSort, 'Quick Sort');
-testSort(mergeSort, 'Merge Sort');
+const s = new stack();
+
+// Test 1: Stack should be empty initially
+console.log(s.isEmpty()); // true
+console.log(s.getSize()); // 0
+console.log(s.peek());    // "stack is empty"
+console.log(s.pop());     // "nothing to remove"
+
+// Test 2: Push elements
+s.push(10);
+s.push(20);
+s.push(30);
+
+console.log(s.isEmpty()); // false
+console.log(s.getSize()); // 3
+console.log(s.peek());    // 30
+
+// Test 3: Pop top element
+console.log(s.pop());     // 30
+console.log(s.getSize()); // 2
+console.log(s.peek());    // 20
+
+// Test 4: Pop remaining elements
+console.log(s.pop());     // 20
+console.log(s.pop());     // 10
+
+// Test 5: Try popping from empty stack again
+console.log(s.pop());     // "nothing to remove"
+console.log(s.peek());    // "stack is empty"
+console.log(s.isEmpty()); // true
