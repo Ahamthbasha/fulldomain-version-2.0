@@ -2315,3 +2315,346 @@
 // console.log(s.pop());       // "nothing to remove"
 // console.log(s.peek());      // "empty"
 // console.log(s.print());     // "empty"
+
+// class queue{
+//     constructor(){
+//         this.item = []
+//     }
+
+//     isEmpty(){
+//         return this.item.length == 0
+//     }
+
+//     getSize(){
+//         return this.item.length
+//     }
+
+//     enqueue(value){
+//         this.item.push(value)
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         return this.item.shift()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'empty'
+//         }
+
+//         return this.item[0]
+//     }
+
+//     print(){
+//         console.log(this.item)
+//     }
+// }
+
+// const q = new queue(); // or new Queue() if you rename it
+
+// console.log("Initial queue is empty:", q.isEmpty()); // true
+// console.log("Initial size:", q.getSize());           // 0
+
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+// console.log("Queue after 3 enqueues:");
+// q.print(); // [10, 20, 30]
+
+// console.log("Is queue empty?", q.isEmpty()); // false
+// console.log("Current size:", q.getSize());   // 3
+
+// console.log("Peek:", q.peek());             // 10
+// console.log("Dequeue:", q.dequeue());       // 10
+// console.log("Queue after 1 dequeue:");
+// q.print(); // [20, 30]
+
+// console.log("Peek after dequeue:", q.peek());  // 20
+// console.log("Dequeue:", q.dequeue());          // 20
+// console.log("Dequeue:", q.dequeue());          // 30
+// console.log("Dequeue on empty:", q.dequeue()); // 'queue is empty'
+
+// console.log("Peek on empty:", q.peek());       // 'empty'
+// console.log("Final queue state:");
+// q.print(); // []
+
+// class queue{
+//     constructor(){
+//         this.item = {}
+//         this.head = 0
+//         this.tail = 0
+//     }
+
+//     isEmpty(){
+//         return this.tail - this.head == 0
+//     }
+
+//     getSize(){
+//         return this.tail - this.head
+//     }
+
+//     enqueue(value){
+//         this.item[this.tail] = value
+//         this.tail++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         let val = this.item[this.head]
+//         delete this.item[this.head]
+//         this.head++
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         return this.item[this.head]
+//     }
+
+//     print(){
+//         console.log(this.item)
+//     }
+// }
+
+// const q = new queue();
+
+// console.log("Is empty?", q.isEmpty());           // true
+// console.log("Initial size:", q.getSize());       // 0
+
+// q.enqueue("A");
+// q.enqueue("B");
+// q.enqueue("C");
+
+// console.log("After enqueue 3 elements:");
+// q.print();                                       // { '0': 'A', '1': 'B', '2': 'C' }
+
+// console.log("Size:", q.getSize());               // 3
+// console.log("Peek:", q.peek());                  // 'A'
+// console.log("Dequeue:", q.dequeue());            // 'A'
+
+// console.log("Peek after dequeue:", q.peek());    // 'B'
+// console.log("Is empty?", q.isEmpty());           // false
+// console.log("Size after dequeue:", q.getSize()); // 2
+
+// console.log(q.dequeue());                                     // 'B'
+// console.log(q.dequeue());                                     // 'C'
+
+// console.log("Dequeue on empty:", q.dequeue());   // 'queue is empty'
+// console.log("Peek on empty:", q.peek());         // 'nothing to remove'
+
+// console.log("Final queue:");
+// q.print();                                       // {}
+
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+// class queue{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size === 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     enqueue(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//         }
+
+//         this.size++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+
+//         return this.head.value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'nothing to print'
+//         }
+//         else{
+//             let temp = this.head
+//             let list = ''
+//             while(temp){
+//                 list +=temp.value+"->"
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+
+//             return list
+//         }
+//     }
+// }
+
+// const q = new queue();
+
+// console.log("Is empty?", q.isEmpty());             // true
+// console.log("Initial size:", q.getSize());         // 0
+// console.log("Print:", q.print());                  // null
+
+// q.enqueue(1);
+// q.enqueue(2);
+// q.enqueue(3);
+
+// console.log("After enqueue 1, 2, 3:");
+// console.log("Print:", q.print());                  // 1->2->3->null
+// console.log("Size:", q.getSize());                 // 3
+// console.log("Peek:", q.peek());                    // 1
+
+// console.log("Dequeue:", q.dequeue());              // 1
+// console.log("Peek after dequeue:", q.peek());      // 2
+// console.log("Size after dequeue:", q.getSize());   // 2
+// console.log("Print:", q.print());                  // 2->3->null
+
+// console.log(q.dequeue());                                       // Removes 2
+// console.log(q.dequeue());                                       // Removes 3
+// console.log("Dequeue from empty:", q.dequeue());   // 'nothing to remove'
+// console.log("Peek on empty:", q.peek());           // 'nothing to remove'
+// console.log("Final print:", q.print());            // null
+// console.log("Final size:", q.getSize());           // 0
+// console.log("Is empty?", q.isEmpty());             // true
+
+
+class Stack{
+    constructor(){
+        this.item = []
+    }
+    
+    isEmpty(){
+        return this.item.length == 0
+    }
+
+    getSize(){
+        return this.item.length
+    }
+
+    push(value){
+        this.item.push(value)
+    }
+
+    pop(){
+        if(this.isEmpty()){
+            return "nothing to remove"
+        }
+
+        return this.item.pop()
+    }
+
+    peek(){
+        if(this.isEmpty()){
+            return 'nothing to print'
+        }
+
+        return this.item[this.item.length-1]
+    }
+
+    reverseArr(arr){
+        let temp = new Stack()
+
+        for(let i=0;i<arr.length;i++){
+            temp.push(arr[i])
+        }
+
+        let reversedArr =[]
+
+        while(temp.item.length){
+            reversedArr.push(temp.pop())
+        }
+
+        return reversedArr
+    }
+
+    reverseStr(str){
+        let temp = new Stack()
+
+        for(let i=0;i<str.length;i++){
+            temp.push(str[i])
+        }
+
+        let reversedStr = ''
+
+        while(temp.item.length){
+            reversedStr+=temp.pop()
+        }
+
+        return reversedStr
+    }
+}
+const s = new Stack();
+
+// Test isEmpty and getSize
+console.log("Is empty?", s.isEmpty());          // true
+console.log("Size:", s.getSize());              // 0
+
+// Push elements
+s.push(10);
+s.push(20);
+s.push(30);
+
+console.log("Is empty after push?", s.isEmpty()); // false
+console.log("Size after push:", s.getSize());     // 3
+console.log("Peek:", s.peek());                   // 30
+
+// Pop elements
+console.log("Pop:", s.pop());                     // 30
+console.log("Peek after pop:", s.peek());         // 20
+console.log("Size after pop:", s.getSize());      // 2
+
+// Pop all and test underflow
+console.log(s.pop());  // 20
+console.log(s.pop());  // 10
+console.log("Pop on empty:", s.pop());            // "nothing to remove"
+console.log("Peek on empty:", s.peek());          // "nothing to print"
+
+// Test reverseArr
+const inputArr = [1, 2, 3, 4];
+console.log("Reversed array:", s.reverseArr(inputArr)); // [4, 3, 2, 1]
+
+// Test reverseStr
+const inputStr = "hello";
+console.log("Reversed string:", s.reverseStr(inputStr)); // "olleh"
