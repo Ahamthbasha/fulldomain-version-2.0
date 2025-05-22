@@ -2560,101 +2560,277 @@
 // console.log("Is empty?", q.isEmpty());             // true
 
 
-class Stack{
-    constructor(){
-        this.item = []
-    }
+// class Stack{
+//     constructor(){
+//         this.item = []
+//     }
     
+//     isEmpty(){
+//         return this.item.length == 0
+//     }
+
+//     getSize(){
+//         return this.item.length
+//     }
+
+//     push(value){
+//         this.item.push(value)
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return "nothing to remove"
+//         }
+
+//         return this.item.pop()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'nothing to print'
+//         }
+
+//         return this.item[this.item.length-1]
+//     }
+
+//     reverseArr(arr){
+//         let temp = new Stack()
+
+//         for(let i=0;i<arr.length;i++){
+//             temp.push(arr[i])
+//         }
+
+//         let reversedArr =[]
+
+//         while(temp.item.length){
+//             reversedArr.push(temp.pop())
+//         }
+
+//         return reversedArr
+//     }
+
+//     reverseStr(str){
+//         let temp = new Stack()
+
+//         for(let i=0;i<str.length;i++){
+//             temp.push(str[i])
+//         }
+
+//         let reversedStr = ''
+
+//         while(temp.item.length){
+//             reversedStr+=temp.pop()
+//         }
+
+//         return reversedStr
+//     }
+// }
+// const s = new Stack();
+
+// // Test isEmpty and getSize
+// console.log("Is empty?", s.isEmpty());          // true
+// console.log("Size:", s.getSize());              // 0
+
+// // Push elements
+// s.push(10);
+// s.push(20);
+// s.push(30);
+
+// console.log("Is empty after push?", s.isEmpty()); // false
+// console.log("Size after push:", s.getSize());     // 3
+// console.log("Peek:", s.peek());                   // 30
+
+// // Pop elements
+// console.log("Pop:", s.pop());                     // 30
+// console.log("Peek after pop:", s.peek());         // 20
+// console.log("Size after pop:", s.getSize());      // 2
+
+// // Pop all and test underflow
+// console.log(s.pop());  // 20
+// console.log(s.pop());  // 10
+// console.log("Pop on empty:", s.pop());            // "nothing to remove"
+// console.log("Peek on empty:", s.peek());          // "nothing to print"
+
+// // Test reverseArr
+// const inputArr = [1, 2, 3, 4];
+// console.log("Reversed array:", s.reverseArr(inputArr)); // [4, 3, 2, 1]
+
+// // Test reverseStr
+// const inputStr = "hello";
+// console.log("Reversed string:", s.reverseStr(inputStr)); // "olleh"
+
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class LinkedList{
+    constructor(){
+        this.head = null
+        this.size = 0
+    }
+
     isEmpty(){
-        return this.item.length == 0
+        return this.size == 0
     }
 
     getSize(){
-        return this.item.length
+        return this.size
     }
 
-    push(value){
-        this.item.push(value)
-    }
+    prepend(value){
+        const node = new Node(value)
 
-    pop(){
         if(this.isEmpty()){
-            return "nothing to remove"
+            this.head = node
+        }else{
+            node.next = this.head
+            this.head = node
         }
 
-        return this.item.pop()
+        this.size++
     }
 
-    peek(){
+    append(value){
+        const node = new Node(value)
+
         if(this.isEmpty()){
-            return 'nothing to print'
+            this.head = node
+        }else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node
+            node.next = null
         }
 
-        return this.item[this.item.length-1]
+        this.size++
     }
 
-    reverseArr(arr){
-        let temp = new Stack()
-
-        for(let i=0;i<arr.length;i++){
-            temp.push(arr[i])
+    insert(index,value){
+        if(index < 0 || index > this.size){
+            return 'invalid index'
         }
-
-        let reversedArr =[]
-
-        while(temp.item.length){
-            reversedArr.push(temp.pop())
+        else if(index == 0){
+            this.prepend(value)
         }
-
-        return reversedArr
+        else if(index == this.size){
+            this.append(value)
+        }
+        else{
+            const node = new Node(value)
+            let temp = this.head
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+            node.next = temp.next
+            temp.next = node
+            this.size++
+        }
     }
 
-    reverseStr(str){
-        let temp = new Stack()
+    removeByIndex(index){
+        if(index < 0 || index >= this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else {
+            let temp = this.head
 
-        for(let i=0;i<str.length;i++){
-            temp.push(str[i])
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = temp.next.next
+            this.size--
+            return val
+        }
+    }
+
+    removeByValue(value){
+        if(this.isEmpty()){
+            return 'nothing to remove'
+        }
+        else if(this.head.value == value){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+            while(temp.next){
+                if(temp.next.value == value){
+                    temp.next = temp.next.next
+                    this.size--
+                    return value
+                }
+                temp = temp.next
+            }
+            return "nothing value matched"
+        }
+    }
+
+    reverse(){
+        let prev = null
+        let cur = this.head
+
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
         }
 
-        let reversedStr = ''
+        this.head = prev
+    }
 
-        while(temp.item.length){
-            reversedStr+=temp.pop()
+    print(){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }else{
+            let temp = this.head
+            let list =''
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
+            }
+
+            list+='null'
+
+            return list
         }
-
-        return reversedStr
     }
 }
-const s = new Stack();
 
-// Test isEmpty and getSize
-console.log("Is empty?", s.isEmpty());          // true
-console.log("Size:", s.getSize());              // 0
-
-// Push elements
-s.push(10);
-s.push(20);
-s.push(30);
-
-console.log("Is empty after push?", s.isEmpty()); // false
-console.log("Size after push:", s.getSize());     // 3
-console.log("Peek:", s.peek());                   // 30
-
-// Pop elements
-console.log("Pop:", s.pop());                     // 30
-console.log("Peek after pop:", s.peek());         // 20
-console.log("Size after pop:", s.getSize());      // 2
-
-// Pop all and test underflow
-console.log(s.pop());  // 20
-console.log(s.pop());  // 10
-console.log("Pop on empty:", s.pop());            // "nothing to remove"
-console.log("Peek on empty:", s.peek());          // "nothing to print"
-
-// Test reverseArr
-const inputArr = [1, 2, 3, 4];
-console.log("Reversed array:", s.reverseArr(inputArr)); // [4, 3, 2, 1]
-
-// Test reverseStr
-const inputStr = "hello";
-console.log("Reversed string:", s.reverseStr(inputStr)); // "olleh"
+const list = new LinkedList();
+console.log(list.isEmpty()); // true
+list.prepend(10);
+list.prepend(20);
+console.log(list.print());   // 20->10->null
+list.append(30);
+list.append(40);
+console.log(list.print());   // 20->10->30->40->null
+list.insert(2, 25);
+list.insert(0, 5);
+list.insert(6, 50);
+console.log(list.print());   // 5->20->10->25->30->40->50->null
+console.log(list.removeByIndex(0));  // 5
+console.log(list.removeByIndex(2));  // 25
+console.log(list.removeByIndex(4));  // 50
+console.log(list.print());          // 20->10->30->40->null
+console.log(list.removeByValue(30)); // 30
+console.log(list.print());          // 20->10->40->null
+list.reverse();
+console.log(list.print());          // 40->10->20->null
