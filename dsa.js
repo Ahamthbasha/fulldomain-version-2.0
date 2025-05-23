@@ -2660,6 +2660,181 @@
 // console.log("Reversed string:", s.reverseStr(inputStr)); // "olleh"
 
 
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class LinkedList{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     getSize(){
+//         return this.size
+//     }
+
+//     prepend(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             node.next = this.head
+//             this.head = node
+//         }
+
+//         this.size++
+//     }
+
+//     append(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//             node.next = null
+//         }
+
+//         this.size++
+//     }
+
+//     insert(index,value){
+//         if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             this.prepend(value)
+//         }
+//         else if(index == this.size){
+//             this.append(value)
+//         }
+//         else{
+//             const node = new Node(value)
+//             let temp = this.head
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+//             node.next = temp.next
+//             temp.next = node
+//             this.size++
+//         }
+//     }
+
+//     removeByIndex(index){
+//         if(index < 0 || index >= this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else {
+//             let temp = this.head
+
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = temp.next.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+//             while(temp.next){
+//                 if(temp.next.value == value){
+//                     temp.next = temp.next.next
+//                     this.size--
+//                     return value
+//                 }
+//                 temp = temp.next
+//             }
+//             return "nothing value matched"
+//         }
+//     }
+
+//     reverse(){
+//         let prev = null
+//         let cur = this.head
+
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
+
+//         this.head = prev
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }else{
+//             let temp = this.head
+//             let list =''
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             list+='null'
+
+//             return list
+//         }
+//     }
+// }
+
+// const list = new LinkedList();
+// console.log(list.isEmpty()); // true
+// list.prepend(10);
+// list.prepend(20);
+// console.log(list.print());   // 20->10->null
+// list.append(30);
+// list.append(40);
+// console.log(list.print());   // 20->10->30->40->null
+// list.insert(2, 25);
+// list.insert(0, 5);
+// list.insert(6, 50);
+// console.log(list.print());   // 5->20->10->25->30->40->50->null
+// console.log(list.removeByIndex(0));  // 5
+// console.log(list.removeByIndex(2));  // 25
+// console.log(list.removeByIndex(4));  // 50
+// console.log(list.print());          // 20->10->30->40->null
+// console.log(list.removeByValue(30)); // 30
+// console.log(list.print());          // 20->10->40->null
+// list.reverse();
+// console.log(list.print());          // 40->10->20->null
+
 class Node{
     constructor(value){
         this.value = value
@@ -2683,39 +2858,28 @@ class LinkedList{
 
     prepend(value){
         const node = new Node(value)
-
-        if(this.isEmpty()){
-            this.head = node
-        }else{
-            node.next = this.head
-            this.head = node
-        }
-
+        node.next = this.head
+        this.head = node
         this.size++
     }
 
     append(value){
         const node = new Node(value)
-
         if(this.isEmpty()){
             this.head = node
         }else{
             let temp = this.head
-
             while(temp.next){
                 temp = temp.next
             }
-
             temp.next = node
-            node.next = null
         }
-
         this.size++
     }
 
-    insert(index,value){
+    insert(value,index){
         if(index < 0 || index > this.size){
-            return 'invalid index'
+            return "invalid index"
         }
         else if(index == 0){
             this.prepend(value)
@@ -2729,9 +2893,46 @@ class LinkedList{
             for(let i=0;i<index-1;i++){
                 temp = temp.next
             }
+
             node.next = temp.next
             temp.next = node
             this.size++
+        }
+    }
+
+    removeFromStart(){
+        if(this.isEmpty()){
+            return 'nothing to remove'
+        }
+        else{
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+    }
+
+    removeFromEnd(){
+        if(this.isEmpty()){
+            return "nothing to remove"
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next.next){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
         }
     }
 
@@ -2740,12 +2941,9 @@ class LinkedList{
             return 'invalid index'
         }
         else if(index == 0){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
+            this.removeFromStart()
         }
-        else {
+        else{
             let temp = this.head
 
             for(let i=0;i<index-1;i++){
@@ -2762,7 +2960,7 @@ class LinkedList{
         if(this.isEmpty()){
             return 'nothing to remove'
         }
-        else if(this.head.value == value){
+        else if(value == this.head.value){
             let val = this.head.value
             this.head = this.head.next
             this.size--
@@ -2770,15 +2968,54 @@ class LinkedList{
         }
         else{
             let temp = this.head
-            while(temp.next){
-                if(temp.next.value == value){
-                    temp.next = temp.next.next
-                    this.size--
-                    return value
-                }
+
+            while(temp.next && temp.next.value != value){
                 temp = temp.next
             }
-            return "nothing value matched"
+
+            if(temp.next == null){
+                return 'value not found'
+            }else{
+                let val = temp.next.value
+                temp.next = temp.next.next
+                this.size--
+                return val
+            }
+        }
+    }
+
+    search(value){
+        if(this.isEmpty()){
+            return 'empty'
+        }
+        else{
+            let temp = this.head
+            let index = 0
+            while(temp){
+                if(temp.value == value){
+                    return index
+                }
+                temp = temp.next
+                index++
+            }
+            return -1
+        }
+    }
+
+    print(){
+        if(this.isEmpty()){
+            return "list is empty"
+        }
+        else{
+            let temp = this.head
+            let list = ''
+            while(temp){
+                list+= temp.value + '->'
+                temp = temp.next
+            }
+            list+='null'
+
+            return list
         }
     }
 
@@ -2795,42 +3032,91 @@ class LinkedList{
 
         this.head = prev
     }
-
-    print(){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }else{
-            let temp = this.head
-            let list =''
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
-            }
-
-            list+='null'
-
-            return list
-        }
-    }
 }
-
 const list = new LinkedList();
-console.log(list.isEmpty()); // true
+
+// Test 1: Empty list
+console.log("Test 1: Empty list");
+console.log("Is empty:", list.isEmpty()); // true
+console.log("Size:", list.getSize()); // 0
+console.log("Print:", list.print()); // "this list is empty"
+console.log("Search 10:", list.search(10)); // -1
+console.log("Remove from start:", list.removeFromStart()); // "list is empty"
+console.log("Remove from end:", list.removeFromEnd()); // "list is empty"
+console.log("Remove by index 0:", list.removeByIndex(0)); // "list is empty"
+console.log("Remove by value 10:", list.removeByValue(10)); // "list is empty"
+
+// Test 2: Prepend and append
+console.log("\nTest 2: Prepend and append");
 list.prepend(10);
-list.prepend(20);
-console.log(list.print());   // 20->10->null
+list.append(20);
 list.append(30);
+console.log("Print:", list.print()); // "10 -> 20 -> 30 -> null"
+console.log("Size:", list.getSize()); // 3
+console.log("Is empty:", list.isEmpty()); // false
+
+// Test 3: Insert at various positions
+console.log("\nTest 3: Insert");
+list.insert(15, 1);
+console.log("Insert 15 at index 1:", list.print()); // "10 -> 15 -> 20 -> 30 -> null"
+list.insert(5, 0);
+console.log("Insert 5 at index 0:", list.print()); // "5 -> 10 -> 15 -> 20 -> 30 -> null"
+list.insert(35, list.getSize());
+console.log("Insert 35 at end:", list.print()); // "5 -> 10 -> 15 -> 20 -> 30 -> 35 -> null"
+console.log("Insert at invalid index:", list.insert(40, 10)); // "invalid index"
+
+// Test 4: Remove by index
+console.log("\nTest 4: Remove by index");
+console.log("Remove index 0:", list.removeByIndex(0)); // 5
+console.log("Print:", list.print()); // "10 -> 15 -> 20 -> 30 -> 35 -> null"
+console.log("Remove index 2:", list.removeByIndex(2)); // 20
+console.log("Print:", list.print()); // "10 -> 15 -> 30 -> 35 -> null"
+console.log("Remove invalid index:", list.removeByIndex(10)); // "invalid index"
+
+// Test 5: Remove by value
+console.log("\nTest 5: Remove by value");
+console.log("Remove value 15:", list.removeByValue(15)); // 15
+console.log("Print:", list.print()); // "10 -> 30 -> 35 -> null"
+console.log("Remove non-existent value:", list.removeByValue(100)); // "value not found"
+
+// Test 6: Remove from start and end
+console.log("\nTest 6: Remove from start and end");
+console.log("Remove from start:", list.removeFromStart()); // 10
+console.log("Print:", list.print()); // "30 -> 35 -> null"
+console.log("Remove from end:", list.removeFromEnd()); // 35
+console.log("Print:", list.print()); // "30 -> null"
+
+// Test 7: Single-node list
+console.log("\nTest 7: Single-node list");
+const singleNodeList = new LinkedList();
+singleNodeList.append(1);
+console.log("Print single node:", singleNodeList.print()); // "1 -> null"
+console.log("Remove from end:", singleNodeList.removeFromEnd()); // 1
+console.log("Print after remove:", singleNodeList.print()); // "this list is empty"
+console.log("Size:", singleNodeList.getSize()); // 0
+
+// Test 8: Reverse
+console.log("\nTest 8: Reverse");
 list.append(40);
-console.log(list.print());   // 20->10->30->40->null
-list.insert(2, 25);
-list.insert(0, 5);
-list.insert(6, 50);
-console.log(list.print());   // 5->20->10->25->30->40->50->null
-console.log(list.removeByIndex(0));  // 5
-console.log(list.removeByIndex(2));  // 25
-console.log(list.removeByIndex(4));  // 50
-console.log(list.print());          // 20->10->30->40->null
-console.log(list.removeByValue(30)); // 30
-console.log(list.print());          // 20->10->40->null
+list.append(50);
+console.log("Before reverse:", list.print()); // "30 -> 40 -> 50 -> null"
 list.reverse();
-console.log(list.print());          // 40->10->20->null
+console.log("After reverse:", list.print()); // "50 -> 40 -> 30 -> null"
+
+// Test 9: Search
+console.log("\nTest 9: Search");
+console.log("Search 40:", list.search(40)); // 1
+console.log("Search 100:", list.search(100)); // -1
+
+// Test 10: Invalid input
+console.log("\nTest 10: Invalid input");
+try {
+    list.append(null);
+} catch (e) {
+    console.log("Error on null input:", e.message); // "Value cannot be null or undefined"
+}
+try {
+    list.insert(undefined, 0);
+} catch (e) {
+    console.log("Error on undefined input:", e.message); // "Value cannot be null or undefined"
+}
