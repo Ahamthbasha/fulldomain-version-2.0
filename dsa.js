@@ -3144,3 +3144,139 @@
 // console.log(emptyList.removeFromEnd()) // Output: 'nothing to remove'
 // console.log(emptyList.removeFromStart()) // Output: 'list is empty'
 // console.log(emptyList.removeByIndex(0)) // Output: 'invalid index'
+
+
+function bubbleSort(arr){
+    let swapped
+    do{
+        swapped = false
+        for(let i=0;i<arr.length-1;i++){
+            if(arr[i] > arr[i+1]){
+                let temp = arr[i]
+                arr[i] = arr[i+1]
+                arr[i+1] = temp
+                swapped = true
+            }
+        }
+    }while(swapped)
+        return arr
+}
+
+function insertionSort(arr){
+    for(let i=1;i<arr.length;i++){
+        let cur = arr[i]
+        let j =i-1
+
+        while(j>=0 && arr[j] > cur){
+            arr[j+1] = arr[j]
+            j--
+        }
+        arr[j+1] = cur
+    }
+    return arr
+}
+
+function selectionSort(arr){
+    for(let i=0;i<arr.length-1;i++){
+        let minElement = i
+        for(let j=i+1;j<arr.length;j++){
+            if(arr[minElement] > arr[j]){
+                minElement = j
+            }
+        }
+
+        let temp = arr[minElement]
+        arr[minElement] = arr[i]
+        arr[i] = temp
+    }
+    return arr
+}
+
+function quickSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let pivot = arr[arr.length-1]
+    let leftArr = []
+    let rightArr = []
+
+    for(let i=0;i<arr.length-1;i++){
+        if(arr[i] < pivot){
+            leftArr.push(arr[i])
+        }else{
+            rightArr.push(arr[i])
+        }
+    }
+
+    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+}
+
+function mergeSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let mid = Math.floor(arr.length/2)
+    let leftArr = arr.slice(0,mid)
+    let rightArr = arr.slice(mid)
+
+    return merge(mergeSort(leftArr),mergeSort(rightArr))
+}
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
+        }else{
+            sortedArr.push(rightArr.shift())
+        }
+    }
+
+    return sortedArr.concat(leftArr,rightArr)
+}
+
+const testCases = [
+    {
+        input: [],
+        expected: []
+    },
+    {
+        input: [1],
+        expected: [1]
+    },
+    {
+        input: [5, 2, 9, 1, 5, 6],
+        expected: [1, 2, 5, 5, 6, 9]
+    },
+    {
+        input: [3, -1, 0, -7, 2, 5],
+        expected: [-7, -1, 0, 2, 3, 5]
+    },
+    {
+        input: [10, 9, 8, 7, 6, 5],
+        expected: [5, 6, 7, 8, 9, 10]
+    }
+];
+
+function testSortingFunction(fn, name) {
+    console.log(`\nTesting: ${name}`);
+    testCases.forEach(({ input, expected }, index) => {
+        const result = fn([...input]); // use copy to prevent in-place modification
+        const passed = JSON.stringify(result) === JSON.stringify(expected);
+        console.log(`Test ${index + 1}: ${passed ? 'PASSED' : 'FAILED'}`);
+        if (!passed) {
+            console.log(`   Input: ${input}`);
+            console.log(`   Expected: ${expected}`);
+            console.log(`   Got: ${result}`);
+        }
+    });
+}
+
+// Run tests
+testSortingFunction(bubbleSort, "Bubble Sort");
+testSortingFunction(insertionSort, "Insertion Sort");
+testSortingFunction(selectionSort, "Selection Sort");
+testSortingFunction(quickSort, "Quick Sort");
+testSortingFunction(mergeSort, "Merge Sort");
