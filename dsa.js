@@ -3146,137 +3146,377 @@
 // console.log(emptyList.removeByIndex(0)) // Output: 'invalid index'
 
 
-function bubbleSort(arr){
-    let swapped
-    do{
-        swapped = false
-        for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                let temp = arr[i]
-                arr[i] = arr[i+1]
-                arr[i+1] = temp
-                swapped = true
+// function bubbleSort(arr){
+//     let swapped
+//     do{
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }while(swapped)
+//         return arr
+// }
+
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let cur = arr[i]
+//         let j =i-1
+
+//         while(j>=0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+//         arr[j+1] = cur
+//     }
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+
+//         let temp = arr[minElement]
+//         arr[minElement] = arr[i]
+//         arr[i] = temp
+//     }
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// const testCases = [
+//     {
+//         input: [],
+//         expected: []
+//     },
+//     {
+//         input: [1],
+//         expected: [1]
+//     },
+//     {
+//         input: [5, 2, 9, 1, 5, 6],
+//         expected: [1, 2, 5, 5, 6, 9]
+//     },
+//     {
+//         input: [3, -1, 0, -7, 2, 5],
+//         expected: [-7, -1, 0, 2, 3, 5]
+//     },
+//     {
+//         input: [10, 9, 8, 7, 6, 5],
+//         expected: [5, 6, 7, 8, 9, 10]
+//     }
+// ];
+
+// function testSortingFunction(fn, name) {
+//     console.log(`\nTesting: ${name}`);
+//     testCases.forEach(({ input, expected }, index) => {
+//         const result = fn([...input]); // use copy to prevent in-place modification
+//         const passed = JSON.stringify(result) === JSON.stringify(expected);
+//         console.log(`Test ${index + 1}: ${passed ? 'PASSED' : 'FAILED'}`);
+//         if (!passed) {
+//             console.log(`   Input: ${input}`);
+//             console.log(`   Expected: ${expected}`);
+//             console.log(`   Got: ${result}`);
+//         }
+//     });
+// }
+
+// // Run tests
+// testSortingFunction(bubbleSort, "Bubble Sort");
+// testSortingFunction(insertionSort, "Insertion Sort");
+// testSortingFunction(selectionSort, "Selection Sort");
+// testSortingFunction(quickSort, "Quick Sort");
+// testSortingFunction(mergeSort, "Merge Sort");
+
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+    }
+}
+
+class bst{
+    constructor(){
+        this.root = null;
+    }
+
+    isEmpty(){
+        return this.root === null
+    }
+
+    insert(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.root = node
+        }
+        else{
+            this.insertNode(this.root,node)
+        }
+    }
+
+    insertNode(root,node){
+        if(node.value < root.value){
+            if(root.left == null){
+                root.left = node 
+            }else{
+                this.insertNode(root.left,node)
+            }
+        }else{
+            if(root.right == null){
+                root.right = node
+            }else{
+                this.insertNode(root.right,node)
             }
         }
-    }while(swapped)
-        return arr
-}
-
-function insertionSort(arr){
-    for(let i=1;i<arr.length;i++){
-        let cur = arr[i]
-        let j =i-1
-
-        while(j>=0 && arr[j] > cur){
-            arr[j+1] = arr[j]
-            j--
-        }
-        arr[j+1] = cur
     }
-    return arr
-}
 
-function selectionSort(arr){
-    for(let i=0;i<arr.length-1;i++){
-        let minElement = i
-        for(let j=i+1;j<arr.length;j++){
-            if(arr[minElement] > arr[j]){
-                minElement = j
+    search(root,value){
+        if(this.isEmpty()){
+            return 'tree is empty'
+        }
+        
+        if(root == null){
+            return false
+        }
+        
+        if(root.value == value){
+            return true
+        }
+        else if(value < root.value){
+            return this.search(root.left,value)
+        }
+        else{
+            return this.search(root.right,value)
+        }
+    }
+
+    preOrder(root){
+        if(root){
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
+        }
+    }
+
+    inOrder(root){
+        if(root){
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
+
+    postOrder(root){
+        if(root){
+            this.postOrder(root.left)
+            this.postOrder(root.right)
+            console.log(root.value)
+        }
+    }
+
+    levelOrder(root){
+        let queue = []
+        queue.push(root)
+
+        while(queue.length){
+            let cur = queue.shift()
+            console.log(cur.value)
+
+            if(cur.left){
+                queue.push(cur.left)
+            }
+
+            if(cur.right){
+                queue.push(cur.right)
             }
         }
-
-        let temp = arr[minElement]
-        arr[minElement] = arr[i]
-        arr[i] = temp
-    }
-    return arr
-}
-
-function quickSort(arr){
-    if(arr.length < 2){
-        return arr
     }
 
-    let pivot = arr[arr.length-1]
-    let leftArr = []
-    let rightArr = []
+    min(root){
+        if(!root){
+            return null
+        }
 
-    for(let i=0;i<arr.length-1;i++){
-        if(arr[i] < pivot){
-            leftArr.push(arr[i])
+        while(root.left){
+            root = root.left
+        }
+
+        return root.value
+    }
+
+    max(root){
+        if(!root){
+            return null
+        }
+
+        while(root.right){
+            root = root.right
+        }
+
+        return root.value
+    }
+
+    delete(value){
+        if(this.isEmpty()){
+            return 'no root'
         }else{
-            rightArr.push(arr[i])
+            this.root = this.deleteNode(this.root,value)
         }
     }
 
-    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
-}
-
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
-
-    let mid = Math.floor(arr.length/2)
-    let leftArr = arr.slice(0,mid)
-    let rightArr = arr.slice(mid)
-
-    return merge(mergeSort(leftArr),mergeSort(rightArr))
-}
-
-function merge(leftArr,rightArr){
-    let sortedArr = []
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0] < rightArr[0]){
-            sortedArr.push(leftArr.shift())
-        }else{
-            sortedArr.push(rightArr.shift())
+    deleteNode(root,value){
+        if(!root){
+            return null
         }
-    }
-
-    return sortedArr.concat(leftArr,rightArr)
-}
-
-const testCases = [
-    {
-        input: [],
-        expected: []
-    },
-    {
-        input: [1],
-        expected: [1]
-    },
-    {
-        input: [5, 2, 9, 1, 5, 6],
-        expected: [1, 2, 5, 5, 6, 9]
-    },
-    {
-        input: [3, -1, 0, -7, 2, 5],
-        expected: [-7, -1, 0, 2, 3, 5]
-    },
-    {
-        input: [10, 9, 8, 7, 6, 5],
-        expected: [5, 6, 7, 8, 9, 10]
-    }
-];
-
-function testSortingFunction(fn, name) {
-    console.log(`\nTesting: ${name}`);
-    testCases.forEach(({ input, expected }, index) => {
-        const result = fn([...input]); // use copy to prevent in-place modification
-        const passed = JSON.stringify(result) === JSON.stringify(expected);
-        console.log(`Test ${index + 1}: ${passed ? 'PASSED' : 'FAILED'}`);
-        if (!passed) {
-            console.log(`   Input: ${input}`);
-            console.log(`   Expected: ${expected}`);
-            console.log(`   Got: ${result}`);
+        else if(value < root.value){
+            root.left = this.deleteNode(root.left,value)
         }
-    });
+        else if(value > root.value){
+            root.right = this.deleteNode(root.right,value)
+        }
+        else{
+            if(!root.left && !root.right){
+                return null
+            }
+
+            if(!root.left){
+                return root.right
+            }
+
+            if(!root.right){
+                return root.left
+            }
+
+            let minValue = this.min(root.right)
+            root.value = minValue
+            root.right = this.deleteNode(root.right,minValue)
+        }
+        return root
+    }
+
+
 }
 
-// Run tests
-testSortingFunction(bubbleSort, "Bubble Sort");
-testSortingFunction(insertionSort, "Insertion Sort");
-testSortingFunction(selectionSort, "Selection Sort");
-testSortingFunction(quickSort, "Quick Sort");
-testSortingFunction(mergeSort, "Merge Sort");
+// Create and use the BST
+const tree = new bst();
+
+// Insert elements
+tree.insert(10);
+tree.insert(5);
+tree.insert(15);
+tree.insert(3);
+tree.insert(7);
+tree.insert(12);
+tree.insert(17);
+
+// Traversals
+console.log("✅ InOrder (should be sorted):");
+tree.inOrder(tree.root); // Expected: 3 5 7 10 12 15 17
+
+console.log("\n✅ PreOrder:");
+tree.preOrder(tree.root); // Expected: 10 5 3 7 15 12 17
+
+console.log("\n✅ PostOrder:");
+tree.postOrder(tree.root); // Expected: 3 7 5 12 17 15 10
+
+console.log("\n✅ LevelOrder:");
+tree.levelOrder(tree.root); // Expected: 10 5 15 3 7 12 17
+
+// Search
+console.log("\n✅ Search:");
+console.log("Search 7:", tree.search(tree.root, 7)); // true
+console.log("Search 100:", tree.search(tree.root, 100)); // false
+
+// Min and Max
+console.log("\n✅ Min and Max:");
+console.log("Min value:", tree.min(tree.root)); // 3
+console.log("Max value:", tree.max(tree.root)); // 17
+
+// Delete Leaf Node
+tree.delete(3);
+console.log("\n✅ After deleting leaf node 3:");
+tree.inOrder(tree.root); // Expected: 5 7 10 12 15 17
+
+// Delete Node With One Child
+tree.delete(12);
+console.log("\n✅ After deleting node 12 (one child):");
+tree.inOrder(tree.root); // Expected: 5 7 10 15 17
+
+// Delete Node With Two Children
+tree.delete(15);
+console.log("\n✅ After deleting node 15 (two children):");
+tree.inOrder(tree.root); // Expected: 5 7 10 17
+
+// Delete Root Node
+tree.delete(10);
+console.log("\n✅ After deleting root node 10:");
+tree.inOrder(tree.root); // Expected: 5 7 17
+
+// Delete Remaining Nodes
+tree.delete(5);
+tree.delete(7);
+tree.delete(17);
+console.log("\n✅ After deleting all nodes:");
+console.log("Is tree empty?", tree.isEmpty()); // true
+
+// Try operations on an empty tree
+console.log("\n✅ Traversals on empty tree:");
+tree.inOrder(tree.root); // Should print nothing
+
+console.log("Search on empty tree:");
+console.log(tree.search(tree.root, 10)); // "tree is empty"
