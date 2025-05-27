@@ -3282,241 +3282,424 @@
 // testSortingFunction(mergeSort, "Merge Sort");
 
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.left = null
-        this.right = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.left = null
+//         this.right = null
+//     }
+// }
 
-class bst{
+// class bst{
+//     constructor(){
+//         this.root = null;
+//     }
+
+//     isEmpty(){
+//         return this.root === null
+//     }
+
+//     insert(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.root = node
+//         }
+//         else{
+//             this.insertNode(this.root,node)
+//         }
+//     }
+
+//     insertNode(root,node){
+//         if(node.value < root.value){
+//             if(root.left == null){
+//                 root.left = node 
+//             }else{
+//                 this.insertNode(root.left,node)
+//             }
+//         }else{
+//             if(root.right == null){
+//                 root.right = node
+//             }else{
+//                 this.insertNode(root.right,node)
+//             }
+//         }
+//     }
+
+//     search(root,value){
+//         if(this.isEmpty()){
+//             return 'tree is empty'
+//         }
+        
+//         if(root == null){
+//             return false
+//         }
+        
+//         if(root.value == value){
+//             return true
+//         }
+//         else if(value < root.value){
+//             return this.search(root.left,value)
+//         }
+//         else{
+//             return this.search(root.right,value)
+//         }
+//     }
+
+//     preOrder(root){
+//         if(root){
+//             console.log(root.value)
+//             this.preOrder(root.left)
+//             this.preOrder(root.right)
+//         }
+//     }
+
+//     inOrder(root){
+//         if(root){
+//             this.inOrder(root.left)
+//             console.log(root.value)
+//             this.inOrder(root.right)
+//         }
+//     }
+
+//     postOrder(root){
+//         if(root){
+//             this.postOrder(root.left)
+//             this.postOrder(root.right)
+//             console.log(root.value)
+//         }
+//     }
+
+//     levelOrder(root){
+//         let queue = []
+//         queue.push(root)
+
+//         while(queue.length){
+//             let cur = queue.shift()
+//             console.log(cur.value)
+
+//             if(cur.left){
+//                 queue.push(cur.left)
+//             }
+
+//             if(cur.right){
+//                 queue.push(cur.right)
+//             }
+//         }
+//     }
+
+//     min(root){
+//         if(!root){
+//             return null
+//         }
+
+//         while(root.left){
+//             root = root.left
+//         }
+
+//         return root.value
+//     }
+
+//     max(root){
+//         if(!root){
+//             return null
+//         }
+
+//         while(root.right){
+//             root = root.right
+//         }
+
+//         return root.value
+//     }
+
+//     delete(value){
+//         if(this.isEmpty()){
+//             return 'no root'
+//         }else{
+//             this.root = this.deleteNode(this.root,value)
+//         }
+//     }
+
+//     deleteNode(root,value){
+//         if(!root){
+//             return null
+//         }
+//         else if(value < root.value){
+//             root.left = this.deleteNode(root.left,value)
+//         }
+//         else if(value > root.value){
+//             root.right = this.deleteNode(root.right,value)
+//         }
+//         else{
+//             if(!root.left && !root.right){
+//                 return null
+//             }
+
+//             if(!root.left){
+//                 return root.right
+//             }
+
+//             if(!root.right){
+//                 return root.left
+//             }
+
+//             let minValue = this.min(root.right)
+//             root.value = minValue
+//             root.right = this.deleteNode(root.right,minValue)
+//         }
+//         return root
+//     }
+
+
+// }
+
+// // Create and use the BST
+// const tree = new bst();
+
+// // Insert elements
+// tree.insert(10);
+// tree.insert(5);
+// tree.insert(15);
+// tree.insert(3);
+// tree.insert(7);
+// tree.insert(12);
+// tree.insert(17);
+
+// // Traversals
+// console.log("✅ InOrder (should be sorted):");
+// tree.inOrder(tree.root); // Expected: 3 5 7 10 12 15 17
+
+// console.log("\n✅ PreOrder:");
+// tree.preOrder(tree.root); // Expected: 10 5 3 7 15 12 17
+
+// console.log("\n✅ PostOrder:");
+// tree.postOrder(tree.root); // Expected: 3 7 5 12 17 15 10
+
+// console.log("\n✅ LevelOrder:");
+// tree.levelOrder(tree.root); // Expected: 10 5 15 3 7 12 17
+
+// // Search
+// console.log("\n✅ Search:");
+// console.log("Search 7:", tree.search(tree.root, 7)); // true
+// console.log("Search 100:", tree.search(tree.root, 100)); // false
+
+// // Min and Max
+// console.log("\n✅ Min and Max:");
+// console.log("Min value:", tree.min(tree.root)); // 3
+// console.log("Max value:", tree.max(tree.root)); // 17
+
+// // Delete Leaf Node
+// tree.delete(3);
+// console.log("\n✅ After deleting leaf node 3:");
+// tree.inOrder(tree.root); // Expected: 5 7 10 12 15 17
+
+// // Delete Node With One Child
+// tree.delete(12);
+// console.log("\n✅ After deleting node 12 (one child):");
+// tree.inOrder(tree.root); // Expected: 5 7 10 15 17
+
+// // Delete Node With Two Children
+// tree.delete(15);
+// console.log("\n✅ After deleting node 15 (two children):");
+// tree.inOrder(tree.root); // Expected: 5 7 10 17
+
+// // Delete Root Node
+// tree.delete(10);
+// console.log("\n✅ After deleting root node 10:");
+// tree.inOrder(tree.root); // Expected: 5 7 17
+
+// // Delete Remaining Nodes
+// tree.delete(5);
+// tree.delete(7);
+// tree.delete(17);
+// console.log("\n✅ After deleting all nodes:");
+// console.log("Is tree empty?", tree.isEmpty()); // true
+
+// // Try operations on an empty tree
+// console.log("\n✅ Traversals on empty tree:");
+// tree.inOrder(tree.root); // Should print nothing
+
+// console.log("Search on empty tree:");
+// console.log(tree.search(tree.root, 10)); // "tree is empty"
+
+class minHeap{
     constructor(){
-        this.root = null;
+        this.heap = []
+    }
+
+    parentIndex(index){
+        return Math.floor((index-1)/2)
+    }
+
+    leftChildIndex(index){
+        return 2 * index + 1
+    }
+
+    rightChildIndex(index){
+        return 2 * index + 2
+    }
+
+    getParent(index){
+        return this.heap[this.parentIndex(index)]
+    }
+
+    getLeftChild(index){
+        return this.heap[this.leftChildIndex(index)]
+    }
+
+    getRightChild(index){
+        return this.heap[this.rightChildIndex(index)]
+    }
+
+    hasParent(index){
+        return this.parentIndex(index) >= 0
+    }
+
+    hasLeftChild(index){
+        return this.leftChildIndex(index) < this.heap.length
+    }
+
+    hasRightChild(index){
+        return this.rightChildIndex(index) < this.heap.length
     }
 
     isEmpty(){
-        return this.root === null
+        return this.heap.length == 0
     }
 
-    insert(value){
-        const node = new Node(value)
+    getSize(){
+        return this.heap.length
+    }
+
+    swap(index1,index2){
+        let temp = this.heap[index1]
+        this.heap[index1] = this.heap[index2]
+        this.heap[index2] = temp
+    }
+
+    peek(){
         if(this.isEmpty()){
-            this.root = node
+            return 'heap is empty'
         }
-        else{
-            this.insertNode(this.root,node)
+
+        return this.heap[0]
+    }
+
+    add(value){
+        this.heap.push(value)
+        this.heapifyUp()
+    }
+
+    heapifyUp(){
+        let index = this.heap.length -1
+
+        while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+            this.swap(this.parentIndex(index),index)
+            index = this.parentIndex(index)
         }
     }
 
-    insertNode(root,node){
-        if(node.value < root.value){
-            if(root.left == null){
-                root.left = node 
+    remove(){
+        if(this.isEmpty()){
+            return 'nothing to remove'
+        }
+
+        let val = this.heap[0]
+
+        this.heap[0] = this.heap[this.heap.length-1]
+
+        this.heap.pop()
+
+        this.heapifyDown()
+
+        return val
+    }
+
+    heapifyDown(){
+        let index = 0
+        let smallest 
+
+        while(this.hasLeftChild(index)){
+            smallest = this.leftChildIndex(index)
+
+            if(this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+                smallest = this.rightChildIndex(index)
+            }
+
+            if(this.heap[smallest] >= this.heap[index]){
+                break
             }else{
-                this.insertNode(root.left,node)
-            }
-        }else{
-            if(root.right == null){
-                root.right = node
-            }else{
-                this.insertNode(root.right,node)
-            }
-        }
-    }
-
-    search(root,value){
-        if(this.isEmpty()){
-            return 'tree is empty'
-        }
-        
-        if(root == null){
-            return false
-        }
-        
-        if(root.value == value){
-            return true
-        }
-        else if(value < root.value){
-            return this.search(root.left,value)
-        }
-        else{
-            return this.search(root.right,value)
-        }
-    }
-
-    preOrder(root){
-        if(root){
-            console.log(root.value)
-            this.preOrder(root.left)
-            this.preOrder(root.right)
-        }
-    }
-
-    inOrder(root){
-        if(root){
-            this.inOrder(root.left)
-            console.log(root.value)
-            this.inOrder(root.right)
-        }
-    }
-
-    postOrder(root){
-        if(root){
-            this.postOrder(root.left)
-            this.postOrder(root.right)
-            console.log(root.value)
-        }
-    }
-
-    levelOrder(root){
-        let queue = []
-        queue.push(root)
-
-        while(queue.length){
-            let cur = queue.shift()
-            console.log(cur.value)
-
-            if(cur.left){
-                queue.push(cur.left)
+                this.swap(index,smallest)
             }
 
-            if(cur.right){
-                queue.push(cur.right)
+            index = smallest
+        }
+    }
+
+    print(){
+        console.log(this.heap)
+    }
+
+    findKthLargest(arr,k){
+        if(arr.length < k){
+            return 'arr length is small and k is invalid'
+        }
+
+        let heap = new minHeap()
+
+        for(let i=0;i<arr.length;i++){
+            heap.add(arr[i])
+            if(heap.heap.length > k){
+                heap.remove()
             }
         }
+
+        return heap.peek()
     }
 
-    min(root){
-        if(!root){
-            return null
+    heapSort(arr){
+        let heap = new minHeap()
+
+        for(let i=0;i<arr.length;i++){
+            heap.add(arr[i])
         }
 
-        while(root.left){
-            root = root.left
+        let sortedArr = []
+
+        while(heap.heap.length){
+            sortedArr.push(heap.remove())
         }
 
-        return root.value
+        return sortedArr
     }
-
-    max(root){
-        if(!root){
-            return null
-        }
-
-        while(root.right){
-            root = root.right
-        }
-
-        return root.value
-    }
-
-    delete(value){
-        if(this.isEmpty()){
-            return 'no root'
-        }else{
-            this.root = this.deleteNode(this.root,value)
-        }
-    }
-
-    deleteNode(root,value){
-        if(!root){
-            return null
-        }
-        else if(value < root.value){
-            root.left = this.deleteNode(root.left,value)
-        }
-        else if(value > root.value){
-            root.right = this.deleteNode(root.right,value)
-        }
-        else{
-            if(!root.left && !root.right){
-                return null
-            }
-
-            if(!root.left){
-                return root.right
-            }
-
-            if(!root.right){
-                return root.left
-            }
-
-            let minValue = this.min(root.right)
-            root.value = minValue
-            root.right = this.deleteNode(root.right,minValue)
-        }
-        return root
-    }
-
-
 }
 
-// Create and use the BST
-const tree = new bst();
+// Assuming minHeap class is correctly implemented as a min-heap
 
-// Insert elements
-tree.insert(10);
-tree.insert(5);
-tree.insert(15);
-tree.insert(3);
-tree.insert(7);
-tree.insert(12);
-tree.insert(17);
+let h = new minHeap();
 
-// Traversals
-console.log("✅ InOrder (should be sorted):");
-tree.inOrder(tree.root); // Expected: 3 5 7 10 12 15 17
+console.log("=== Basic add() and peek() ===");
+h.add(5);
+h.add(3);
+h.add(8);
+console.log(h.peek()); // Expected: 3
 
-console.log("\n✅ PreOrder:");
-tree.preOrder(tree.root); // Expected: 10 5 3 7 15 12 17
+console.log("=== remove() ===");
+console.log(h.remove()); // Expected: 3
+console.log(h.peek());   // Expected: 5
 
-console.log("\n✅ PostOrder:");
-tree.postOrder(tree.root); // Expected: 3 7 5 12 17 15 10
+console.log("=== findKthLargest() ===");
+let h2 = new minHeap();
+let arr = [3, 2, 1, 5, 6, 4];
+let k = 2;
+console.log(h2.findKthLargest(arr, k)); // Expected: 5
 
-console.log("\n✅ LevelOrder:");
-tree.levelOrder(tree.root); // Expected: 10 5 15 3 7 12 17
+console.log("=== heapSort() ===");
+let h3 = new minHeap();
+let sorted = h3.heapSort([5, 3, 8, 1, 2]);
+console.log(sorted); // Expected: [1, 2, 3, 5, 8]
 
-// Search
-console.log("\n✅ Search:");
-console.log("Search 7:", tree.search(tree.root, 7)); // true
-console.log("Search 100:", tree.search(tree.root, 100)); // false
-
-// Min and Max
-console.log("\n✅ Min and Max:");
-console.log("Min value:", tree.min(tree.root)); // 3
-console.log("Max value:", tree.max(tree.root)); // 17
-
-// Delete Leaf Node
-tree.delete(3);
-console.log("\n✅ After deleting leaf node 3:");
-tree.inOrder(tree.root); // Expected: 5 7 10 12 15 17
-
-// Delete Node With One Child
-tree.delete(12);
-console.log("\n✅ After deleting node 12 (one child):");
-tree.inOrder(tree.root); // Expected: 5 7 10 15 17
-
-// Delete Node With Two Children
-tree.delete(15);
-console.log("\n✅ After deleting node 15 (two children):");
-tree.inOrder(tree.root); // Expected: 5 7 10 17
-
-// Delete Root Node
-tree.delete(10);
-console.log("\n✅ After deleting root node 10:");
-tree.inOrder(tree.root); // Expected: 5 7 17
-
-// Delete Remaining Nodes
-tree.delete(5);
-tree.delete(7);
-tree.delete(17);
-console.log("\n✅ After deleting all nodes:");
-console.log("Is tree empty?", tree.isEmpty()); // true
-
-// Try operations on an empty tree
-console.log("\n✅ Traversals on empty tree:");
-tree.inOrder(tree.root); // Should print nothing
-
-console.log("Search on empty tree:");
-console.log(tree.search(tree.root, 10)); // "tree is empty"
+console.log("=== Edge Cases ===");
+let h4 = new minHeap();
+console.log(h4.peek());    // Expected: "heap is empty"
+console.log(h4.remove());  // Expected: "nothing to remove"
+console.log(h4.findKthLargest([1, 2], 5)); // Expected: "arr length is small and k is invalid"
