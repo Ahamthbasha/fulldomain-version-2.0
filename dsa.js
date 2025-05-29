@@ -3705,170 +3705,367 @@
 // console.log(h4.findKthLargest([1, 2], 5)); // Expected: "arr length is small and k is invalid"
 
 
-class maxHeap{
+// class maxHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index - 1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftchild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightchild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     add(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length-1
+
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'it is empty'
+//         }
+
+//         let val = this.heap[0]
+//         this.heap[0] = this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown()
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+        
+//         let largest
+
+//         while(this.hasLeftchild(index)){
+//             largest = this.getLeftChildIndex(index)
+
+//             if(this.hasRightchild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] > this.heap[largest]){
+//                 break
+//             }else{
+//                 this.swap(index,largest)
+//             }
+
+//             index = largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         let heap = new maxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(heap.heap.length){
+//             sortedArr.push(heap.remove())
+//         }
+
+//         return sortedArr
+//     }
+
+//     findKthSmallest(arr,k){
+//         if(arr.length < k){
+//             return 'invalid k'
+//         }
+
+//         let heap = new maxHeap()
+        
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//             if(heap.heap.length > k){
+//                 heap.remove()
+//             }
+//         }
+
+//         return heap.peek()
+//     }
+// }
+
+// const heap = new maxHeap();
+
+// // Test add() and peek()
+// heap.add(20);
+// heap.add(15);
+// heap.add(30);
+// heap.add(10);
+
+// console.log(heap.peek()); // Should be 30 (max)
+
+// // Test remove()
+// console.log(heap.remove()); // 30
+// console.log(heap.remove()); // 20
+// console.log(heap.remove()); // 15
+// console.log(heap.remove()); // 10
+// console.log(heap.remove()); // "it is empty"
+
+// // Test heapSort()
+// const unsorted = [3, 1, 5, 2, 4];
+// const sorted = heap.heapSort(unsorted);
+// console.log(sorted); // [5, 4, 3, 2, 1]
+
+// // Test findKthSmallest()
+// console.log(heap.findKthSmallest([7, 10, 4, 3, 20, 15], 3)); // 7
+// console.log(heap.findKthSmallest([1, 2, 3, 4, 5], 5)); // 5
+// console.log(heap.findKthSmallest([1, 2], 3)); // "invalid k"
+
+
+class graph{
     constructor(){
-        this.heap = []
+        this.adjacencyList = {}
     }
 
-    getParentIndex(index){
-        return Math.floor((index - 1)/2)
-    }
-
-    getLeftChildIndex(index){
-        return 2 * index + 1
-    }
-
-    getRightChildIndex(index){
-        return 2 * index + 2
-    }
-
-    getParent(index){
-        return this.heap[this.getParentIndex(index)]
-    }
-
-    getLeftChild(index){
-        return this.heap[this.getLeftChildIndex(index)]
-    }
-
-    getRightChild(index){
-        return this.heap[this.getRightChildIndex(index)]
-    }
-
-    hasParent(index){
-        return this.getParentIndex(index) >= 0
-    }
-
-    hasLeftchild(index){
-        return this.getLeftChildIndex(index) < this.heap.length
-    }
-
-    hasRightchild(index){
-        return this.getRightChildIndex(index) < this.heap.length
-    }
-
-    swap(index1,index2){
-        let temp = this.heap[index1]
-        this.heap[index1] = this.heap[index2]
-        this.heap[index2] = temp
-    }
-
-    isEmpty(){
-        return this.heap.length == 0
-    }
-
-    peek(){
-        if(this.isEmpty()){
-            return 'heap is empty'
-        }
-
-        return this.heap[0]
-    }
-
-    add(value){
-        this.heap.push(value)
-        this.heapifyUp()
-    }
-
-    heapifyUp(){
-        let index = this.heap.length-1
-
-        while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
-            this.swap(this.getParentIndex(index),index)
-            index = this.getParentIndex(index)
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            this.adjacencyList[vertex] = new Set()
         }
     }
 
-    remove(){
-        if(this.isEmpty()){
-            return 'it is empty'
+    addEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            this.adjacencyList[vertex1] = new Set()
         }
 
-        let val = this.heap[0]
-        this.heap[0] = this.heap[this.heap.length-1]
-        this.heap.pop()
-        this.heapifyDown()
-        return val
+        if(!this.adjacencyList[vertex2]){
+            this.adjacencyList[vertex2] = new Set()
+        }
+
+        this.adjacencyList[vertex1].add(vertex2)
+        this.adjacencyList[vertex2].add(vertex1)
     }
 
-    heapifyDown(){
-        let index = 0
-        
-        let largest
+    hasEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            return 'vertex one not exist'
+        }
 
-        while(this.hasLeftchild(index)){
-            largest = this.getLeftChildIndex(index)
+        if(!this.adjacencyList[vertex2]){
+            return 'vertex two not exist'
+        }
 
-            if(this.hasRightchild(index) && this.getRightChild(index) > this.getLeftChild(index)){
-                largest = this.getRightChildIndex(index)
+        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+    }
+
+    print(){
+        for(let vertex in this.adjacencyList){
+            console.log(`${vertex} => ${[...this.adjacencyList[vertex]]}`)
+        }
+    }
+
+    removeEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            return 'vertex1 is not exist'
+        }
+
+        if(!this.adjacencyList[vertex2]){
+            return 'vertex2 is not exist'
+        }
+
+        this.adjacencyList[vertex1].delete(vertex2)
+        this.adjacencyList[vertex2].delete(vertex1)
+    }
+
+    removeVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            return 'vertex is not exist'
+        }
+
+        for(let relatives of this.adjacencyList[vertex]){
+            this.removeEdge(relatives,vertex)
+        }
+
+        delete this.adjacencyList[vertex]
+    }
+
+    bfs(start){
+        let queue = []
+        queue.push(start)
+
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
+        while(queue.length){
+            let vertex = queue.shift()
+
+            console.log(vertex)
+
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push(neighbor)
+                }
             }
+        }
+    }
 
-            if(this.heap[index] > this.heap[largest]){
-                break
-            }else{
-                this.swap(index,largest)
+    dfs(start,visitedNode=new Set()){
+        visitedNode.add(start)
+        console.log(start)
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                this.dfs(neighbor,visitedNode)
             }
-
-            index = largest
         }
     }
 
-    heapSort(arr){
-        let heap = new maxHeap()
+    bfsCycleDetection(start){
+        let visitedNode = new Set()
+        visitedNode.add(start)
 
-        for(let i=0;i<arr.length;i++){
-            heap.add(arr[i])
-        }
+        let queue = []
+        queue.push({vertex:start,parent:null})
 
-        let sortedArr = []
+        while(queue.length){
+            let {vertex,parent} = queue.shift()
 
-        while(heap.heap.length){
-            sortedArr.push(heap.remove())
-        }
-
-        return sortedArr
-    }
-
-    findKthSmallest(arr,k){
-        if(arr.length < k){
-            return 'invalid k'
-        }
-
-        let heap = new maxHeap()
-        
-        for(let i=0;i<arr.length;i++){
-            heap.add(arr[i])
-            if(heap.heap.length > k){
-                heap.remove()
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push({vertex:neighbor,parent:vertex})
+                }else if(neighbor !== parent){
+                    return 'cycle detected'
+                }
             }
         }
 
-        return heap.peek()
+        return 'cycle not detected'
+    }
+
+    dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+        visitedNode.add(start)
+
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+                    return true
+                }
+            }else if(neighbor != parent){
+                return true
+            }
+        }
+
+        return false
     }
 }
 
-const heap = new maxHeap();
+const g = new graph()
 
-// Test add() and peek()
-heap.add(20);
-heap.add(15);
-heap.add(30);
-heap.add(10);
+// Add vertices
+g.addVertex('A')
+g.addVertex('B')
+g.addVertex('C')
+g.addVertex('D')
 
-console.log(heap.peek()); // Should be 30 (max)
+// Add edges
+g.addEdge('A', 'B')
+g.addEdge('A', 'C')
+g.addEdge('B', 'D')
 
-// Test remove()
-console.log(heap.remove()); // 30
-console.log(heap.remove()); // 20
-console.log(heap.remove()); // 15
-console.log(heap.remove()); // 10
-console.log(heap.remove()); // "it is empty"
+// Print graph
+console.log('Graph:')
+g.print()
 
-// Test heapSort()
-const unsorted = [3, 1, 5, 2, 4];
-const sorted = heap.heapSort(unsorted);
-console.log(sorted); // [5, 4, 3, 2, 1]
+// Test hasEdge
+console.log('Edge A-B:', g.hasEdge('A', 'B')) // true
+console.log('Edge B-C:', g.hasEdge('B', 'C')) // false
+console.log('Edge X-Y:', g.hasEdge('X', 'Y')) // 'vertex one not exist'
 
-// Test findKthSmallest()
-console.log(heap.findKthSmallest([7, 10, 4, 3, 20, 15], 3)); // 7
-console.log(heap.findKthSmallest([1, 2, 3, 4, 5], 5)); // 5
-console.log(heap.findKthSmallest([1, 2], 3)); // "invalid k"
+// Remove edge
+g.removeEdge('A', 'B')
+console.log('After removing edge A-B:')
+g.print()
+
+// Remove vertex
+g.removeVertex('C')
+console.log('After removing vertex C:')
+g.print()
+
+// Rebuild graph for traversal
+g.addEdge('A', 'B')
+g.addEdge('B', 'C')
+g.addEdge('C', 'D')
+g.addEdge('D', 'A') // Add cycle
+
+console.log('BFS from A:')
+g.bfs('A') // A B C D (or variation)
+
+console.log('DFS from A:')
+g.dfs('A') // A B C D (order depends)
+
+// Cycle detection
+console.log('BFS Cycle Detection from A:', g.bfsCycleDetection('A')) // cycle detected
+console.log('DFS Cycle Detection from A:', g.dfsCycleDetection('A')) // true
+
+// Create a graph without cycle
+const tree = new graph()
+tree.addEdge('1', '2')
+tree.addEdge('1', '3')
+tree.addEdge('2', '4')
+tree.addEdge('2', '5')
+
+console.log('Tree BFS Cycle Detection from 1:', tree.bfsCycleDetection('1')) // cycle not detected
+console.log('Tree DFS Cycle Detection from 1:', tree.dfsCycleDetection('1')) // false
