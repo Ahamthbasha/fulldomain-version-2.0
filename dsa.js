@@ -3874,198 +3874,659 @@
 // console.log(heap.findKthSmallest([1, 2], 3)); // "invalid k"
 
 
-class graph{
-    constructor(){
-        this.adjacencyList = {}
-    }
+// class graph{
+//     constructor(){
+//         this.adjacencyList = {}
+//     }
 
-    addVertex(vertex){
-        if(!this.adjacencyList[vertex]){
-            this.adjacencyList[vertex] = new Set()
-        }
-    }
+//     addVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             this.adjacencyList[vertex] = new Set()
+//         }
+//     }
 
-    addEdge(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            this.adjacencyList[vertex1] = new Set()
-        }
+//     addEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             this.adjacencyList[vertex1] = new Set()
+//         }
 
-        if(!this.adjacencyList[vertex2]){
-            this.adjacencyList[vertex2] = new Set()
-        }
+//         if(!this.adjacencyList[vertex2]){
+//             this.adjacencyList[vertex2] = new Set()
+//         }
 
-        this.adjacencyList[vertex1].add(vertex2)
-        this.adjacencyList[vertex2].add(vertex1)
-    }
+//         this.adjacencyList[vertex1].add(vertex2)
+//         this.adjacencyList[vertex2].add(vertex1)
+//     }
 
-    hasEdge(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            return 'vertex one not exist'
-        }
+//     hasEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             return 'vertex one not exist'
+//         }
 
-        if(!this.adjacencyList[vertex2]){
-            return 'vertex two not exist'
-        }
+//         if(!this.adjacencyList[vertex2]){
+//             return 'vertex two not exist'
+//         }
 
-        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
-    }
+//         return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+//     }
 
-    print(){
-        for(let vertex in this.adjacencyList){
-            console.log(`${vertex} => ${[...this.adjacencyList[vertex]]}`)
-        }
-    }
+//     print(){
+//         for(let vertex in this.adjacencyList){
+//             console.log(`${vertex} => ${[...this.adjacencyList[vertex]]}`)
+//         }
+//     }
 
-    removeEdge(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            return 'vertex1 is not exist'
-        }
+//     removeEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             return 'vertex1 is not exist'
+//         }
 
-        if(!this.adjacencyList[vertex2]){
-            return 'vertex2 is not exist'
-        }
+//         if(!this.adjacencyList[vertex2]){
+//             return 'vertex2 is not exist'
+//         }
 
-        this.adjacencyList[vertex1].delete(vertex2)
-        this.adjacencyList[vertex2].delete(vertex1)
-    }
+//         this.adjacencyList[vertex1].delete(vertex2)
+//         this.adjacencyList[vertex2].delete(vertex1)
+//     }
 
-    removeVertex(vertex){
-        if(!this.adjacencyList[vertex]){
-            return 'vertex is not exist'
-        }
+//     removeVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             return 'vertex is not exist'
+//         }
 
-        for(let relatives of this.adjacencyList[vertex]){
-            this.removeEdge(relatives,vertex)
-        }
+//         for(let relatives of this.adjacencyList[vertex]){
+//             this.removeEdge(relatives,vertex)
+//         }
 
-        delete this.adjacencyList[vertex]
-    }
+//         delete this.adjacencyList[vertex]
+//     }
 
-    bfs(start){
-        let queue = []
-        queue.push(start)
+//     bfs(start){
+//         let queue = []
+//         queue.push(start)
 
-        let visitedNode = new Set()
-        visitedNode.add(start)
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
 
-        while(queue.length){
-            let vertex = queue.shift()
+//         while(queue.length){
+//             let vertex = queue.shift()
 
-            console.log(vertex)
+//             console.log(vertex)
 
-            for(let neighbor of this.adjacencyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push(neighbor)
-                }
-            }
-        }
-    }
+//             for(let neighbor of this.adjacencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             }
+//         }
+//     }
 
-    dfs(start,visitedNode=new Set()){
-        visitedNode.add(start)
-        console.log(start)
-        for(let neighbor of this.adjacencyList[start]){
-            if(!visitedNode.has(neighbor)){
-                this.dfs(neighbor,visitedNode)
-            }
-        }
-    }
+//     dfs(start,visitedNode=new Set()){
+//         visitedNode.add(start)
+//         console.log(start)
+//         for(let neighbor of this.adjacencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         }
+//     }
 
-    bfsCycleDetection(start){
-        let visitedNode = new Set()
-        visitedNode.add(start)
+//     bfsCycleDetection(start){
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
 
-        let queue = []
-        queue.push({vertex:start,parent:null})
+//         let queue = []
+//         queue.push({vertex:start,parent:null})
 
-        while(queue.length){
-            let {vertex,parent} = queue.shift()
+//         while(queue.length){
+//             let {vertex,parent} = queue.shift()
 
-            for(let neighbor of this.adjacencyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push({vertex:neighbor,parent:vertex})
-                }else if(neighbor !== parent){
-                    return 'cycle detected'
-                }
-            }
-        }
+//             for(let neighbor of this.adjacencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:vertex})
+//                 }else if(neighbor !== parent){
+//                     return 'cycle detected'
+//                 }
+//             }
+//         }
 
-        return 'cycle not detected'
-    }
+//         return 'cycle not detected'
+//     }
 
-    dfsCycleDetection(start,visitedNode=new Set(),parent=null){
-        visitedNode.add(start)
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+//         visitedNode.add(start)
 
-        for(let neighbor of this.adjacencyList[start]){
-            if(!visitedNode.has(neighbor)){
-                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
-                    return true
-                }
-            }else if(neighbor != parent){
-                return true
-            }
-        }
+//         for(let neighbor of this.adjacencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }else if(neighbor != parent){
+//                 return true
+//             }
+//         }
 
-        return false
-    }
-}
+//         return false
+//     }
+// }
 
-const g = new graph()
+// const g = new graph()
 
-// Add vertices
-g.addVertex('A')
-g.addVertex('B')
-g.addVertex('C')
-g.addVertex('D')
+// // Add vertices
+// g.addVertex('A')
+// g.addVertex('B')
+// g.addVertex('C')
+// g.addVertex('D')
 
-// Add edges
-g.addEdge('A', 'B')
-g.addEdge('A', 'C')
-g.addEdge('B', 'D')
+// // Add edges
+// g.addEdge('A', 'B')
+// g.addEdge('A', 'C')
+// g.addEdge('B', 'D')
 
-// Print graph
-console.log('Graph:')
-g.print()
+// // Print graph
+// console.log('Graph:')
+// g.print()
 
-// Test hasEdge
-console.log('Edge A-B:', g.hasEdge('A', 'B')) // true
-console.log('Edge B-C:', g.hasEdge('B', 'C')) // false
-console.log('Edge X-Y:', g.hasEdge('X', 'Y')) // 'vertex one not exist'
+// // Test hasEdge
+// console.log('Edge A-B:', g.hasEdge('A', 'B')) // true
+// console.log('Edge B-C:', g.hasEdge('B', 'C')) // false
+// console.log('Edge X-Y:', g.hasEdge('X', 'Y')) // 'vertex one not exist'
 
-// Remove edge
-g.removeEdge('A', 'B')
-console.log('After removing edge A-B:')
-g.print()
+// // Remove edge
+// g.removeEdge('A', 'B')
+// console.log('After removing edge A-B:')
+// g.print()
 
-// Remove vertex
-g.removeVertex('C')
-console.log('After removing vertex C:')
-g.print()
+// // Remove vertex
+// g.removeVertex('C')
+// console.log('After removing vertex C:')
+// g.print()
 
-// Rebuild graph for traversal
-g.addEdge('A', 'B')
-g.addEdge('B', 'C')
-g.addEdge('C', 'D')
-g.addEdge('D', 'A') // Add cycle
+// // Rebuild graph for traversal
+// g.addEdge('A', 'B')
+// g.addEdge('B', 'C')
+// g.addEdge('C', 'D')
+// g.addEdge('D', 'A') // Add cycle
 
-console.log('BFS from A:')
-g.bfs('A') // A B C D (or variation)
+// console.log('BFS from A:')
+// g.bfs('A') // A B C D (or variation)
 
-console.log('DFS from A:')
-g.dfs('A') // A B C D (order depends)
+// console.log('DFS from A:')
+// g.dfs('A') // A B C D (order depends)
 
-// Cycle detection
-console.log('BFS Cycle Detection from A:', g.bfsCycleDetection('A')) // cycle detected
-console.log('DFS Cycle Detection from A:', g.dfsCycleDetection('A')) // true
+// // Cycle detection
+// console.log('BFS Cycle Detection from A:', g.bfsCycleDetection('A')) // cycle detected
+// console.log('DFS Cycle Detection from A:', g.dfsCycleDetection('A')) // true
 
-// Create a graph without cycle
-const tree = new graph()
-tree.addEdge('1', '2')
-tree.addEdge('1', '3')
-tree.addEdge('2', '4')
-tree.addEdge('2', '5')
+// // Create a graph without cycle
+// const tree = new graph()
+// tree.addEdge('1', '2')
+// tree.addEdge('1', '3')
+// tree.addEdge('2', '4')
+// tree.addEdge('2', '5')
 
-console.log('Tree BFS Cycle Detection from 1:', tree.bfsCycleDetection('1')) // cycle not detected
-console.log('Tree DFS Cycle Detection from 1:', tree.dfsCycleDetection('1')) // false
+// console.log('Tree BFS Cycle Detection from 1:', tree.bfsCycleDetection('1')) // cycle not detected
+// console.log('Tree DFS Cycle Detection from 1:', tree.dfsCycleDetection('1')) // false
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+
+//         return node.isEndOfWord
+//     }
+
+//     prefix(word){
+//         let node = this.root
+        
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+
+//         return true
+//     }
+
+//     autoComplete(prefix){
+//         let node = this.root
+
+//         for(let i=0;i<prefix.length;i++){
+//             let char = prefix[i]
+//             if(!node.children[char]){
+//                 return []
+//             }
+//             node = node.children[char]
+//         }
+
+//         return this.collectWord(node,prefix)
+//     }
+
+//     collectWord(node,prefix,list = []){
+//         if(node.isEndOfWord){
+//             list.push(prefix)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWord(node.children[char],prefix+char,list)
+//         }
+
+//         return list
+//     }
+
+//     printWord(){
+//         return this.collectWord(this.root,'')
+//     }
+
+//     deleteWord(word){
+//         let node = this.root
+
+//         let path = []
+        
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 return 'no matching'
+//             }
+//             path.push([node,char])
+//             node = node.children[char]
+//         }
+
+//         if(!node.isEndOfWord){
+//             return "the word is not ending"
+//         }
+
+//         node.isEndOfWord = false
+
+//         for(let i= word.length-1;i>=0;i--){
+//             let [parentNode,char] = path[i]
+
+//             let childNode = parentNode.children[char]
+//             if(Object.keys(childNode.children).length > 0 || childNode.isEndOfWord){
+//                 break
+//             }else{
+//                 delete parentNode.children[char]
+//             }
+//         }
+//     }
+// }
+
+// function runTrieTests() {
+//     const trie = new Trie();
+
+//     console.log("=== INSERT & SEARCH TESTS ===");
+
+//     trie.insert("cat");
+//     trie.insert("can");
+//     trie.insert("cane");
+//     trie.insert("car");
+//     trie.insert("dog");
+//     trie.insert("doll");
+
+//     console.log(trie.search("cat")); // true
+//     console.log(trie.search("can")); // true
+//     console.log(trie.search("cane")); // true
+//     console.log(trie.search("car")); // true
+//     console.log(trie.search("dog")); // true
+//     console.log(trie.search("doll")); // true
+//     console.log(trie.search("do")); // false
+//     console.log(trie.search("cab")); // false
+//     console.log(trie.search("")); // false
+
+//     console.log("=== PREFIX TESTS ===");
+
+//     console.log(trie.prefix("ca")); // true
+//     console.log(trie.prefix("c")); // true
+//     console.log(trie.prefix("d")); // true
+//     console.log(trie.prefix("z")); // false
+//     console.log(trie.prefix("do")); // true
+//     console.log(trie.prefix("doll")); // true
+//     console.log(trie.prefix("dolll")); // false
+
+//     console.log("=== AUTOCOMPLETE TESTS ===");
+
+//     console.log(trie.autoComplete("ca")); // ['cat', 'can', 'cane', 'car']
+//     console.log(trie.autoComplete("can")); // ['can', 'cane']
+//     console.log(trie.autoComplete("do")); // ['dog', 'doll']
+//     console.log(trie.autoComplete("z")); // []
+//     console.log(trie.autoComplete("")); // ['cat', 'can', 'cane', 'car', 'dog', 'doll']
+
+//     console.log("=== PRINT ALL WORDS TEST ===");
+
+//     console.log(trie.printWord()); // ['cat', 'can', 'cane', 'car', 'dog', 'doll']
+
+//     console.log("=== DELETE TESTS ===");
+
+//     trie.deleteWord("car");
+//     console.log(trie.search("car")); // false
+//     console.log(trie.autoComplete("ca")); // ['cat', 'can', 'cane']
+
+//     trie.deleteWord("can");
+//     console.log(trie.search("can")); // false
+//     console.log(trie.search("cane")); // true
+
+//     trie.deleteWord("cane");
+//     console.log(trie.search("cane")); // false
+
+//     trie.deleteWord("dog");
+//     console.log(trie.search("dog")); // false
+//     console.log(trie.search("doll")); // true
+
+//     // Edge cases
+//     console.log(trie.deleteWord("notexist")); // 'no matching'
+//     console.log(trie.deleteWord("dollhouse")); // 'no matching'
+//     console.log(trie.deleteWord("")); // 'no matching'
+// }
+
+// runTrieTests()
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class SuffixTrie{
+//     constructor(word){
+//         this.root = new Node()
+//         this.buildSuffixTrie(word)
+//     }
+
+//     buildSuffixTrie(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node = this.root
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+
+//         return true
+//     }
+// }
+
+// function testSuffixTrie() {
+//     const trie = new SuffixTrie("banana");
+
+//     console.log("=== Suffix Trie Substring Search Tests ===");
+
+//     // Valid suffixes
+//     console.log(trie.search("banana")); // true
+//     console.log(trie.search("anana"));  // true
+//     console.log(trie.search("nana"));   // true
+//     console.log(trie.search("ana"));    // true
+//     console.log(trie.search("na"));     // true
+//     console.log(trie.search("a"));      // true
+
+//     // Valid substrings (not full suffixes)
+//     console.log(trie.search("ban"));    // true
+//     console.log(trie.search("nan"));    // true
+
+//     // Invalid substrings
+//     console.log(trie.search("banaanaa")); // false
+//     console.log(trie.search("nab"));      // false
+//     console.log(trie.search("ann"));      // false
+
+//     // Edge cases
+//     console.log(trie.search(""));         // true — the empty string is a suffix of every string
+// }
+
+// testSuffixTrie();
+
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     countNoOfWord(){
+//         let queue = []
+
+//         let node = this.root
+
+//         queue.push(node)
+
+//         let count = 0
+
+//         while(queue.length){
+//             let word = queue.shift()
+
+//             if(word.isEndOfWord){
+//                 count++
+//             }
+
+//             for(let char in word.children){
+//                 queue.push(word.children[char])
+//             }
+//         }
+
+//         return count
+//     }
+
+//     longestPrefix(word){
+//         let node = this.root
+//         let longestPrefix = ''
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 break
+//             }
+
+//             longestPrefix +=char
+
+//             node = node.children[char]
+//         }
+
+//         return longestPrefix
+//     }
+
+//     countPrefix(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 return 'no matching'
+//             }
+//             node = node.children[char]
+//         }
+
+//         let prefixCount = 0
+//         let queue = []
+
+//         queue.push(node)
+
+//         while(queue.length){
+//             let word = queue.shift()
+
+//             if(word.isEndOfWord){
+//                 prefixCount++
+//             }
+
+//             for(let char in word.children){
+//                 queue.push(word.children[char])
+//             }
+//         }
+
+//         return prefixCount
+//     }
+// }
+
+// function testTrie() {
+//     const trie = new Trie();
+
+//     // Insert words
+//     trie.insert("cat");
+//     trie.insert("car");
+//     trie.insert("cart");
+//     trie.insert("can");
+//     trie.insert("cap");
+//     trie.insert("dog");
+//     trie.insert("dove");
+
+//     console.log("=== countNoOfWord ===");
+//     console.log(trie.countNoOfWord()); // Expected: 7
+
+//     console.log("=== longestPrefix ===");
+//     console.log(trie.longestPrefix("cartoon")); // Expected: 'cart'
+//     console.log(trie.longestPrefix("cab")); // Expected: 'ca'
+//     console.log(trie.longestPrefix("zebra")); // Expected: ''
+//     console.log(trie.longestPrefix("car")); // Expected: 'car'
+
+//     console.log("=== countPrefix ===");
+//     console.log(trie.countPrefix("ca")); // Expected: 4 (cat, car, cart, can, cap)
+//     console.log(trie.countPrefix("car")); // Expected: 2 (car, cart)
+//     console.log(trie.countPrefix("do")); // Expected: 2 (dog, dove)
+//     console.log(trie.countPrefix("z")); // Expected: 'no matching'
+//     console.log(trie.countPrefix("")); // Expected: 7 (empty prefix means all words)
+// }
+
+// testTrie();
+
+// function heapify(arr,n,i){
+//     let largest = i
+//     let left = 2 * i + 1
+//     let right = 2 * i + 2
+
+//     if(left < n && arr[left] > arr[largest]){
+//         largest = left
+//     }
+
+//     if(right < n && arr[right] > arr[largest]){
+//         largest = right
+//     }
+
+//     if(i != largest){
+//         [arr[i],arr[largest]] = [arr[largest],arr[i]]
+//         heapify(arr,n,largest)
+//     }
+// }
+
+// function heapSort(arr){
+//     let n = arr.length
+
+//     for(let i=Math.floor((n/2)-1);i>=0;i--){
+//         heapify(arr,n,i)
+//     }
+
+//     for(let i=n-1;i>=0;i--){
+//         [arr[0],arr[i]] = [arr[i],arr[0]]
+//         heapify(arr,i,0)
+//     }
+// }
+
+// const arr = [10, 20, 15, 30, 5];
+// console.log("Original Array:", arr);
+// heapSort(arr);
+// console.log("Sorted Array:", arr);
+
+// function topKFrequentElements(arr,k){
+//     if(arr.length < k){
+//         return 'invalid k'
+//     }
+
+//     let valMap = {}
+
+//     for(let i=0;i<arr.length;i++){
+//         if(valMap[arr[i]]){
+//             valMap[arr[i]]++
+//         }else{
+//             valMap[arr[i]] = 1
+//         }
+//     }
+
+//     let freqElement = []
+
+//     for(let [key,count] of Object.entries(valMap)){
+//         if(count == k){
+//             freqElement.push(Number(key))
+//         }
+//     }
+
+//     return freqElement
+// }
+
+// console.log(topKFrequentElements([1, 1, 2, 2, 3, 3, 3], 2)); // [1, 2]
+// console.log(topKFrequentElements([4, 4, 4, 5, 5, 1, 2], 3)); // [4]
+// console.log(topKFrequentElements([1], 2));                  // 'invalid k'
+// console.log(topKFrequentElements([], 1));                   // 'invalid k'
+
+// topKFrequentElements([1,1,1,2,2,3], 2) // Expected: [1, 2]
