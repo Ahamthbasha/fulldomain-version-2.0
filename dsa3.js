@@ -1394,316 +1394,640 @@
 // table.set("acb", "second");
 // console.log(table.get("abc"));    // Might print 'second' due to collision (bad)
 
-class Hashtable{
-    constructor(size){
-        this.table = new Array(size)
-        this.size = size
+// class Hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(!bucket){
+//             this.table[index] = [[key,value]]
+//         }
+//         else{
+//             let sameIndex = bucket.find((item)=>item[0]==key)
+
+//             if(sameIndex){
+//                 sameIndex[1] = value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let sameIndex = bucket.find((item)=>item[0]==key)
+
+//             if(sameIndex){
+//                 return sameIndex[1]
+//             }
+//         }
+
+//         return 'no match'
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
+//         if(bucket){
+//             let sameIndex = bucket.findIndex((item)=>item[0]==key)
+
+//             if(sameIndex != -1){
+//                return bucket.splice(sameIndex,1)
+//             }
+//         }
+
+//         return null
+//     }
+
+//     findDuplicates(){
+//         let valMap = {}
+
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(valMap[value]){
+//                         valMap[value]++
+//                     }else{
+//                         valMap[value] = 1
+//                     }
+//                 }
+//             }
+//         }
+
+//         let duplicates  = []
+
+//         for(let val in valMap){
+//             if(valMap[val] > 1){
+//                 duplicates.push(val)
+//             }
+//         }
+
+//         return duplicates
+//     }
+
+//     removeDuplicates(){
+//         let seen = {}
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+
+//                 const newBucket = []
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+    
+//                     if(!seen[value]){
+//                         seen[value] = true
+//                         newBucket.push([key,value])
+//                     }
+//                 }
+//                 this.table[i] = newBucket.length > 0 ? newBucket : undefined
+//             }
+//         }
+//     }
+
+//     findDuplicatesFromInput(val){
+//         let input = Array.isArray(val) ? val : val.split('')
+
+//         const table = new Hashtable(50)
+
+//         for(let i=0;i<input.length;i++){
+//             let value = input[i].toString()
+//             let count = table.get(value) || 0
+//             table.set(value,count+1)
+//         }
+
+//         let duplicates = []
+
+//         for(let i=0;i<table.table.length;i++){
+//             let bucket = table.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(value > 1){
+//                         duplicates.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return Array.isArray(val) ? duplicates : duplicates.join('')
+//     }
+
+//     removeDuplicatesFromInput(val){
+//         const input = Array.isArray(val) ? val : val.split('')
+
+//         const table = new Hashtable(50)
+
+//         for(let i=0;i<input.length;i++){
+//             let value = input[i].toString()
+//             let count = table.get(value) || 0
+//             table.set(value,count+1) 
+//         }
+
+//         let unique = []
+
+//         for(let i=0;i<table.table.length;i++){
+//             let bucket = table.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(value == 1){
+//                         unique.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return Array.isArray(val) ? unique : unique.join('')
+//     }
+
+//     oneTime(val){
+//         const input = Array.isArray(val) ? val : val.split('')
+
+//         const table = new Hashtable(50)
+
+//         for(let i=0;i<input.length;i++){
+//             let value = input[i].toString()
+//             let count = table.get(value) || 0
+//             table.set(value,count+1)
+//         }
+
+//         let removedDuplicates = []
+//         let seen = {}
+
+//         for(let i=0;i<table.table.length;i++){
+//             let bucket = table.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(!seen[key]){
+//                         seen[key] = true
+//                         removedDuplicates.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return removedDuplicates
+//     }
+
+//     nthMostFrequentElement(arr,k){
+//         let input = Array.isArray(arr) ? arr : arr.split('')
+
+//         const table = new Hashtable(50)
+
+//         for(let i=0;i<input.length;i++){
+//             let val = input[i].toString()
+//             let count = table.get(val) || 0
+//             table.set(val,count+1) 
+//         }
+
+//         let result = []
+
+//         for(let i=0;i<table.table.length;i++){
+//             let bucket = table.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     result.push([key,value])
+//                 }
+//             }
+//         }
+
+//         result.sort((a,b)=> b[1]-a[1])
+
+//         return result[k-1] || null
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const ht = new Hashtable(10);
+
+// // ========== Basic set/get ==========
+// ht.set("name", "Bob");
+// ht.set("age", 30);
+// ht.set("city", "Paris");
+
+// console.assert(ht.get("name") === "Bob", "❌ get(name)");
+// console.assert(ht.get("age") === 30, "❌ get(age)");
+// console.assert(ht.get("city") === "Paris", "❌ get(city)");
+// console.assert(ht.get("unknown") === "no match", "❌ get(unknown)");
+
+// // ========== Update existing key ==========
+// ht.set("name", "Alice");
+// console.assert(ht.get("name") === "Alice", "❌ update existing key");
+
+// // ========== Remove ==========
+// ht.remove("age");
+// console.assert(ht.get("age") === "no match", "❌ remove(age)");
+
+// // ========== findDuplicates ==========
+// ht.set("a", "x");
+// ht.set("b", "x"); // Duplicate value "x"
+// ht.set("c", "y");
+// console.assert(JSON.stringify(ht.findDuplicates()) === JSON.stringify(["x"]), "❌ findDuplicates");
+
+// // ========== removeDuplicates ==========
+// ht.removeDuplicates();
+// const remainingValues = [];
+// for (let i = 0; i < ht.table.length; i++) {
+//     let bucket = ht.table[i];
+//     if (bucket) {
+//         for (let j = 0; j < bucket.length; j++) {
+//             remainingValues.push(bucket[j][1]);
+//         }
+//     }
+// }
+// console.assert(!remainingValues.includes("x"), "❌ removeDuplicates (x still exists)");
+
+// // ========== findDuplicatesFromInput ==========
+// const strInput = "programming"; // g, r, m are duplicates
+// const arrInput = ["a", "b", "c", "a", "d", "b"];
+
+// const expectedStrDup = "rgm";
+// const expectedArrDup = ["a", "b"];
+
+// console.assert(ht.findDuplicatesFromInput(strInput) === expectedStrDup, "❌ findDuplicatesFromInput(string)");
+// console.assert(JSON.stringify(ht.findDuplicatesFromInput(arrInput)) === JSON.stringify(expectedArrDup), "❌ findDuplicatesFromInput(array)");
+
+// // ========== removeDuplicatesFromInput ==========
+// const expectedUniqueStr = "poain"; // p,o,a,i,n appear once in "programming"
+// const expectedUniqueArr = ["c", "d"]; // only unique in array
+
+// console.assert(ht.removeDuplicatesFromInput(strInput) === expectedUniqueStr, "❌ removeDuplicatesFromInput(string)");
+// console.assert(JSON.stringify(ht.removeDuplicatesFromInput(arrInput)) === JSON.stringify(expectedUniqueArr), "❌ removeDuplicatesFromInput(array)");
+
+// // ========== oneTime ==========
+// const oneTimeInput = "aabbcde";
+// const oneTimeExpected = ["a", "b", "c", "d", "e"]; // just once-per-entry
+// console.assert(JSON.stringify(ht.oneTime(oneTimeInput)) === JSON.stringify(oneTimeExpected), "❌ oneTime");
+
+// // ========== nthMostFrequentElement ==========
+// const freqInput = "aaabbcccddee"; // a:3, c:3, b:2, d:2, e:2
+// const k = 2;
+// const nthResult = ht.nthMostFrequentElement(freqInput, k);
+
+// const expectedOptions = [["a", 3], ["c", 3], ["b", 2], ["d", 2], ["e", 2]];
+// const valid = expectedOptions.some(([char, freq]) => nthResult[0] === char && nthResult[1] === freq);
+// console.assert(valid, "❌ nthMostFrequentElement");
+
+// // ========== Print ==========
+// // Uncomment to visualize the hash table
+// // ht.print();
+
+// console.log("✅ All tests passed!");
+
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class LinkedList{
+    constructor(){
+        this.head = null
+        this.size = 0
     }
 
-    hash(key){
-        let total = 0
-
-        for(let i=0;i<key.length;i++){
-            total += key.charCodeAt(i)
-        }
-
-        return total % this.size
+    isEmpty(){
+        return this.size == 0
     }
 
-    set(key,value){
-        let index = this.hash(key)
+    getSize(){
+        return this.size
+    }
 
-        let bucket = this.table[index]
-
-        if(!bucket){
-            this.table[index] = [[key,value]]
+    prepend(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
         }
         else{
-            let sameIndex = bucket.find((item)=>item[0]==key)
+            node.next = this.head
+            this.head = node
+        }
 
-            if(sameIndex){
-                sameIndex[1] = value
+        this.size++
+    }
+
+    append(value){
+        const node = new Node(value)
+
+        if(this.isEmpty()){
+            this.head = node
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+            
+            temp.next = node
+        }
+        this.size++
+    }
+
+    insert(index,value){
+        if(index < 0 || index > this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            this.prepend(value)
+        }
+        else if(index == this.size){
+            this.append(value)
+        }
+        else{
+
+            const node = new Node(value)
+
+            let temp = this.head
+
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+
+            node.next = temp.next
+            temp.next = node
+            this.size++
+        }
+    }
+
+    removeFromStart(){
+        if(this.isEmpty()){
+            return 'nothing to remove'
+        }
+        else{
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+    }
+
+    removeFromEnd(){
+        if(this.isEmpty()){
+            return 'nothing to remove'
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+            
+            while(temp.next.next){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
+        }
+    }
+
+    removeByIndex(index){
+        if(index < 0 || index >= this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = temp.next.next
+            this.size--
+            return val
+        }
+    }
+
+    removeByValue(value){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else if(value == this.head.value){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next && temp.next.value!= value){
+                temp = temp.next
+            }
+
+            if(temp.next == null){
+                return 'no matching found'
             }else{
-                bucket.push([key,value])
+                let val = temp.next.value
+                temp.next = temp.next.next
+                this.size--
+                return val
             }
         }
     }
 
-    get(key){
-        let index = this.hash(key)
-        let bucket = this.table[index]
-
-        if(bucket){
-            let sameIndex = bucket.find((item)=>item[0]==key)
-
-            if(sameIndex){
-                return sameIndex[1]
-            }
-        }
-
-        return 'no match'
-    }
-
-    remove(key){
-        let index = this.hash(key)
-        let bucket = this.table[index]
-        if(bucket){
-            let sameIndex = bucket.findIndex((item)=>item[0]==key)
-
-            if(sameIndex != -1){
-               return bucket.splice(sameIndex,1)
-            }
-        }
-
-        return null
-    }
-
-    findDuplicates(){
-        let valMap = {}
-
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-
-                    if(valMap[value]){
-                        valMap[value]++
-                    }else{
-                        valMap[value] = 1
-                    }
-                }
-            }
-        }
-
-        let duplicates  = []
-
-        for(let val in valMap){
-            if(valMap[val] > 1){
-                duplicates.push(val)
-            }
-        }
-
-        return duplicates
-    }
-
-    removeDuplicates(){
-        let seen = {}
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-
-                const newBucket = []
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-    
-                    if(!seen[value]){
-                        seen[value] = true
-                        newBucket.push([key,value])
-                    }
-                }
-                this.table[i] = newBucket.length > 0 ? newBucket : undefined
-            }
-        }
-    }
-
-    findDuplicatesFromInput(val){
-        let input = Array.isArray(val) ? val : val.split('')
-
-        const table = new Hashtable(50)
-
-        for(let i=0;i<input.length;i++){
-            let value = input[i].toString()
-            let count = table.get(value) || 0
-            table.set(value,count+1)
-        }
-
-        let duplicates = []
-
-        for(let i=0;i<table.table.length;i++){
-            let bucket = table.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-
-                    if(value > 1){
-                        duplicates.push(key)
-                    }
-                }
-            }
-        }
-
-        return Array.isArray(val) ? duplicates : duplicates.join('')
-    }
-
-    removeDuplicatesFromInput(val){
-        const input = Array.isArray(val) ? val : val.split('')
-
-        const table = new Hashtable(50)
-
-        for(let i=0;i<input.length;i++){
-            let value = input[i].toString()
-            let count = table.get(value) || 0
-            table.set(value,count+1) 
-        }
-
-        let unique = []
-
-        for(let i=0;i<table.table.length;i++){
-            let bucket = table.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-
-                    if(value == 1){
-                        unique.push(key)
-                    }
-                }
-            }
-        }
-
-        return Array.isArray(val) ? unique : unique.join('')
-    }
-
-    oneTime(val){
-        const input = Array.isArray(val) ? val : val.split('')
-
-        const table = new Hashtable(50)
-
-        for(let i=0;i<input.length;i++){
-            let value = input[i].toString()
-            let count = table.get(value) || 0
-            table.set(value,count+1)
-        }
-
-        let removedDuplicates = []
-        let seen = {}
-
-        for(let i=0;i<table.table.length;i++){
-            let bucket = table.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(!seen[key]){
-                        seen[key] = true
-                        removedDuplicates.push(key)
-                    }
-                }
-            }
-        }
-
-        return removedDuplicates
-    }
-
-    nthMostFrequentElement(arr,k){
-        let input = Array.isArray(arr) ? arr : arr.split('')
-
-        const table = new Hashtable(50)
-
-        for(let i=0;i<input.length;i++){
-            let val = input[i].toString()
-            let count = table.get(val) || 0
-            table.set(val,count+1) 
-        }
-
-        let result = []
-
-        for(let i=0;i<table.table.length;i++){
-            let bucket = table.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    result.push([key,value])
-                }
-            }
-        }
-
-        result.sort((a,b)=> b[1]-a[1])
-
-        return result[k-1] || null
-    }
 
     print(){
-        for(let i=0;i<this.table.length;i++){
-            if(this.table[i]){
-                console.log(i,this.table[i])
+        if(this.isEmpty()){
+            return 'list is empty'
+        }else{
+            let list = ''
+
+            let temp = this.head
+
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
+            }
+
+            list += 'null'
+            console.log(list)
+        }
+    }
+
+    search(value){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else{
+            let temp = this.head
+
+            while(temp){
+                if(temp.value == value){
+                    return true
+                }
+                temp = temp.next
+            }
+
+            return false
+        }
+    }
+
+    findMidAndRemove(){
+        let index = Math.floor(this.size/2)
+        return this.removeByIndex(index)
+    }
+
+    makeCircular(){
+        let temp = this.head
+
+        while(temp.next){
+            temp = temp.next
+        }
+
+        temp.next = this.head
+    }
+
+    checkCircular(){
+        let slow = this.head
+        let fast = this.head
+
+        while(fast && fast.next){
+            slow = slow.next
+            fast = fast.next.next
+
+            if(slow == fast){
+                return true
             }
         }
+
+        return false
     }
-}
 
-const ht = new Hashtable(10);
+    reverse(){
+        let prev = null
+        let cur = this.head
 
-// ========== Basic set/get ==========
-ht.set("name", "Bob");
-ht.set("age", 30);
-ht.set("city", "Paris");
-
-console.assert(ht.get("name") === "Bob", "❌ get(name)");
-console.assert(ht.get("age") === 30, "❌ get(age)");
-console.assert(ht.get("city") === "Paris", "❌ get(city)");
-console.assert(ht.get("unknown") === "no match", "❌ get(unknown)");
-
-// ========== Update existing key ==========
-ht.set("name", "Alice");
-console.assert(ht.get("name") === "Alice", "❌ update existing key");
-
-// ========== Remove ==========
-ht.remove("age");
-console.assert(ht.get("age") === "no match", "❌ remove(age)");
-
-// ========== findDuplicates ==========
-ht.set("a", "x");
-ht.set("b", "x"); // Duplicate value "x"
-ht.set("c", "y");
-console.assert(JSON.stringify(ht.findDuplicates()) === JSON.stringify(["x"]), "❌ findDuplicates");
-
-// ========== removeDuplicates ==========
-ht.removeDuplicates();
-const remainingValues = [];
-for (let i = 0; i < ht.table.length; i++) {
-    let bucket = ht.table[i];
-    if (bucket) {
-        for (let j = 0; j < bucket.length; j++) {
-            remainingValues.push(bucket[j][1]);
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
         }
+
+        this.head = prev
     }
 }
-console.assert(!remainingValues.includes("x"), "❌ removeDuplicates (x still exists)");
 
-// ========== findDuplicatesFromInput ==========
-const strInput = "programming"; // g, r, m are duplicates
-const arrInput = ["a", "b", "c", "a", "d", "b"];
+const list = new LinkedList();
+list.append(10);
+list.append(20);
+list.append(30);
+list.append(40);
+list.append(50);
+list.print(); // 10->20->30->40->50->null
 
-const expectedStrDup = "rgm";
-const expectedArrDup = ["a", "b"];
+// Test findMidAndRemove
+console.log(list.findMidAndRemove()); // should remove 30
+list.print(); // 10->20->40->50->null
 
-console.assert(ht.findDuplicatesFromInput(strInput) === expectedStrDup, "❌ findDuplicatesFromInput(string)");
-console.assert(JSON.stringify(ht.findDuplicatesFromInput(arrInput)) === JSON.stringify(expectedArrDup), "❌ findDuplicatesFromInput(array)");
+// Test makeCircular and checkCircular
+list.makeCircular();
+console.log(list.checkCircular()); // true
 
-// ========== removeDuplicatesFromInput ==========
-const expectedUniqueStr = "poain"; // p,o,a,i,n appear once in "programming"
-const expectedUniqueArr = ["c", "d"]; // only unique in array
+// Test reverse
+list.reverse(); // Should warn or skip if circular
 
-console.assert(ht.removeDuplicatesFromInput(strInput) === expectedUniqueStr, "❌ removeDuplicatesFromInput(string)");
-console.assert(JSON.stringify(ht.removeDuplicatesFromInput(arrInput)) === JSON.stringify(expectedUniqueArr), "❌ removeDuplicatesFromInput(array)");
+console.log(list.print())
+// const list = new LinkedList();
 
-// ========== oneTime ==========
-const oneTimeInput = "aabbcde";
-const oneTimeExpected = ["a", "b", "c", "d", "e"]; // just once-per-entry
-console.assert(JSON.stringify(ht.oneTime(oneTimeInput)) === JSON.stringify(oneTimeExpected), "❌ oneTime");
+// // Test 1: isEmpty on empty list
+// console.log(list.isEmpty()); // true
+// console.log(list.getSize()); // 0
 
-// ========== nthMostFrequentElement ==========
-const freqInput = "aaabbcccddee"; // a:3, c:3, b:2, d:2, e:2
-const k = 2;
-const nthResult = ht.nthMostFrequentElement(freqInput, k);
+// // Test 2: prepend and print
+// list.prepend(10);
+// list.prepend(20);
+// list.print(); // 20->10->null
 
-const expectedOptions = [["a", 3], ["c", 3], ["b", 2], ["d", 2], ["e", 2]];
-const valid = expectedOptions.some(([char, freq]) => nthResult[0] === char && nthResult[1] === freq);
-console.assert(valid, "❌ nthMostFrequentElement");
+// // Test 3: append and print
+// list.append(30);
+// list.print(); // 20->10->30->null
 
-// ========== Print ==========
-// Uncomment to visualize the hash table
-// ht.print();
+// // Test 4: insert at different positions
+// list.insert(0, 5);    // beginning
+// list.insert(2, 15);   // middle
+// list.insert(5, 35);   // end
+// list.print(); // 5->20->15->10->30->35->null
 
-console.log("✅ All tests passed!");
+// // Test 5: removeFromStart
+// console.log(list.removeFromStart()); // 5
+// list.print();
+
+// // Test 6: removeFromEnd
+// console.log(list.removeFromEnd()); // 35
+// list.print();
+
+// // Test 7: removeByIndex
+// console.log(list.removeByIndex(1)); // 15
+// list.print(); // Remaining list
+
+// // Test 8: removeByValue
+// console.log(list.removeByValue(30)); // 30
+// list.print();
+
+// // Test 9: search
+// console.log(list.search(10)); // true
+// console.log(list.search(100)); // false
+
+// // Test 10: invalid inserts
+// console.log(list.insert(-1, 99)); // 'invalid index'
+// console.log(list.insert(100, 99)); // 'invalid index'
+
+// // Test 11: invalid removals
+// console.log(list.removeByIndex(100)); // 'invalid index'
+// console.log(list.removeByValue(999)); // 'no matching found'
+
+// // Test 12: remove everything
+// while (!list.isEmpty()) {
+//     console.log('Removed:', list.removeFromStart());
+// }
+// console.log(list.removeFromEnd()); // 'nothing to remove'
+// console.log(list.search(10)); // 'list is empty'
