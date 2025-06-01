@@ -1709,273 +1709,273 @@
 // console.log("✅ All tests passed!");
 
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
 
-class LinkedList{
-    constructor(){
-        this.head = null
-        this.size = 0
-    }
+// class LinkedList{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
 
-    isEmpty(){
-        return this.size == 0
-    }
+//     isEmpty(){
+//         return this.size == 0
+//     }
 
-    getSize(){
-        return this.size
-    }
+//     getSize(){
+//         return this.size
+//     }
 
-    prepend(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-        }
-        else{
-            node.next = this.head
-            this.head = node
-        }
+//     prepend(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             node.next = this.head
+//             this.head = node
+//         }
 
-        this.size++
-    }
+//         this.size++
+//     }
 
-    append(value){
-        const node = new Node(value)
+//     append(value){
+//         const node = new Node(value)
 
-        if(this.isEmpty()){
-            this.head = node
-        }
-        else{
-            let temp = this.head
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp.next){
-                temp = temp.next
-            }
+//             while(temp.next){
+//                 temp = temp.next
+//             }
             
-            temp.next = node
-        }
-        this.size++
-    }
+//             temp.next = node
+//         }
+//         this.size++
+//     }
 
-    insert(index,value){
-        if(index < 0 || index > this.size){
-            return 'invalid index'
-        }
-        else if(index == 0){
-            this.prepend(value)
-        }
-        else if(index == this.size){
-            this.append(value)
-        }
-        else{
+//     insert(index,value){
+//         if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             this.prepend(value)
+//         }
+//         else if(index == this.size){
+//             this.append(value)
+//         }
+//         else{
 
-            const node = new Node(value)
+//             const node = new Node(value)
 
-            let temp = this.head
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
 
-            node.next = temp.next
-            temp.next = node
-            this.size++
-        }
-    }
+//             node.next = temp.next
+//             temp.next = node
+//             this.size++
+//         }
+//     }
 
-    removeFromStart(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
-        else{
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-    }
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeFromEnd(){
-        if(this.isEmpty()){
-            return 'nothing to remove'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return 'nothing to remove'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
             
-            while(temp.next.next){
-                temp = temp.next
-            }
-            let val = temp.next.value
-            temp.next = null
-            this.size--
-            return val
-        }
-    }
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeByIndex(index){
-        if(index < 0 || index >= this.size){
-            return 'invalid index'
-        }
-        else if(index == 0){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByIndex(index){
+//         if(index < 0 || index >= this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
-            let val = temp.next.value
-            temp.next = temp.next.next
-            this.size--
-            return val
-        }
-    }
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = temp.next.next
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeByValue(value){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else if(value == this.head.value){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else if(value == this.head.value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp.next && temp.next.value!= value){
-                temp = temp.next
-            }
+//             while(temp.next && temp.next.value!= value){
+//                 temp = temp.next
+//             }
 
-            if(temp.next == null){
-                return 'no matching found'
-            }else{
-                let val = temp.next.value
-                temp.next = temp.next.next
-                this.size--
-                return val
-            }
-        }
-    }
+//             if(temp.next == null){
+//                 return 'no matching found'
+//             }else{
+//                 let val = temp.next.value
+//                 temp.next = temp.next.next
+//                 this.size--
+//                 return val
+//             }
+//         }
+//     }
 
 
-    print(){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }else{
-            let list = ''
+//     print(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }else{
+//             let list = ''
 
-            let temp = this.head
+//             let temp = this.head
 
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
-            }
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
 
-            list += 'null'
-            console.log(list)
-        }
-    }
+//             list += 'null'
+//             console.log(list)
+//         }
+//     }
 
-    search(value){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else{
-            let temp = this.head
+//     search(value){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp){
-                if(temp.value == value){
-                    return true
-                }
-                temp = temp.next
-            }
+//             while(temp){
+//                 if(temp.value == value){
+//                     return true
+//                 }
+//                 temp = temp.next
+//             }
 
-            return false
-        }
-    }
+//             return false
+//         }
+//     }
 
-    findMidAndRemove(){
-        let index = Math.floor(this.size/2)
-        return this.removeByIndex(index)
-    }
+//     findMidAndRemove(){
+//         let index = Math.floor(this.size/2)
+//         return this.removeByIndex(index)
+//     }
 
-    makeCircular(){
-        let temp = this.head
+//     makeCircular(){
+//         let temp = this.head
 
-        while(temp.next){
-            temp = temp.next
-        }
+//         while(temp.next){
+//             temp = temp.next
+//         }
 
-        temp.next = this.head
-    }
+//         temp.next = this.head
+//     }
 
-    checkCircular(){
-        let slow = this.head
-        let fast = this.head
+//     checkCircular(){
+//         let slow = this.head
+//         let fast = this.head
 
-        while(fast && fast.next){
-            slow = slow.next
-            fast = fast.next.next
+//         while(fast && fast.next){
+//             slow = slow.next
+//             fast = fast.next.next
 
-            if(slow == fast){
-                return true
-            }
-        }
+//             if(slow == fast){
+//                 return true
+//             }
+//         }
 
-        return false
-    }
+//         return false
+//     }
 
-    reverse(){
-        let prev = null
-        let cur = this.head
+//     reverse(){
+//         let prev = null
+//         let cur = this.head
 
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
 
-        this.head = prev
-    }
-}
+//         this.head = prev
+//     }
+// }
 
-const list = new LinkedList();
-list.append(10);
-list.append(20);
-list.append(30);
-list.append(40);
-list.append(50);
-list.print(); // 10->20->30->40->50->null
+// const list = new LinkedList();
+// list.append(10);
+// list.append(20);
+// list.append(30);
+// list.append(40);
+// list.append(50);
+// list.print(); // 10->20->30->40->50->null
 
-// Test findMidAndRemove
-console.log(list.findMidAndRemove()); // should remove 30
-list.print(); // 10->20->40->50->null
+// // Test findMidAndRemove
+// console.log(list.findMidAndRemove()); // should remove 30
+// list.print(); // 10->20->40->50->null
 
-// Test makeCircular and checkCircular
-list.makeCircular();
-console.log(list.checkCircular()); // true
+// // Test makeCircular and checkCircular
+// list.makeCircular();
+// console.log(list.checkCircular()); // true
 
-// Test reverse
-list.reverse(); // Should warn or skip if circular
+// // Test reverse
+// list.reverse(); // Should warn or skip if circular
 
-console.log(list.print())
+// console.log(list.print())
 // const list = new LinkedList();
 
 // // Test 1: isEmpty on empty list
@@ -2031,3 +2031,5 @@ console.log(list.print())
 // }
 // console.log(list.removeFromEnd()); // 'nothing to remove'
 // console.log(list.search(10)); // 'list is empty'
+
+
