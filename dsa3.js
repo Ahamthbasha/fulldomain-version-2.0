@@ -2033,3 +2033,42 @@
 // console.log(list.search(10)); // 'list is empty'
 
 
+function smallest(arr){
+    
+    const result = arr.reduce((acc,cur)=>{
+        if([acc.first,acc.second,acc.third,acc.fourth].includes(cur)){
+            return acc
+        }
+
+        if( cur < acc.first){
+            acc.fourth = acc.third
+            acc.third = acc.second
+            acc.second = acc.first
+            acc.first = cur
+        }
+        else if(cur < acc.second){
+            acc.fourth = acc.third
+            acc.third = acc.second
+            acc.second = cur
+        }
+        else if(cur < acc.third){
+            acc.fourth = acc.third
+            acc.third = cur
+        }
+        else if(cur < acc.fourth){
+            acc.fourth = cur
+        }
+
+        return acc
+    },{
+        first:Infinity,
+        second:Infinity,
+        third:Infinity,
+        fourth:Infinity
+    })
+
+    return result
+}
+
+console.log(smallest([5, 2, 1, 3, 4, 1, 2])); 
+// Output: [1, 2, 3, 4]
