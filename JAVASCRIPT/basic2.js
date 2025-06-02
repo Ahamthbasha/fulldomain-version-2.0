@@ -226,3 +226,35 @@
 //         }
 //     }
 // }
+
+// function* printAlternateEven(){
+//     let count = 100
+
+//     while(count != 0){
+//         yield count
+//         count = count - 2
+//     }
+
+// }
+
+// const printing = printAlternateEven()
+
+// for(let i=1;i<=50;i++){
+//     if(i%2 == 0){
+//         console.log(printing.next().value)
+//     }else{
+//         printing.next()
+//     }
+// }
+
+// function add(a){
+//     return function(b){
+//         return function(c){
+//             return function(d){
+//                 return a+b+c+d
+//             }
+//         }
+//     }
+// }
+
+// console.log(add(1)(2)(3)(4))
