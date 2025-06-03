@@ -380,34 +380,35 @@
 // export default Count
 
 
-import React, { useReducer } from 'react'
+// import React, { useReducer } from 'react'
 
-const Count = () => {
+// const Count = () => {
 
-    const initialState = {
-        count : 0
-    }
+//     const initialState = {
+//         count : 0
+//     }
 
-    const reducerFn = (state,action)=>{
-        switch(action.type){
-            case 'INCREMENT':
-                return {count:state.count+1}
-            case 'DECREMENT':
-                return {count:state.count-1}
-            case 'RESET':
-                return {count:0}
-        }
-    }
+//     const reducerFn = (state,action)=>{
+//         switch(action.type){
+//             case 'INCREMENT':
+//                 return {count:state.count+1}
+//             case 'DECREMENT':
+//                 return {count:state.count-1}
+//             case 'RESET':
+//                 return {count:0}
+//         }
+//     }
 
-    const [state,dispatch] = useReducer(reducerFn,initialState)
-  return (
-    <div>
-        <h1>{state.count}</h1>
-        <button onClick={()=>dispatch({type:'INCREMENT'})}>Increment</button>
-        <button onClick={()=>dispatch({type:'DECREMENT'})}>Decrement</button>
-        <button onClick={()=>dispatch({type:'RESET'})}>Reset</button>
-    </div>
-  )
-}
+//     const [state,dispatch] = useReducer(reducerFn,initialState)
+//   return (
+//     <div>
+//         <h1>{state.count}</h1>
+//         <button onClick={()=>dispatch({type:'INCREMENT'})}>Increment</button>
+//         <button onClick={()=>dispatch({type:'DECREMENT'})}>Decrement</button>
+//         <button onClick={()=>dispatch({type:'RESET'})}>Reset</button>
+//     </div>
+//   )
+// }
 
-export default Count
+// export default Count
+

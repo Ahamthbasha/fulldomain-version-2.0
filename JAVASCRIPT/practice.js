@@ -1,7 +1,5 @@
 // //deepcopy
 
-const { resolve } = require("path");
-const { json } = require("stream/consumers");
 
 // function deepCopy(obj){
 //     if(obj == null || typeof obj != 'object'){
@@ -352,61 +350,21 @@ const { json } = require("stream/consumers");
 // console.log(deepFreeze(obj))
 
 
-//deep copy
-
-function deepCopy(obj){
-    return JSON.parse(JSON.stringify(obj))
-}
-
-function deepCopy2(obj){
-    if(obj === null || typeof obj !== 'object'){
-        return obj
+function addOddNumber(arr){
+    if(arr.length == 0){
+        return 0
     }
 
-    const copy =Array.isArray(obj) ? [] :{}
+    let start = arr[0]
+    let end = arr.slice(1)
 
-    for(let key in obj){
-        copy[key] = deepCopy2(obj[key])
+    let add = 0
+
+    if(start % 2 != 0){
+        add+=start
     }
 
-    return copy
+    return add+addOddNumber(end)
 }
 
-function deepFreeze(obj){
-    const propNames = Object.getOwnPropertyNames(obj)
-
-    
-    for(let name of propNames){
-        const value =obj[name]
-
-        if(value && typeof value === 'object'){
-            deepFreeze(value)
-        }
-    }
-
-    return Object.freeze(obj)
-}
-
-const factorial =(no) =>{
-    let fact = 1
-    for(let i=1;i<=no;i++){
-        fact *= i
-    }
-    return fact
-}
-
-const memoize = (fn) => {
-    let cache = {}
-
-    return function (args){
-        let no = args
-
-        if(no in cache){
-            return cache[no]
-        }else{
-            let result = fn(args)
-            cache[no] = result
-            return result
-        }
-    }
-}
+console.log(addOddNumber([1,2,3,4,5,6,7]))
