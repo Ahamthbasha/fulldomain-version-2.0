@@ -350,21 +350,37 @@
 // console.log(deepFreeze(obj))
 
 
-function addOddNumber(arr){
-    if(arr.length == 0){
-        return 0
+// function addOddNumber(arr){
+//     if(arr.length == 0){
+//         return 0
+//     }
+
+//     let start = arr[0]
+//     let end = arr.slice(1)
+
+//     let add = 0
+
+//     if(start % 2 != 0){
+//         add+=start
+//     }
+
+//     return add+addOddNumber(end)
+// }
+
+// console.log(addOddNumber([1,2,3,4,5,6,7]))
+
+//deepCopy
+
+function deepCopy(obj){
+    if(obj == null || typeof obj != 'object'){
+        return obj
     }
 
-    let start = arr[0]
-    let end = arr.slice(1)
+    const copy = Array.isArray(obj) ? [] : {}
 
-    let add = 0
-
-    if(start % 2 != 0){
-        add+=start
+    for(let key in obj){
+        copy[key] = deepCopy(obj[key])
     }
 
-    return add+addOddNumber(end)
+    return copy
 }
-
-console.log(addOddNumber([1,2,3,4,5,6,7]))
