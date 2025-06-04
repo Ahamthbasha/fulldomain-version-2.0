@@ -288,30 +288,30 @@ const fs = require('fs')
 // })
 
 
-const express = require('express')
-const app = express()
+// const express = require('express')
+// const app = express()
 
-const router = express.Router()
+// const router = express.Router()
 
-router.use((req,res,next)=>{
-    console.log(req.method)
-    next()
-})
+// router.use((req,res,next)=>{
+//     console.log(req.method)
+//     next()
+// })
 
-router.get('/router',(req,res)=>{
-    res.send('router level middleware')
-})
+// router.get('/router',(req,res)=>{
+//     res.send('router level middleware')
+// })
 
-app.use(router)
+// app.use(router)
 
-app.use((err,req,res,next)=>{
-    if(err){
-        console.log(err)
-    }else{
-        next()
-    }
-})
+// app.use((err,req,res,next)=>{
+//     if(err){
+//         console.log(err)
+//     }else{
+//         next()
+//     }
+// })
 
-app.listen(3000,()=>{
-    console.log("server is running")
-})
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
