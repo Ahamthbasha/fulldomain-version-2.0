@@ -389,121 +389,295 @@
 // console.log(sTrie.search('apple'))  // false
 // console.log(sTrie.search('nnaa'))   // false
 
-class Node{
-    constructor(){
-        this.children = {}
-        this.isEndOfWord = false
-    }
-}
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
 
-class Trie{
-    constructor(){
-        this.root = new Node()
-    }
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
 
-    insert(word){
-        let node = this.root
+//     insert(word){
+//         let node = this.root
 
-        for(let i=0;i<word.length;i++){
-            let char = word[i]
-            if(!node.children[char]){
-                node.children[char] = new Node()
-            }
-            node = node.children[char]
-        }
-        node.isEndOfWord = true
-    }
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+//         node.isEndOfWord = true
+//     }
 
-    countWord(){
-        let queue = []
-        queue.push(this.root)
-        let count = 0
+//     countWord(){
+//         let queue = []
+//         queue.push(this.root)
+//         let count = 0
 
-        while(queue.length){
-            let node = queue.shift()
+//         while(queue.length){
+//             let node = queue.shift()
 
-            if(node.isEndOfWord){
-                count++
-            }
+//             if(node.isEndOfWord){
+//                 count++
+//             }
 
-            for(let char in node.children){
-                queue.push(node.children[char])
-            }
-        }
+//             for(let char in node.children){
+//                 queue.push(node.children[char])
+//             }
+//         }
 
-        return count
-    }
+//         return count
+//     }
 
-    longestPrefix(word){
-        let node = this.root
-        let longestPrefix = ''
+//     longestPrefix(word){
+//         let node = this.root
+//         let longestPrefix = ''
 
-        for(let i=0;i<word.length;i++){
-            let char = word[i]
-            if(!node.children[char]){
-                break
-            }
-            longestPrefix+=char
-            node = node.children[char]
-        }
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+//             if(!node.children[char]){
+//                 break
+//             }
+//             longestPrefix+=char
+//             node = node.children[char]
+//         }
 
-        return longestPrefix
-    }
+//         return longestPrefix
+//     }
 
-    countPrefix(prefix){
-        let node = this.root
+//     countPrefix(prefix){
+//         let node = this.root
 
-        for(let i=0;i<prefix.length;i++){
-            let char = prefix[i]
+//         for(let i=0;i<prefix.length;i++){
+//             let char = prefix[i]
 
-            if(!node.children[char]){
-                return 'invalid prefix'
-            }
+//             if(!node.children[char]){
+//                 return 'invalid prefix'
+//             }
 
-            node = node.children[char]
-        }
+//             node = node.children[char]
+//         }
 
-        let queue =[]
+//         let queue =[]
 
-        queue.push(node)
-        let countPrefix = 0
-        while(queue.length){
-            let child = queue.shift()
+//         queue.push(node)
+//         let countPrefix = 0
+//         while(queue.length){
+//             let child = queue.shift()
 
-            if(child.isEndOfWord){
-                countPrefix++
-            }
+//             if(child.isEndOfWord){
+//                 countPrefix++
+//             }
 
-            for(let char in child.children){
-                queue.push(child.children[char])
-            }
-        }
+//             for(let char in child.children){
+//                 queue.push(child.children[char])
+//             }
+//         }
 
-        return countPrefix
-    }
-}
+//         return countPrefix
+//     }
+// }
 
-const trie = new Trie()
+// const trie = new Trie()
 
-// Insert words
-trie.insert("apple")
-trie.insert("app")
-trie.insert("ape")
-trie.insert("bat")
-trie.insert("bath")
-trie.insert("banana")
+// // Insert words
+// trie.insert("apple")
+// trie.insert("app")
+// trie.insert("ape")
+// trie.insert("bat")
+// trie.insert("bath")
+// trie.insert("banana")
 
-// Test: countWord
-console.log(trie.countWord()) // Expected: 6
+// // Test: countWord
+// console.log(trie.countWord()) // Expected: 6
 
-// Test: longestPrefix
-console.log(trie.longestPrefix("applet")) // Expected: "apple"
-console.log(trie.longestPrefix("application")) // Expected: "app"
-console.log(trie.longestPrefix("batman")) // Expected: "bat"
-console.log(trie.longestPrefix("cat")) // Expected: ""
+// // Test: longestPrefix
+// console.log(trie.longestPrefix("applet")) // Expected: "apple"
+// console.log(trie.longestPrefix("application")) // Expected: "app"
+// console.log(trie.longestPrefix("batman")) // Expected: "bat"
+// console.log(trie.longestPrefix("cat")) // Expected: ""
 
-// Test: countPrefix
-console.log(trie.countPrefix("app")) // Expected: 2 ("app", "apple")
-console.log(trie.countPrefix("ba"))  // Expected: 3 ("bat", "bath", "banana")
-console.log(trie.countPrefix("ban")) // Expected: 1 ("banana")
-console.log(trie.countPrefix("z"))   // Expected: 'invalid prefix'
+// // Test: countPrefix
+// console.log(trie.countPrefix("app")) // Expected: 2 ("app", "apple")
+// console.log(trie.countPrefix("ba"))  // Expected: 3 ("bat", "bath", "banana")
+// console.log(trie.countPrefix("ban")) // Expected: 1 ("banana")
+// console.log(trie.countPrefix("z"))   // Expected: 'invalid prefix'
+
+// class MaxHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getparent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     add(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length-1
+
+//         while(this.hasParent(index) && this.getparent(index) < this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         let val = this.heap[0]
+
+//         this.heap[0] = this.heap[this.heap.length-1]
+
+//         this.heap.pop()
+
+//         this.heapifyDown()
+
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+
+        
+//         while(this.hasLeftChild(index)){
+//             let largest = this.getLeftChildIndex(index)
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }else{
+//                 this.swap(index,largest)
+//             }
+
+//             index = largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         let heap = new MaxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(heap.heap.length){
+//             sortedArr.push(heap.remove())
+//         }
+
+
+//         return sortedArr
+//     }
+
+//     findKthSmallest(arr,k){
+//         let heap = new MaxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//             if(heap.heap.length > k){
+//                 heap.remove()
+//             }
+//         }
+
+//         return heap.peek()
+//     }
+// }
+
+// function runTests() {
+//     let heap = new MaxHeap();
+
+//     // Test add and peek
+//     heap.add(10);
+//     heap.add(15);
+//     heap.add(20);
+//     heap.add(17);
+//     heap.add(25);
+
+//     console.log(heap.peek()); // 25
+
+//     // Test remove
+//     console.log(heap.remove()); // 25
+//     console.log(heap.peek());   // 20
+
+//     // Test heap sort
+//     const arr = [3, 1, 5, 2, 4];
+//     console.log(heap.heapSort(arr)); // [5, 4, 3, 2, 1] - descending
+
+//     // Test heap sort with ascending output
+//     const sortedDesc = heap.heapSort(arr);
+//     const sortedAsc = [...sortedDesc].reverse();
+//     console.log(sortedAsc); // [1, 2, 3, 4, 5]
+
+//     // Test kth smallest
+//     const nums = [7, 10, 4, 3, 20, 15];
+//     const k = 3;
+//     console.log(heap.findKthSmallest(nums, k)); // 7 (the 3rd smallest)
+// }
+
+// runTests();
