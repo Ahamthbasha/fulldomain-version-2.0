@@ -890,3 +890,193 @@
 // console.log("Original Array:", arr);
 // heapSort(arr);
 // console.log("Sorted Array:", arr);
+
+//graph
+
+class graph{
+    constructor(){
+        this.adjacencyList ={}
+    }
+
+
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            this.adjacencyList[vertex] = new Set()
+        }
+    }
+
+    addEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
+            return 'vertex1 or vertex2 is not found'
+        }
+
+        this.adjacencyList[vertex1].add(vertex2)
+        this.adjacencyList[vertex2].add(vertex1)
+    }
+
+    hasEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
+            return 'vertex1 or vertex2 is missing'
+        }
+
+        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+    }
+
+    removeEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
+            return 'vertex1 or vertex2 is missing'
+        }
+
+        this.adjacencyList[vertex1].delete(vertex2)
+        this.adjacencyList[vertex2].delete(vertex1)
+    }
+
+    removeVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            return 'vertex is not found'
+        }
+
+        for(let adjacentVertex of this.adjacencyList[vertex]){
+            this.removeEdge(vertex,adjacentVertex)
+        }
+
+        delete this.adjacencyList[vertex]
+    }
+
+    print(){
+        for(let vertex in this.adjacencyList){
+            console.log(`${vertex} => ${[...this.adjacencyList[vertex]]}`)
+        }
+    }
+
+    bfsTraversal(start){
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
+        let queue = []
+        queue.push(start)
+
+        while(queue.length){
+            let vertex = queue.shift()
+            console.log(vertex)
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push(neighbor)
+                }
+            }
+        }
+    }
+
+    dfsTraversal(start,visitedNode=new Set()){
+        visitedNode.add(start)
+        console.log(start)
+
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                this.dfs(neighbor,visitedNode)
+            }
+        }
+    }
+
+    bfs(start){
+        let queue = []
+        queue.push({vertex:start,parent:null})
+
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
+        while(queue.length){
+            let {vertex,parent} = queue.shift()
+
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push({vertex:neighbor,parent:vertex})
+                }
+                else if(neighbor != parent){
+                    return 'cycle detected'
+                }
+            }
+        }
+        return 'cycle not found'
+    }
+
+    dfs(start,visitedNode=new Set(),parent=null){
+        visitedNode.add(start)
+
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                if(this.dfs(neighbor,visitedNode,start)){
+                    return true
+                }
+            }
+            else if(neighbor != parent){
+                return true
+            }
+        }
+
+        return false
+    }
+}
+
+let g = new graph();
+
+// Add vertices
+g.addVertex('A');
+g.addVertex('B');
+g.addVertex('C');
+g.addVertex('D');
+g.addVertex('E');
+
+console.log(g.adjacencyList); // { A: Set(0), B: Set(0), ... }
+
+// Add edges
+g.addEdge('A', 'B');
+g.addEdge('A', 'C');
+g.addEdge('B', 'D');
+g.addEdge('D', 'E');
+
+// Check if edge exists
+console.log(g.hasEdge('A', 'B')); // true
+console.log(g.hasEdge('A', 'D')); // false
+
+// Print graph
+g.print();
+// Example output:
+// A => B,C
+// B => A,D
+// C => A
+// D => B,E
+// E => D
+
+// BFS Traversal
+console.log("BFS Traversal from A:");
+g.bfsTraversal('A');
+
+// DFS Traversal
+console.log("DFS Traversal from A:");
+g.dfsTraversal('A');
+
+// Cycle detection using BFS
+let g2 = new graph();
+g2.addVertex('1');
+g2.addVertex('2');
+g2.addVertex('3');
+g2.addVertex('4');
+
+g2.addEdge('1', '2');
+g2.addEdge('2', '3');
+g2.addEdge('3', '4');
+g2.addEdge('4', '1'); // introduces cycle
+
+console.log("Cycle detection (BFS):", g2.bfs('1')); // cycle detected
+console.log("Cycle detection (DFS):", g2.dfs('1') ? "cycle detected" : "cycle not found");
+
+// Remove edge
+g.removeEdge('A', 'B');
+console.log(g.hasEdge('A', 'B')); // false
+
+// Remove vertex
+g.removeVertex('C');
+console.log(g.adjacencyList['C']); // undefined
