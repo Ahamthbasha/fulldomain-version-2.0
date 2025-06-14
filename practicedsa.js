@@ -1318,137 +1318,563 @@
 
 //trie operations
 
-class Node{
-    constructor(){
-        this.children = {}
-        this.isEndOfWord = false
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     countWord(){
+//         let queue = []
+//         queue.push(this.root)
+//         let noOfWords = 0
+//         while(queue.length){
+//             let node = queue.shift()
+
+//             if(node.isEndOfWord){
+//                 noOfWords++
+//             }
+
+//             for(let char in node.children){
+//                 queue.push(node.children[char])
+//             }
+//         }
+
+//         return noOfWords
+//     }
+
+//     longestWord(word){
+//         let longestWord = ''
+//         let node = this.root
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+
+//             if(!node.children[char]){
+//                 break
+//             }
+
+//             longestWord += char
+//             node = node.children[char]
+//         }
+
+//         return longestWord
+//     }
+
+//     prefixWordCount(word){
+//         let node = this.root
+
+//         for(let i=0;i<word.length;i++){
+//             let char = word[i]
+
+//             if(!node.children[char]){
+//                 return 'no match'
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         let queue = []
+
+//         queue.push(node)
+//         let prefixCount = 0
+
+//         while(queue.length){
+//             let word = queue.shift()
+
+//             if(word.isEndOfWord){
+//                 prefixCount++
+//             }
+
+//             for(let char in word.children){
+//                 queue.push(word.children[char])
+//             }
+//         }
+
+//         return prefixCount
+//     }
+// }
+
+// const trie = new Trie()
+
+// // Insert test words
+// trie.insert("apple")
+// trie.insert("app")
+// trie.insert("application")
+// trie.insert("bat")
+// trie.insert("batch")
+// trie.insert("baton")
+// trie.insert("batmobile")
+
+// console.log("✅ Count of complete words:", trie.countWord()) 
+// // Output: 7
+
+// console.log("✅ Longest word in Trie matching 'applicationist':", trie.longestWord("applicationist"))
+// // Output: "application"
+
+// console.log("✅ Longest word in Trie matching 'apps':", trie.longestWord("apps"))
+// // Output: "app"
+
+// console.log("✅ Prefix count for 'bat':", trie.prefixWordCount("bat"))
+// // Output: 4 -> (bat, batch, baton, batmobile)
+
+// console.log("✅ Prefix count for 'app':", trie.prefixWordCount("app"))
+// // Output: 3 -> (app, apple, application)
+
+// console.log("✅ Prefix count for 'cat':", trie.prefixWordCount("cat"))
+// // Output: 'no match'
+
+// const edgeTrie = new Trie()
+// console.log(edgeTrie.countWord()) // 0 (empty Trie)
+
+// edgeTrie.insert("")
+// console.log(edgeTrie.countWord()) // 1 (empty string is a valid word)
+
+// console.log(edgeTrie.prefixWordCount("")) // 1 (matches the empty string)
+
+// class maxHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     getSize(){
+//         return this.heap.length
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length -1 
+
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         let val = this.heap[0]
+
+//         this.heap[0] = this.heap[this.heap.length-1]
+
+//         this.heap.pop()
+
+//         this.heapifyDown()
+        
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+//         let largest 
+
+//         while(this.hasLeftChild(index)){
+//             largest = this.getLeftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }else{
+//                 this.swap(index,largest)
+//             }
+
+//             index = largest
+//         }
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     findKthSmallest(arr,k){
+//         if(arr.length < k){
+//             return 'invalid k'
+//         }
+
+//         let heap = new maxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.insert(arr[i])
+//             if(heap.heap.length > k){
+//                 heap.remove()
+//             }
+//         }
+
+//         return heap.peek()
+//     }
+
+//     heapSort(arr){
+//         let heap = new maxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.insert(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(heap.heap.length){
+//             sortedArr.push(heap.remove())
+//         }
+
+//         return sortedArr
+//     }
+// }
+
+// let heap = new maxHeap();
+
+// console.log("Insert values into heap:");
+// [10, 20, 5, 30, 25].forEach(val => heap.insert(val));
+// heap.print(); // should print a valid max-heap
+
+// console.log("Peek top:", heap.peek()); // should be the max => 30
+
+// console.log("Remove top:", heap.remove()); // should be 30
+// heap.print();
+
+// console.log("Find 3rd smallest in [10, 5, 2, 7, 3, 9]:", heap.findKthSmallest([10, 5, 2, 7, 3, 9], 3)); // 5
+
+// console.log("Heap sort [4, 1, 3, 9, 7]:", heap.heapSort([4, 1, 3, 9, 7])); // [9, 7, 4, 3, 1]
+
+
+// class minHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+//         return this.heap[0]
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index - 1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length-1
+
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         let val = this.heap[0]
+        
+//         this.heap[0] = this.heap[this.heap.length-1]
+        
+//         this.heap.pop()
+
+//         this.heapifyDown()
+
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+//         let smallest
+
+//         while(this.hasLeftChild(index)){
+//             smallest = this.getLeftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+//                 smallest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] <= this.heap[smallest]){
+//                 break
+//             }else{
+//                 this.swap(index,smallest)
+//             }
+
+//             index = smallest
+//         }
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     findKthLargest(arr,k){
+//         if(arr.length < k){
+//             return 'k is invalid'
+//         }
+
+//         let heap = new minHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.insert(arr[i])
+//             if(heap.heap.length > k){
+//                 heap.remove()
+//             }
+//         }
+
+//         return heap.peek()
+//     }
+
+//     heapSort(arr){
+//         let heap = new minHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.insert(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(heap.heap.length){
+//             sortedArr.push(heap.remove())
+//         }
+
+//         return sortedArr
+//     }
+// }
+
+
+// let h = new minHeap();
+
+// console.log("== Insert & Peek ==");
+// [10, 4, 15, 2, 8].forEach(num => h.insert(num));
+// h.print(); // should be a valid min-heap, e.g., [2, 4, 15, 10, 8]
+// console.log("Peek:", h.peek()); // should be 2
+
+// console.log("\n== Remove ==");
+// console.log("Removed:", h.remove()); // 2
+// h.print(); // heap adjusted
+
+// console.log("\n== findKthLargest ==");
+// let arr1 = [3, 2, 1, 5, 6, 4];
+// console.log("3rd largest:", h.findKthLargest(arr1, 3)); // should return 4
+
+// console.log("\n== heapSort ==");
+// let arr2 = [9, 4, 7, 1, -2, 6, 5];
+// console.log("Sorted:", h.heapSort(arr2)); // [-2, 1, 4, 5, 6, 7, 9]
+
+
+// function heapify(arr,n,i){
+//     let largest = i
+//     let left = 2 * i + 1
+//     let right = 2 * i + 2
+
+//     if(largest < n && arr[left] > arr[largest]){
+//         largest = left
+//     }
+
+//     if(largest < n && arr[right] > arr[largest]){
+//         largest = right
+//     }
+
+//     if(largest != i){
+//         [arr[i],arr[largest]] = [arr[largest],arr[i]]
+//         heapify(arr,n,largest)
+//     }
+// }
+
+
+// function heapSort(arr){
+//     let n = arr.length
+//     for(let i=Math.floor((n-1)/2);i>=0;i--){
+//         heapify(arr,n,i)
+//     }
+
+//     for(let i=n-1;i>=0;i--){
+//         [arr[0],arr[i]] = [arr[i],arr[0]]
+//         heapify(arr,i,0)
+//     }
+// }
+
+// function testHeapSort() {
+//     let arr1 = [4, 10, 3, 5, 1];
+//     console.log("Before:", [...arr1]);
+//     heapSort(arr1);
+//     console.log("After :", arr1); // [1, 3, 4, 5, 10]
+
+//     let arr2 = [12, 11, 13, 5, 6, 7];
+//     console.log("Before:", [...arr2]);
+//     heapSort(arr2);
+//     console.log("After :", arr2); // [5, 6, 7, 11, 12, 13]
+
+//     let arr3 = [];
+//     console.log("Before:", [...arr3]);
+//     heapSort(arr3);
+//     console.log("After :", arr3); // []
+
+//     let arr4 = [1];
+//     console.log("Before:", [...arr4]);
+//     heapSort(arr4);
+//     console.log("After :", arr4); // [1]
+
+//     let arr5 = [9, 9, 9, 9];
+//     console.log("Before:", [...arr5]);
+//     heapSort(arr5);
+//     console.log("After :", arr5); // [9, 9, 9, 9]
+// }
+
+// testHeapSort();
+
+function findKthFrequency(arr,k){
+    let valMap = {}
+
+    for(let i=0;i<arr.length;i++){
+        if(valMap[arr[i]]){
+            valMap[arr[i]]++
+        }else{
+            valMap[arr[i]] = 1
+        }
     }
+
+    let no = []
+    for(let [key,freq] of Object.entries(valMap)){
+        if(freq == k){
+            no.push(Number(key))
+        }
+    }
+
+    return no
 }
 
-class Trie{
-    constructor(){
-        this.root = new Node()
-    }
-
-    insert(word){
-        let node = this.root
-
-        for(let i=0;i<word.length;i++){
-            let char = word[i]
-
-            if(!node.children[char]){
-                node.children[char] = new Node()
-            }
-
-            node = node.children[char]
-        }
-
-        node.isEndOfWord = true
-    }
-
-    countWord(){
-        let queue = []
-        queue.push(this.root)
-        let noOfWords = 0
-        while(queue.length){
-            let node = queue.shift()
-
-            if(node.isEndOfWord){
-                noOfWords++
-            }
-
-            for(let char in node.children){
-                queue.push(node.children[char])
-            }
-        }
-
-        return noOfWords
-    }
-
-    longestWord(word){
-        let longestWord = ''
-        let node = this.root
-        for(let i=0;i<word.length;i++){
-            let char = word[i]
-
-            if(!node.children[char]){
-                break
-            }
-
-            longestWord += char
-            node = node.children[char]
-        }
-
-        return longestWord
-    }
-
-    prefixWordCount(word){
-        let node = this.root
-
-        for(let i=0;i<word.length;i++){
-            let char = word[i]
-
-            if(!node.children[char]){
-                return 'no match'
-            }
-
-            node = node.children[char]
-        }
-
-        let queue = []
-
-        queue.push(node)
-        let prefixCount = 0
-
-        while(queue.length){
-            let word = queue.shift()
-
-            if(word.isEndOfWord){
-                prefixCount++
-            }
-
-            for(let char in word.children){
-                queue.push(word.children[char])
-            }
-        }
-
-        return prefixCount
-    }
-}
-
-const trie = new Trie()
-
-// Insert test words
-trie.insert("apple")
-trie.insert("app")
-trie.insert("application")
-trie.insert("bat")
-trie.insert("batch")
-trie.insert("baton")
-trie.insert("batmobile")
-
-console.log("✅ Count of complete words:", trie.countWord()) 
-// Output: 7
-
-console.log("✅ Longest word in Trie matching 'applicationist':", trie.longestWord("applicationist"))
-// Output: "application"
-
-console.log("✅ Longest word in Trie matching 'apps':", trie.longestWord("apps"))
-// Output: "app"
-
-console.log("✅ Prefix count for 'bat':", trie.prefixWordCount("bat"))
-// Output: 4 -> (bat, batch, baton, batmobile)
-
-console.log("✅ Prefix count for 'app':", trie.prefixWordCount("app"))
-// Output: 3 -> (app, apple, application)
-
-console.log("✅ Prefix count for 'cat':", trie.prefixWordCount("cat"))
-// Output: 'no match'
-
-const edgeTrie = new Trie()
-console.log(edgeTrie.countWord()) // 0 (empty Trie)
-
-edgeTrie.insert("")
-console.log(edgeTrie.countWord()) // 1 (empty string is a valid word)
-
-console.log(edgeTrie.prefixWordCount("")) // 1 (matches the empty string)
+    console.log(findKthFrequency([4, 4, 4, 4, 2, 2, 3], 4)); // [4]
+    console.log(findKthFrequency([5, 5, 5, 6, 6, 7], 3)); // [5]
+    console.log(findKthFrequency([1, 1, 2, 3, 4, 5], 1)); // [2, 3, 4, 5]
+    console.log(findKthFrequency([10, 10, 20, 20, 20, 30], 2)); // [10]
+    console.log(findKthFrequency([], 1)); // []
+    console.log(findKthFrequency([100], 1)); // [100]
+    console.log(findKthFrequency([1, 2, 3], 4)); // []
