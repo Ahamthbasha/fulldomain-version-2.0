@@ -1850,31 +1850,133 @@
 
 // testHeapSort();
 
-function findKthFrequency(arr,k){
-    let valMap = {}
+// function findKthFrequency(arr,k){
+//     let valMap = {}
 
-    for(let i=0;i<arr.length;i++){
-        if(valMap[arr[i]]){
-            valMap[arr[i]]++
-        }else{
-            valMap[arr[i]] = 1
+//     for(let i=0;i<arr.length;i++){
+//         if(valMap[arr[i]]){
+//             valMap[arr[i]]++
+//         }else{
+//             valMap[arr[i]] = 1
+//         }
+//     }
+
+//     let no = []
+//     for(let [key,freq] of Object.entries(valMap)){
+//         if(freq == k){
+//             no.push(Number(key))
+//         }
+//     }
+
+//     return no
+// }
+
+//     console.log(findKthFrequency([4, 4, 4, 4, 2, 2, 3], 4)); // [4]
+//     console.log(findKthFrequency([5, 5, 5, 6, 6, 7], 3)); // [5]
+//     console.log(findKthFrequency([1, 1, 2, 3, 4, 5], 1)); // [2, 3, 4, 5]
+//     console.log(findKthFrequency([10, 10, 20, 20, 20, 30], 2)); // [10]
+//     console.log(findKthFrequency([], 1)); // []
+//     console.log(findKthFrequency([100], 1)); // [100]
+//     console.log(findKthFrequency([1, 2, 3], 4)); // []
+
+
+function bubbleSort(arr){
+    let swapped
+
+    do{
+        swapped = false
+        for(let i=0;i<arr.length-1;i++){
+            if(arr[i] > arr[i+1]){
+                let temp = arr[i]
+                arr[i] = arr[i+1]
+                arr[i+1] = temp
+                swapped = true
+            }
         }
-    }
-
-    let no = []
-    for(let [key,freq] of Object.entries(valMap)){
-        if(freq == k){
-            no.push(Number(key))
-        }
-    }
-
-    return no
+    }while(swapped)
+        return arr
 }
 
-    console.log(findKthFrequency([4, 4, 4, 4, 2, 2, 3], 4)); // [4]
-    console.log(findKthFrequency([5, 5, 5, 6, 6, 7], 3)); // [5]
-    console.log(findKthFrequency([1, 1, 2, 3, 4, 5], 1)); // [2, 3, 4, 5]
-    console.log(findKthFrequency([10, 10, 20, 20, 20, 30], 2)); // [10]
-    console.log(findKthFrequency([], 1)); // []
-    console.log(findKthFrequency([100], 1)); // [100]
-    console.log(findKthFrequency([1, 2, 3], 4)); // []
+function insertionSort(arr){
+    for(let i=1;i<arr.length;i++){
+        let cur = arr[i]
+        let j = i - 1
+
+        while(j>=0 && arr[j] > cur){
+            arr[j+1] = arr[j]
+            j--
+        }
+
+        arr[j+1] = cur
+    }
+
+    return arr
+}
+
+function selectionSort(arr){
+    let minElement
+
+    for(let i=0;i<arr.length-1;i++){
+        minElement = i
+        for(let j=i+1;j<arr.length;j++){
+            if(arr[minElement] > arr[j] ){
+                minElement = j
+            }
+        }
+        let temp = arr[minElement]
+        arr[minElement] = arr[i]
+        arr[i] = temp
+    }
+    return arr
+}
+
+
+function quickSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let pivot = arr[arr.length-1]
+    let leftArr = []
+    let rightArr = []
+
+    for(let i=0;i<arr.length-1;i++){
+        if(arr[i] < pivot){
+            leftArr.push(arr[i])
+        }
+        else{
+            rightArr.push(arr[i])
+        }
+    }
+
+    return[...quickSort(leftArr),pivot,...quickSort(rightArr)]
+}
+
+function mergeSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let mid = Math.floor(arr.length/2)
+    let leftArr = arr.slice(0,mid)
+    let rightArr = arr.slice(mid)
+
+    return merge(mergeSort(leftArr),mergeSort(rightArr))
+}
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
+        }else{
+            sortedArr.push(rightArr.shift())
+        }
+    }
+
+    return sortedArr.concat(leftArr,rightArr)
+}
+console.log(mergeSort([5, -1, 0, 3, 8])); // ➤ [-1, 0, 3, 5, 8]
+console.log(mergeSort([10, 9, 8, 7]));    // ➤ [7, 8, 9, 10]
+console.log(mergeSort([100,-100,0,99,-99])); // ➤ [-100, -99, 0, 99, 100]
