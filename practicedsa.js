@@ -2014,3 +2014,102 @@ function insertionSort(arr){
     
     return arr
 }
+
+function selectionSort(arr){
+    for(let i=0;i<arr.length-1;i++){
+        let minElement = i
+        for(let j=i+1;j<arr.length;j++){
+            if(arr[minElement] > arr[j]){
+                minElement = j
+            }
+        }
+
+        let temp = arr[minElement]
+        arr[minElement] = arr[i]
+        arr[i] = temp
+    }
+
+    return arr
+}
+
+function quickSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let pivot = arr[arr.length-1]
+    let leftArr = []
+    let rightArr = []
+
+    for(let i=0;i<arr.length-1;i++){
+        if(arr[i] < pivot){
+            leftArr.push(arr[i])
+        }else{
+            rightArr.push(arr[i])
+        }
+    }
+
+    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+}
+
+function mergeSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let mid = Math.floor(arr.length/2)
+    let leftArr = arr.slice(0,mid)
+    let rightArr = arr.slice(mid)
+
+    return  merge(mergeSort(leftArr),mergeSort(rightArr))
+}
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
+        }
+        else{
+            sortedArr.push(rightArr.shift())
+        }
+    }
+
+    return sortedArr.concat(leftArr,rightArr)
+}
+
+const testCases = [
+    { input: [5, 2, 9, 1, 5, 6], expected: [1, 2, 5, 5, 6, 9], label: 'Basic Unsorted' },
+    { input: [1, 2, 3, 4, 5], expected: [1, 2, 3, 4, 5], label: 'Already Sorted' },
+    { input: [5, 4, 3, 2, 1], expected: [1, 2, 3, 4, 5], label: 'Reverse Sorted' },
+    { input: [7, 7, 7, 7], expected: [7, 7, 7, 7], label: 'All Equal' },
+    { input: [42], expected: [42], label: 'Single Element' },
+    { input: [], expected: [], label: 'Empty Array' },
+    { input: [3, -1, 0, -5, 8], expected: [-5, -1, 0, 3, 8], label: 'With Negative Numbers' }
+];
+
+// Functions to test
+const algorithms = {
+    bubbleSort,
+    insertionSort,
+    selectionSort,
+    quickSort,
+    mergeSort
+};
+
+// Run Tests
+for (const [name, func] of Object.entries(algorithms)) {
+    console.log(`\nTesting ${name}:`);
+    for (const { input, expected, label } of testCases) {
+        const inputCopy = [...input]; // to prevent mutation
+        const result = func([...inputCopy]); // make sure pure
+        const passed = JSON.stringify(result) === JSON.stringify(expected);
+        console.log(` - ${label}: ${passed ? '✅ Passed' : '❌ Failed'} | Result: ${JSON.stringify(result)}`);
+    }
+}
+
+// Optional: Large random array test for quickSort
+const largeArr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
+const sorted = [...largeArr].sort((a, b) => a - b);
+console.log("\nQuickSort large array test:", JSON.stringify(quickSort(largeArr)) === JSON.stringify(sorted) ?  "✅ Passed" : "❌ Failed");
