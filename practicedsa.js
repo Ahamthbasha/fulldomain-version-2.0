@@ -1982,134 +1982,336 @@
 // console.log(mergeSort([100,-100,0,99,-99])); // ➤ [-100, -99, 0, 99, 100]
 
 
-function bubbleSort(arr){
-    let swapped 
+// function bubbleSort(arr){
+//     let swapped 
 
-    do{
-        swapped = false
-        for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                let temp = arr[i]
-                arr[i] = arr[i+1]
-                arr[i+1]= temp
-                swapped = true
-            }
-        }
-    }while(swapped)
-        return arr
-}
+//     do{
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1]= temp
+//                 swapped = true
+//             }
+//         }
+//     }while(swapped)
+//         return arr
+// }
 
-function insertionSort(arr){
-    for(let i=1;i<arr.length;i++){
-        let cur = arr[i]
-        let j = i - 1
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let cur = arr[i]
+//         let j = i - 1
 
-        while(j>= 0 && arr[j] > cur){
-            arr[j+1] = arr[j]
-            j--
-        }
+//         while(j>= 0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
 
-        arr[j+1] = cur
-    }
+//         arr[j+1] = cur
+//     }
     
-    return arr
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+
+//         let temp = arr[minElement]
+//         arr[minElement] = arr[i]
+//         arr[i] = temp
+//     }
+
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return  merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }
+//         else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// const testCases = [
+//     { input: [5, 2, 9, 1, 5, 6], expected: [1, 2, 5, 5, 6, 9], label: 'Basic Unsorted' },
+//     { input: [1, 2, 3, 4, 5], expected: [1, 2, 3, 4, 5], label: 'Already Sorted' },
+//     { input: [5, 4, 3, 2, 1], expected: [1, 2, 3, 4, 5], label: 'Reverse Sorted' },
+//     { input: [7, 7, 7, 7], expected: [7, 7, 7, 7], label: 'All Equal' },
+//     { input: [42], expected: [42], label: 'Single Element' },
+//     { input: [], expected: [], label: 'Empty Array' },
+//     { input: [3, -1, 0, -5, 8], expected: [-5, -1, 0, 3, 8], label: 'With Negative Numbers' }
+// ];
+
+// // Functions to test
+// const algorithms = {
+//     bubbleSort,
+//     insertionSort,
+//     selectionSort,
+//     quickSort,
+//     mergeSort
+// };
+
+// // Run Tests
+// for (const [name, func] of Object.entries(algorithms)) {
+//     console.log(`\nTesting ${name}:`);
+//     for (const { input, expected, label } of testCases) {
+//         const inputCopy = [...input]; // to prevent mutation
+//         const result = func([...inputCopy]); // make sure pure
+//         const passed = JSON.stringify(result) === JSON.stringify(expected);
+//         console.log(` - ${label}: ${passed ? '✅ Passed' : '❌ Failed'} | Result: ${JSON.stringify(result)}`);
+//     }
+// }
+
+// // Optional: Large random array test for quickSort
+// const largeArr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
+// const sorted = [...largeArr].sort((a, b) => a - b);
+// console.log("\nQuickSort large array test:", JSON.stringify(quickSort(largeArr)) === JSON.stringify(sorted) ?  "✅ Passed" : "❌ Failed");
+
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+    }
 }
 
-function selectionSort(arr){
-    for(let i=0;i<arr.length-1;i++){
-        let minElement = i
-        for(let j=i+1;j<arr.length;j++){
-            if(arr[minElement] > arr[j]){
-                minElement = j
-            }
-        }
-
-        let temp = arr[minElement]
-        arr[minElement] = arr[i]
-        arr[i] = temp
+class bst{
+    constructor(){
+        this.root = null
     }
 
-    return arr
-}
-
-function quickSort(arr){
-    if(arr.length < 2){
-        return arr
+    isEmpty(){
+        return this.root === null
     }
 
-    let pivot = arr[arr.length-1]
-    let leftArr = []
-    let rightArr = []
-
-    for(let i=0;i<arr.length-1;i++){
-        if(arr[i] < pivot){
-            leftArr.push(arr[i])
-        }else{
-            rightArr.push(arr[i])
-        }
-    }
-
-    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
-}
-
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
-
-    let mid = Math.floor(arr.length/2)
-    let leftArr = arr.slice(0,mid)
-    let rightArr = arr.slice(mid)
-
-    return  merge(mergeSort(leftArr),mergeSort(rightArr))
-}
-
-function merge(leftArr,rightArr){
-    let sortedArr = []
-
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0] < rightArr[0]){
-            sortedArr.push(leftArr.shift())
+    insert(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.root = node
         }
         else{
-            sortedArr.push(rightArr.shift())
+            this.insertNode(this.root,node)
         }
     }
 
-    return sortedArr.concat(leftArr,rightArr)
-}
+    insertNode(root,node){
+        if(node.value < root.value){
+            if(root.left == null){
+                root.left = node
+            }
+            else{
+                this.insertNode(root.left,node)
+            }
+        }else{
+            if(root.right == null){
+                root.right = node
+            }else{
+                this.insertNode(root.right,node)
+            }
+        }
+    }
 
-const testCases = [
-    { input: [5, 2, 9, 1, 5, 6], expected: [1, 2, 5, 5, 6, 9], label: 'Basic Unsorted' },
-    { input: [1, 2, 3, 4, 5], expected: [1, 2, 3, 4, 5], label: 'Already Sorted' },
-    { input: [5, 4, 3, 2, 1], expected: [1, 2, 3, 4, 5], label: 'Reverse Sorted' },
-    { input: [7, 7, 7, 7], expected: [7, 7, 7, 7], label: 'All Equal' },
-    { input: [42], expected: [42], label: 'Single Element' },
-    { input: [], expected: [], label: 'Empty Array' },
-    { input: [3, -1, 0, -5, 8], expected: [-5, -1, 0, 3, 8], label: 'With Negative Numbers' }
-];
+    search(root,value){
+        if(!root){
+            return false
+        }
+        else if(root.value == value){
+            return true
+        }
+        else if(value < root.value){
+            return this.search(root.left,value)
+        }
+        else{
+            return this.search(root.right,value)
+        }
+    }
 
-// Functions to test
-const algorithms = {
-    bubbleSort,
-    insertionSort,
-    selectionSort,
-    quickSort,
-    mergeSort
-};
+    preOrder(root){
+        if(root){
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
+        }
+    }
 
-// Run Tests
-for (const [name, func] of Object.entries(algorithms)) {
-    console.log(`\nTesting ${name}:`);
-    for (const { input, expected, label } of testCases) {
-        const inputCopy = [...input]; // to prevent mutation
-        const result = func([...inputCopy]); // make sure pure
-        const passed = JSON.stringify(result) === JSON.stringify(expected);
-        console.log(` - ${label}: ${passed ? '✅ Passed' : '❌ Failed'} | Result: ${JSON.stringify(result)}`);
+    inOrder(root){
+        if(root){
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
+
+    postOrder(root){
+        if(root){
+            this.postOrder(root.left)
+            this.postOrder(root.right)
+            console.log(root.value)
+        }
+    }
+
+    levelOrder(root){
+        let queue = []
+        queue.push(root)
+
+        while(queue.length){
+            let cur = queue.shift()
+            console.log(cur.value)
+
+            if(cur.left){
+                queue.push(cur.left)
+            }
+
+            if(cur.right){
+                queue.push(cur.right)
+            }
+        }
+    }
+
+    min(root){
+        if(!root){
+            return null
+        }
+
+        while(root.left){
+            root = root.left
+        }
+
+        return root.value
+    }
+
+    max(root){
+        if(!root){
+            return null
+        }
+
+        while(root.right){
+            root = root.right
+        }
+
+        return root.value
+    }
+
+    delete(value){
+        this.root = this.deleteNode(this.root,value)
+    }
+
+    deleteNode(root,value){
+        if(!root){
+            return null
+        }
+
+        if(value < root.value){
+            root.left = this.deleteNode(root.left,value)
+        }
+        else if(value > root.value){
+            root.right = this.deleteNode(root.right,value)
+        }
+        else{
+            if(!root.left && !root.right){
+                return null
+            }
+
+            if(!root.left){
+                return root.right
+            }
+
+            if(!root.right){
+                return root.left
+            }
+
+            root.value = this.min(root.right)
+            root.right = this.deleteNode(root.right,root.value)
+        }
+        return root
     }
 }
 
-// Optional: Large random array test for quickSort
-const largeArr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
-const sorted = [...largeArr].sort((a, b) => a - b);
-console.log("\nQuickSort large array test:", JSON.stringify(quickSort(largeArr)) === JSON.stringify(sorted) ?  "✅ Passed" : "❌ Failed");
+const tree = new bst()
+
+// Insert values
+tree.insert(50)
+tree.insert(30)
+tree.insert(70)
+tree.insert(20)
+tree.insert(40)
+tree.insert(60)
+tree.insert(80)
+
+console.log("InOrder Traversal (should be sorted):")
+tree.inOrder(tree.root) // 20, 30, 40, 50, 60, 70, 80
+
+console.log("PreOrder Traversal:")
+tree.preOrder(tree.root) // 50, 30, 20, 40, 70, 60, 80
+
+console.log("PostOrder Traversal:")
+tree.postOrder(tree.root) // 20, 40, 30, 60, 80, 70, 50
+
+console.log("LevelOrder Traversal:")
+tree.levelOrder(tree.root) // 50, 30, 70, 20, 40, 60, 80
+
+console.log("Search 60:", tree.search(tree.root, 60)) // true
+console.log("Search 25:", tree.search(tree.root, 25)) // false
+
+console.log("Minimum value:", tree.min(tree.root)) // 20
+console.log("Maximum value:", tree.max(tree.root)) // 80
+
+console.log("Deleting 20 (leaf node):")
+tree.delete(20)
+tree.inOrder(tree.root) // 30, 40, 50, 60, 70, 80
+
+console.log("Deleting 30 (node with one child):")
+tree.delete(30)
+tree.inOrder(tree.root) // 40, 50, 60, 70, 80
+
+console.log("Deleting 50 (node with two children):")
+tree.delete(50)
+tree.inOrder(tree.root) // 40, 60, 70, 80
