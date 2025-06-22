@@ -3947,3 +3947,73 @@
 // console.log(ht.get("dog"));   // Expected: 0
 // console.log(ht.get("cat"));   // Expected: false
 // console.log(ht.get("mouse")); // Expected: "🐭"
+
+
+class Hashtable{
+    constructor(size){
+        this.table = new Array(size)
+        this.size = size
+    }
+
+    hash(key){
+        let total = 0
+        for(let i=0;i<key.length;i++){
+            total += key.charCodeAt(i)
+        }
+        return total % this.size
+    }
+
+    set(key,value){
+        let index = this.hash(key)
+        this.table[index] = value
+    }
+
+    get(key){
+        let index = this.hash(key)
+        return this.table[index] 
+    }
+
+    remove(key){
+        let index = this.hash(key)
+
+        if(this.table[index] != undefined){
+            this.table[index] = undefined
+            return 'key removed'
+        }else{
+            return 'key is invalid'
+        }
+    }
+
+    print(){
+        for(let i=0;i<this.table.length;i++){
+            if(this.table[i] != undefined){
+                console.log(i,this.table[i])
+            }
+        }
+    }
+}
+
+let ht = new Hashtable(10)
+
+// Test 1: Basic set and get
+ht.set("name", "Alice")
+console.log(ht.get("name")) // Alice
+
+// Test 2: Update existing key
+ht.set("name", "Bob")
+console.log(ht.get("name")) // Bob
+
+// Test 3: Collision check
+ht.set("mane", "Charlie") // "name" and "mane" likely collide in small table
+console.log(ht.get("mane")) // Charlie
+console.log(ht.get("name")) // Bob (should still exist if collision handled)
+
+// Test 4: Remove key
+console.log(ht.remove("name")) // "key removed"
+console.log(ht.get("name")) // undefined
+
+// Test 5: Remove invalid key
+console.log(ht.remove("nonexistent")) // "key is invalid"
+
+// Test 6: Print contents
+ht.print()
