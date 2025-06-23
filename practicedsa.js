@@ -3949,71 +3949,242 @@
 // console.log(ht.get("mouse")); // Expected: "🐭"
 
 
-class Hashtable{
-    constructor(size){
-        this.table = new Array(size)
-        this.size = size
-    }
+// class Hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
 
-    hash(key){
-        let total = 0
-        for(let i=0;i<key.length;i++){
-            total += key.charCodeAt(i)
-        }
-        return total % this.size
-    }
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
 
-    set(key,value){
-        let index = this.hash(key)
-        this.table[index] = value
-    }
+//     set(key,value){
+//         let index = this.hash(key)
+//         this.table[index] = value
+//     }
 
-    get(key){
-        let index = this.hash(key)
-        return this.table[index] 
-    }
+//     get(key){
+//         let index = this.hash(key)
+//         return this.table[index] 
+//     }
 
-    remove(key){
-        let index = this.hash(key)
+//     remove(key){
+//         let index = this.hash(key)
 
-        if(this.table[index] != undefined){
-            this.table[index] = undefined
-            return 'key removed'
-        }else{
-            return 'key is invalid'
-        }
-    }
+//         if(this.table[index] != undefined){
+//             this.table[index] = undefined
+//             return 'key removed'
+//         }else{
+//             return 'key is invalid'
+//         }
+//     }
 
-    print(){
-        for(let i=0;i<this.table.length;i++){
-            if(this.table[i] != undefined){
-                console.log(i,this.table[i])
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i] != undefined){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// let ht = new Hashtable(10)
+
+// // Test 1: Basic set and get
+// ht.set("name", "Alice")
+// console.log(ht.get("name")) // Alice
+
+// // Test 2: Update existing key
+// ht.set("name", "Bob")
+// console.log(ht.get("name")) // Bob
+
+// // Test 3: Collision check
+// ht.set("mane", "Charlie") // "name" and "mane" likely collide in small table
+// console.log(ht.get("mane")) // Charlie
+// console.log(ht.get("name")) // Bob (should still exist if collision handled)
+
+// // Test 4: Remove key
+// console.log(ht.remove("name")) // "key removed"
+// console.log(ht.get("name")) // undefined
+
+// // Test 5: Remove invalid key
+// console.log(ht.remove("nonexistent")) // "key is invalid"
+
+// // Test 6: Print contents
+// ht.print()
+
+
+// class Hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+    
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
+    
+//     set(key,value){
+//         let index = this.hash(key)
+//         this.table[index] = value
+//     }
+    
+//     get(key){
+//         let index = this.hash(key)
+//         if(this.table[index] != undefined){
+//             return this.table[index]
+//         }
+//         else{
+//             return 'invalid key'
+//         }
+//     }
+    
+//     remove(key){
+//         let index = this.hash(key)
+        
+//         if(this.table[index] != undefined){
+//             this.table[index] = undefined
+//             return 'key is removed'
+//         }else{
+//             return 'invalid key'
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i] != undefined){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// let ht = new Hashtable(10)
+
+// ht.set("name", "Alice")
+// ht.set("age", 30)
+// ht.set("city", "Paris")
+// console.log(ht.get("name"))       // Alice
+// console.log(ht.get("age"))        // 30
+// console.log(ht.get("city"))       // Paris
+// console.log(ht.get("country"))    // invalid key
+
+// console.log(ht.remove("age"))     // key is removed
+// console.log(ht.get("age"))        // invalid key
+
+// ht.print()                        // Prints remaining keys
+
+function bubbleSort(arr){
+    let swapped 
+
+    do{
+        swapped = false
+        for(let i=0;i<arr.length-1;i++){
+            if(arr[i] > arr[i+1]){
+                let temp = arr[i]
+                arr[i] = arr[i+1]
+                arr[i+1] = temp
+                swapped = true
             }
         }
-    }
+    }while(swapped)
+
+        return arr
 }
 
-let ht = new Hashtable(10)
+function insertionSort(arr){
+    for(let i=1;i<arr.length;i++){
+        let cur = arr[i]
+        let j = i - 1
 
-// Test 1: Basic set and get
-ht.set("name", "Alice")
-console.log(ht.get("name")) // Alice
+        while(j>= 0 && arr[j] > cur){
+            arr[j+1] = arr[j]
+            j--
+        }
 
-// Test 2: Update existing key
-ht.set("name", "Bob")
-console.log(ht.get("name")) // Bob
+        arr[j+1] = cur
+    }
 
-// Test 3: Collision check
-ht.set("mane", "Charlie") // "name" and "mane" likely collide in small table
-console.log(ht.get("mane")) // Charlie
-console.log(ht.get("name")) // Bob (should still exist if collision handled)
+    return arr
+}
 
-// Test 4: Remove key
-console.log(ht.remove("name")) // "key removed"
-console.log(ht.get("name")) // undefined
+function selectionSort(arr){
+    for(let i=0;i<arr.length-1;i++){
+        let minElement = i
+        for(let j=i+1;j<arr.length;j++){
+            if(arr[minElement] > arr[j]){
+                minElement = j
+            }
+        }
 
-// Test 5: Remove invalid key
-console.log(ht.remove("nonexistent")) // "key is invalid"
+        let temp = arr[minElement]
+        arr[minElement] = arr[i]
+        arr[i] = temp
+    }
+    return arr
+}
 
-// Test 6: Print contents
-ht.print()
+function quickSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let pivot = arr[arr.length-1]
+    let leftArr = []
+    let rightArr = []
+
+    for(let i=0;i<arr.length-1;i++){
+        if(arr[i] < pivot){
+            leftArr.push(arr[i])
+        }else{
+            rightArr.push(arr[i])
+        }
+    }
+
+    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+}
+
+function mergeSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+    let mid = Math.floor(arr.length/2)
+    let leftArr =  arr.slice(0,mid)
+    let rightArr = arr.slice(mid)
+
+    return merge(mergeSort(leftArr),mergeSort(rightArr))
+}
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
+        }else{
+            sortedArr.push(rightArr.shift())
+        }
+    }
+
+    return sortedArr.concat(leftArr,rightArr)
+}
+
+
+let arr1 = [5, 2, 9, 1, 5, 6]
+let arr2 = [3, 0, -2, 8, 7]
+let sorted = [1, 2, 3, 4, 5]
+
+console.log(bubbleSort([...arr1]))     // [1, 2, 5, 5, 6, 9]
+console.log(insertionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
+console.log(selectionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
+console.log(quickSort([...arr2]))      // [-2, 0, 3, 7, 8]
+console.log(mergeSort([...sorted]))    // [1, 2, 3, 4, 5] (already sorted)
