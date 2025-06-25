@@ -4083,108 +4083,176 @@
 
 // ht.print()                        // Prints remaining keys
 
-function bubbleSort(arr){
-    let swapped 
+// function bubbleSort(arr){
+//     let swapped 
 
-    do{
-        swapped = false
-        for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                let temp = arr[i]
-                arr[i] = arr[i+1]
-                arr[i+1] = temp
-                swapped = true
-            }
+//     do{
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }while(swapped)
+
+//         return arr
+// }
+
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let cur = arr[i]
+//         let j = i - 1
+
+//         while(j>= 0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+
+//         arr[j+1] = cur
+//     }
+
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+
+//         let temp = arr[minElement]
+//         arr[minElement] = arr[i]
+//         arr[i] = temp
+//     }
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr =  arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+
+// let arr1 = [5, 2, 9, 1, 5, 6]
+// let arr2 = [3, 0, -2, 8, 7]
+// let sorted = [1, 2, 3, 4, 5]
+
+// console.log(bubbleSort([...arr1]))     // [1, 2, 5, 5, 6, 9]
+// console.log(insertionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
+// console.log(selectionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
+// console.log(quickSort([...arr2]))      // [-2, 0, 3, 7, 8]
+// console.log(mergeSort([...sorted]))    // [1, 2, 3, 4, 5] (already sorted)
+
+
+class Queue{
+    constructor(){
+        this.list = []
+    }
+
+
+    isEmpty(){
+        return this.list.length == 0
+    }
+
+    push(value){
+        this.list.push(value)
+    }
+
+    shift(){
+        if(this.isEmpty()){
+            return 'list is empty'
         }
-    }while(swapped)
+        return this.list.shift()
+    }
 
-        return arr
-}
-
-function insertionSort(arr){
-    for(let i=1;i<arr.length;i++){
-        let cur = arr[i]
-        let j = i - 1
-
-        while(j>= 0 && arr[j] > cur){
-            arr[j+1] = arr[j]
-            j--
+    peek(){
+        if(this.isEmpty()){
+            return 'list is empty'
         }
-
-        arr[j+1] = cur
+        return this.list[0]
     }
 
-    return arr
+    print(){
+        console.log(this.list)
+    }
 }
 
-function selectionSort(arr){
-    for(let i=0;i<arr.length-1;i++){
-        let minElement = i
-        for(let j=i+1;j<arr.length;j++){
-            if(arr[minElement] > arr[j]){
-                minElement = j
-            }
-        }
+// Instantiate the Queue
+let q = new Queue();
 
-        let temp = arr[minElement]
-        arr[minElement] = arr[i]
-        arr[i] = temp
-    }
-    return arr
-}
+// Test 1: Check if queue is initially empty
+console.log("Test 1 - isEmpty:", q.isEmpty()); // Expected: true
 
-function quickSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
+// Test 2: Peek on empty queue
+console.log("Test 2 - peek on empty:", q.peek()); // Expected: 'list is empty'
 
-    let pivot = arr[arr.length-1]
-    let leftArr = []
-    let rightArr = []
+// Test 3: Shift on empty queue
+console.log("Test 3 - shift on empty:", q.shift()); // Expected: 'list is empty'
 
-    for(let i=0;i<arr.length-1;i++){
-        if(arr[i] < pivot){
-            leftArr.push(arr[i])
-        }else{
-            rightArr.push(arr[i])
-        }
-    }
+// Test 4: Push elements into the queue
+q.push(10);
+q.push(20);
+q.push(30);
+console.log("Test 4 - print after 3 pushes:");
+q.print(); // Expected: [10, 20, 30]
 
-    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
-}
+// Test 5: Peek after pushes
+console.log("Test 5 - peek:", q.peek()); // Expected: 10
 
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
-    let mid = Math.floor(arr.length/2)
-    let leftArr =  arr.slice(0,mid)
-    let rightArr = arr.slice(mid)
+// Test 6: Shift elements
+console.log("Test 6 - shift:", q.shift()); // Expected: 10
+console.log("Test 7 - shift:", q.shift()); // Expected: 20
+console.log("Test 8 - peek after shifts:", q.peek()); // Expected: 30
 
-    return merge(mergeSort(leftArr),mergeSort(rightArr))
-}
+// Test 9: Check isEmpty after some shifts
+console.log("Test 9 - isEmpty:", q.isEmpty()); // Expected: false
 
-function merge(leftArr,rightArr){
-    let sortedArr = []
-
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0] < rightArr[0]){
-            sortedArr.push(leftArr.shift())
-        }else{
-            sortedArr.push(rightArr.shift())
-        }
-    }
-
-    return sortedArr.concat(leftArr,rightArr)
-}
-
-
-let arr1 = [5, 2, 9, 1, 5, 6]
-let arr2 = [3, 0, -2, 8, 7]
-let sorted = [1, 2, 3, 4, 5]
-
-console.log(bubbleSort([...arr1]))     // [1, 2, 5, 5, 6, 9]
-console.log(insertionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
-console.log(selectionSort([...arr1]))  // [1, 2, 5, 5, 6, 9]
-console.log(quickSort([...arr2]))      // [-2, 0, 3, 7, 8]
-console.log(mergeSort([...sorted]))    // [1, 2, 3, 4, 5] (already sorted)
+// Test 10: Shift remaining and check empty
+console.log("Test 10 - shift:", q.shift()); // Expected: 30
+console.log("Test 11 - isEmpty:", q.isEmpty()); // Expected: true

@@ -11,8 +11,8 @@
 
 // console.log(__filename)
 
-const { randomBytes } = require('crypto')
-const fs = require('fs')
+// const { randomBytes } = require('crypto')
+// const fs = require('fs')
 
 // const read = fs.readFile('hello.txt','utf-8',(err,data)=>{
 //     if(err){
@@ -297,49 +297,62 @@ const fs = require('fs')
 //     console.log('finished')
 // })
 
-const {exec, spawn, fork} = require('child_process')
-const { stderr } = require('process')
+// const {exec, spawn, fork} = require('child_process')
+// const { stderr } = require('process')
 
-exec('/dir',(stderr,stdout,error)=>{
-    if(stderr){
-        console.log(stderr)
-    }
+// exec('/dir',(stderr,stdout,error)=>{
+//     if(stderr){
+//         console.log(stderr)
+//     }
 
-    if(stdout){
-        console.log(stdout)
-    }
+//     if(stdout){
+//         console.log(stdout)
+//     }
 
+// })
+
+
+// execFile('node',['helloMamay.js'],(stderr,stdout,error)=>{
+//     if(stderr){
+//         console.log(stderr)
+//     }
+
+//     if(stdout){
+//         console.log(stdout)
+//     }
+
+//     console.log(error)
+// })
+
+
+// const child = spawn('cmd.exe',['/c',])
+
+// child.on('data',(chunk)=>{
+//     console.log(chunk.toString())
+// })
+
+// child.on('close',()=>{
+//     console.log(` code is exited with ${code}`)
+// })
+
+
+// const children = fork('helloMamay.js')
+
+// children.on('message',(data)=>{
+//     console.log(data.toString())
+// })
+
+// children.on('')
+
+
+const express = require('express')
+
+const app = express()
+
+app.get('/',(req,res)=>{
+    res.send('home page')
 })
 
-
-execFile('node',['helloMamay.js'],(stderr,stdout,error)=>{
-    if(stderr){
-        console.log(stderr)
-    }
-
-    if(stdout){
-        console.log(stdout)
-    }
-
-    console.log(error)
+app.listen(3000,()=>{
+    console.log('server is running')
 })
-
-
-const child = spawn('cmd.exe',['/c',])
-
-child.on('data',(chunk)=>{
-    console.log(chunk.toString())
-})
-
-child.on('close',()=>{
-    console.log(` code is exited with ${code}`)
-})
-
-
-const children = fork('helloMamay.js')
-
-children.on('message',(data)=>{
-    console.log(data.toString())
-})
-
-children.on('')
