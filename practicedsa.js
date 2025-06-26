@@ -4190,69 +4190,145 @@
 // console.log(mergeSort([...sorted]))    // [1, 2, 3, 4, 5] (already sorted)
 
 
+// class Queue{
+//     constructor(){
+//         this.list = []
+//     }
+
+
+//     isEmpty(){
+//         return this.list.length == 0
+//     }
+
+//     push(value){
+//         this.list.push(value)
+//     }
+
+//     shift(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         return this.list.shift()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         return this.list[0]
+//     }
+
+//     print(){
+//         console.log(this.list)
+//     }
+// }
+
+// // Instantiate the Queue
+// let q = new Queue();
+
+// // Test 1: Check if queue is initially empty
+// console.log("Test 1 - isEmpty:", q.isEmpty()); // Expected: true
+
+// // Test 2: Peek on empty queue
+// console.log("Test 2 - peek on empty:", q.peek()); // Expected: 'list is empty'
+
+// // Test 3: Shift on empty queue
+// console.log("Test 3 - shift on empty:", q.shift()); // Expected: 'list is empty'
+
+// // Test 4: Push elements into the queue
+// q.push(10);
+// q.push(20);
+// q.push(30);
+// console.log("Test 4 - print after 3 pushes:");
+// q.print(); // Expected: [10, 20, 30]
+
+// // Test 5: Peek after pushes
+// console.log("Test 5 - peek:", q.peek()); // Expected: 10
+
+// // Test 6: Shift elements
+// console.log("Test 6 - shift:", q.shift()); // Expected: 10
+// console.log("Test 7 - shift:", q.shift()); // Expected: 20
+// console.log("Test 8 - peek after shifts:", q.peek()); // Expected: 30
+
+// // Test 9: Check isEmpty after some shifts
+// console.log("Test 9 - isEmpty:", q.isEmpty()); // Expected: false
+
+// // Test 10: Shift remaining and check empty
+// console.log("Test 10 - shift:", q.shift()); // Expected: 30
+// console.log("Test 11 - isEmpty:", q.isEmpty()); // Expected: true
+
 class Queue{
     constructor(){
-        this.list = []
+        this.list = {}
+        this.head = 0
+        this.rear = 0
     }
-
 
     isEmpty(){
-        return this.list.length == 0
+        return this.rear - this.head == 0
     }
 
-    push(value){
-        this.list.push(value)
+
+    enqueue(value){
+        this.list[this.rear] = value
+        this.rear++
     }
 
-    shift(){
+    dequeue(){
         if(this.isEmpty()){
-            return 'list is empty'
+            return 'queue is empty'
         }
-        return this.list.shift()
+        let value = this.list[this.head]
+        delete this.list[this.head]
+        this.head++
+        return value
+    }
+
+    print(){
+        if(this.isEmpty()){
+            return 'queue is empty'
+        }
+
+        console.log(this.list)
     }
 
     peek(){
         if(this.isEmpty()){
-            return 'list is empty'
+            return 'queue is empty'
         }
-        return this.list[0]
-    }
 
-    print(){
-        console.log(this.list)
+        return this.list[this.head]
     }
 }
 
-// Instantiate the Queue
-let q = new Queue();
+const q = new Queue();
 
-// Test 1: Check if queue is initially empty
-console.log("Test 1 - isEmpty:", q.isEmpty()); // Expected: true
+console.log(q.isEmpty());         // true
 
-// Test 2: Peek on empty queue
-console.log("Test 2 - peek on empty:", q.peek()); // Expected: 'list is empty'
+console.log(q.dequeue());         // "queue is empty"
 
-// Test 3: Shift on empty queue
-console.log("Test 3 - shift on empty:", q.shift()); // Expected: 'list is empty'
+q.enqueue(10);
+q.enqueue(20);
+q.enqueue(30);
 
-// Test 4: Push elements into the queue
-q.push(10);
-q.push(20);
-q.push(30);
-console.log("Test 4 - print after 3 pushes:");
-q.print(); // Expected: [10, 20, 30]
+console.log(q.isEmpty());         // false
 
-// Test 5: Peek after pushes
-console.log("Test 5 - peek:", q.peek()); // Expected: 10
+q.print();                        // { '0': 10, '1': 20, '2': 30 }
 
-// Test 6: Shift elements
-console.log("Test 6 - shift:", q.shift()); // Expected: 10
-console.log("Test 7 - shift:", q.shift()); // Expected: 20
-console.log("Test 8 - peek after shifts:", q.peek()); // Expected: 30
+console.log(q.peek());           // 10
 
-// Test 9: Check isEmpty after some shifts
-console.log("Test 9 - isEmpty:", q.isEmpty()); // Expected: false
+console.log(q.dequeue());        // 10
+console.log(q.dequeue());        // 20
 
-// Test 10: Shift remaining and check empty
-console.log("Test 10 - shift:", q.shift()); // Expected: 30
-console.log("Test 11 - isEmpty:", q.isEmpty()); // Expected: true
+q.print();                       // { '2': 30 }
+
+console.log(q.dequeue());        // 30
+
+console.log(q.dequeue());        // "queue is empty"
+
+console.log(q.isEmpty());        // true
+
+q.enqueue(40);
+q.enqueue(50);
+
+q.print();                       // { '0': 40, '1': 50 }
