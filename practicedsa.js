@@ -4257,78 +4257,173 @@
 // console.log("Test 10 - shift:", q.shift()); // Expected: 30
 // console.log("Test 11 - isEmpty:", q.isEmpty()); // Expected: true
 
-class Queue{
+// class Queue{
+//     constructor(){
+//         this.list = {}
+//         this.head = 0
+//         this.rear = 0
+//     }
+
+//     isEmpty(){
+//         return this.rear - this.head == 0
+//     }
+
+
+//     enqueue(value){
+//         this.list[this.rear] = value
+//         this.rear++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+//         let value = this.list[this.head]
+//         delete this.list[this.head]
+//         this.head++
+//         return value
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         console.log(this.list)
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         return this.list[this.head]
+//     }
+// }
+
+// const q = new Queue();
+
+// console.log(q.isEmpty());         // true
+
+// console.log(q.dequeue());         // "queue is empty"
+
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+
+// console.log(q.isEmpty());         // false
+
+// q.print();                        // { '0': 10, '1': 20, '2': 30 }
+
+// console.log(q.peek());           // 10
+
+// console.log(q.dequeue());        // 10
+// console.log(q.dequeue());        // 20
+
+// q.print();                       // { '2': 30 }
+
+// console.log(q.dequeue());        // 30
+
+// console.log(q.dequeue());        // "queue is empty"
+
+// console.log(q.isEmpty());        // true
+
+// q.enqueue(40);
+// q.enqueue(50);
+
+// q.print();                       // { '0': 40, '1': 50 }
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class queuell{
     constructor(){
-        this.list = {}
-        this.head = 0
-        this.rear = 0
+        this.head = null
+        this.size = 0
     }
 
     isEmpty(){
-        return this.rear - this.head == 0
+        return this.size == 0
     }
 
-
     enqueue(value){
-        this.list[this.rear] = value
-        this.rear++
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }else{
+            let temp = this.head
+
+            while(temp.next != null){
+                temp = temp.next
+            }
+
+            temp.next = node
+        }
+        this.size++
     }
 
     dequeue(){
         if(this.isEmpty()){
-            return 'queue is empty'
+            return 'queue list is empty'
+        }else{
+            let value = this.head.value
+            this.head = this.head.next
+            this.size--
+            return value
         }
-        let value = this.list[this.head]
-        delete this.list[this.head]
-        this.head++
-        return value
-    }
-
-    print(){
-        if(this.isEmpty()){
-            return 'queue is empty'
-        }
-
-        console.log(this.list)
     }
 
     peek(){
         if(this.isEmpty()){
-            return 'queue is empty'
+            return 'queue list is empty'
+        }else{
+            return this.head.value
         }
+    }
 
-        return this.list[this.head]
+    print(){
+        if(this.isEmpty()){
+            return 'queue list is empty'
+        }else{
+            let temp = this.head
+            let final = ''
+            while(temp){
+                final += temp.value + '->'
+                temp = temp.next
+            }
+            final += 'null'
+
+            console.log(final)
+        }
     }
 }
 
-const q = new Queue();
 
-console.log(q.isEmpty());         // true
+const q = new queuell();
 
-console.log(q.dequeue());         // "queue is empty"
+console.log(q.isEmpty()); // true
+console.log(q.dequeue()); // 'queue list is empty'
+console.log(q.peek());    // 'queue list is empty'
 
 q.enqueue(10);
 q.enqueue(20);
 q.enqueue(30);
 
-console.log(q.isEmpty());         // false
+console.log(q.isEmpty()); // false
+console.log(q.peek());    // 10
 
-q.print();                        // { '0': 10, '1': 20, '2': 30 }
+q.print();                // 10->20->30->null
 
-console.log(q.peek());           // 10
+console.log(q.dequeue()); // 10
+console.log(q.dequeue()); // 20
 
-console.log(q.dequeue());        // 10
-console.log(q.dequeue());        // 20
+q.print();                // 30->null
 
-q.print();                       // { '2': 30 }
+console.log(q.dequeue()); // 30
+console.log(q.dequeue()); // 'queue list is empty'
 
-console.log(q.dequeue());        // 30
-
-console.log(q.dequeue());        // "queue is empty"
-
-console.log(q.isEmpty());        // true
-
-q.enqueue(40);
-q.enqueue(50);
-
-q.print();                       // { '0': 40, '1': 50 }
+q.print();                // 'queue list is empty'
