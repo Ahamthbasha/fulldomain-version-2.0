@@ -4333,97 +4333,191 @@
 
 // q.print();                       // { '0': 40, '1': 50 }
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
 
-class queuell{
+// class queuell{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     enqueue(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next != null){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//         }
+//         this.size++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue list is empty'
+//         }else{
+//             let value = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return value
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'queue list is empty'
+//         }else{
+//             return this.head.value
+//         }
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'queue list is empty'
+//         }else{
+//             let temp = this.head
+//             let final = ''
+//             while(temp){
+//                 final += temp.value + '->'
+//                 temp = temp.next
+//             }
+//             final += 'null'
+
+//             console.log(final)
+//         }
+//     }
+// }
+
+
+// const q = new queuell();
+
+// console.log(q.isEmpty()); // true
+// console.log(q.dequeue()); // 'queue list is empty'
+// console.log(q.peek());    // 'queue list is empty'
+
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+
+// console.log(q.isEmpty()); // false
+// console.log(q.peek());    // 10
+
+// q.print();                // 10->20->30->null
+
+// console.log(q.dequeue()); // 10
+// console.log(q.dequeue()); // 20
+
+// q.print();                // 30->null
+
+// console.log(q.dequeue()); // 30
+// console.log(q.dequeue()); // 'queue list is empty'
+
+// q.print();                // 'queue list is empty'
+
+
+class Stack{
     constructor(){
-        this.head = null
-        this.size = 0
+        this.list = []
     }
 
     isEmpty(){
-        return this.size == 0
+        return this.list.length == 0
     }
 
-    enqueue(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-        }else{
-            let temp = this.head
-
-            while(temp.next != null){
-                temp = temp.next
-            }
-
-            temp.next = node
-        }
-        this.size++
+    push(value){
+        this.list.push(value)
     }
 
-    dequeue(){
+    pop(){
         if(this.isEmpty()){
-            return 'queue list is empty'
-        }else{
-            let value = this.head.value
-            this.head = this.head.next
-            this.size--
-            return value
+            return 'stack underflow'
         }
+
+        return this.list.pop()
     }
 
     peek(){
         if(this.isEmpty()){
-            return 'queue list is empty'
-        }else{
-            return this.head.value
+            return 'stack is empty'
         }
+        return this.list[this.list.length-1]
     }
 
     print(){
-        if(this.isEmpty()){
-            return 'queue list is empty'
-        }else{
-            let temp = this.head
-            let final = ''
-            while(temp){
-                final += temp.value + '->'
-                temp = temp.next
-            }
-            final += 'null'
+        console.log(this.list)
+    }
 
-            console.log(final)
+    reverseArr(arr){
+        let stack = new Stack()
+
+        for(let i=0;i<arr.length;i++){
+            stack.push(arr[i])
         }
+        let reversedArr = []
+        while(stack.list.length){
+            reversedArr.push(stack.pop())
+        }
+
+        return reversedArr
+    }
+
+    reverseStr(str){
+        let stack = new Stack()
+
+        for(let i=0;i<str.length;i++){
+            stack.push(str[i])
+        }
+
+        let reversedStr = ''
+
+        while(stack.list.length){
+            reversedStr += stack.pop()
+        }
+
+        return reversedStr
     }
 }
 
+let s = new Stack();
 
-const q = new queuell();
+// Test pushing and popping
+s.push(10);
+s.push(20);
+console.log(s.pop()); // 20
+console.log(s.pop()); // 10
+console.log(s.pop()); // 'stack underflow'
 
-console.log(q.isEmpty()); // true
-console.log(q.dequeue()); // 'queue list is empty'
-console.log(q.peek());    // 'queue list is empty'
+// Test peek
+s.push(30);
+s.push(40);
+console.log(s.peek()); // 40
 
-q.enqueue(10);
-q.enqueue(20);
-q.enqueue(30);
+// Test print
+s.print(); // [30, 40]
 
-console.log(q.isEmpty()); // false
-console.log(q.peek());    // 10
+// Test reverse array
+let arr = [1, 2, 3, 4, 5];
+console.log(s.reverseArr(arr)); // [5, 4, 3, 2, 1]
 
-q.print();                // 10->20->30->null
+// Test reverse string
+let str = "hello";
+console.log(s.reverseStr(str)); // "olleh"
 
-console.log(q.dequeue()); // 10
-console.log(q.dequeue()); // 20
-
-q.print();                // 30->null
-
-console.log(q.dequeue()); // 30
-console.log(q.dequeue()); // 'queue list is empty'
-
-q.print();                // 'queue list is empty'
+// Test empty peek and pop
+let emptyStack = new Stack();
+console.log(emptyStack.peek()); // 'stack is empty'
+console.log(emptyStack.pop()); // 'stack underflow'
