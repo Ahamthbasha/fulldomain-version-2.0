@@ -4429,95 +4429,166 @@
 // q.print();                // 'queue list is empty'
 
 
-class Stack{
+// class Stack{
+//     constructor(){
+//         this.list = []
+//     }
+
+//     isEmpty(){
+//         return this.list.length == 0
+//     }
+
+//     push(value){
+//         this.list.push(value)
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'stack underflow'
+//         }
+
+//         return this.list.pop()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         return this.list[this.list.length-1]
+//     }
+
+//     print(){
+//         console.log(this.list)
+//     }
+
+//     reverseArr(arr){
+//         let stack = new Stack()
+
+//         for(let i=0;i<arr.length;i++){
+//             stack.push(arr[i])
+//         }
+//         let reversedArr = []
+//         while(stack.list.length){
+//             reversedArr.push(stack.pop())
+//         }
+
+//         return reversedArr
+//     }
+
+//     reverseStr(str){
+//         let stack = new Stack()
+
+//         for(let i=0;i<str.length;i++){
+//             stack.push(str[i])
+//         }
+
+//         let reversedStr = ''
+
+//         while(stack.list.length){
+//             reversedStr += stack.pop()
+//         }
+
+//         return reversedStr
+//     }
+// }
+
+// let s = new Stack();
+
+// // Test pushing and popping
+// s.push(10);
+// s.push(20);
+// console.log(s.pop()); // 20
+// console.log(s.pop()); // 10
+// console.log(s.pop()); // 'stack underflow'
+
+// // Test peek
+// s.push(30);
+// s.push(40);
+// console.log(s.peek()); // 40
+
+// // Test print
+// s.print(); // [30, 40]
+
+// // Test reverse array
+// let arr = [1, 2, 3, 4, 5];
+// console.log(s.reverseArr(arr)); // [5, 4, 3, 2, 1]
+
+// // Test reverse string
+// let str = "hello";
+// console.log(s.reverseStr(str)); // "olleh"
+
+// // Test empty peek and pop
+// let emptyStack = new Stack();
+// console.log(emptyStack.peek()); // 'stack is empty'
+// console.log(emptyStack.pop()); // 'stack underflow'
+
+class stack{
     constructor(){
-        this.list = []
+        this.list = {}
+        this.size = 0
     }
 
     isEmpty(){
-        return this.list.length == 0
+        return this.size == 0
     }
 
     push(value){
-        this.list.push(value)
+        this.list[this.size] = value
+        this.size++
     }
 
     pop(){
         if(this.isEmpty()){
-            return 'stack underflow'
+            return 'stack is empty'
         }
 
-        return this.list.pop()
+        let val = this.list[this.size-1]
+        delete this.list[this.size-1]
+        this.size--
+        return val
     }
 
     peek(){
         if(this.isEmpty()){
             return 'stack is empty'
         }
-        return this.list[this.list.length-1]
+
+        return this.list[this.size-1]
     }
 
     print(){
         console.log(this.list)
     }
-
-    reverseArr(arr){
-        let stack = new Stack()
-
-        for(let i=0;i<arr.length;i++){
-            stack.push(arr[i])
-        }
-        let reversedArr = []
-        while(stack.list.length){
-            reversedArr.push(stack.pop())
-        }
-
-        return reversedArr
-    }
-
-    reverseStr(str){
-        let stack = new Stack()
-
-        for(let i=0;i<str.length;i++){
-            stack.push(str[i])
-        }
-
-        let reversedStr = ''
-
-        while(stack.list.length){
-            reversedStr += stack.pop()
-        }
-
-        return reversedStr
-    }
 }
 
-let s = new Stack();
+let s = new stack();
 
-// Test pushing and popping
+console.log("Push 10, 20, 30");
 s.push(10);
 s.push(20);
-console.log(s.pop()); // 20
-console.log(s.pop()); // 10
-console.log(s.pop()); // 'stack underflow'
-
-// Test peek
 s.push(30);
-s.push(40);
-console.log(s.peek()); // 40
+s.print(); // Expected: { '0': 10, '1': 20, '2': 30 }
 
-// Test print
-s.print(); // [30, 40]
+console.log("Peek top element:");
+console.log(s.peek()); // Expected: 30
 
-// Test reverse array
-let arr = [1, 2, 3, 4, 5];
-console.log(s.reverseArr(arr)); // [5, 4, 3, 2, 1]
+console.log("Pop element:");
+console.log(s.pop()); // Expected: 30
+s.print();            // Expected: { '0': 10, '1': 20 }
 
-// Test reverse string
-let str = "hello";
-console.log(s.reverseStr(str)); // "olleh"
+console.log("Check if empty:");
+console.log(s.isEmpty()); // Expected: false
 
-// Test empty peek and pop
-let emptyStack = new Stack();
-console.log(emptyStack.peek()); // 'stack is empty'
-console.log(emptyStack.pop()); // 'stack underflow'
+console.log("Pop remaining elements:");
+console.log(s.pop()); // Expected: 20
+console.log(s.pop()); // Expected: 10
+console.log("Pop from empty stack:");
+console.log(s.pop()); // Expected: 'stack is empty'
+
+console.log("Peek from empty stack:");
+console.log(s.peek()); // Expected: 'stack is empty'
+
+console.log("Push 100 after clearing stack:");
+s.push(100);
+console.log(s.peek()); // Expected: 100
+s.print();             // Expected: { '0': 100 }
