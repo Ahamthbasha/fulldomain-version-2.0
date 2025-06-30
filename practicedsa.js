@@ -4522,9 +4522,86 @@
 // console.log(emptyStack.peek()); // 'stack is empty'
 // console.log(emptyStack.pop()); // 'stack underflow'
 
+// class stack{
+//     constructor(){
+//         this.list = {}
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     push(value){
+//         this.list[this.size] = value
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+
+//         let val = this.list[this.size-1]
+//         delete this.list[this.size-1]
+//         this.size--
+//         return val
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+
+//         return this.list[this.size-1]
+//     }
+
+//     print(){
+//         console.log(this.list)
+//     }
+// }
+
+// let s = new stack();
+
+// console.log("Push 10, 20, 30");
+// s.push(10);
+// s.push(20);
+// s.push(30);
+// s.print(); // Expected: { '0': 10, '1': 20, '2': 30 }
+
+// console.log("Peek top element:");
+// console.log(s.peek()); // Expected: 30
+
+// console.log("Pop element:");
+// console.log(s.pop()); // Expected: 30
+// s.print();            // Expected: { '0': 10, '1': 20 }
+
+// console.log("Check if empty:");
+// console.log(s.isEmpty()); // Expected: false
+
+// console.log("Pop remaining elements:");
+// console.log(s.pop()); // Expected: 20
+// console.log(s.pop()); // Expected: 10
+// console.log("Pop from empty stack:");
+// console.log(s.pop()); // Expected: 'stack is empty'
+
+// console.log("Peek from empty stack:");
+// console.log(s.peek()); // Expected: 'stack is empty'
+
+// console.log("Push 100 after clearing stack:");
+// s.push(100);
+// console.log(s.peek()); // Expected: 100
+// s.print();             // Expected: { '0': 100 }
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
 class stack{
     constructor(){
-        this.list = {}
+        this.head = null
         this.size = 0
     }
 
@@ -4533,62 +4610,96 @@ class stack{
     }
 
     push(value){
-        this.list[this.size] = value
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node
+        }
         this.size++
     }
 
     pop(){
         if(this.isEmpty()){
-            return 'stack is empty'
+            return 'stack list is empty'
         }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
 
-        let val = this.list[this.size-1]
-        delete this.list[this.size-1]
-        this.size--
-        return val
+            while(temp.next.next){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
+        }
     }
 
     peek(){
         if(this.isEmpty()){
-            return 'stack is empty'
-        }
+            return 'stack list is empty'
+        }else{
+            let temp = this.head
 
-        return this.list[this.size-1]
+            while(temp.next){
+                temp = temp.next
+            }
+
+            return temp.value
+        }
     }
 
     print(){
-        console.log(this.list)
+        if(this.isEmpty()){
+            return 'stack is empty'
+        }else{
+            let temp = this.head
+            let list = ''
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
+            }
+
+            list += 'null'
+            return list
+        }
     }
 }
 
-let s = new stack();
+const s = new stack();
 
-console.log("Push 10, 20, 30");
+console.log(s.pop());               // stack list is empty
+console.log(s.peek());              // stack list is empty
+console.log(s.print());             // stack is empty
+
 s.push(10);
+console.log(s.peek());              // 10
+console.log(s.print());             // 10->null
+
 s.push(20);
 s.push(30);
-s.print(); // Expected: { '0': 10, '1': 20, '2': 30 }
+console.log(s.print());             // 10->20->30->null
 
-console.log("Peek top element:");
-console.log(s.peek()); // Expected: 30
+console.log(s.pop());               // 30
+console.log(s.print());             // 10->20->null
 
-console.log("Pop element:");
-console.log(s.pop()); // Expected: 30
-s.print();            // Expected: { '0': 10, '1': 20 }
+console.log(s.pop());               // 20
+console.log(s.pop());               // 10
+console.log(s.pop());               // stack list is empty
 
-console.log("Check if empty:");
-console.log(s.isEmpty()); // Expected: false
-
-console.log("Pop remaining elements:");
-console.log(s.pop()); // Expected: 20
-console.log(s.pop()); // Expected: 10
-console.log("Pop from empty stack:");
-console.log(s.pop()); // Expected: 'stack is empty'
-
-console.log("Peek from empty stack:");
-console.log(s.peek()); // Expected: 'stack is empty'
-
-console.log("Push 100 after clearing stack:");
-s.push(100);
-console.log(s.peek()); // Expected: 100
-s.print();             // Expected: { '0': 100 }
+s.push(40);
+console.log(s.peek());              // 40
+console.log(s.print());             // 40->null
