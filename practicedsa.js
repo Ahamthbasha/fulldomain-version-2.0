@@ -4593,113 +4593,276 @@
 // console.log(s.peek()); // Expected: 100
 // s.print();             // Expected: { '0': 100 }
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
-class stack{
-    constructor(){
-        this.head = null
-        this.size = 0
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+// class stack{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     push(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//         }
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'stack list is empty'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack list is empty'
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             return temp.value
+//         }
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }else{
+//             let temp = this.head
+//             let list = ''
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             list += 'null'
+//             return list
+//         }
+//     }
+// }
+
+// const s = new stack();
+
+// console.log(s.pop());               // stack list is empty
+// console.log(s.peek());              // stack list is empty
+// console.log(s.print());             // stack is empty
+
+// s.push(10);
+// console.log(s.peek());              // 10
+// console.log(s.print());             // 10->null
+
+// s.push(20);
+// s.push(30);
+// console.log(s.print());             // 10->20->30->null
+
+// console.log(s.pop());               // 30
+// console.log(s.print());             // 10->20->null
+
+// console.log(s.pop());               // 20
+// console.log(s.pop());               // 10
+// console.log(s.pop());               // stack list is empty
+
+// s.push(40);
+// console.log(s.peek());              // 40
+// console.log(s.print());             // 40->null
+
+// class hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+//         this.table[index] = value
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+//         return this.table[index] || 'key is invalid'
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+
+//         if(this.table[index] != undefined){
+//             this.table[index] = undefined
+//             return 'key is removed'
+//         }else{
+//             return 'invalid key'
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+// const ht = new hashtable(10);
+
+// // Test 1: Insert key-value pairs
+// ht.set('name', 'Alice');
+// ht.set('age', 25);
+// ht.set('job', 'Developer');
+
+// console.log(ht.get('name')); // Expected: 'Alice'
+// console.log(ht.get('age'));  // Expected: 25
+// console.log(ht.get('job'));  // Expected: 'Developer'
+
+// // Test 2: Invalid key
+// console.log(ht.get('city')); // Expected: 'key is invalid'
+
+// // Test 3: Remove a key
+// console.log(ht.remove('age')); // Expected: 'key is removed'
+// console.log(ht.get('age'));    // Expected: 'key is invalid'
+
+// // Test 4: Remove an invalid key
+// console.log(ht.remove('city')); // Expected: 'invalid key'
+
+// // Test 5: Print current hash table
+// ht.print(); 
+// // Expected output: keys 'name' and 'job' with their hashed indices
+
+class hashtable{
+    constructor(size){
+        this.table = new Array(size)
+        this.size = size
     }
 
-    isEmpty(){
-        return this.size == 0
+    hash(key){
+        let total = 0
+        for(let i=0;i<key.length;i++){
+            total += key.charCodeAt(i)
+        }
+        return total % this.size
     }
 
-    push(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
+    set(key,value){
+        let index = this.hash(key)
+
+        if(!this.table[index]){
+            this.table[index] = [[key,value]]
         }else{
-            let temp = this.head
+            let bucket = this.table[index]
 
-            while(temp.next){
-                temp = temp.next
+            let sameIndex = bucket.find((item)=>item[0]==key)
+
+            if(sameIndex){
+                sameIndex[1] = value
+            }else{
+                bucket.push([key,value])
             }
-
-            temp.next = node
-        }
-        this.size++
-    }
-
-    pop(){
-        if(this.isEmpty()){
-            return 'stack list is empty'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
-
-            while(temp.next.next){
-                temp = temp.next
-            }
-            let val = temp.next.value
-            temp.next = null
-            this.size--
-            return val
         }
     }
 
-    peek(){
-        if(this.isEmpty()){
-            return 'stack list is empty'
-        }else{
-            let temp = this.head
+    get(key){
+        let index = this.hash(key)
+        let bucket = this.table[index]
 
-            while(temp.next){
-                temp = temp.next
+        if(bucket){
+            let element = bucket.find((item)=>item[0]==key)
+            
+            if(element){
+                return element[1]
             }
-
-            return temp.value
         }
+        return 'key is not found'
+    }
+
+    remove(key){
+        let index = this.hash(key)
+        let bucket = this.table[index]
+
+        if(bucket){
+            let index = bucket.findIndex((item)=>item[0]==key)
+
+            if(index != -1){
+                bucket.splice(index,1)
+                return  'key deleted'
+            }
+        }
+
+        return 'invalid key'
     }
 
     print(){
-        if(this.isEmpty()){
-            return 'stack is empty'
-        }else{
-            let temp = this.head
-            let list = ''
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
+        for(let i=0;i<this.table.length;i++){
+            if(this.table[i]){
+                console.log(i,this.table[i])
             }
-
-            list += 'null'
-            return list
         }
     }
 }
 
-const s = new stack();
 
-console.log(s.pop());               // stack list is empty
-console.log(s.peek());              // stack list is empty
-console.log(s.print());             // stack is empty
 
-s.push(10);
-console.log(s.peek());              // 10
-console.log(s.print());             // 10->null
+const ht = new hashtable(10)
 
-s.push(20);
-s.push(30);
-console.log(s.print());             // 10->20->30->null
+ht.set("name", "Alice")
+ht.set("age", 25)
+ht.set("country", "USA")
 
-console.log(s.pop());               // 30
-console.log(s.print());             // 10->20->null
+console.log(ht.get("name"))        // Alice
+console.log(ht.get("age"))         // 25
+console.log(ht.get("country"))     // USA
+console.log(ht.get("city"))        // key is not found
 
-console.log(s.pop());               // 20
-console.log(s.pop());               // 10
-console.log(s.pop());               // stack list is empty
+ht.set("name", "Bob")              // Update value
+console.log(ht.get("name"))        // Bob
 
-s.push(40);
-console.log(s.peek());              // 40
-console.log(s.print());             // 40->null
+console.log(ht.remove("age"))      // key deleted
+console.log(ht.get("age"))         // key is not found
+
+console.log(ht.remove("unknown"))  // invalid key
+
+ht.print()                         // Should show remaining keys
