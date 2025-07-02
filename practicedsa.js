@@ -4773,6 +4773,100 @@
 // ht.print(); 
 // // Expected output: keys 'name' and 'job' with their hashed indices
 
+// class hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+
+//         if(!this.table[index]){
+//             this.table[index] = [[key,value]]
+//         }else{
+//             let bucket = this.table[index]
+
+//             let sameIndex = bucket.find((item)=>item[0]==key)
+
+//             if(sameIndex){
+//                 sameIndex[1] = value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let element = bucket.find((item)=>item[0]==key)
+            
+//             if(element){
+//                 return element[1]
+//             }
+//         }
+//         return 'key is not found'
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let index = bucket.findIndex((item)=>item[0]==key)
+
+//             if(index != -1){
+//                 bucket.splice(index,1)
+//                 return  'key deleted'
+//             }
+//         }
+
+//         return 'invalid key'
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+
+
+// const ht = new hashtable(10)
+
+// ht.set("name", "Alice")
+// ht.set("age", 25)
+// ht.set("country", "USA")
+
+// console.log(ht.get("name"))        // Alice
+// console.log(ht.get("age"))         // 25
+// console.log(ht.get("country"))     // USA
+// console.log(ht.get("city"))        // key is not found
+
+// ht.set("name", "Bob")              // Update value
+// console.log(ht.get("name"))        // Bob
+
+// console.log(ht.remove("age"))      // key deleted
+// console.log(ht.get("age"))         // key is not found
+
+// console.log(ht.remove("unknown"))  // invalid key
+
+// ht.print()                         // Should show remaining keys
+
 class hashtable{
     constructor(size){
         this.table = new Array(size)
@@ -4789,16 +4883,15 @@ class hashtable{
 
     set(key,value){
         let index = this.hash(key)
+        let bucket = this.table[index]
 
-        if(!this.table[index]){
+        if(!bucket){
             this.table[index] = [[key,value]]
         }else{
-            let bucket = this.table[index]
+            let findPlace = bucket.find((item)=>item[0]==key)
 
-            let sameIndex = bucket.find((item)=>item[0]==key)
-
-            if(sameIndex){
-                sameIndex[1] = value
+            if(findPlace){
+                findPlace[1] = value
             }else{
                 bucket.push([key,value])
             }
@@ -4810,13 +4903,14 @@ class hashtable{
         let bucket = this.table[index]
 
         if(bucket){
-            let element = bucket.find((item)=>item[0]==key)
-            
-            if(element){
-                return element[1]
+            let findPlace  = bucket.find((item)=>item[0]==key)
+
+            if(findPlace){
+                return findPlace[1]
             }
         }
-        return 'key is not found'
+
+        return 'invalid key'
     }
 
     remove(key){
@@ -4824,11 +4918,10 @@ class hashtable{
         let bucket = this.table[index]
 
         if(bucket){
-            let index = bucket.findIndex((item)=>item[0]==key)
+            let itemIndex = bucket.findIndex((item)=>item[0]==key)
 
-            if(index != -1){
-                bucket.splice(index,1)
-                return  'key deleted'
+            if(itemIndex != -1){
+                return bucket.splice(itemIndex,1)
             }
         }
 
@@ -4842,27 +4935,219 @@ class hashtable{
             }
         }
     }
+
+    findDuplicates(){
+        let val = {}
+
+        for(let i=0;i<this.table.length;i++){
+            let bucket = this.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+
+                    if(val[value]){
+                        val[value]++
+                    }else{
+                        val[value] = 1
+                    }
+                }
+            }
+        }
+
+        let duplicates = []
+
+        for(let key in val){
+            if(val[key] > 1){
+                duplicates.push(key)
+            }
+        }
+
+        return duplicates
+    }
+
+    removeDuplicates(){
+        let val = {}
+
+        for(let i=0;i<this.table.length;i++){
+            let bucket = this.table[i]
+            if(bucket){
+                const newBucket = []
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    if(!val[value]){
+                        val[value] = true
+                        newBucket.push([key,value])
+                    }
+                }
+                this.table[i] = newBucket.length > 0 ? newBucket : undefined
+            }
+        }
+
+    }
+
+    findDuplicatesFromInput(input){
+        let given = Array.isArray(input)?input:input.split('')
+
+        let temp = new hashtable(50)
+
+        for(let i=0;i<given.length;i++){
+            let val = given[i].toString()
+            let count = temp.get(val)||0
+            temp.set(val,count+1)
+        }
+
+        let duplicates = []
+        for(let i=0;i<temp.table.length;i++){
+            let bucket = temp.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+    
+                    if(value > 1){
+                        duplicates.push(key)
+                    }
+                }
+            }
+        }
+
+        return Array.isArray(input)?duplicates:duplicates.join('')
+    }
+
+    removeDuplicatesFromInput(input){
+        let given = Array.isArray(input)?input:input.split('')
+
+        let temp = new hashtable(50)
+
+        for(let i=0;i<given.length;i++){
+            let val = given[i].toString()
+            let count = temp.get(val)||0
+            temp.set(val,count+1)
+        }
+
+        let seen = {}
+        let final = []
+
+        for(let i=0;i<temp.table.length;i++){
+            let bucket = temp.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    if(!seen[key]){
+                        seen[key] = true
+                        final.push(key)
+                    }
+                }
+            }
+        }
+
+        return Array.isArray(input) ? final :final.join('')
+    }
+
+    nthMostFrequent(input,n){
+        let given = Array.isArray(input) ? input : input.split('')
+
+        const temp = new hashtable(50)
+
+        for(let i=0;i<given.length;i++){
+            let val = given[i].toString()
+            let count = temp.get(val)||0
+            temp.set(val,count)
+        }
+
+        let result = []
+
+        for(let i=0;i<temp.table.length;i++){
+            let bucket = temp.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+
+                    result.push([key,value])
+                }
+            }
+        }
+
+        result.sort((a,b)=>b[1]-a[1])
+
+        return result[n-1]?.[0] || null
+    }
 }
 
 
+let ht = new hashtable(10)
 
-const ht = new hashtable(10)
+// Basic set/get
+ht.set("apple", 1)
+ht.set("banana", 2)
+ht.set("orange", 3)
+console.log(ht.get("apple"))      // 1
+console.log(ht.get("banana"))     // 2
+console.log(ht.get("unknown"))    // 'invalid key'
 
-ht.set("name", "Alice")
-ht.set("age", 25)
-ht.set("country", "USA")
+// Duplicate detection in table
+ht.set("grape", 2)
+console.log(ht.findDuplicates())  // ['2']
 
-console.log(ht.get("name"))        // Alice
-console.log(ht.get("age"))         // 25
-console.log(ht.get("country"))     // USA
-console.log(ht.get("city"))        // key is not found
+// Remove key
+ht.remove("banana")
+console.log(ht.get("banana"))     // 'invalid key'
 
-ht.set("name", "Bob")              // Update value
-console.log(ht.get("name"))        // Bob
+// Duplicate removal from hashtable
+ht.set("kiwi", 1)
+ht.removeDuplicates()
+ht.print() // No duplicates in values
 
-console.log(ht.remove("age"))      // key deleted
-console.log(ht.get("age"))         // key is not found
+// Input string duplicate detection
+console.log(ht.findDuplicatesFromInput("hello world")) // 'lo'
 
-console.log(ht.remove("unknown"))  // invalid key
+// Array input duplicate detection
+console.log(ht.findDuplicatesFromInput([1,2,2,3,3,3,4])) // ['2', '3']
 
-ht.print()                         // Should show remaining keys
+// Remove duplicates from input string
+console.log(ht.removeDuplicatesFromInput("aabbccdd"))  // 'abcd'
+
+// Nth most frequent element
+console.log(ht.nthMostFrequent("aaabbccc", 1)) // 'c'
+console.log(ht.nthMostFrequent("aaabbccc", 2)) // 'a'
+console.log(ht.nthMostFrequent("aaabbccc", 3)) // 'b'
+
+
+
+
+// const ht = new hashtable(10);
+
+// // ✅ Insert values
+// ht.set("apple", 100);
+// ht.set("banana", 200);
+// ht.set("orange", 300);
+// ht.set("grape", 400);
+
+// // ✅ Print table
+// console.log("Table after insertions:");
+// ht.print();
+
+// // ✅ Get existing keys
+// console.log("Get apple:", ht.get("apple")); // 100
+// console.log("Get banana:", ht.get("banana")); // 200
+
+// // ❌ Get non-existing key
+// console.log("Get mango:", ht.get("mango")); // 'invalid key'
+
+// // ✅ Update existing key
+// ht.set("apple", 999);
+// console.log("Get updated apple:", ht.get("apple")); // 999
+
+// // ✅ Remove key
+// ht.remove("banana");
+// console.log("Table after removing 'banana':");
+// ht.print();
+
+// // ❌ Remove non-existing key
+// ht.remove("pineapple");
+
+// // ✅ Remove all and check isEmpty
+// ht.remove("apple");
+// ht.remove("orange");
+// ht.remove("grape");
+
+// ht.print()
