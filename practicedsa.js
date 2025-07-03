@@ -4867,249 +4867,249 @@
 
 // ht.print()                         // Should show remaining keys
 
-class hashtable{
-    constructor(size){
-        this.table = new Array(size)
-        this.size = size
-    }
+// class hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
 
-    hash(key){
-        let total = 0
-        for(let i=0;i<key.length;i++){
-            total += key.charCodeAt(i)
-        }
-        return total % this.size
-    }
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+//         return total % this.size
+//     }
 
-    set(key,value){
-        let index = this.hash(key)
-        let bucket = this.table[index]
+//     set(key,value){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
 
-        if(!bucket){
-            this.table[index] = [[key,value]]
-        }else{
-            let findPlace = bucket.find((item)=>item[0]==key)
+//         if(!bucket){
+//             this.table[index] = [[key,value]]
+//         }else{
+//             let findPlace = bucket.find((item)=>item[0]==key)
 
-            if(findPlace){
-                findPlace[1] = value
-            }else{
-                bucket.push([key,value])
-            }
-        }
-    }
+//             if(findPlace){
+//                 findPlace[1] = value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
 
-    get(key){
-        let index = this.hash(key)
-        let bucket = this.table[index]
+//     get(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
 
-        if(bucket){
-            let findPlace  = bucket.find((item)=>item[0]==key)
+//         if(bucket){
+//             let findPlace  = bucket.find((item)=>item[0]==key)
 
-            if(findPlace){
-                return findPlace[1]
-            }
-        }
+//             if(findPlace){
+//                 return findPlace[1]
+//             }
+//         }
 
-        return 'invalid key'
-    }
+//         return 'invalid key'
+//     }
 
-    remove(key){
-        let index = this.hash(key)
-        let bucket = this.table[index]
+//     remove(key){
+//         let index = this.hash(key)
+//         let bucket = this.table[index]
 
-        if(bucket){
-            let itemIndex = bucket.findIndex((item)=>item[0]==key)
+//         if(bucket){
+//             let itemIndex = bucket.findIndex((item)=>item[0]==key)
 
-            if(itemIndex != -1){
-                return bucket.splice(itemIndex,1)
-            }
-        }
+//             if(itemIndex != -1){
+//                 return bucket.splice(itemIndex,1)
+//             }
+//         }
 
-        return 'invalid key'
-    }
+//         return 'invalid key'
+//     }
 
-    print(){
-        for(let i=0;i<this.table.length;i++){
-            if(this.table[i]){
-                console.log(i,this.table[i])
-            }
-        }
-    }
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
 
-    findDuplicates(){
-        let val = {}
+//     findDuplicates(){
+//         let val = {}
 
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
 
-                    if(val[value]){
-                        val[value]++
-                    }else{
-                        val[value] = 1
-                    }
-                }
-            }
-        }
+//                     if(val[value]){
+//                         val[value]++
+//                     }else{
+//                         val[value] = 1
+//                     }
+//                 }
+//             }
+//         }
 
-        let duplicates = []
+//         let duplicates = []
 
-        for(let key in val){
-            if(val[key] > 1){
-                duplicates.push(key)
-            }
-        }
+//         for(let key in val){
+//             if(val[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
 
-        return duplicates
-    }
+//         return duplicates
+//     }
 
-    removeDuplicates(){
-        let val = {}
+//     removeDuplicates(){
+//         let val = {}
 
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-                const newBucket = []
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(!val[value]){
-                        val[value] = true
-                        newBucket.push([key,value])
-                    }
-                }
-                this.table[i] = newBucket.length > 0 ? newBucket : undefined
-            }
-        }
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+//                 const newBucket = []
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(!val[value]){
+//                         val[value] = true
+//                         newBucket.push([key,value])
+//                     }
+//                 }
+//                 this.table[i] = newBucket.length > 0 ? newBucket : undefined
+//             }
+//         }
 
-    }
+//     }
 
-    findDuplicatesFromInput(input){
-        let given = Array.isArray(input)?input:input.split('')
+//     findDuplicatesFromInput(input){
+//         let given = Array.isArray(input)?input:input.split('')
 
-        let temp = new hashtable(50)
+//         let temp = new hashtable(50)
 
-        for(let i=0;i<given.length;i++){
-            let val = given[i].toString()
-            let count = temp.get(val)||0
-            temp.set(val,count+1)
-        }
+//         for(let i=0;i<given.length;i++){
+//             let val = given[i].toString()
+//             let count = temp.get(val)||0
+//             temp.set(val,count+1)
+//         }
 
-        let duplicates = []
-        for(let i=0;i<temp.table.length;i++){
-            let bucket = temp.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
+//         let duplicates = []
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
     
-                    if(value > 1){
-                        duplicates.push(key)
-                    }
-                }
-            }
-        }
+//                     if(value > 1){
+//                         duplicates.push(key)
+//                     }
+//                 }
+//             }
+//         }
 
-        return Array.isArray(input)?duplicates:duplicates.join('')
-    }
+//         return Array.isArray(input)?duplicates:duplicates.join('')
+//     }
 
-    removeDuplicatesFromInput(input){
-        let given = Array.isArray(input)?input:input.split('')
+//     removeDuplicatesFromInput(input){
+//         let given = Array.isArray(input)?input:input.split('')
 
-        let temp = new hashtable(50)
+//         let temp = new hashtable(50)
 
-        for(let i=0;i<given.length;i++){
-            let val = given[i].toString()
-            let count = temp.get(val)||0
-            temp.set(val,count+1)
-        }
+//         for(let i=0;i<given.length;i++){
+//             let val = given[i].toString()
+//             let count = temp.get(val)||0
+//             temp.set(val,count+1)
+//         }
 
-        let seen = {}
-        let final = []
+//         let seen = {}
+//         let final = []
 
-        for(let i=0;i<temp.table.length;i++){
-            let bucket = temp.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(!seen[key]){
-                        seen[key] = true
-                        final.push(key)
-                    }
-                }
-            }
-        }
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(!seen[key]){
+//                         seen[key] = true
+//                         final.push(key)
+//                     }
+//                 }
+//             }
+//         }
 
-        return Array.isArray(input) ? final :final.join('')
-    }
+//         return Array.isArray(input) ? final :final.join('')
+//     }
 
-    nthMostFrequent(input,n){
-        let given = Array.isArray(input) ? input : input.split('')
+//     nthMostFrequent(input,n){
+//         let given = Array.isArray(input) ? input : input.split('')
 
-        const temp = new hashtable(50)
+//         const temp = new hashtable(50)
 
-        for(let i=0;i<given.length;i++){
-            let val = given[i].toString()
-            let count = temp.get(val)||0
-            temp.set(val,count)
-        }
+//         for(let i=0;i<given.length;i++){
+//             let val = given[i].toString()
+//             let count = temp.get(val)||0
+//             temp.set(val,count)
+//         }
 
-        let result = []
+//         let result = []
 
-        for(let i=0;i<temp.table.length;i++){
-            let bucket = temp.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
 
-                    result.push([key,value])
-                }
-            }
-        }
+//                     result.push([key,value])
+//                 }
+//             }
+//         }
 
-        result.sort((a,b)=>b[1]-a[1])
+//         result.sort((a,b)=>b[1]-a[1])
 
-        return result[n-1]?.[0] || null
-    }
-}
+//         return result[n-1]?.[0] || null
+//     }
+// }
 
 
-let ht = new hashtable(10)
+// let ht = new hashtable(10)
 
-// Basic set/get
-ht.set("apple", 1)
-ht.set("banana", 2)
-ht.set("orange", 3)
-console.log(ht.get("apple"))      // 1
-console.log(ht.get("banana"))     // 2
-console.log(ht.get("unknown"))    // 'invalid key'
+// // Basic set/get
+// ht.set("apple", 1)
+// ht.set("banana", 2)
+// ht.set("orange", 3)
+// console.log(ht.get("apple"))      // 1
+// console.log(ht.get("banana"))     // 2
+// console.log(ht.get("unknown"))    // 'invalid key'
 
-// Duplicate detection in table
-ht.set("grape", 2)
-console.log(ht.findDuplicates())  // ['2']
+// // Duplicate detection in table
+// ht.set("grape", 2)
+// console.log(ht.findDuplicates())  // ['2']
 
-// Remove key
-ht.remove("banana")
-console.log(ht.get("banana"))     // 'invalid key'
+// // Remove key
+// ht.remove("banana")
+// console.log(ht.get("banana"))     // 'invalid key'
 
-// Duplicate removal from hashtable
-ht.set("kiwi", 1)
-ht.removeDuplicates()
-ht.print() // No duplicates in values
+// // Duplicate removal from hashtable
+// ht.set("kiwi", 1)
+// ht.removeDuplicates()
+// ht.print() // No duplicates in values
 
-// Input string duplicate detection
-console.log(ht.findDuplicatesFromInput("hello world")) // 'lo'
+// // Input string duplicate detection
+// console.log(ht.findDuplicatesFromInput("hello world")) // 'lo'
 
-// Array input duplicate detection
-console.log(ht.findDuplicatesFromInput([1,2,2,3,3,3,4])) // ['2', '3']
+// // Array input duplicate detection
+// console.log(ht.findDuplicatesFromInput([1,2,2,3,3,3,4])) // ['2', '3']
 
-// Remove duplicates from input string
-console.log(ht.removeDuplicatesFromInput("aabbccdd"))  // 'abcd'
+// // Remove duplicates from input string
+// console.log(ht.removeDuplicatesFromInput("aabbccdd"))  // 'abcd'
 
-// Nth most frequent element
-console.log(ht.nthMostFrequent("aaabbccc", 1)) // 'c'
-console.log(ht.nthMostFrequent("aaabbccc", 2)) // 'a'
-console.log(ht.nthMostFrequent("aaabbccc", 3)) // 'b'
+// // Nth most frequent element
+// console.log(ht.nthMostFrequent("aaabbccc", 1)) // 'c'
+// console.log(ht.nthMostFrequent("aaabbccc", 2)) // 'a'
+// console.log(ht.nthMostFrequent("aaabbccc", 3)) // 'b'
 
 
 
@@ -5151,3 +5151,279 @@ console.log(ht.nthMostFrequent("aaabbccc", 3)) // 'b'
 // ht.remove("grape");
 
 // ht.print()
+
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class LinkedList{
+    constructor(){
+        this.head = null
+        this.size = 0
+    }
+
+    isEmpty(){
+        return this.size == 0
+    }
+
+    prepend(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }
+        else{
+            node.next = this.head
+            this.head = node
+        }
+        this.size++
+    }
+
+    append(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node
+        }
+        this.size++
+    }
+
+    removeFromStart(){
+        if(this.isEmpty()){
+            return null
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+    }
+
+    removeFromEnd(){
+        if(this.isEmpty()){
+            return null
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next.next){
+                temp = temp.next
+            }
+            let val = temp.next.value
+            temp.next = null
+            this.size--
+            return val
+        }
+    }
+
+    print(){
+        if(this.isEmpty()){
+            return null
+        }else{
+            let temp = this.head
+            let list = ''
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
+            }
+
+            list += 'null'
+
+
+            return list
+        }
+    }
+
+    insert(index,value){
+        const node = new Node(value)
+        if(index < 0 || index > this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            node.next = this.head
+            this.head = node
+            this.size++
+        }
+        else{
+            let temp = this.head
+            
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+
+            node.next = temp.next
+            temp.next = node
+
+            this.size++
+        }
+    }
+
+    removeByIndex(index){
+        if(index < 0 || index >= this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+           let temp = this.head
+           for(let i=0;i<index-1;i++){
+            temp = temp.next
+           }
+           let value = temp.next.value
+           temp.next = temp.next.next
+           this.size--
+           return value
+        }
+    }
+
+    removeByValue(value){
+        if(this.isEmpty()){
+            return null
+        }
+        else if(this.head.value == value){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next && temp.next.value != value){
+                temp = temp.next
+            }
+
+            if(!temp.next){
+                return 'value not found'
+            }
+
+            const removedValue = temp.next.value
+            temp.next = temp.next.next
+            this.size--
+            return removedValue
+        }
+    }
+
+    makeCylce(){
+        let temp = this.head
+
+        while(temp.next){
+            temp = temp.next
+        }
+
+        temp.next = this.head
+    }
+
+    cycleDetection(){
+        let slow = this.head
+        let fast = this.head
+
+        while(fast.next && fast.next.next){
+            slow = slow.next
+            fast = fast.next.next
+
+            if(slow == fast){
+                return true
+            }
+        }
+
+        return false
+    }
+
+    reverse(){
+        let cur = this.head
+        let prev = null
+
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
+        }
+
+        this.head = prev
+    }
+}
+
+// LinkedList test suite
+
+const list = new LinkedList();
+
+// ✅ Test: isEmpty on empty list
+console.log("Is empty?", list.isEmpty()); // true
+console.log("Print:", list.print());      // null
+
+// ✅ Test: prepend
+list.prepend(10); // List: 10
+list.prepend(5);  // List: 5 -> 10
+console.log("After prepends:", list.print()); // 5->10->null
+
+// ✅ Test: append
+list.append(20); // List: 5 -> 10 -> 20
+list.append(30); // List: 5 -> 10 -> 20 -> 30
+console.log("After appends:", list.print()); // 5->10->20->30->null
+
+// ✅ Test: insert at various positions
+list.insert(0, 1);   // Insert at head → 1->5->10->20->30
+list.insert(3, 15);  // Insert in middle → 1->5->10->15->20->30
+list.insert(6, 40);  // Insert at end → 1->5->10->15->20->30->40
+console.log("After inserts:", list.print()); // 1->5->10->15->20->30->40->null
+
+// ✅ Test: removeByIndex
+console.log("Removed index 0:", list.removeByIndex(0)); // Removes 1
+console.log("Removed index 2:", list.removeByIndex(2)); // Removes 15
+console.log("Removed last index:", list.removeByIndex(list.size - 1)); // Removes 40
+console.log("After removeByIndex:", list.print()); // Expected: 5->10->20->30->null
+
+// ✅ Test: removeByValue
+console.log("Removed value 10:", list.removeByValue(10)); // Removes 10
+console.log("Removed value 99:", list.removeByValue(99)); // value not found
+console.log("After removeByValue:", list.print()); // 5->20->30->null
+
+// ✅ Test: removeFromStart and removeFromEnd
+console.log("removeFromStart:", list.removeFromStart()); // Removes 5
+console.log("removeFromEnd:", list.removeFromEnd());     // Removes 30
+console.log("After start/end removals:", list.print()); // 20->null
+
+// ✅ Test: reverse
+list.append(40);
+list.append(50);
+list.append(60); // List now: 20->40->50->60
+console.log("Before reverse:", list.print());
+list.reverse();
+console.log("After reverse:", list.print()); // 60->50->40->20->null
+
+// ✅ Test: cycleDetection
+list.makeCylce();
+console.log("Has cycle?", list.cycleDetection()); // true
+
+// ⚠️ Note: Don't call print() after cycle is made, or it will infinite loop
+
