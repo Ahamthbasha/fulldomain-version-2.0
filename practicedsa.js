@@ -5153,6 +5153,281 @@
 // ht.print()
 
 
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class LinkedList{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     prepend(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             node.next = this.head
+//             this.head = node
+//         }
+//         this.size++
+//     }
+
+//     append(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//         }
+//         this.size++
+//     }
+
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return null
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return null
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
+//             let val = temp.next.value
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     print(){
+//         if(this.isEmpty()){
+//             return null
+//         }else{
+//             let temp = this.head
+//             let list = ''
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             list += 'null'
+
+
+//             return list
+//         }
+//     }
+
+//     insert(index,value){
+//         const node = new Node(value)
+//         if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             node.next = this.head
+//             this.head = node
+//             this.size++
+//         }
+//         else{
+//             let temp = this.head
+            
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
+
+//             node.next = temp.next
+//             temp.next = node
+
+//             this.size++
+//         }
+//     }
+
+//     removeByIndex(index){
+//         if(index < 0 || index >= this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//            let temp = this.head
+//            for(let i=0;i<index-1;i++){
+//             temp = temp.next
+//            }
+//            let value = temp.next.value
+//            temp.next = temp.next.next
+//            this.size--
+//            return value
+//         }
+//     }
+
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return null
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
+
+//             while(temp.next && temp.next.value != value){
+//                 temp = temp.next
+//             }
+
+//             if(!temp.next){
+//                 return 'value not found'
+//             }
+
+//             const removedValue = temp.next.value
+//             temp.next = temp.next.next
+//             this.size--
+//             return removedValue
+//         }
+//     }
+
+//     makeCylce(){
+//         let temp = this.head
+
+//         while(temp.next){
+//             temp = temp.next
+//         }
+
+//         temp.next = this.head
+//     }
+
+//     cycleDetection(){
+//         let slow = this.head
+//         let fast = this.head
+
+//         while(fast.next && fast.next.next){
+//             slow = slow.next
+//             fast = fast.next.next
+
+//             if(slow == fast){
+//                 return true
+//             }
+//         }
+
+//         return false
+//     }
+
+//     reverse(){
+//         let cur = this.head
+//         let prev = null
+
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
+
+//         this.head = prev
+//     }
+// }
+
+// // LinkedList test suite
+
+// const list = new LinkedList();
+
+// // ✅ Test: isEmpty on empty list
+// console.log("Is empty?", list.isEmpty()); // true
+// console.log("Print:", list.print());      // null
+
+// // ✅ Test: prepend
+// list.prepend(10); // List: 10
+// list.prepend(5);  // List: 5 -> 10
+// console.log("After prepends:", list.print()); // 5->10->null
+
+// // ✅ Test: append
+// list.append(20); // List: 5 -> 10 -> 20
+// list.append(30); // List: 5 -> 10 -> 20 -> 30
+// console.log("After appends:", list.print()); // 5->10->20->30->null
+
+// // ✅ Test: insert at various positions
+// list.insert(0, 1);   // Insert at head → 1->5->10->20->30
+// list.insert(3, 15);  // Insert in middle → 1->5->10->15->20->30
+// list.insert(6, 40);  // Insert at end → 1->5->10->15->20->30->40
+// console.log("After inserts:", list.print()); // 1->5->10->15->20->30->40->null
+
+// // ✅ Test: removeByIndex
+// console.log("Removed index 0:", list.removeByIndex(0)); // Removes 1
+// console.log("Removed index 2:", list.removeByIndex(2)); // Removes 15
+// console.log("Removed last index:", list.removeByIndex(list.size - 1)); // Removes 40
+// console.log("After removeByIndex:", list.print()); // Expected: 5->10->20->30->null
+
+// // ✅ Test: removeByValue
+// console.log("Removed value 10:", list.removeByValue(10)); // Removes 10
+// console.log("Removed value 99:", list.removeByValue(99)); // value not found
+// console.log("After removeByValue:", list.print()); // 5->20->30->null
+
+// // ✅ Test: removeFromStart and removeFromEnd
+// console.log("removeFromStart:", list.removeFromStart()); // Removes 5
+// console.log("removeFromEnd:", list.removeFromEnd());     // Removes 30
+// console.log("After start/end removals:", list.print()); // 20->null
+
+// // ✅ Test: reverse
+// list.append(40);
+// list.append(50);
+// list.append(60); // List now: 20->40->50->60
+// console.log("Before reverse:", list.print());
+// list.reverse();
+// console.log("After reverse:", list.print()); // 60->50->40->20->null
+
+// // ✅ Test: cycleDetection
+// list.makeCylce();
+// console.log("Has cycle?", list.cycleDetection()); // true
+
+// // ⚠️ Note: Don't call print() after cycle is made, or it will infinite loop
+
+
 class Node{
     constructor(value){
         this.value = value
@@ -5172,10 +5447,10 @@ class LinkedList{
 
     prepend(value){
         const node = new Node(value)
+
         if(this.isEmpty()){
             this.head = node
-        }
-        else{
+        }else{
             node.next = this.head
             this.head = node
         }
@@ -5184,10 +5459,10 @@ class LinkedList{
 
     append(value){
         const node = new Node(value)
+
         if(this.isEmpty()){
             this.head = node
-        }
-        else{
+        }else{
             let temp = this.head
 
             while(temp.next){
@@ -5196,6 +5471,7 @@ class LinkedList{
 
             temp.next = node
         }
+
         this.size++
     }
 
@@ -5229,7 +5505,6 @@ class LinkedList{
         }
         else{
             let temp = this.head
-
             while(temp.next.next){
                 temp = temp.next
             }
@@ -5240,44 +5515,24 @@ class LinkedList{
         }
     }
 
-    print(){
-        if(this.isEmpty()){
-            return null
-        }else{
-            let temp = this.head
-            let list = ''
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
-            }
-
-            list += 'null'
-
-
-            return list
-        }
-    }
-
     insert(index,value){
-        const node = new Node(value)
         if(index < 0 || index > this.size){
             return 'invalid index'
         }
         else if(index == 0){
-            node.next = this.head
-            this.head = node
-            this.size++
+            this.prepend(value)
+        }
+        else if(index == this.size){
+            this.append(value)
         }
         else{
+            let node = new Node(value)
             let temp = this.head
-            
             for(let i=0;i<index-1;i++){
                 temp = temp.next
             }
-
             node.next = temp.next
             temp.next = node
-
             this.size++
         }
     }
@@ -5293,20 +5548,21 @@ class LinkedList{
             return val
         }
         else{
-           let temp = this.head
-           for(let i=0;i<index-1;i++){
-            temp = temp.next
-           }
-           let value = temp.next.value
-           temp.next = temp.next.next
-           this.size--
-           return value
+            let temp = this.head
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+            temp.next = temp.next.next
+            this.size--
+            return val
         }
     }
 
     removeByValue(value){
         if(this.isEmpty()){
-            return null
+            return 'list is empty'
         }
         else if(this.head.value == value){
             let val = this.head.value
@@ -5321,18 +5577,49 @@ class LinkedList{
                 temp = temp.next
             }
 
-            if(!temp.next){
-                return 'value not found'
+            if(temp.next == null){
+                return 'invalid value'
             }
-
-            const removedValue = temp.next.value
-            temp.next = temp.next.next
-            this.size--
-            return removedValue
+            else{
+                let val = temp.next.value
+                temp.next = temp.next.next
+                this.size--
+                return val
+            }
         }
     }
 
-    makeCylce(){
+    print(){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }else{
+            let list = ''
+            let temp = this.head
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
+            }
+            list += 'null'
+
+            return list
+        }
+    }
+
+    reverse(){
+        let prev = null
+        let cur = this.head
+
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
+        }
+
+        this.head = prev
+    }
+
+    makeCycle(){
         let temp = this.head
 
         while(temp.next){
@@ -5346,9 +5633,9 @@ class LinkedList{
         let slow = this.head
         let fast = this.head
 
-        while(fast.next && fast.next.next){
+        while(fast && fast.next){
             slow = slow.next
-            fast = fast.next.next
+            fast = fast.next
 
             if(slow == fast){
                 return true
@@ -5358,72 +5645,62 @@ class LinkedList{
         return false
     }
 
-    reverse(){
-        let cur = this.head
-        let prev = null
+    findMidAndDelte(){
+        let total = this.size
 
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
+        let mid = Math.floor(total/2)
 
-        this.head = prev
+        return this.removeByIndex(mid)
     }
 }
 
-// LinkedList test suite
-
 const list = new LinkedList();
 
-// ✅ Test: isEmpty on empty list
-console.log("Is empty?", list.isEmpty()); // true
-console.log("Print:", list.print());      // null
+// Test isEmpty
+console.log(list.isEmpty()); // true
 
-// ✅ Test: prepend
-list.prepend(10); // List: 10
-list.prepend(5);  // List: 5 -> 10
-console.log("After prepends:", list.print()); // 5->10->null
+// Test prepend
+list.prepend(10);
+list.prepend(20);
+console.log(list.print()); // 20->10->null
 
-// ✅ Test: append
-list.append(20); // List: 5 -> 10 -> 20
-list.append(30); // List: 5 -> 10 -> 20 -> 30
-console.log("After appends:", list.print()); // 5->10->20->30->null
+// Test append
+list.append(30);
+console.log(list.print()); // 20->10->30->null
 
-// ✅ Test: insert at various positions
-list.insert(0, 1);   // Insert at head → 1->5->10->20->30
-list.insert(3, 15);  // Insert in middle → 1->5->10->15->20->30
-list.insert(6, 40);  // Insert at end → 1->5->10->15->20->30->40
-console.log("After inserts:", list.print()); // 1->5->10->15->20->30->40->null
+// Test removeFromStart
+console.log(list.removeFromStart()); // 20
+console.log(list.print()); // 10->30->null
 
-// ✅ Test: removeByIndex
-console.log("Removed index 0:", list.removeByIndex(0)); // Removes 1
-console.log("Removed index 2:", list.removeByIndex(2)); // Removes 15
-console.log("Removed last index:", list.removeByIndex(list.size - 1)); // Removes 40
-console.log("After removeByIndex:", list.print()); // Expected: 5->10->20->30->null
+// Test removeFromEnd
+console.log(list.removeFromEnd()); // 30
+console.log(list.print()); // 10->null
 
-// ✅ Test: removeByValue
-console.log("Removed value 10:", list.removeByValue(10)); // Removes 10
-console.log("Removed value 99:", list.removeByValue(99)); // value not found
-console.log("After removeByValue:", list.print()); // 5->20->30->null
-
-// ✅ Test: removeFromStart and removeFromEnd
-console.log("removeFromStart:", list.removeFromStart()); // Removes 5
-console.log("removeFromEnd:", list.removeFromEnd());     // Removes 30
-console.log("After start/end removals:", list.print()); // 20->null
-
-// ✅ Test: reverse
+// Test insert
 list.append(40);
 list.append(50);
-list.append(60); // List now: 20->40->50->60
-console.log("Before reverse:", list.print());
+list.insert(1, 45);
+console.log(list.print()); // 10->45->40->50->null
+
+// Test removeByIndex
+console.log(list.removeByIndex(1)); // 45
+console.log(list.print()); // 10->40->50->null
+
+// Test removeByValue
+console.log(list.removeByValue(40)); // 40
+console.log(list.print()); // 10->50->null
+
+// Test reverse
 list.reverse();
-console.log("After reverse:", list.print()); // 60->50->40->20->null
+console.log(list.print()); // 50->10->null
 
-// ✅ Test: cycleDetection
-list.makeCylce();
-console.log("Has cycle?", list.cycleDetection()); // true
+// Test findMidAndDelete
+list.append(60);
+list.append(70);
+console.log(list.print()); // 50->10->60->70->null
+console.log(list.findMidAndDelte()); // 10
+console.log(list.print()); // 50->60->70->null
 
-// ⚠️ Note: Don't call print() after cycle is made, or it will infinite loop
-
+// Test makeCycle and cycleDetection
+list.makeCycle();
+console.log(list.cycleDetection()); // true
