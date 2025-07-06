@@ -189,3 +189,36 @@
 // 12. Timer App
 // Implement a start/pause/reset timer using useState and useEffect.
 
+import React, { useRef, useState } from 'react'
+
+const UseState = () => {
+    const [time,setTime] = useState(0)
+    const takeRef = useRef()
+    const start = ()=>{
+        if(!takeRef.current){
+            takeRef.current = setInterval(()=>{
+                setTime((time)=>time+1)
+            },1000)
+        }
+    }
+
+    const stop = ()=>{
+        clearInterval(takeRef.current)
+        takeRef.current = null
+    }
+
+    const reset = () => {
+        stop()
+        setTime(0)
+    }
+  return (
+    <div>
+        <h1>{time}</h1>
+      <button onClick={start}>Start</button>
+      <button onClick={stop}>Pause</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  )
+}
+
+export default UseState
