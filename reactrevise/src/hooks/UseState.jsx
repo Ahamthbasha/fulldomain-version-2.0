@@ -164,17 +164,129 @@
 
 
 // 🟡 Intermediate-Level Questions
-// 5. Dynamic List Adding
+// 5. Dynamic List Adding 
 // Build an input box and a button. When a user types something and clicks "Add", append it to a list and display the list.
+
+// import { useState } from 'react'
+
+// const UseState = () => {
+//   const [list,setList] = useState([])
+//   const [text,setText] = useState('')
+
+//   const addToList = ()=>{
+//     setList((val)=>[...val,text])
+//     setText('')
+//   }
+//   return (
+//     <div>
+//       <input type="text" value={text} onChange={(e)=>{setText(e.target.value)}}/>
+
+//       <button onClick={addToList}>Add To List</button>
+
+//       <ul>
+//         {
+//           list.map((val)=>{
+//             return <li key={val}>{val}</li>
+//           })
+//         }
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default UseState
+
 
 // 6. Character Counter
 // Create a textarea and show the number of characters typed in real time.
 
+// import { useState } from 'react'
+
+// const UseState = () => {
+//   const [text,setText] = useState('')
+
+//   let handler = (e) => {
+//     setText(e.target.value)
+//   }
+
+//   return (
+//     <div>
+//       <h1>{text.length}</h1>
+//       <textarea value={text} onChange={handler}></textarea>
+//     </div>
+//   )
+// }
+
+// export default UseState
+
+
 // 7. Multiple States
 // Create a form with name, email, and password fields. Use individual useState hooks for each. On submit, show the data below the form.
 
+// import React, { useState } from 'react'
+
+// const UseState = () => {
+//   const [name,setName] = useState('')
+//   const [email,setEmail] = useState('')
+//   const [password,setPassword] = useState('')
+//   const [show,setShow] = useState(false)
+
+//   const changeToggle = () => {
+//     setShow((show)=>!show)
+//   }
+
+//   return (
+//     <div>
+//       <label>Enter your name</label>
+//       <input type="text" value={name} onChange={(e)=>setName(e.target.value)} />
+//       <label >Enter your email</label>
+//       <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+//       <label>Enter your password</label>
+//       <input type="text" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+//       <button onClick={changeToggle}>Submit</button>
+
+//       {
+//         show && 
+//         <div>
+//           <p>{name}</p>
+//           <p>{email}</p>
+//           <p>{password}</p>
+//         </div>
+//       }
+//     </div>
+//   )
+// }
+
+// export default UseState
+
 // 8. Theme Toggle (Light/Dark Mode)
 // Create a button that toggles the page theme between light and dark using a boolean state.
+
+// import React, { useEffect, useState } from 'react'
+
+// const UseState = () => {
+//   const [toggle,setToggle] = useState(false)
+
+//   const changeToggle = () => {
+//     setToggle((toggle)=>!toggle)
+//   }
+
+//   useEffect(()=>{
+//     document.body.style.backgroundColor = toggle ? 'black' : 'white'
+
+//     return ()=> {
+//       document.body.backgroundColor = ''
+//     }
+//   },[toggle])
+
+//   return (
+//     <div>
+//       <button onClick={changeToggle}>Toggle</button>    
+//     </div>
+//   )
+// }
+
+// export default UseState
 
 // 🔴 Advanced-Level Questions
 // 9. Quiz App (Single Question)
@@ -189,36 +301,79 @@
 // 12. Timer App
 // Implement a start/pause/reset timer using useState and useEffect.
 
-import React, { useRef, useState } from 'react'
+// import { useRef, useState } from 'react'
 
-const UseState = () => {
-    const [time,setTime] = useState(0)
-    const takeRef = useRef()
-    const start = ()=>{
-        if(!takeRef.current){
-            takeRef.current = setInterval(()=>{
-                setTime((time)=>time+1)
-            },1000)
-        }
-    }
+// const UseState = () => {
+//   const [timer,setTimer] = useState(0)
+//   const timerRef = useRef()
 
-    const stop = ()=>{
-        clearInterval(takeRef.current)
-        takeRef.current = null
-    }
+//   const start = () => {
+//     if(!timerRef.current){
+//       timerRef.current = setInterval(() => {
+//         setTimer((timer)=>timer+1)
+//       }, 1000);
+//     }
+//   }
 
-    const reset = () => {
-        stop()
-        setTime(0)
-    }
-  return (
-    <div>
-        <h1>{time}</h1>
-      <button onClick={start}>Start</button>
-      <button onClick={stop}>Pause</button>
-      <button onClick={reset}>Reset</button>
-    </div>
-  )
-}
+//   const stop = () => {
+//     clearInterval(timerRef.current)
+//     timerRef.current = null
+//   }
 
-export default UseState
+//   const reset = () => {
+//     stop()
+//     setTimer(0)
+//   }
+
+//   return (
+//     <div>
+//       <h1>{timer}</h1>
+//       <button onClick={start}>Start</button>
+//       <button onClick={stop}>Stop</button>
+//       <button onClick={reset}>Reset</button>    
+//     </div>
+//   )
+// }
+
+// export default UseState
+
+// import React, { useEffect, useState } from 'react'
+
+// const UseState = () => {
+//   const [timer,setTimer] = useState(0)
+//   const [running,setRunning] = useState(false)
+
+//   useEffect(()=>{
+//     let interval
+//     if(running){
+//       interval = setInterval(()=>{
+//         setTimer((timer)=>timer+1)
+//       },1000)
+//     }
+
+//     return ()=>clearInterval(interval)
+//   },[running])
+
+//   let start = ()=>{
+//     setRunning(true)
+//   }
+
+//   let stop = () => {
+//     setRunning(false)
+//   }
+  
+//   let reset = () => {
+//     setRunning(false)
+//     setTimer(0)
+//   }
+//   return (
+//     <div>
+//       <h1>{timer}</h1>
+//       <button onClick={start}>Start</button>
+//       <button onClick={stop}>Stop</button>
+//       <button onClick={reset}>Reset</button>
+//     </div>
+//   )
+// }
+
+// export default UseState
