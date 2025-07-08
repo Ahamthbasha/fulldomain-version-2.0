@@ -292,11 +292,160 @@
 // 9. Quiz App (Single Question)
 // Display a question with multiple choices (e.g., radio buttons). Let the user select one and submit the answer. Use state to track selected choice and whether it’s correct.
 
+// import React, { useState } from 'react'
+
+// const UseState = () => {
+//     const question =  {
+//         text:"Batman city was",
+//         options: ["Gotham","Metropolis"],
+//         correctAnswer : "Gotham"
+//     }
+
+//     const [selectedOption,setSelectedOption] = useState('')
+//     const [check,setCheck] = useState(false)
+//     const [toggle,setToggle] = useState(false)
+//     const handleSelectedOption = (e) => {
+//         setSelectedOption(e.target.value)
+//     }
+
+//     const changeToggle = () => {
+//         setToggle((toggle)=>!toggle)
+//         checkAnswer()
+//     }
+
+//     const checkAnswer = () => {
+//         setCheck(()=>selectedOption === question.correctAnswer)
+//     }
+
+//   return (
+//     <div>
+//     <h1>{question.text}</h1>
+//     {
+//         question.options.map((val)=>
+//         <div key={val}>
+//             <input type="radio" value={val} onChange={handleSelectedOption} checked={selectedOption == val}/>
+//             {val}
+//         </div>
+//         )
+//     }
+
+//     <button onClick={changeToggle}>submit</button>
+
+//     {
+//         toggle && 
+        
+//         <div>{check ? "correctAnswer" : "wrongAnswer"}</div>
+//     }
+//     </div>
+//   )
+// }
+
+// export default UseState
+
+
+
 // 10. Undo/Redo Counter
 // Build a counter with Undo and Redo buttons using useState and arrays to store history.
 
+// import React, { useState } from 'react'
+
+// const UseState = () => {
+//     const [history,setHistory] = useState([0])
+//     const [pointer,setPointer] = useState(0)
+
+//     const currentPointer = history[pointer]
+
+//     const updateCount = (newCount) => {
+//         const updateHistory = history.slice(0,pointer+1)
+//         updateHistory.push(newCount)
+//         setHistory(updateHistory)
+//         setPointer(updateHistory.length-1)
+//     }
+
+//     const increment = () => {
+//         updateCount(currentPointer+1)
+//     }
+
+//     const decrement = () => {
+//         updateCount(currentPointer - 1)
+//     }
+
+//     const undo = () => {
+//         if(pointer > 0){
+//             setPointer(pointer-1)
+//         }
+//     }
+
+//     const redo = () => {
+//         if(pointer < history.length-1){
+//             setPointer(pointer+1)
+//         }
+//     }
+//   return (
+//     <div>
+//     <h1>{currentPointer}</h1>  
+//     <button onClick={increment}>Increment</button>
+//     <button onClick={decrement}>Decrement</button>
+//     <button onClick={undo} disabled={pointer == 0}>undo</button>
+//     <button onClick={redo} disabled={pointer == history.length-1}>Redo</button>
+//     </div>
+//   )
+// }
+
+// export default UseState
+
+
+
 // 11. Dependent State
 // Create a dropdown to select a country, and based on that selection, populate a second dropdown with cities using two states.
+
+// import React, { useState } from 'react'
+
+// const UseState = () => {
+//     const countryCity = {
+//         USA : ['new york','los angeles'],
+//         INDIA : ['TamilNadu','Mumbai']
+//     }
+
+//     const [country,setCountry] = useState(['USA'])
+//     const [city,setCity] = useState(['USA'][0])
+
+//     const handlechangeCountry = (e) => {
+//         const selectedCountry = e.target.value
+//         setCountry([selectedCountry])
+//         setCity([selectedCountry][0])
+//     }
+
+//     const handleChangeCity = (e) => {
+//         setCity(e.target.value)
+//     }
+//   return (
+//     <div>
+//     <select onChange={handlechangeCountry}>
+//         {Object.keys(countryCity).map((countryName)=>(
+//         <option value={countryName}>
+//         {countryName}    
+//         </option>    
+//         ))}
+//     </select>  
+
+//     <select onChange={handleChangeCity}>
+//         {
+//             countryCity[country].map((city)=>(
+//                 <option value={city}>
+//                     {city}
+//                 </option>
+//             ))
+//         }
+//     </select>
+
+//     <p>selected country : {country} and selected city is : {city}</p>
+//     </div>
+//   )
+// }
+
+// export default UseState
+
 
 // 12. Timer App
 // Implement a start/pause/reset timer using useState and useEffect.
@@ -377,3 +526,77 @@
 // }
 
 // export default UseState
+
+
+// import React, { useEffect, useState} from 'react'
+
+// const UseState = () => {
+
+//     const [count,setCount] = useState(0)
+//     const [running,setRunning] = useState(false)
+
+//     useEffect(()=>{
+//         let ref
+
+//         if(running){
+//             ref = setInterval(()=>{
+//                 setCount((count)=>count+1)
+//             },1000)
+//         }
+
+//         return ()=>{
+//             clearInterval(ref)
+//         }
+//     },[running])
+
+//     const start = () => {
+//         setRunning(true)
+//     }
+
+//     const stop = () => {
+//         setRunning(false)
+//     }
+
+//     const reset = () => {
+//         setRunning(false)
+//         setCount(0)
+//     }
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+//       <button onClick={start}>Start</button>
+//       <button onClick={stop}>Stop</button>
+//       <button onClick={reset}>Reset</button>
+//     </div>
+//   )
+// }
+
+// export default UseState
+
+
+import React, { useEffect, useState } from 'react'
+
+const UseState = () => {
+    const [width,setWidth] = useState(window.innerWidth)
+
+    useEffect(()=>{
+
+        const resize =() => {
+        setWidth(window.innerWidth)
+        }    
+
+        window.addEventListener('resize',resize)
+
+        return ()=>{
+            window.removeEventListener('resize',resize)
+        }
+    },[])
+  return (
+    <div>
+      <h1>{width}</h1>
+    </div>
+  )
+}
+
+export default UseState
