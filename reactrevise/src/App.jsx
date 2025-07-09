@@ -1,10 +1,12 @@
 import React from 'react'
-import UseState from './hooks/UseState'
+import UseEffect from './hooks/UseEffect'
+// import UseState from './hooks/UseState'
 
 const App = () => {
   return (
     <div>
-      <UseState/>
+      {/* <UseState/> */}
+      <UseEffect />
     </div>
   )
 }

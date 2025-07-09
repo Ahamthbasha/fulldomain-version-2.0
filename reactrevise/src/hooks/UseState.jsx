@@ -575,28 +575,28 @@
 // export default UseState
 
 
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 
-const UseState = () => {
-    const [width,setWidth] = useState(window.innerWidth)
+// const UseState = () => {
+//     const [width,setWidth] = useState(window.innerWidth)
 
-    useEffect(()=>{
+//     useEffect(()=>{
 
-        const resize =() => {
-        setWidth(window.innerWidth)
-        }    
+//         const resize =() => {
+//         setWidth(window.innerWidth)
+//         }    
 
-        window.addEventListener('resize',resize)
+//         window.addEventListener('resize',resize)
 
-        return ()=>{
-            window.removeEventListener('resize',resize)
-        }
-    },[])
-  return (
-    <div>
-      <h1>{width}</h1>
-    </div>
-  )
-}
+//         return ()=>{
+//             window.removeEventListener('resize',resize)
+//         }
+//     },[])
+//   return (
+//     <div>
+//       <h1>{width}</h1>
+//     </div>
+//   )
+// }
 
-export default UseState
+// export default UseState
