@@ -125,3 +125,53 @@
 
 
 //  Make a component that fetches weather data based on a city input field. Fetch only when the input stops changing for 500ms (debouncing with useEffect and setTimeout)
+
+import React, { useEffect, useState } from 'react'
+
+const UseEffect = () => {
+    const [city,setCity] = useState('')
+    const [info,setInfo] = useState(null)
+    const handleCity = (e) => {
+        setCity(e.target.value)
+    }
+
+    useEffect(()=>{
+       const timeId = setTimeout(()=>{
+        const fetchData = async()=>{
+            try {
+                const response = await fetch( `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`)
+                
+                const result = await response.json()
+
+                if(result.results){
+                    setInfo(result.results[0])
+                }else{
+                    setInfo(null)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+       },500)
+
+    return ()=>{
+        clearTimeout(timeId)
+    }    
+    },[city])
+  return (
+    <div>
+      <input type="text" placeholder='enter city' value={city} onChange={handleCity} />
+
+      {
+        info ? 
+        <div>
+            <p>name:{info.name}</p>
+              <p>Country: {info.country}</p>
+        </div> : <p>search for city</p>
+      }
+    </div>
+  )
+}
+
+export default UseEffect
