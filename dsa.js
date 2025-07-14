@@ -4530,3 +4530,6 @@
 // console.log(topKFrequentElements([], 1));                   // 'invalid k'
 
 // topKFrequentElements([1,1,1,2,2,3], 2) // Expected: [1, 2]
+
+
+// Practical :  Longest repeating character. Input:   “etrrrtutraaaaa”, Output : "aaaaa"
