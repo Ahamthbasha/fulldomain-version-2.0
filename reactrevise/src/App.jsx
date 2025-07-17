@@ -1,5 +1,6 @@
 import React from 'react'
 import Basics from './Practice/basics'
+import UseMemo from './hooks/UseMemo'
 // import UseEffect from './hooks/UseEffect'
 // import UseStateAndUseEffectRecheck from './hooks/UseStateAndUseEffectRecheck'
 // import UseState from './hooks/UseState'
@@ -14,7 +15,9 @@ const App = () => {
       {/* <UseStateAndUseEffectRecheck /> */}
       {/* <UseRef/> */}
       {/* <Basics /> */}
-      <Basics/>
+      {/* <Basics/> */}
+
+      <UseMemo />
     </div>
   )
 }
