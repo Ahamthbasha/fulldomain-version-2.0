@@ -1,8 +1,9 @@
 import React from 'react'
-import Basics from './Practice/basics'
-import UseMemo from './hooks/UseMemo'
-import UseCallback from './hooks/UseCallback'
-import Practice from './hooks/practice/Practice'
+// import Basics from './Practice/basics'
+// import UseMemo from './hooks/UseMemo'
+// import UseCallback from './hooks/UseCallback'
+// import Practice from './hooks/practice/Practice'
+import UseReducer from './hooks/UseReducer'
 // import UseEffect from './hooks/UseEffect'
 // import UseStateAndUseEffectRecheck from './hooks/UseStateAndUseEffectRecheck'
 // import UseState from './hooks/UseState'
@@ -22,7 +23,9 @@ const App = () => {
       {/* <UseMemo /> */}
       {/* <UseCallback /> */}
 
-      <Practice />
+      {/* <Practice /> */}
+
+      <UseReducer />
     </div>
   )
 }
