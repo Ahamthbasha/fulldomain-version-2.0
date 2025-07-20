@@ -64,27 +64,57 @@
 // Actions: increment, decrement, setStep
 
 
+// import React, { useReducer } from 'react'
+
+// const UseReducer = () => {
+//     const reducerFn =(state,action)=>{
+//         switch(action.type){
+//             case "increment":
+//                 return {...state,count:state.count + state.step}
+//             case "decrement":
+//                 return {count:state.count - 1}
+//             case "setStep":
+//                 return {...state,step:action.payload}
+//         }
+//     }
+//     const [state,dispatch] = useReducer(reducerFn,{count:0,step:5})
+//   return (
+//     <div>
+//       <input type="text" value={state.step} onChange={(e)=>dispatch({type:"setStep",payload:Number(e.target.value)})} />
+
+//       <h1>{state.count}</h1>
+//       <button onClick={()=>dispatch({type:"increment"})}>Increment</button>
+//       <button onClick={()=>dispatch({type:"decrement"})}>Decrement</button>
+//     </div>
+//   )
+// }
+
+// export default UseReducer
+
+
 import React, { useReducer } from 'react'
 
 const UseReducer = () => {
-    const reducerFn =(state,action)=>{
-        switch(action.type){
-            case "increment":
-                return {...state,count:state.count + state.step}
-            case "decrement":
-                return {count:state.count - 1}
-            case "setStep":
-                return {...state,step:action.payload}
-        }
+
+  const reducerFn =(state,action)=>{
+    switch(action.type){
+      case "increment":
+        return {count:state.count+1}
+      case "decrement":
+        return {count:state.count-1}
+      case "reset":
+        return {count:0}
+      default:
+        return state
     }
-    const [state,dispatch] = useReducer(reducerFn,{count:0,step:5})
+  }
+  const [state,dispatch] = useReducer(reducerFn,{count:0})
   return (
     <div>
-      <input type="text" value={state.step} onChange={(e)=>dispatch({type:"setStep",payload:Number(e.target.value)})} />
-
       <h1>{state.count}</h1>
       <button onClick={()=>dispatch({type:"increment"})}>Increment</button>
       <button onClick={()=>dispatch({type:"decrement"})}>Decrement</button>
+      <button onClick={()=>dispatch({type:"reset"})}>Reset</button>
     </div>
   )
 }
