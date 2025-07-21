@@ -91,30 +91,51 @@
 
 // export default UseReducer
 
+//3.todo list using useReducer
 
-import React, { useReducer } from 'react'
+import React, { useReducer, useState } from 'react'
 
 const UseReducer = () => {
-
-  const reducerFn =(state,action)=>{
+  const reducerFn=(state,action)=>{
     switch(action.type){
-      case "increment":
-        return {count:state.count+1}
-      case "decrement":
-        return {count:state.count-1}
-      case "reset":
-        return {count:0}
-      default:
+      case "add":
+        return {...state,list:[...state.list,{id:Date.now(),text:action.payload,completed:false}]}
+      case "remove":
+        return {...state,list:state.list.filter((item)=>item.id != action.payload)}
+      case "toggle":
+        return {...state,list:state.list.map((item)=>item.id == action.payload ? {...item,completed:!item.completed} : item)}
+      default :
         return state
     }
   }
-  const [state,dispatch] = useReducer(reducerFn,{count:0})
+
+  const [state,dispatch] = useReducer(reducerFn,{list:[]})
+  const [input,setInput] = useState('')
+
+  const addToList = () => {
+    if(input.trim() === ''){
+      return
+    }
+    dispatch({type:'add',payload:input})
+    setInput('')
+  }
+
   return (
     <div>
-      <h1>{state.count}</h1>
-      <button onClick={()=>dispatch({type:"increment"})}>Increment</button>
-      <button onClick={()=>dispatch({type:"decrement"})}>Decrement</button>
-      <button onClick={()=>dispatch({type:"reset"})}>Reset</button>
+      <input type="text" value={input} onChange={(e)=>setInput(e.target.value)} />
+      <button onClick={addToList}>Add</button>
+      <ul>
+      {
+        state.list.map((val)=>{
+         return <li key={val.id}>
+            <span onClick={()=>dispatch({type:"toggle",payload:val.id})} 
+            style={{textDecoration:val.completed ? 'line-through':'none'}}
+              >{val.text}</span>
+            <button onClick={()=>dispatch({type:'remove',payload:val.id})}>Remove</button>
+          </li>
+        })
+      }    
+      </ul>
     </div>
   )
 }
