@@ -213,6 +213,7 @@
 // export default UseReducer
 
 
+
 import React, { useReducer } from 'react'
 
 const UseReducer = () => {
@@ -223,22 +224,22 @@ const UseReducer = () => {
       name:'',
       email:''
     },
-    submitted:false
+    submitted : false
   }
 
   const reducerFn = (state,action) => {
     switch(action.type){
-      case "setField":
+      case 'setField':
         return {
           ...state,
           [action.field] : action.value,
           setError:{
-            ...state.setError,
-            [action.field]:'',
+            name:'',
+            email:''
           },
-          submitted:false
+          submitted : false
         }
-      case "setError":
+      case 'setError':
         return {
           ...state,
           setError:{
@@ -246,54 +247,52 @@ const UseReducer = () => {
             ...action.payload
           }
         }
-      case "submit":
-        return {
+      case 'submit':
+        return{
           ...state,
           submitted:true
         }
-      default :
-      return state
+      case 'reset':
+        return initialState
+      default:
+        return state
     }
   }
   const [state,dispatch] = useReducer(reducerFn,initialState)
-
   const handleChange = (e) => {
     const {name,value} = e.target
-    dispatch({type:"setField" ,field:name,value})
+    dispatch({type:'setField', field:name,value})
   }
 
-  const validate = ()=>{
-    const errors = {
-      name:'',
-      email:''
+  const validate = () => {
+    const error ={
+      name:"",
+      email:""
     }
-
     if(!state.name.trim()){
-      errors.name = "name is required"
+      error.name = 'name is required'
     }
 
     if(!state.email.trim()){
-      errors.email = "email is required"
+      error.email = 'email is required'
     }
 
-    if(errors.name || errors.email){
-      dispatch({type:"setError" , payload:errors})
-    }
-    else{
-      dispatch({type:"submitted"})
-      alert("form submitted")
+    if(error.name || error.email){
+      dispatch({type:'setError' , payload:error})
+    }else{
+      dispatch({type:'submit'})
+      alert("form submitted successfully")
+      dispatch({type:"reset"})
     }
   }
-
   return (
     <div>
-      <input type="text" name='name' value = {state.name} onChange={handleChange}/>
-      {state.setError.name && <p>name is required</p>}
-      <input type="text" name='email' value={state.email} onChange={handleChange} />
-      {state.setError.email && <p>email is required</p>}
-
-      <button onClick={validate}>Submit</button>
-      {state.submitted && <p>form submitted</p>}
+      <input type="text" name='name' value={state.name} onChange={handleChange} placeholder='enter your name' />
+      {state.setError.name && <p>{state.setError.name}</p>}
+      <input type='text' name='email' value={state.email} onChange={handleChange} placeholder='enter your email'/>
+      {state.setError.email && <p>{state.setError.email}</p>}
+      <button onClick={validate}>submit</button>
+      {state.submitted && <p>form submitted successfully</p>}     
     </div>
   )
 }
