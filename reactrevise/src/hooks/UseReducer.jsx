@@ -219,92 +219,81 @@ const UseReducer = () => {
   const initialState = {
     name:'',
     email:'',
-    setErrors:{
+    setError:{
       name:'',
       email:''
     },
     submitted:false
   }
 
-  const reducerFn = (state,action)=>{
+  const reducerFn = (state,action) => {
     switch(action.type){
       case "setField":
         return {
           ...state,
-          [action.field] : action.payload,
-          setErrors:{
-            ...state.setErrors,
-            [action.field]:""
+          [action.field] : action.value,
+          setError:{
+            ...state.setError,
+            [action.field]:'',
+          },
+          submitted:false
+        }
+      case "setError":
+        return {
+          ...state,
+          setError:{
+            ...state.setError,
+            ...action.payload
           }
         }
-        case 'setError':
-          return {
-            ...state,
-            setErrors:action.payload
-          }
-        case 'submit':
-          return {
-            ...state,
-            submitted:true
-          }
-        default:
-          return state
-
+      case "submit":
+        return {
+          ...state,
+          submitted:true
+        }
+      default :
+      return state
     }
   }
+  const [state,dispatch] = useReducer(reducerFn,initialState)
 
-  const validate = () => {
-    const errors = {}
+  const handleChange = (e) => {
+    const {name,value} = e.target
+    dispatch({type:"setField" ,field:name,value})
+  }
 
-    if(state.name.trim() == ''){
+  const validate = ()=>{
+    const errors = {
+      name:'',
+      email:''
+    }
+
+    if(!state.name.trim()){
       errors.name = "name is required"
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if(!emailRegex.test(state.email)){
-      errors.email = "email is invalid"
+
+    if(!state.email.trim()){
+      errors.email = "email is required"
     }
 
-    return errors
-  }
-
-  const handleSubmit = (e)=>{
-    e.preventDefault()
-    const error = validate()
-    if(Object.values(error).length > 0){
-      dispatch({type:'setError',payload:error})
-    }else{
-      dispatch({type:'submit'})
-      alert('submitted successfully')
+    if(errors.name || errors.email){
+      dispatch({type:"setError" , payload:errors})
+    }
+    else{
+      dispatch({type:"submitted"})
+      alert("form submitted")
     }
   }
 
-  const [state,dispatch] = useReducer(reducerFn,initialState)
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <input type="text" name='name' value = {state.name} onChange={handleChange}/>
+      {state.setError.name && <p>name is required</p>}
+      <input type="text" name='email' value={state.email} onChange={handleChange} />
+      {state.setError.email && <p>email is required</p>}
 
-      <div>
-        <label>Enter name</label>
-        <input type="text" value={state.name} onChange={(e)=>dispatch({type:'setField',field:'name',value:e.target.value})} />
-
-        {state.setErrors.name && <p>{state.setErrors.name}</p>}
-      </div>
-
-      <div>
-        <label>Enter email</label>
-        <input type="text" value={state.email} onChange={(e)=>dispatch({type:'setField',field:'email',value:e.target.value})} />
-        {state.setErrors.email && <p>{state.setErrors.email}</p>}
-      </div>
-
-      <button type='submit'>submit</button>
-
-      {state.submitted && (
-        <div>
-          <p>{state.name}</p>
-          <p>{state.email}</p>
-        </div>
-      )}
-      </form>
+      <button onClick={validate}>Submit</button>
+      {state.submitted && <p>form submitted</p>}
     </div>
   )
 }
