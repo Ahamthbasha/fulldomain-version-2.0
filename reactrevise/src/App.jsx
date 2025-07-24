@@ -1,9 +1,15 @@
 import React from 'react'
+import ContextCreation from './hooks/useContextPractice/ContextCreation'
+import ThemedBox from './hooks/useContextPractice/ThemedBox'
+import ThemeToggleButton from './hooks/useContextPractice/ThemeToggleButton'
+// import ContextCreation from './hooks/useContext/ContextCreation'
+// import Input from './hooks/useContext/Input'
+// import Button from './hooks/useContext/Button'
 // import Basics from './Practice/basics'
 // import UseMemo from './hooks/UseMemo'
 // import UseCallback from './hooks/UseCallback'
 // import Practice from './hooks/practice/Practice'
-import UseReducer from './hooks/UseReducer'
+// import UseReducer from './hooks/UseReducer'
 // import UseEffect from './hooks/UseEffect'
 // import UseStateAndUseEffectRecheck from './hooks/UseStateAndUseEffectRecheck'
 // import UseState from './hooks/UseState'
@@ -25,7 +31,18 @@ const App = () => {
 
       {/* <Practice /> */}
 
-      <UseReducer />
+      {/* <UseReducer /> */}
+
+
+      {/* <ContextCreation>
+      <Input/>
+      <Button/>
+      </ContextCreation> */}
+
+      <ContextCreation>
+        <ThemedBox/>
+        <ThemeToggleButton/>
+      </ContextCreation>
     </div>
   )
 }
