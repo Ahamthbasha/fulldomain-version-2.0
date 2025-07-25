@@ -1,7 +1,7 @@
-import React from 'react'
-import ContextCreation from './hooks/useContextPractice/ContextCreation'
-import ThemedBox from './hooks/useContextPractice/ThemedBox'
-import ThemeToggleButton from './hooks/useContextPractice/ThemeToggleButton'
+// import React from 'react'
+// import ContextCreation from './hooks/useContextPractice/ContextCreation'
+// import ThemedBox from './hooks/useContextPractice/ThemedBox'
+// import ThemeToggleButton from './hooks/useContextPractice/ThemeToggleButton'
 // import ContextCreation from './hooks/useContext/ContextCreation'
 // import Input from './hooks/useContext/Input'
 // import Button from './hooks/useContext/Button'
@@ -16,38 +16,38 @@ import ThemeToggleButton from './hooks/useContextPractice/ThemeToggleButton'
 // import UseRef from './hooks/UseRef'
 // import Basics from './hooks/Basics'
 
-const App = () => {
-  return (
-    <div>
-      {/* <UseState/> */}
-      {/* <UseEffect /> */}
-      {/* <UseStateAndUseEffectRecheck /> */}
-      {/* <UseRef/> */}
-      {/* <Basics /> */}
-      {/* <Basics/> */}
+// const App = () => {
+//   return (
+//     <div>
+//       {/* <UseState/> */}
+//       {/* <UseEffect /> */}
+//       {/* <UseStateAndUseEffectRecheck /> */}
+//       {/* <UseRef/> */}
+//       {/* <Basics /> */}
+//       {/* <Basics/> */}
 
-      {/* <UseMemo /> */}
-      {/* <UseCallback /> */}
+//       {/* <UseMemo /> */}
+//       {/* <UseCallback /> */}
 
-      {/* <Practice /> */}
+//       {/* <Practice /> */}
 
-      {/* <UseReducer /> */}
+//       {/* <UseReducer /> */}
 
 
-      {/* <ContextCreation>
-      <Input/>
-      <Button/>
-      </ContextCreation> */}
+//       {/* <ContextCreation>
+//       <Input/>
+//       <Button/>
+//       </ContextCreation> */}
 
-      <ContextCreation>
-        <ThemedBox/>
-        <ThemeToggleButton/>
-      </ContextCreation>
-    </div>
-  )
-}
+//       <ContextCreation>
+//         <ThemedBox/>
+//         <ThemeToggleButton/>
+//       </ContextCreation>
+//     </div>
+//   )
+// }
 
-export default App
+// export default App
 
 // Router related App.jsx
 
@@ -92,3 +92,17 @@ export default App
 // };
 
 // export default App;
+
+
+import React from 'react'
+import Practice from './practice/Practice'
+
+const App = () => {
+  return (
+    <div>
+      <Practice/>
+    </div>
+  )
+}
+
+export default App
