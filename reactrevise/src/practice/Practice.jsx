@@ -180,83 +180,211 @@
 // export default Practice
 
 
-import React, { useReducer } from 'react'
+// import React, { useReducer } from 'react'
+
+// const Practice = () => {
+//     const reducerFn = (state,action) => {
+//         switch(action.type){
+//             case "setField":
+//                 return {
+//                     ...state,
+//                     [action.field]:action.value,
+//                     setError:{
+//                         [action.field] :''
+//                     },
+//                     submit : false
+//                 }
+//             case "setError":
+//                 return {
+//                     ...state,
+//                     setError:{
+//                         ...state.setError,
+//                         ...action.payload
+//                     }
+//                 }
+//             case "submit":
+//                 return {
+//                     ...state,
+//                     submit:true
+//                 }
+//             default :
+//             return state
+//         }
+//     }
+
+//     const initialState = {
+//         name:'',
+//         email:'',
+//         setError:{
+//             name:'',
+//             email:''
+//         },
+//         submit:false
+//     }
+
+//     const handleChange = (e) => {
+//         const {name,value} = e.target
+//         dispatch({type:"setField",field:name,value})
+//     }
+
+//     const validate =()=>{
+//         const error = {
+//             name:'',
+//             email:''
+//         }
+
+//         if(!state.name){
+//             error.name = "name is required"
+//         }
+
+//         if(!state.email){
+//             error.email = "email is required"
+//         }
+
+//         if(error.name || error.email){
+//             dispatch({type:"setError",payload:error})
+//         }else{
+//             dispatch({type:"submit"})
+//             alert("form submitted successfully")
+//         }
+//     }
+//     const [state,dispatch] = useReducer(reducerFn,initialState)
+//   return (
+//     <div>
+//       <input type="text" placeholder='enter name' name='name' value={state.name} onChange={handleChange} />
+//       {state.setError.name && <p>{state.setError.name}</p>}
+//       <input type="text" placeholder='enter email' name='email' value={state.email} onChange={handleChange} />
+//       {state.setError.email && <p>{state.setError.email}</p>}
+//       <button onClick={validate}>Submit</button>
+
+//     </div>
+//   )
+// }
+
+// export default Practice
+
+//todo
+
+// import React, { useReducer, useState } from 'react'
+
+// const Practice = () => {
+//     const reducerFn = (state,action)=>{
+//         switch(action.type){
+//             case "add":
+//                 return {
+//                     ...state,
+//                     list:[
+//                         ...state.list,
+//                         {id:Date.now(),text:action.payload,completed:false}
+//                     ]
+//                 }
+//             case "remove":
+//                 return {
+//                     ...state,
+//                     list:state.list.filter((val)=>val.id != action.payload)
+//                 }
+//             case "completed":{
+//                 return {
+//                     ...state,
+//                     list:state.list.map((val)=>val.id == action.payload ? {...val,completed:true}: val)
+//                 }
+//             }
+//             default:
+//                 return state
+//         }
+//     }
+
+//     const initialState = {
+//         list:[]
+//     }
+
+//     const addToDo = () => {
+//         if(input.trim() == ''){
+//             return
+//         }
+//         dispatch({type:"add",payload:input})
+//         setInput('')
+//     }
+
+    
+//     const [state,dispatch] = useReducer(reducerFn,initialState)
+//     const [input,setInput] = useState('')
+//   return (
+//     <div>
+//       <input type="text" value={input} onChange={(e)=>setInput(e.target.value)}/>
+//       <button onClick={addToDo}>Add</button>
+
+//       <ul>
+//         {
+//             state.list.map((val)=>{
+//                 return <li key={val.id}>
+//                     <span onClick={()=>dispatch({type:"completed",payload:val.id})} style={{backgroundColor:val.completed ? 'red' :'blue'}}>{val.text}</span>
+//                 <button onClick={()=>dispatch({type:"remove",payload:val.id})}>Remove</button>
+//                 </li>
+//             })
+//         }
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default Practice
+
+
+// import React, { useState } from 'react'
+
+// const ChildComponent = ({giveFn}) => {
+
+//     const sendMessage =()=>{
+//         giveFn("hello parent")
+//     }
+//     return(
+//         <div>
+//             <button onClick={sendMessage}>Click Send Message to parent</button>
+//         </div>
+//     )
+// }
+
+// const Practice = () => {
+//     const [message,setMessage] = useState('')
+
+//     const receivedMessage = (msg) => {
+//         setMessage(msg)
+//     }
+//   return (
+//     <div>
+//         <h1>parent component:{message}</h1>
+//       <ChildComponent giveFn = {receivedMessage}/>
+//     </div>
+//   )
+// }
+
+// export default Practice
+
+
+//forward ref
+
+import React, { forwardRef, useRef } from 'react'
+
+
+const ChildComponent = forwardRef((props,ref)=>{
+    return(
+        <div>
+            <input type="text" ref={ref}/>
+        </div>
+    )
+})
 
 const Practice = () => {
-    const reducerFn = (state,action) => {
-        switch(action.type){
-            case "setField":
-                return {
-                    ...state,
-                    [action.field]:action.value,
-                    setError:{
-                        [action.field] :''
-                    },
-                    submit : false
-                }
-            case "setError":
-                return {
-                    ...state,
-                    setError:{
-                        ...state.setError,
-                        ...action.payload
-                    }
-                }
-            case "submit":
-                return {
-                    ...state,
-                    submit:true
-                }
-            default :
-            return state
-        }
+    const inputRef = useRef()
+
+    const focus = () => {
+        inputRef.current.focus()
     }
-
-    const initialState = {
-        name:'',
-        email:'',
-        setError:{
-            name:'',
-            email:''
-        },
-        submit:false
-    }
-
-    const handleChange = (e) => {
-        const {name,value} = e.target
-        dispatch({type:"setField",field:name,value})
-    }
-
-    const validate =()=>{
-        const error = {
-            name:'',
-            email:''
-        }
-
-        if(!state.name){
-            error.name = "name is required"
-        }
-
-        if(!state.email){
-            error.email = "email is required"
-        }
-
-        if(error.name || error.email){
-            dispatch({type:"setError",payload:error})
-        }else{
-            dispatch({type:"submit"})
-            alert("form submitted successfully")
-        }
-    }
-    const [state,dispatch] = useReducer(reducerFn,initialState)
   return (
     <div>
-      <input type="text" placeholder='enter name' name='name' value={state.name} onChange={handleChange} />
-      {state.setError.name && <p>{state.setError.name}</p>}
-      <input type="text" placeholder='enter email' name='email' value={state.email} onChange={handleChange} />
-      {state.setError.email && <p>{state.setError.email}</p>}
-      <button onClick={validate}>Submit</button>
-
+        <ChildComponent ref={inputRef}/>
+      <button onClick={focus}>click To Focus</button>
     </div>
   )
 }
