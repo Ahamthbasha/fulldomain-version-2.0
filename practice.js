@@ -572,12 +572,144 @@ function binarySearchRecursion(arr,target,leftIndex,rightIndex){
 // }
 
 
+// function bubbleSort(arr){
+//     let swapped = true
+//     while(swapped){
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }
+// return arr
+// }
+
+
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let j = i-1
+//         let cur = arr[i]
+
+//         while(j>= 0 && arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+//         arr[j+1] = cur
+//     }
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+
+//         let temp = arr[i]
+//         arr[i] = arr[minElement]
+//         arr[minElement] = temp
+//     }
+
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// function testSorts(){
+//     const testArrays = [
+//         [],
+//         [1],
+//         [5, 3, 8, 4, 2],
+//         [10, 9, 8, 7, 6],
+//         [1, 2, 3, 4, 5],
+//         [3, 3, 3],
+//         [7, -1, 4, 0, 99, 3]
+//     ];
+
+//     const sortingAlgos = [
+//         bubbleSort,
+//         selectionSort,
+//         insertionSort,
+//         quickSort,
+//         mergeSort
+//     ];
+
+//     for(let sortFunc of sortingAlgos){
+//         console.log(`Testing: ${sortFunc.name}`);
+//         for(let arr of testArrays){
+//             const input = [...arr];
+//             const sorted = sortFunc([...arr]);
+//             const expected = [...arr].sort((a, b) => a - b);
+//             console.assert(
+//                 JSON.stringify(sorted) === JSON.stringify(expected),
+//                 `${sortFunc.name} failed for input: ${input}\nGot: ${sorted}\nExpected: ${expected}`
+//             );
+//         }
+//         console.log(`${sortFunc.name} passed all tests ✅\n`);
+//     }
+// }
+
+// testSorts();
+
 function bubbleSort(arr){
     let swapped = true
+
     while(swapped){
         swapped = false
         for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
+            if(arr[i] < arr[i+1]){
                 let temp = arr[i]
                 arr[i] = arr[i+1]
                 arr[i+1] = temp
@@ -585,23 +717,9 @@ function bubbleSort(arr){
             }
         }
     }
-return arr
-}
-
-
-function insertionSort(arr){
-    for(let i=1;i<arr.length;i++){
-        let j = i-1
-        let cur = arr[i]
-
-        while(j>= 0 && arr[j] > cur){
-            arr[j+1] = arr[j]
-            j--
-        }
-        arr[j+1] = cur
-    }
     return arr
 }
+
 
 function selectionSort(arr){
     for(let i=0;i<arr.length-1;i++){
@@ -617,6 +735,20 @@ function selectionSort(arr){
         arr[minElement] = temp
     }
 
+    return arr
+}
+
+function insertionSort(arr){
+    for(let i=1;i<arr.length;i++){
+        let j = i-1
+        let cur = arr[i]
+
+        while(j>= 0 && arr[j] > cur){
+            arr[j+1] = arr[j]
+            j--
+        }
+        arr[j+1] = cur
+    }
     return arr
 }
 
@@ -652,10 +784,8 @@ function mergeSort(arr){
     return merge(mergeSort(leftArr),mergeSort(rightArr))
 }
 
-
 function merge(leftArr,rightArr){
     let sortedArr = []
-
     while(leftArr.length && rightArr.length){
         if(leftArr[0] < rightArr[0]){
             sortedArr.push(leftArr.shift())
@@ -663,42 +793,40 @@ function merge(leftArr,rightArr){
             sortedArr.push(rightArr.shift())
         }
     }
-
     return sortedArr.concat(leftArr,rightArr)
 }
 
-function testSorts(){
-    const testArrays = [
-        [],
-        [1],
-        [5, 3, 8, 4, 2],
-        [10, 9, 8, 7, 6],
-        [1, 2, 3, 4, 5],
-        [3, 3, 3],
-        [7, -1, 4, 0, 99, 3]
-    ];
+const testArrays = [
+    [],
+    [1],
+    [2, 1],
+    [5, 3, 8, 4, 2],
+    [10, 9, 8, 7, 6],
+    [1, 2, 3, 4, 5],
+    [5, 5, 5, 5],
+    [9, -2, 0, 5, 3],
+];
 
-    const sortingAlgos = [
-        bubbleSort,
-        selectionSort,
-        insertionSort,
-        quickSort,
-        mergeSort
-    ];
+function testSort(sortFn, fnName, descending = false) {
+    console.log(`\nTesting ${fnName}`);
+    for (const arr of testArrays) {
+        const input = [...arr];
+        const output = sortFn([...arr]);
+        const expected = [...arr].sort((a, b) => descending ? b - a : a - b);
 
-    for(let sortFunc of sortingAlgos){
-        console.log(`Testing: ${sortFunc.name}`);
-        for(let arr of testArrays){
-            const input = [...arr];
-            const sorted = sortFunc([...arr]);
-            const expected = [...arr].sort((a, b) => a - b);
-            console.assert(
-                JSON.stringify(sorted) === JSON.stringify(expected),
-                `${sortFunc.name} failed for input: ${input}\nGot: ${sorted}\nExpected: ${expected}`
-            );
-        }
-        console.log(`${sortFunc.name} passed all tests ✅\n`);
+        const result = JSON.stringify(output) === JSON.stringify(expected)
+            ? '✅ PASS'
+            : `❌ FAIL (Expected: ${expected}, Got: ${output})`;
+
+        console.log(`Input: [${input}] => ${result}`);
     }
 }
 
-testSorts();
+// BubbleSort is descending (based on your version)
+testSort(bubbleSort, 'bubbleSort', true);
+
+// Others are ascending
+testSort(selectionSort, 'selectionSort');
+testSort(insertionSort, 'insertionSort');
+testSort(quickSort, 'quickSort');
+testSort(mergeSort, 'mergeSort');
