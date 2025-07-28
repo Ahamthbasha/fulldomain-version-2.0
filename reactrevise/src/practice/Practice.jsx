@@ -364,27 +364,90 @@
 
 //forward ref
 
-import React, { forwardRef, useRef } from 'react'
+// import React, { forwardRef, useRef } from 'react'
+
+// const ChildComponent = forwardRef((props,ref)=>{
+//     return(
+//         <div>
+//             <input type="text" ref={ref}/>
+//         </div>
+//     )
+// })
+
+// const Practice = () => {
+//     const inputRef = useRef()
+
+//     const focus = () => {
+//         inputRef.current.focus()
+//     }
+//   return (
+//     <div>
+//         <ChildComponent ref={inputRef}/>
+//       <button onClick={focus}>click To Focus</button>
+//     </div>
+//   )
+// }
+
+// export default Practice
 
 
-const ChildComponent = forwardRef((props,ref)=>{
-    return(
-        <div>
-            <input type="text" ref={ref}/>
-        </div>
-    )
-})
+import React, { useReducer, useState } from 'react'
 
 const Practice = () => {
-    const inputRef = useRef()
-
-    const focus = () => {
-        inputRef.current.focus()
+  const reducerFn = (state,action) => {
+    switch(action.type){
+      case "addToDo":
+        return {
+          ...state,
+          list:[
+            ...state.list,
+            {id:Date.now(),text:action.payload,completed:false}
+          ]
+        }
+      case "removeToDo":
+        return {
+          ...state,
+          list:state.list.filter((val)=>val.id != action.payload)
+        }
+      case "completed" :
+        return {
+          ...state,
+          list:state.list.map((val)=>val.id == action.payload ? {...val,completed:true} : val)
+        }
+      default :
+      return state
     }
+  }
+  const initialState = {list:[]}
+
+  const [state,dispatch] = useReducer(reducerFn,initialState)
+  const [input,setInput] = useState('')
+
+  const add = ()=>{
+    if(input.trim() == ""){
+      return
+    }
+
+    dispatch({type:"addToDo",payload:input})
+    setInput('')
+  }
   return (
     <div>
-        <ChildComponent ref={inputRef}/>
-      <button onClick={focus}>click To Focus</button>
+      <input type="text" placeholder='add your task' value={input} onChange={(e)=>setInput(e.target.value)} />
+      <button onClick={add}>Add</button>
+
+      <ul>
+        {
+          state.list.map((val)=>(
+            <li key={val.id} >
+
+              <span onClick={()=>dispatch({type:"completed",payload:val.id})}>{val.text}</span>
+              {val.completed ? <p>completed</p> : <p>Not completed</p>}
+              <button onClick={()=>dispatch({type:"removeToDo",payload:val.id})}>Remove</button>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   )
 }
