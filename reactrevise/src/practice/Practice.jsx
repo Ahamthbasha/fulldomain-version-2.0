@@ -391,63 +391,149 @@
 // export default Practice
 
 
-import React, { useReducer, useState } from 'react'
+// import React, { useReducer, useState } from 'react'
+
+// const Practice = () => {
+//   const reducerFn = (state,action) => {
+//     switch(action.type){
+//       case "addToDo":
+//         return {
+//           ...state,
+//           list:[
+//             ...state.list,
+//             {id:Date.now(),text:action.payload,completed:false}
+//           ]
+//         }
+//       case "removeToDo":
+//         return {
+//           ...state,
+//           list:state.list.filter((val)=>val.id != action.payload)
+//         }
+//       case "completed" :
+//         return {
+//           ...state,
+//           list:state.list.map((val)=>val.id == action.payload ? {...val,completed:true} : val)
+//         }
+//       default :
+//       return state
+//     }
+//   }
+//   const initialState = {list:[]}
+
+//   const [state,dispatch] = useReducer(reducerFn,initialState)
+//   const [input,setInput] = useState('')
+
+//   const add = ()=>{
+//     if(input.trim() == ""){
+//       return
+//     }
+
+//     dispatch({type:"addToDo",payload:input})
+//     setInput('')
+//   }
+//   return (
+//     <div>
+//       <input type="text" placeholder='add your task' value={input} onChange={(e)=>setInput(e.target.value)} />
+//       <button onClick={add}>Add</button>
+
+//       <ul>
+//         {
+//           state.list.map((val)=>(
+//             <li key={val.id} >
+
+//               <span onClick={()=>dispatch({type:"completed",payload:val.id})}>{val.text}</span>
+//               {val.completed ? <p>completed</p> : <p>Not completed</p>}
+//               <button onClick={()=>dispatch({type:"removeToDo",payload:val.id})}>Remove</button>
+//             </li>
+//           ))
+//         }
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default Practice
+
+
+import React, { useReducer } from 'react'
 
 const Practice = () => {
-  const reducerFn = (state,action) => {
+  const initialState = {
+    name:'',
+    email:'',
+    setErrors:{
+      name:'',
+      email:''
+    },
+    submit:false
+  }
+  const reducerFn = (state,action)=>{
     switch(action.type){
-      case "addToDo":
+      case "addToField":
         return {
           ...state,
-          list:[
-            ...state.list,
-            {id:Date.now(),text:action.payload,completed:false}
-          ]
+          [action.field] : action.value,
+          setErrors:{
+            [action.field] : ''
+          },
+          submit:false
         }
-      case "removeToDo":
+      case "setError":
         return {
           ...state,
-          list:state.list.filter((val)=>val.id != action.payload)
+          setErrors:{
+            ...state.setErrors,
+            ...action.payload
+          }
         }
-      case "completed" :
+      case "submit":
         return {
           ...state,
-          list:state.list.map((val)=>val.id == action.payload ? {...val,completed:true} : val)
+          submit:true
         }
       default :
       return state
     }
   }
-  const initialState = {list:[]}
-
   const [state,dispatch] = useReducer(reducerFn,initialState)
-  const [input,setInput] = useState('')
 
-  const add = ()=>{
-    if(input.trim() == ""){
-      return
+  const setForm = (e)=>{
+    const {name,value} = e.target
+    dispatch({type:'addToField',field:name,value})
+  }
+
+  const validate = () => {
+    const errors ={
+      name:'',
+      email:''
     }
 
-    dispatch({type:"addToDo",payload:input})
-    setInput('')
+    if(state.name.trim() == ''){
+      errors.name = 'name is required'
+    }
+
+    if(state.email.trim() == ''){
+      errors.email = 'email is required'
+    }
+
+    if(errors.name || errors.email){
+      dispatch({type:"setError",payload:errors})
+    }else{
+      dispatch({type:"submit"})
+      alert("form is successfully submitted")
+    }
   }
+
+
   return (
     <div>
-      <input type="text" placeholder='add your task' value={input} onChange={(e)=>setInput(e.target.value)} />
-      <button onClick={add}>Add</button>
+      <input type="text" name='name' value={state.name} onChange={setForm} />
+      {state.setErrors.name && <p>{state.setErrors.name}</p>}
+      <input type="text" name='email' value={state.email} onChange={setForm}/>
+      {state.setErrors.email && <p>{state.setErrors.email}</p>}
 
-      <ul>
-        {
-          state.list.map((val)=>(
-            <li key={val.id} >
-
-              <span onClick={()=>dispatch({type:"completed",payload:val.id})}>{val.text}</span>
-              {val.completed ? <p>completed</p> : <p>Not completed</p>}
-              <button onClick={()=>dispatch({type:"removeToDo",payload:val.id})}>Remove</button>
-            </li>
-          ))
-        }
-      </ul>
+      <button onClick={validate}>Validate</button>
+      
     </div>
   )
 }
