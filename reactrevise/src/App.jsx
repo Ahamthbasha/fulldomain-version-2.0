@@ -96,11 +96,13 @@
 
 import React from 'react'
 import Practice from './practice/Practice'
+import Counter from './customhook/Counter'
 
 const App = () => {
   return (
     <div>
-      <Practice/>
+      {/* <Practice/> */}
+      <Counter />
     </div>
   )
 }
