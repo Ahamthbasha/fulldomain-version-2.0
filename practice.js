@@ -832,8 +832,109 @@ function binarySearchRecursion(arr,target,leftIndex,rightIndex){
 // testSort(mergeSort, 'mergeSort');
 
 
+// function bubbleSort(arr){
+//     let swapped = true
+//     while(swapped){
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }
+//     return arr
+// }
+
+// function insertionSort(arr){
+//     for(let i=1;i<arr.length;i++){
+//         let j= i-1
+//         let cur = arr[j]
+
+//         while(j>=0 &&  arr[j] > cur){
+//             arr[j+1] = arr[j]
+//             j--
+//         }
+
+//         arr[j+1] = cur
+//     }
+
+//     return arr
+// }
+
+// function selectionSort(arr){
+//     for(let i=0;i<arr.length-1;i++){
+//         let minElement = i
+//         for(let j=i+1;j<arr.length;j++){
+//             if(arr[minElement] > arr[j]){
+//                 minElement = j
+//             }
+//         }
+//         let temp = arr[i]
+//         arr[i] = arr[minElement]
+//         arr[minElement] = temp
+//     }
+//     return arr
+// }
+
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
+
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
+
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+// let testArray = [64, 34, 25, 12, 22, 11, 90];
+
+// console.log("Bubble Sort:", bubbleSort([...testArray]));
+// console.log("Insertion Sort:", insertionSort([...testArray]));
+// console.log("Selection Sort:", selectionSort([...testArray]));
+// console.log("Quick Sort:", quickSort([...testArray]));
+// console.log("Merge Sort:", mergeSort([...testArray]));
+
+
 function bubbleSort(arr){
     let swapped = true
+
     while(swapped){
         swapped = false
         for(let i=0;i<arr.length-1;i++){
@@ -848,19 +949,18 @@ function bubbleSort(arr){
     return arr
 }
 
+
 function insertionSort(arr){
     for(let i=1;i<arr.length;i++){
-        let j= i-1
-        let cur = arr[j]
+        let j = i-1
+        let cur = arr[i]
 
-        while(j>=0 &&  arr[j] > cur){
+        while(j>=0 && arr[j] > cur){
             arr[j+1] = arr[j]
             j--
         }
-
         arr[j+1] = cur
     }
-
     return arr
 }
 
@@ -876,6 +976,7 @@ function selectionSort(arr){
         arr[i] = arr[minElement]
         arr[minElement] = temp
     }
+
     return arr
 }
 
@@ -899,10 +1000,12 @@ function quickSort(arr){
     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
 }
 
+
 function mergeSort(arr){
     if(arr.length < 2){
         return arr
     }
+
     let mid = Math.floor(arr.length/2)
     let leftArr = arr.slice(0,mid)
     let rightArr = arr.slice(mid)
@@ -912,6 +1015,7 @@ function mergeSort(arr){
 
 function merge(leftArr,rightArr){
     let sortedArr = []
+
     while(leftArr.length && rightArr.length){
         if(leftArr[0] < rightArr[0]){
             sortedArr.push(leftArr.shift())
@@ -923,10 +1027,11 @@ function merge(leftArr,rightArr){
     return sortedArr.concat(leftArr,rightArr)
 }
 
-let testArray = [64, 34, 25, 12, 22, 11, 90];
 
-console.log("Bubble Sort:", bubbleSort([...testArray]));
-console.log("Insertion Sort:", insertionSort([...testArray]));
-console.log("Selection Sort:", selectionSort([...testArray]));
-console.log("Quick Sort:", quickSort([...testArray]));
-console.log("Merge Sort:", mergeSort([...testArray]));
+let testArr = [5, 3, 8, 4, 2];
+
+console.log("Bubble Sort:", bubbleSort([...testArr]));
+console.log("Insertion Sort:", insertionSort([...testArr]));
+console.log("Selection Sort:", selectionSort([...testArr]));
+console.log("Quick Sort:", quickSort([...testArr]));
+console.log("Merge Sort:", mergeSort([...testArr]));
