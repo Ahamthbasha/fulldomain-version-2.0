@@ -1095,310 +1095,675 @@
 
 //tree
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.left = null
-        this.right = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.left = null
+//         this.right = null
+//     }
+// }
 
-class Tree{
+// class Tree{
+//     constructor(){
+//         this.root = null
+//     }
+
+//     isEmpty(){
+//         return this.root == null
+//     }
+
+//     insert(value){
+//         const node = new Node(value)
+
+//         if(this.isEmpty()){
+//             this.root = node
+//         }else{
+//             this.insertNode(this.root,node)
+//         }
+//     }
+
+//     insertNode(root,node){
+//         if(node.value < root.value){
+//             if(root.left == null){
+//                 root.left = node
+//             }else{
+//                 this.insertNode(root.left,node)
+//             }
+//         }else{
+//             if(root.right == null){
+//                 root.right = node
+//             }else{
+//                 this.insertNode(root.right,node)
+//             }
+//         }
+//     }
+
+//     search(root,target){
+//         if(!root){
+//             return null
+//         }
+//         else if(root.value == target){
+//             return true
+//         }
+//         else if(target < root.value){
+//             return this.search(root.left,target)
+//         }
+//         else{
+//             return this.search(root.right,target)
+//         }
+//     }
+
+//     preOrder(root){
+//         if(root){
+//             console.log(root.value)
+//             this.preOrder(root.left)
+//             this.preOrder(root.right)
+//         }
+//     }
+
+//     inorder(root){
+//         if(root){
+//             this.inorder(root.left)
+//             console.log(root.value)
+//             this.inorder(root.right)
+//         }
+//     }
+
+//     postOrder(root){
+//         if(root){
+//             this.postOrder(root.left)
+//             this.postOrder(root.right)
+//             console.log(root.value)
+//         }
+//     }
+
+//     levelOrder(root){
+//         if(!root){
+//             return null
+//         }
+
+//         let queue = []
+//         queue.push(root)
+
+//         while(queue.length){
+//             let cur = queue.shift()
+
+//             if(cur){
+//                 console.log(cur.value)
+//             }
+
+//             if(cur.left){
+//                 queue.push(cur.left)
+//             }
+
+//             if(cur.right){
+//                 queue.push(cur.right)
+//             }
+//         }
+//     }
+
+//     min(root){
+//         if(!root){
+//             return null
+//         }
+
+//         while(root.left){
+//             root = root.left
+//         }
+
+//         return root.value
+//     }
+
+//     max(root){
+//         if(!root){
+//             return null
+//         }
+
+//         while(root.right){
+//             root = root.right
+//         }
+
+//         return root.value
+//     }
+
+//     delete(value){
+//         this.root = this.deleteNode(this.root,value)
+//     }
+
+//     deleteNode(root,target){
+//         if(!root){
+//             return null
+//         }
+
+//         else if(target < root.value){
+//             root.left = this.deleteNode(root.left,target)
+//         }
+//         else if(target > root.value){
+//             root.right = this.deleteNode(root.right,target)
+//         }
+//         else{
+//             if(!root.right && !root.left){
+//                 return null
+//             }
+
+//             if(!root.left){
+//                 return root.right
+//             }
+
+//             if(!root.right){
+//                 return root.left
+//             }
+
+//             root.value = this.min(root.right)
+//             this.root = this.deleteNode(root.right,target)
+//         }
+//         return root
+//     }
+
+//     inOrderTraversal(root,result=[]){
+//         if(root){
+//             this.inOrderTraversal(root.left,result)
+//             result.push(root.value)
+//             this.inOrderTraversal(root.right,result)
+//         }
+//         return result
+//     }
+
+//     findleafNode(root,result=[]){
+//         if(root){
+//             if(!root.right && !root.left){
+//                 result.push(root.value)
+//             }
+//             this.findleafNode(root.left,result)
+//             this.findleafNode(root.right,result)
+//         }
+//         return result
+//     }
+
+//     isBst(root,min=-Infinity,max=Infinity){
+//         if(!root){
+//             return true
+//         }
+
+//         if(root.value <= min || root.value >= max){
+//             return false
+//         }
+
+//         return  this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
+//     }
+
+//     isIdentical(tree1,tree2){
+//         if(!tree1 && !tree2){
+//             return true
+//         }
+        
+//         if((!tree1 && tree2)||(tree1 && !tree2)){
+//             return false
+//         }
+
+//         return tree1.value == tree2.value && (this.isIdentical(tree1.left,tree2.left)) && (this.isIdentical(tree1.right,tree2.right))
+//     }
+
+//     findHeight(root){
+//         if(!root){
+//             return null
+//         }
+
+//         let queue = []
+//         queue.push(root)
+//         let height = 0
+//         while(queue.length){
+//             let nodeCount = queue.length
+//             height++
+//             while(nodeCount){
+//                 let cur = queue.shift()
+
+//                 if(cur.left){
+//                     queue.push(cur.left)
+//                 }
+
+//                 if(cur.right){
+//                     queue.push(cur.right)
+//                 }
+//                 nodeCount--
+//             }
+//         }
+//         return height
+//     }
+
+//     findDepth(root,target){
+//         if(!root){
+//             return null
+//         }
+
+//         if(root.value == target){
+//             let depth = 0
+//             if(root.left){
+//                 depth++
+//             }
+
+//             if(root.right){
+//                 depth++
+//             }
+//             return depth
+//         }
+//         else if(target < root.value){
+//             return this.findDepth(root.left,target)
+//         }
+//         else if(target > root.value){
+//             return this.findDepth(root.right,target)
+//         }
+//     }
+// }
+
+// const tree = new Tree()
+// tree.insert(10)
+// tree.insert(5)
+// tree.insert(15)
+// tree.insert(3)
+// tree.insert(7)
+// tree.insert(12)
+// tree.insert(18)
+
+// console.log("Search 7:", tree.search(tree.root, 7)) // true
+// console.log("Search 20:", tree.search(tree.root, 20)) // null
+
+// console.log("Inorder (should be sorted):")
+// tree.inorder(tree.root) // 3, 5, 7, 10, 12, 15, 18
+
+// console.log("Preorder:")
+// tree.preOrder(tree.root)
+
+// console.log("Postorder:")
+// tree.postOrder(tree.root)
+
+// console.log("Level Order:")
+// tree.levelOrder(tree.root)
+
+// console.log("Min value:", tree.min(tree.root)) // 3
+// console.log("Max value:", tree.max(tree.root)) // 18
+
+// console.log("Leaf Nodes:", tree.findleafNode(tree.root)) // [3, 7, 12, 18]
+
+// console.log("Tree Height:", tree.findHeight(tree.root)) // 3
+
+// console.log("Depth of 7:", tree.findDepth(tree.root, 7)) // 2
+// console.log("Depth of 15:", tree.findDepth(tree.root, 15)) // 1
+
+// console.log("Is BST:", tree.isBst(tree.root)) // true
+
+// console.log("Delete 10 (root):")
+// tree.delete(10)
+// tree.inorder(tree.root) // updated BST
+
+// const tree2 = new Tree()
+// tree2.insert(5)
+// tree2.insert(3)
+// tree2.insert(7)
+
+// console.log("Identical Trees:", tree.isIdentical(tree.root, tree2.root)) // false
+
+//heap
+
+// class Heap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap empty'
+//         }else{
+//             return this.heap[0]
+//         }
+//     }
+
+//     print(){
+//         console.log(this.heap)
+//     }
+
+//     add(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length - 1
+
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(this.getParentIndex(index),index)
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap empty'
+//         }
+
+//         let val = this.heap[0]
+
+//         this.heap[0] = this.heap[this.heap.length-1]
+
+//         this.heap.pop()
+
+//         this.heapifyDown()
+
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+
+//         while(this.hasLeftChild(index)){
+//             let smaller = this.getLeftIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+//                 smaller = this.getRightIndex(index)
+//             }
+
+//             if(this.heap[index] <= this.heap[smaller]){
+//                 break
+//             }else{
+//                 this.swap(index,smaller)
+//             }
+
+//             index = smaller
+//         }
+//     }
+
+//     heapSort(arr){
+//         let heap = new Heap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(heap.heap.length){
+//             sortedArr.push(heap.remove())
+//         }
+
+//         return sortedArr
+//     }
+
+//     findKthLargest(arr,k){
+//         let heap = new Heap()
+
+//         for(let i=0;i<arr.length;i++){
+//             heap.add(arr[i])
+//             if(heap.heap.length > k){
+//                 heap.remove()
+//             }
+//         }
+
+//         return heap.peek()
+//     }
+// }
+
+// // Create a new heap instance
+// const h = new Heap();
+
+// // Test isEmpty and peek on empty heap
+// console.log("Initial isEmpty:", h.isEmpty()); // true
+// console.log("Initial peek:", h.peek()); // "heap empty"
+
+// // Test add and heap property
+// h.add(5);
+// h.add(3);
+// h.add(8);
+// h.add(1);
+// h.add(2);
+// console.log("Heap after inserts:");
+// h.print(); // Should be a valid min heap
+
+// // Test peek after insertions
+// console.log("Peek after inserts:", h.peek()); // 1 (min element)
+
+// // Test remove (min extraction)
+// console.log("Remove 1st:", h.remove()); // 1
+// console.log("Remove 2nd:", h.remove()); // 2
+// console.log("Remove 3rd:", h.remove()); // 3
+// console.log("Heap after removals:");
+// h.print(); // Should still be a valid min heap
+
+// // Test heapSort
+// const sorted = h.heapSort([9, 4, 7, 1, -2, 6, 5]);
+// console.log("Heap Sort Result:", sorted); // [-2, 1, 4, 5, 6, 7, 9]
+
+// // Test findKthLargest
+// const arr1 = [3, 2, 1, 5, 6, 4];
+// const k1 = 2;
+// console.log(`findKthLargest (k=${k1}) from`, arr1, "=>", h.findKthLargest(arr1, k1)); // 5
+
+// const arr2 = [3, 2, 3, 1, 2, 4, 5, 5, 6];
+// const k2 = 4;
+// console.log(`findKthLargest (k=${k2}) from`, arr2, "=>", h.findKthLargest(arr2, k2)); // 4
+
+// // Final check isEmpty
+// console.log("Is heap empty now?", h.isEmpty()); // true or false based on leftover elements
+
+//maxHeap
+
+class MaxHeap {
     constructor(){
-        this.root = null
+        this.heap = []
     }
 
     isEmpty(){
-        return this.root == null
+        return this.heap.length == 0
     }
 
-    insert(value){
-        const node = new Node(value)
+    getParentIndex(index){
+        return Math.floor((index-1)/2)
+    }
 
+    getLeftChildIndex(index){
+        return 2 * index + 1
+    }
+
+    getRightChildIndex(index){
+        return 2 * index + 2
+    }
+
+    getParent(index){
+        return this.heap[this.getParentIndex(index)]
+    }
+
+    getLeftChild(index){
+        return this.heap[this.getLeftChildIndex(index)]
+    }
+
+    getRightChild(index){
+        return this.heap[this.getRightChildIndex(index)]
+    }
+
+    hasParent(index){
+        return this.getParentIndex(index) >= 0
+    }
+
+    hasLeftChild(index){
+        return this.getLeftChildIndex(index) < this.heap.length
+    }
+
+    hasRightChild(index){
+        return this.getRightChildIndex(index) < this.heap.length
+    }
+
+    swap(index1,index2){
+        let temp = this.heap[index1]
+        this.heap[index1] = this.heap[index2]
+        this.heap[index2] = temp
+    }
+
+    peek(){
         if(this.isEmpty()){
-            this.root = node
+            return 'heap is empty'
         }else{
-            this.insertNode(this.root,node)
+            return this.heap[0]
         }
     }
 
-    insertNode(root,node){
-        if(node.value < root.value){
-            if(root.left == null){
-                root.left = node
+    add(value){
+        this.heap.push(value)
+        this.heapifyUp()
+    }
+
+    heapifyUp(){
+        let index = this.heap.length - 1
+
+        while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+            this.swap(this.getParentIndex(index),index)
+            index = this.getParentIndex(index)
+        }
+    }
+
+    remove(){
+        if(this.isEmpty()){
+            return 'heap is empty'
+        }
+
+        let val = this.heap[0]
+        this.heap[0] = this.heap[this.heap.length-1]
+        this.heap.pop()
+        this.heapifyDown()
+        return val
+    }
+
+    heapifyDown(){
+        let index = 0
+
+        while(this.hasLeftChild(index)){
+            let largerIndex = this.getLeftChildIndex(index)
+
+            if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild[index]){
+                largerIndex = this.getRightChildIndex(index)
+            }
+
+            if(this.heap[index] >= this.heap[largerIndex]){
+                break
             }else{
-                this.insertNode(root.left,node)
-            }
-        }else{
-            if(root.right == null){
-                root.right = node
-            }else{
-                this.insertNode(root.right,node)
-            }
-        }
-    }
-
-    search(root,target){
-        if(!root){
-            return null
-        }
-        else if(root.value == target){
-            return true
-        }
-        else if(target < root.value){
-            return this.search(root.left,target)
-        }
-        else{
-            return this.search(root.right,target)
-        }
-    }
-
-    preOrder(root){
-        if(root){
-            console.log(root.value)
-            this.preOrder(root.left)
-            this.preOrder(root.right)
-        }
-    }
-
-    inorder(root){
-        if(root){
-            this.inorder(root.left)
-            console.log(root.value)
-            this.inorder(root.right)
-        }
-    }
-
-    postOrder(root){
-        if(root){
-            this.postOrder(root.left)
-            this.postOrder(root.right)
-            console.log(root.value)
-        }
-    }
-
-    levelOrder(root){
-        if(!root){
-            return null
-        }
-
-        let queue = []
-        queue.push(root)
-
-        while(queue.length){
-            let cur = queue.shift()
-
-            if(cur){
-                console.log(cur.value)
+                this.swap(index,largerIndex)
             }
 
-            if(cur.left){
-                queue.push(cur.left)
-            }
-
-            if(cur.right){
-                queue.push(cur.right)
-            }
+            index = largerIndex
         }
     }
 
-    min(root){
-        if(!root){
-            return null
+    heapSort(arr){
+        let heap = new MaxHeap()
+
+        for(let i=0;i<arr.length;i++){
+            heap.add(arr[i])
         }
 
-        while(root.left){
-            root = root.left
+        let sortedArr = []
+
+        while(heap.heap.length){
+            sortedArr.push(heap.remove())
         }
 
-        return root.value
+        return sortedArr
     }
 
-    max(root){
-        if(!root){
-            return null
-        }
+    findKthSmallest(arr,k){
+        let heap = new MaxHeap()
 
-        while(root.right){
-            root = root.right
-        }
-
-        return root.value
-    }
-
-    delete(value){
-        this.root = this.deleteNode(this.root,value)
-    }
-
-    deleteNode(root,target){
-        if(!root){
-            return null
-        }
-
-        else if(target < root.value){
-            root.left = this.deleteNode(root.left,target)
-        }
-        else if(target > root.value){
-            root.right = this.deleteNode(root.right,target)
-        }
-        else{
-            if(!root.right && !root.left){
-                return null
-            }
-
-            if(!root.left){
-                return root.right
-            }
-
-            if(!root.right){
-                return root.left
-            }
-
-            root.value = this.min(root.right)
-            this.root = this.deleteNode(root.right,target)
-        }
-        return root
-    }
-
-    inOrderTraversal(root,result=[]){
-        if(root){
-            this.inOrderTraversal(root.left,result)
-            result.push(root.value)
-            this.inOrderTraversal(root.right,result)
-        }
-        return result
-    }
-
-    findleafNode(root,result=[]){
-        if(root){
-            if(!root.right && !root.left){
-                result.push(root.value)
-            }
-            this.findleafNode(root.left,result)
-            this.findleafNode(root.right,result)
-        }
-        return result
-    }
-
-    isBst(root,min=-Infinity,max=Infinity){
-        if(!root){
-            return true
-        }
-
-        if(root.value <= min || root.value >= max){
-            return false
-        }
-
-        return  this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
-    }
-
-    isIdentical(tree1,tree2){
-        if(!tree1 && !tree2){
-            return true
-        }
-        
-        if((!tree1 && tree2)||(tree1 && !tree2)){
-            return false
-        }
-
-        return tree1.value == tree2.value && (this.isIdentical(tree1.left,tree2.left)) && (this.isIdentical(tree1.right,tree2.right))
-    }
-
-    findHeight(root){
-        if(!root){
-            return null
-        }
-
-        let queue = []
-        queue.push(root)
-        let height = 0
-        while(queue.length){
-            let nodeCount = queue.length
-            height++
-            while(nodeCount){
-                let cur = queue.shift()
-
-                if(cur.left){
-                    queue.push(cur.left)
-                }
-
-                if(cur.right){
-                    queue.push(cur.right)
-                }
-                nodeCount--
+        for(let i=0;i<arr.length;i++){
+            heap.add(arr[i])
+            if(heap.heap.length > k){
+                heap.remove()
             }
         }
-        return height
+        return heap.peek()
     }
 
-    findDepth(root,target){
-        if(!root){
-            return null
-        }
-
-        if(root.value == target){
-            let depth = 0
-            if(root.left){
-                depth++
-            }
-
-            if(root.right){
-                depth++
-            }
-            return depth
-        }
-        else if(target < root.value){
-            return this.findDepth(root.left,target)
-        }
-        else if(target > root.value){
-            return this.findDepth(root.right,target)
-        }
+    print(){
+        console.log(this.heap)
     }
 }
 
-const tree = new Tree()
-tree.insert(10)
-tree.insert(5)
-tree.insert(15)
-tree.insert(3)
-tree.insert(7)
-tree.insert(12)
-tree.insert(18)
 
-console.log("Search 7:", tree.search(tree.root, 7)) // true
-console.log("Search 20:", tree.search(tree.root, 20)) // null
+const heap = new MaxHeap();
 
-console.log("Inorder (should be sorted):")
-tree.inorder(tree.root) // 3, 5, 7, 10, 12, 15, 18
+console.log("Initial isEmpty:", heap.isEmpty()); // true
+console.log("Initial peek:", heap.peek()); // heap is empty
 
-console.log("Preorder:")
-tree.preOrder(tree.root)
+// Insert values
+heap.add(10);
+heap.add(20);
+heap.add(5);
+heap.add(100);
+heap.add(1);
+heap.add(75);
+heap.add(30);
 
-console.log("Postorder:")
-tree.postOrder(tree.root)
+console.log("Heap after insertions:");
+heap.print(); // Should follow max-heap order
 
-console.log("Level Order:")
-tree.levelOrder(tree.root)
+console.log("Peek (max):", heap.peek()); // 100
 
-console.log("Min value:", tree.min(tree.root)) // 3
-console.log("Max value:", tree.max(tree.root)) // 18
+// Remove max elements
+console.log("Removed:", heap.remove()); // 100
+console.log("Removed:", heap.remove()); // 75
 
-console.log("Leaf Nodes:", tree.findleafNode(tree.root)) // [3, 7, 12, 18]
+console.log("Heap after removals:");
+heap.print(); // Still in max-heap order
 
-console.log("Tree Height:", tree.findHeight(tree.root)) // 3
+// Test heapSort
+const unsorted = [7, 3, 5, 2, 9, 1];
+const sortedDesc = heap.heapSort(unsorted);
+console.log("Heap Sort (descending):", sortedDesc); // [9, 7, 5, 3, 2, 1]
 
-console.log("Depth of 7:", tree.findDepth(tree.root, 7)) // 2
-console.log("Depth of 15:", tree.findDepth(tree.root, 15)) // 1
+// Test findKthSmallest
+const arr = [8, 4, 2, 9, 6, 1, 3];
+console.log("3rd smallest:", heap.findKthSmallest(arr, 3)); // 3
 
-console.log("Is BST:", tree.isBst(tree.root)) // true
-
-console.log("Delete 10 (root):")
-tree.delete(10)
-tree.inorder(tree.root) // updated BST
-
-const tree2 = new Tree()
-tree2.insert(5)
-tree2.insert(3)
-tree2.insert(7)
-
-console.log("Identical Trees:", tree.isIdentical(tree.root, tree2.root)) // false
+console.log("Is heap empty now?", heap.isEmpty()); // false (only original heap)
