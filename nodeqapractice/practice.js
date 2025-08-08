@@ -293,13 +293,118 @@
 
 //creating three files
 
-const fs = require('fs')
+// const fs = require('fs')
 
-for(let i=1;i<=3;i++){
-    fs.writeFile(`file${i}.txt`,new Date().toString(),(err)=>{
-        if(err){
-            console.log(err)
+// for(let i=1;i<=3;i++){
+//     fs.writeFile(`file${i}.txt`,new Date().toString(),(err)=>{
+//         if(err){
+//             console.log(err)
+//         }
+//         console.log(`file is written ${i} times`)
+//     })
+// }
+
+
+// const event = require('events')
+
+// class MyEvent extends event{}
+
+// const e = new MyEvent()
+
+// const greetFn = (name)=>{
+//     console.log(`hello ${name}`)
+// }
+
+// e.on('greet',greetFn)
+
+// e.emit('emit',greetFn('basha'))
+
+
+const object = {
+    name:"ahamathbasha",
+    greet(city){
+        return `hello ${this.name}.From ${city}`
+    }
+}
+
+const object2 = {
+    name:"bob"
+}
+
+console.log(object.greet.call(object2,'america'))
+
+console.log(object.greet.apply(object2,['india']))
+
+const bindGreet = object.greet.bind(object2,'china')
+console.log(bindGreet())
+
+const pro = {
+    name:'basha',
+    age:30
+}
+
+const handler = {
+    get(target,props){
+       return props in target ? target[props] : 'no props'
+    },
+
+    set(target,props,value){
+        if(props == 'name'){
+            target[props] = value
         }
-        console.log(`file is written ${i} times`)
+
+        if(props == 'age'){
+            target[props] = value
+        }
+    }
+}
+
+const proxy = new Proxy(pro,handler)
+console.log(proxy.name)
+proxy.name = 'ahamthabsha'
+console.log(proxy)
+console.log(pro)
+
+
+// let promise1 = new Promise((resolve,reject)=>{
+//     setTimeout(()=>{
+//         let no = true
+//         if(no){
+//             resolve(no)
+//         }else{
+//             reject('invalid')
+//         }
+//     },100)
+// })
+
+// promise1
+// .then((resolve)=>{
+//     console.log(resolve)
+// })
+// .catch((reject)=>{
+//     console.log(reject)
+// })
+
+function promise1(){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            let val = true
+            if(val){
+                resolve(val)
+            }else{
+                reject('invalid value')
+            }
+        })
     })
 }
+
+async function handle(){
+    try {
+        const result = await promise1()
+        console.log(result)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+handle()

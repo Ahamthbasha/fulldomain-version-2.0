@@ -1919,159 +1919,355 @@
 // console.log(t.print()); // ["apple", "banana", "bat", "batman"]
 
 
-class Graph{
-    constructor(){
-        this.adjacencyList = {}
-    }
+// class Graph{
+//     constructor(){
+//         this.adjacencyList = {}
+//     }
 
-    addVertex(vertex){
-        if(!this.adjacencyList[vertex]){
-            this.adjacencyList[vertex] = new Set()
-        }
-    }
+//     addVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             this.adjacencyList[vertex] = new Set()
+//         }
+//     }
 
-    addEdges(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            this.addVertex(vertex1)
-        }
+//     addEdges(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
 
-        if(!this.adjacencyList[vertex2]){
-            this.addVertex(vertex2)
-        }
+//         if(!this.adjacencyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
 
-        this.adjacencyList[vertex1].add(vertex2)
-        this.adjacencyList[vertex2].add(vertex1)
-    }
+//         this.adjacencyList[vertex1].add(vertex2)
+//         this.adjacencyList[vertex2].add(vertex1)
+//     }
 
-    hasEdges(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
-            return 'vertex not found'
-        }
+//     hasEdges(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
+//             return 'vertex not found'
+//         }
 
-        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
-    }
+//         return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+//     }
 
-    removeEdges(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
-            return 'vertex not found'
-        }
+//     removeEdges(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]){
+//             return 'vertex not found'
+//         }
 
-        this.adjacencyList[vertex1].delete(vertex2)
-        this.adjacencyList[vertex2].delete(vertex1)
-    }
+//         this.adjacencyList[vertex1].delete(vertex2)
+//         this.adjacencyList[vertex2].delete(vertex1)
+//     }
 
-    removeVertex(vertex){
-        if(!this.adjacencyList[vertex]){
-            return 'vertex not found'
-        }
+//     removeVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             return 'vertex not found'
+//         }
 
-        for(let edge of this.adjacencyList[vertex]){
-            this.removeEdges(vertex,edge)
-        }
+//         for(let edge of this.adjacencyList[vertex]){
+//             this.removeEdges(vertex,edge)
+//         }
 
-        delete this.adjacencyList[vertex]
-    }
+//         delete this.adjacencyList[vertex]
+//     }
 
-    print(){
-        for(let vertex in this.adjacencyList){
-            console.log(`${vertex} -> ${[...this.adjacencyList[vertex]]}`)
-        }
-    }
+//     print(){
+//         for(let vertex in this.adjacencyList){
+//             console.log(`${vertex} -> ${[...this.adjacencyList[vertex]]}`)
+//         }
+//     }
 
-    bfs(start){
-        let visitedNode = new Set()
-        visitedNode.add(start)
-        let queue = [start]
+//     bfs(start){
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
+//         let queue = [start]
 
-        while(queue.length){
-            let vertex = queue.shift()
+//         while(queue.length){
+//             let vertex = queue.shift()
 
-            console.log(vertex)
+//             console.log(vertex)
 
-            this.adjacencyList[vertex].forEach((neighbor)=>{
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push(neighbor)
-                }
-            })
-        }
-    }
+//             this.adjacencyList[vertex].forEach((neighbor)=>{
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             })
+//         }
+//     }
 
-    dfs(start,visitedNode = new Set()){
-        visitedNode.add(start)
-        console.log(start)
+//     dfs(start,visitedNode = new Set()){
+//         visitedNode.add(start)
+//         console.log(start)
 
-        this.adjacencyList[start].forEach((neighbor)=>{
-            if(!visitedNode.has(neighbor)){
-                this.dfs(neighbor,visitedNode)
-            }
-        })
-    }
-}
+//         this.adjacencyList[start].forEach((neighbor)=>{
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         })
+//     }
+// }
 
-const g = new Graph()
+// const g = new Graph()
 
-// Add vertices
-g.addVertex('A')
-g.addVertex('B')
-g.addVertex('C')
-g.addVertex('D')
+// // Add vertices
+// g.addVertex('A')
+// g.addVertex('B')
+// g.addVertex('C')
+// g.addVertex('D')
 
-// Add edges
-g.addEdges('A', 'B')
-g.addEdges('A', 'C')
-g.addEdges('B', 'D')
-g.addEdges('C', 'D')
+// // Add edges
+// g.addEdges('A', 'B')
+// g.addEdges('A', 'C')
+// g.addEdges('B', 'D')
+// g.addEdges('C', 'D')
 
-// Print graph
-console.log('\nGraph:')
-g.print()
-// Expected:
-// A -> B,C
-// B -> A,D
-// C -> A,D
-// D -> B,C
+// // Print graph
+// console.log('\nGraph:')
+// g.print()
+// // Expected:
+// // A -> B,C
+// // B -> A,D
+// // C -> A,D
+// // D -> B,C
 
-// Check edge existence
-console.log('\nHas edge A-B:', g.hasEdges('A', 'B')) // true
-console.log('Has edge A-D:', g.hasEdges('A', 'D'))   // false
-console.log('Has edge X-Y:', g.hasEdges('X', 'Y'))   // 'vertex not found'
+// // Check edge existence
+// console.log('\nHas edge A-B:', g.hasEdges('A', 'B')) // true
+// console.log('Has edge A-D:', g.hasEdges('A', 'D'))   // false
+// console.log('Has edge X-Y:', g.hasEdges('X', 'Y'))   // 'vertex not found'
 
-// BFS traversal
-console.log('\nBFS starting from A:')
-g.bfs('A')
-// Expected (one possibility):
-// A B C D
+// // BFS traversal
+// console.log('\nBFS starting from A:')
+// g.bfs('A')
+// // Expected (one possibility):
+// // A B C D
 
-// DFS traversal
-console.log('\nDFS starting from A:')
-g.dfs('A')
-// Expected (one possibility):
-// A B D C
+// // DFS traversal
+// console.log('\nDFS starting from A:')
+// g.dfs('A')
+// // Expected (one possibility):
+// // A B D C
 
-// Remove edge
-console.log('\nRemove edge A-B')
-g.removeEdges('A', 'B')
-g.print()
-// A -> C
-// B -> D
-// C -> A,D
-// D -> B,C
+// // Remove edge
+// console.log('\nRemove edge A-B')
+// g.removeEdges('A', 'B')
+// g.print()
+// // A -> C
+// // B -> D
+// // C -> A,D
+// // D -> B,C
 
-// Remove vertex
-console.log('\nRemove vertex C')
-g.removeVertex('C')
-g.print()
-// A ->
-// B -> D
-// D -> B
+// // Remove vertex
+// console.log('\nRemove vertex C')
+// g.removeVertex('C')
+// g.print()
+// // A ->
+// // B -> D
+// // D -> B
 
-// Final BFS from A (disconnected now)
-console.log('\nFinal BFS from A:')
-g.bfs('A')
-// Expected: A
+// // Final BFS from A (disconnected now)
+// console.log('\nFinal BFS from A:')
+// g.bfs('A')
+// // Expected: A
 
-// Final DFS from B
-console.log('\nFinal DFS from B:')
-g.dfs('B')
-// Expected: B D
+// // Final DFS from B
+// console.log('\nFinal DFS from B:')
+// g.dfs('B')
+// // Expected: B D
+
+
+// //fibNo
+
+// function fibNo(n){
+//     if(n < 2){
+//         return n
+//     }
+
+//     return fibNo(n-1)+fibNo(n-2)
+// }
+
+// console.log(fibNo(10))
+
+// function factorial(n){
+//     if(n == 1){
+//         return n
+//     }
+
+//     return n*factorial(n-1)
+// }
+
+// console.log(factorial(5))
+
+// //descending order wise printing
+
+// function printNo(n){
+//     if(n==1){
+//         console.log(n)
+//         return
+//     }
+//     console.log(n)
+//     return printNo(n-1)
+// }
+
+// printNo(10)
+
+//ascending order
+
+// function printNo2(n){
+//     if(n == 1){
+//         console.log(n)
+//         return
+//     }
+
+//     printNo2(n-1)
+//     console.log(n)
+// }
+
+// printNo2(10)
+
+// function sumOfNo(n){
+//     if(n==1){
+//         return 1
+//     }
+
+//     return n + sumOfNo(n-1)
+// }
+
+// console.log(sumOfNo(5))
+
+// function sumOfDigit(no){
+//     if(no == 0){
+//         return no
+//     }
+
+//     return (no % 10) + sumOfDigit(Math.floor(no/10))
+// }
+
+// console.log(sumOfDigit(10))
+
+// function checkAscending(arr,n){
+//     if(n < 2){
+//         return true
+//     }
+
+//     return arr[n-1] >= arr[n-2] && checkAscending(arr,n-1)
+// }
+
+// let arr = [1,2,3,4,5,6]
+// console.log(checkAscending(arr,arr.length))
+
+// function checkDescending(arr,n){
+//     if(n < 2){
+//         return true
+//     }
+
+//     return arr[n-1] <= arr[n-2] && checkDescending(arr,n-1)
+// }
+
+// let arr2 = [6,5,4,3,2,1]
+
+// console.log(checkDescending(arr2,arr2.length))
+
+
+// function reverseStr(str){
+//     if(str.length < 2){
+//         return str
+//     }
+
+//     let first = str[0]
+//     let end = str.slice(1)
+
+//     return reverseStr(end)+ first
+// }
+
+// console.log(reverseStr('basha'))
+
+// function reverseArr(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let first = arr[0]
+//     let end = arr.slice(1)
+    
+//     return reverseArr(end).concat(first)
+// }
+
+// console.log(reverseArr([1,2,3,4,5]))
+
+// function AddEven(arr){
+//     if(arr.length == 0){
+//         return 0
+//     }
+
+//     let first = arr[0]
+//     let rest = arr.slice(1)
+//     let sum = 0
+//     if(first % 2 == 0){
+//         sum += first
+//     }
+
+//     return sum + AddEven(rest)
+// }
+
+// console.log(AddEven([1,2,3,4]))
+
+// function AddOdd(arr){
+//     if(arr.length == 0){
+//         return 0
+//     }
+
+//     let first = arr[0]
+//     let rest = arr.slice(1)
+//     let sum = 0
+//     if(first % 2 != 0){
+//         sum += first
+//     }
+
+//     return sum+AddOdd(rest)
+// }
+
+// console.log(AddOdd([1,2,3]))
+
+
+// let first = 0
+// let second = 1
+
+// console.log(first)
+// console.log(second)
+
+// for(let i=2;i<=10;i++){
+//     let c = first+ second
+//     console.log(c)
+//     first = second
+//     second = c
+// }
+
+
+// let first = 0
+// let second = 1
+
+// for(let i=0;i<=10;i++){
+//     if(i==0 || i==1){
+//         console.log(i)
+//     }else{
+
+//         let c = first + second
+//         console.log(c)
+//         first = second
+//         second = c
+//     }
+// }
+
+
+
+// function fibNoSequence(no,a=0,b=1){
+//     if(no == 0 ){
+//         return 
+//     }
+//     console.log(a)
+//     fibNoSequence(no-1,b,a+b)
+// }
+
+// fibNoSequence(10)

@@ -83,18 +83,15 @@
 
 // console.log(reverseString('basha'))
 
-// function reverseArr(arr){
-//     if(arr.length < 2){
-//         return arr
-//     }
+function reverseArr(arr){
+    if(arr.length < 2){
+        return arr
+    }
 
-//     let first=arr[0]
-//     let last=arr.slice(1)
+    let first = arr[0]
+    let end = arr.slice(1)
 
-//     let reversedRest=reverseArr(last)
-//     reversedRest.push(first)
+    return reverseArr(end).concat(first)
+}
 
-//     return reversedRest
-// }
-
-// console.log(reverseArr([1,2,3,4,5]))
+console.log(reverseArr([1,2,3,4,5]))
