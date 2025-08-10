@@ -4,7 +4,6 @@ const array = [1, 2, 3, [4, 5], [6, 7, 8, [9, 10, 11]]];
 
 function flatArray(arr){
     let result = []
-
     for(let i=0;i<arr.length;i++){
         let element = arr[i]
         if(typeof element == 'object' && element instanceof Array){
@@ -18,6 +17,7 @@ function flatArray(arr){
     }
     return result
 }
+
 console.log(flatArray(array))
 
 
