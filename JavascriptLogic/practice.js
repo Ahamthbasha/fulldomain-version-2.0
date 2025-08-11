@@ -1,24 +1,24 @@
 //flat the given array without using any built in functions
 
-const array = [1, 2, 3, [4, 5], [6, 7, 8, [9, 10, 11]]];
+// const array = [1, 2, 3, [4, 5], [6, 7, 8, [9, 10, 11]]];
 
-function flatArray(arr){
-    let result = []
-    for(let i=0;i<arr.length;i++){
-        let element = arr[i]
-        if(typeof element == 'object' && element instanceof Array){
-            let flat = flatArray(element)
-            for(let j=0;j<flat.length;j++){
-                result[result.length] = flat[j]
-            }
-        }else{
-            result[result.length] = element
-        }
-    }
-    return result
-}
+// function flatArray(arr){
+//     let result = []
+//     for(let i=0;i<arr.length;i++){
+//         let element = arr[i]
+//         if(typeof element == 'object' && element instanceof Array){
+//             let flat = flatArray(element)
+//             for(let j=0;j<flat.length;j++){
+//                 result[result.length] = flat[j]
+//             }
+//         }else{
+//             result[result.length] = element
+//         }
+//     }
+//     return result
+// }
 
-console.log(flatArray(array))
+// console.log(flatArray(array))
 
 
 // //end of each letter would be capital
@@ -33,52 +33,31 @@ console.log(flatArray(array))
 
 //3. flat the object 
 
-// const obj = {
-//   newObj: {
-//     obj2: {
-//       obj5: {
-//         one: 1,
-//       },
-//     },
-//   },
-//   obj3: {
-//     obj4: {
-//       two: 2,
-//     },
-//   },
-// };
+const obj = {
+  newObj: {
+    obj2: {
+      obj5: {
+        one: 1,
+      },
+    },
+  },
+  obj3: {
+    obj4: {
+      two: 2,
+    },
+  },
+};
 
-// console.log(obj.newObj.obj2.obj5.one)
+function flatObject(obj,parentKey='',result={}){
+    for(let key in obj){
+        const fullKey = parentKey ? `${parentKey}.${key}` : key
+        if(typeof obj[key] == 'object' && obj[key] != null && !Array.isArray(obj[key])){
+            flatObject(obj[key],fullKey,result)
+        }else{
+            result[fullKey] = obj[key]
+        }
+    }
+    return result
+}
 
-
-// let initial = Object.keys(obj).map((val)=>{
-//     return [val]
-// })
-
-// for(let val of initial){
-
-//     let take = Object.keys(obj[val])
-    
-// }
-
-
-// let result = {}
-// let stack = [{current:obj,path:''}]
-
-// while(stack.length > 0){
-//     const {current,path} = stack.pop()
-//     for(let key in current){
-//         let value = current[key]
-//         console.log('value:',value)
-//         let newKey = path ? path + '.' + key : key
-//         console.log('newKey:',newKey)
-    
-//         if(typeof value == 'object' && value != null){
-//             stack.push({current:value,path:newKey})
-//         }else{
-//             result[newKey] = value
-//         }
-//     }
-// }
-
-// console.log(result)
+console.log(flatObject(obj))
