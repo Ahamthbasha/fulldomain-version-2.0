@@ -159,6 +159,26 @@ let obj ={
 //   d: 2
 // }
 
+// let result = {}
+// for(let key in obj){
+//   let parts = key.split('.')
+//   let current = result
+
+//   for(let i=0;i<parts.length;i++){
+//     let part = parts[i]
+//     if(i == parts.length-1){
+//       current[part] = obj[key]
+//     }else{
+//       if(!current[part]){
+//         current[part] = {}
+//       }
+//       current = current[part]
+//     }
+//   }
+// }
+
+// console.log(result)
+
 
 // let result = {}
 
