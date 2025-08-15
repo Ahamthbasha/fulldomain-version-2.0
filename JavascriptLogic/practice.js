@@ -144,10 +144,10 @@
 //Reconstruct Nested object from flattened key
 
 // Input:
-let obj ={
-  "a.b.c": 1,
-  "d": 2
-}
+// let obj ={
+//   "a.b.c": 1,
+//   "d": 2
+// }
 
 // Output:
 // {
@@ -231,3 +231,65 @@ let obj ={
 //     }
 //   ]
 // }
+
+
+const orders = [
+  { id: 1, customer: "Alice", items: ["apple", "banana"] },
+  { id: 2, customer: "Bob", items: ["banana", "orange"] },
+  { id: 3, customer: "Alice", items: ["orange"] },
+  { id: 4, customer: "Charlie", items: ["apple", "apple","banana"]}
+];
+
+//output
+
+// [
+//   { customer: "Alice", items: ["apple", "banana", "orange"] },
+//   { customer: "Bob", items: ["banana", "orange"] },
+//   { customer: "Charlie", items: ["apple", "banana"] }
+// ]
+
+let final = []
+for(let i=0;i<orders.length;i++){
+  let newObj = {}
+
+  let name = orders[i].customer
+  let items = orders[i].items
+
+  for(let j=i+1;j<orders.length;j++){
+    if(name == orders[j].customer){
+      let fruits = orders[j].items
+      for(let k=0;k<fruits.length;k++){
+        if(!items.includes(fruits[k])){
+          items.push(fruits[k])
+        }
+      }
+    }
+  }
+  
+  newObj['customer'] = name
+  newObj['fruits'] = items
+
+  let customerNames = []
+  for(let val of final){
+    customerNames.push(val.customer)
+  }
+
+  if(!customerNames.includes(newObj.customer)){
+    final.push(newObj)
+  }
+}
+
+console.log(final)
+
+
+
+// for(let val of orders){
+  
+//   if(!obj[val.customer]){
+//     obj['customer'] = val.customer
+//   }
+//   console.log(val.customer)
+//   console.log(val.items)
+// }
+
+// console.log(obj)
