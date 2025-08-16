@@ -248,48 +248,58 @@ const orders = [
 //   { customer: "Charlie", items: ["apple", "banana"] }
 // ]
 
-let final = []
-for(let i=0;i<orders.length;i++){
-  let newObj = {}
+// let final = []
+// for(let i=0;i<orders.length;i++){
+//   let newObj = {}
 
-  let name = orders[i].customer
-  let items = orders[i].items
+//   let name = orders[i].customer
+//   let items = orders[i].items
 
-  for(let j=i+1;j<orders.length;j++){
-    if(name == orders[j].customer){
-      let fruits = orders[j].items
-      for(let k=0;k<fruits.length;k++){
-        if(!items.includes(fruits[k])){
-          items.push(fruits[k])
-        }
-      }
-    }
-  }
+//   for(let j=i+1;j<orders.length;j++){
+//     if(name == orders[j].customer){
+//       let fruits = orders[j].items
+//       for(let k=0;k<fruits.length;k++){
+//         if(!items.includes(fruits[k])){
+//           items.push(fruits[k])
+//         }
+//       }
+//     }
+//   }
   
-  newObj['customer'] = name
-  newObj['fruits'] = items
+//   newObj['customer'] = name
+//   newObj['fruits'] = items
 
-  let customerNames = []
-  for(let val of final){
-    customerNames.push(val.customer)
-  }
+//   let customerNames = []
+//   for(let val of final){
+//     customerNames.push(val.customer)
+//   }
 
-  if(!customerNames.includes(newObj.customer)){
-    final.push(newObj)
+//   if(!customerNames.includes(newObj.customer)){
+//     final.push(newObj)
+//   }
+// }
+
+// console.log(final)
+
+
+let customerMap = new Map()
+
+for(let order of orders){
+  if(!customerMap.has(order.customer)){
+    customerMap.set(order.customer,new Set(order.items))
+  }else{
+    const itemSet = customerMap.get(order.customer)
+    order.items.forEach((val)=>itemSet.add(val))
   }
 }
 
+
+const final = []
+for(let [customer,item] of customerMap){
+  final.push({
+    customer,
+    items:Array.from(item)
+  })
+}
+
 console.log(final)
-
-
-
-// for(let val of orders){
-  
-//   if(!obj[val.customer]){
-//     obj['customer'] = val.customer
-//   }
-//   console.log(val.customer)
-//   console.log(val.items)
-// }
-
-// console.log(obj)
