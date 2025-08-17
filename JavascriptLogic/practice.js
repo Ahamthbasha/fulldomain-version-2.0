@@ -288,17 +288,21 @@ for(let order of orders){
   if(!customerMap.has(order.customer)){
     customerMap.set(order.customer,new Set(order.items))
   }else{
-    const itemSet = customerMap.get(order.customer)
-    order.items.forEach((val)=>itemSet.add(val))
+    let itemSet = customerMap.get(order.customer)
+    order.items.forEach((val)=>{
+      itemSet.add(val)
+    })
   }
 }
 
+console.log(customerMap)
 
-const final = []
-for(let [customer,item] of customerMap){
+let final = []
+
+for(let [customer,items] of customerMap){
   final.push({
     customer,
-    items:Array.from(item)
+    items:[...items]
   })
 }
 
