@@ -240,6 +240,50 @@ const orders = [
   { id: 4, customer: "Charlie", items: ["apple", "apple","banana"]}
 ];
 
+
+let customerMap = new Map()
+
+for(let order of orders){
+  if(!customerMap.has(order.customer)){
+    customerMap.set(order.customer,new Set(order.items))
+  }else{
+    const itemSet = customerMap.get(order.customer)
+    order.items.forEach((val)=>{
+      itemSet.add(val)
+    })
+  }
+}
+
+console.log(customerMap)
+
+
+const mergedList = []
+
+for(let [customer,items] of customerMap){
+  mergedList.push({
+    customer,
+    items:[...items]
+  })
+}
+
+console.log(mergedList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //output
 
 // [
@@ -282,28 +326,28 @@ const orders = [
 // console.log(final)
 
 
-let customerMap = new Map()
+// let customerMap = new Map()
 
-for(let order of orders){
-  if(!customerMap.has(order.customer)){
-    customerMap.set(order.customer,new Set(order.items))
-  }else{
-    let itemSet = customerMap.get(order.customer)
-    order.items.forEach((val)=>{
-      itemSet.add(val)
-    })
-  }
-}
+// for(let order of orders){
+//   if(!customerMap.has(order.customer)){
+//     customerMap.set(order.customer,new Set(order.items))
+//   }else{
+//     let itemSet = customerMap.get(order.customer)
+//     order.items.forEach((val)=>{
+//       itemSet.add(val)
+//     })
+//   }
+// }
 
-console.log(customerMap)
+// console.log(customerMap)
 
-let final = []
+// let final = []
 
-for(let [customer,items] of customerMap){
-  final.push({
-    customer,
-    items:[...items]
-  })
-}
+// for(let [customer,items] of customerMap){
+//   final.push({
+//     customer,
+//     items:[...items]
+//   })
+// }
 
-console.log(final)
+// console.log(final)
