@@ -332,6 +332,280 @@
 
 //linked list based stack
 
+// class LinkedList{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
+
+// class Stack{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     push(value){
+//         const node = new LinkedList(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             node.next = this.head
+//             this.head = node
+//         }
+//         this.size++
+//     }
+
+//     pop(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         else if(this.size == 1){
+//             let value = this.head.value
+//             this.head = null
+//             this.size--
+//             return value
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }
+//         else{
+//             return this.head.value
+//         }
+//     }
+
+//     display(){
+//         if(this.isEmpty()){
+//             return 'stack is empty'
+//         }else{
+//             let temp = this.head
+//             let result = ''
+
+//             while(temp){
+//                 result += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             result += 'null'
+//             return result
+//         }
+//     }
+
+//     reverse(){
+//         let prev = null 
+//         let cur = this.head
+
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
+
+//         this.head = prev
+//     }
+// }
+
+
+// function runLinkedListStackTests() {
+//     let stack = new Stack();
+
+//     console.log("=== LinkedList Stack Tests ===");
+
+//     // Empty stack
+//     console.log("Is stack empty? ->", stack.isEmpty()); // true
+//     console.log("Peek on empty ->", stack.peek()); // "stack is empty"
+//     console.log("Pop on empty ->", stack.pop()); // "stack is empty"
+//     console.log("Display empty ->", stack.display()); // "stack is empty"
+
+//     // Push elements
+//     stack.push(10);
+//     stack.push(20);
+//     stack.push(30);
+
+//     console.log("After pushes (30->20->10->null):", stack.display()); // 30->20->10->null
+//     console.log("Peek (should be 30):", stack.peek()); // 30
+//     console.log("Size (should be 3):", stack.size); // 3
+
+//     // Pop elements
+//     console.log("Pop (should return 30):", stack.pop()); // 30
+//     console.log("Pop (should return 20):", stack.pop()); // 20
+//     console.log("Peek (should be 10):", stack.peek()); // 10
+//     console.log("Size (should be 1):", stack.size); // 1
+//     console.log("Display (10->null):", stack.display()); // 10->null
+
+//     // Pop last element
+//     console.log("Pop (should return 10):", stack.pop()); // 10
+//     console.log("Pop again (empty) ->", stack.pop()); // "stack is empty"
+//     console.log("Is stack empty? ->", stack.isEmpty()); // true
+
+//     // Push again and test reverse()
+//     stack.push("a");
+//     stack.push("b");
+//     stack.push("c");
+//     console.log("Stack before reverse (c->b->a->null):", stack.display());
+//     stack.reverse();
+//     console.log("Stack after reverse (a->b->c->null):", stack.display());
+// }
+
+// runLinkedListStackTests();
+
+
+//QUEUE BASED ON ARRAY
+
+// class Queue{
+//     constructor(){
+//         this.items = []
+//     }
+
+//     isEmpty(){
+//         return this.items.length == 0
+//     }
+
+//     enqueue(value){
+//         this.items.push(value)
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         return this.items.shift()
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         return this.items[0]
+//     }
+
+//     display(){
+//         console.log(this.items)
+//     }
+// }
+
+// const q = new Queue();
+
+// // Test 1: isEmpty on new queue
+// console.log(q.isEmpty()); // true
+
+// // Test 2: dequeue on empty queue
+// console.log(q.dequeue()); // 'queue is empty'
+
+// // Test 3: enqueue elements
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+// q.display(); // [10, 20, 30]
+
+// // Test 4: peek at front element
+// console.log(q.peek()); // 10
+
+// // Test 5: dequeue elements
+// console.log(q.dequeue()); // 10
+// q.display(); // [20, 30]
+
+// // Test 6: check isEmpty after dequeue
+// console.log(q.isEmpty()); // false
+
+// // Test 7: dequeue all elements
+// q.dequeue();
+// q.dequeue();
+// console.log(q.isEmpty()); // true
+// console.log(q.dequeue()); // 'queue is empty'
+
+
+//queue based on object
+
+// class Queue{
+//     constructor() {
+//         this.items = {}
+//         this.rear = 0
+//         this.front = 0
+//     }
+
+//     isEmpty(){
+//         return this.rear - this.front == 0
+//     }
+
+//     enqueue(value){
+//         this.items[this.rear] = value
+//         this.rear++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+//         let val = this.items[this.front]
+//         delete this.items[this.front]
+//         this.front++
+//         return val 
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+
+//         return this.items[this.front]
+//     }
+
+//     display(){
+//         console.log(this.items)
+//     }
+// }
+
+
+// const q = new Queue();
+
+// // Test 1: isEmpty on new queue
+// console.log(q.isEmpty()); // true
+
+// // Test 2: dequeue on empty queue
+// console.log(q.dequeue()); // 'queue is empty'
+
+// // Test 3: enqueue elements
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+// q.display(); // { '0': 10, '1': 20, '2': 30 }
+
+// // Test 4: peek at front element
+// console.log(q.peek()); // 10
+
+// // Test 5: dequeue elements
+// console.log(q.dequeue()); // 10
+// q.display(); // { '1': 20, '2': 30 }
+
+// // Test 6: check isEmpty after some dequeues
+// console.log(q.isEmpty()); // false
+
+// // Test 7: dequeue remaining elements
+// console.log(q.dequeue()); // 20
+// console.log(q.dequeue()); // 30
+// console.log(q.isEmpty()); // true
+// console.log(q.dequeue()); // 'queue is empty'
+
+
+//queue based on linked list
+
 class LinkedList{
     constructor(value){
         this.value = value
@@ -339,7 +613,7 @@ class LinkedList{
     }
 }
 
-class Stack{
+class Queue{
     constructor(){
         this.head = null
         this.size = 0
@@ -349,26 +623,31 @@ class Stack{
         return this.size == 0
     }
 
-    push(value){
+    enqueue(value){
         const node = new LinkedList(value)
         if(this.isEmpty()){
             this.head = node
         }else{
-            node.next = this.head
-            this.head = node
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node
         }
         this.size++
     }
 
-    pop(){
+    dequeue(){
         if(this.isEmpty()){
-            return 'stack is empty'
+            return 'queue is empty'
         }
         else if(this.size == 1){
-            let value = this.head.value
+            let val = this.head.value
             this.head = null
             this.size--
-            return value
+            return val
         }
         else{
             let val = this.head.value
@@ -380,85 +659,59 @@ class Stack{
 
     peek(){
         if(this.isEmpty()){
-            return 'stack is empty'
+            return 'queue is empty'
         }
-        else{
-            return this.head.value
-        }
+        return this.head.value
     }
 
     display(){
         if(this.isEmpty()){
-            return 'stack is empty'
-        }else{
+            return 'queue is empty'
+        }
+        else{
             let temp = this.head
-            let result = ''
-
+            let list = ''
             while(temp){
-                result += temp.value + '->'
+                list += temp.value + '->'
                 temp = temp.next
             }
 
-            result += 'null'
-            return result
+            list += 'null'
+
+            return list
         }
-    }
-
-    reverse(){
-        let prev = null 
-        let cur = this.head
-
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
-
-        this.head = prev
     }
 }
 
 
-function runLinkedListStackTests() {
-    let stack = new Stack();
+const q = new Queue();
 
-    console.log("=== LinkedList Stack Tests ===");
+// Test 1: isEmpty on new queue
+console.log(q.isEmpty()); // true
 
-    // Empty stack
-    console.log("Is stack empty? ->", stack.isEmpty()); // true
-    console.log("Peek on empty ->", stack.peek()); // "stack is empty"
-    console.log("Pop on empty ->", stack.pop()); // "stack is empty"
-    console.log("Display empty ->", stack.display()); // "stack is empty"
+// Test 2: dequeue on empty queue
+console.log(q.dequeue()); // 'queue is empty'
 
-    // Push elements
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
+// Test 3: peek on empty queue
+console.log(q.peek()); // 'queue is empty'
 
-    console.log("After pushes (30->20->10->null):", stack.display()); // 30->20->10->null
-    console.log("Peek (should be 30):", stack.peek()); // 30
-    console.log("Size (should be 3):", stack.size); // 3
+// Test 4: enqueue elements
+q.enqueue(10);
+q.enqueue(20);
+q.enqueue(30);
+console.log(q.display()); // "10->20->30->null"
 
-    // Pop elements
-    console.log("Pop (should return 30):", stack.pop()); // 30
-    console.log("Pop (should return 20):", stack.pop()); // 20
-    console.log("Peek (should be 10):", stack.peek()); // 10
-    console.log("Size (should be 1):", stack.size); // 1
-    console.log("Display (10->null):", stack.display()); // 10->null
+// Test 5: peek should return first element
+console.log(q.peek()); // 10
 
-    // Pop last element
-    console.log("Pop (should return 10):", stack.pop()); // 10
-    console.log("Pop again (empty) ->", stack.pop()); // "stack is empty"
-    console.log("Is stack empty? ->", stack.isEmpty()); // true
+// Test 6: dequeue first element
+console.log(q.dequeue()); // 10
+console.log(q.display()); // "20->30->null"
 
-    // Push again and test reverse()
-    stack.push("a");
-    stack.push("b");
-    stack.push("c");
-    console.log("Stack before reverse (c->b->a->null):", stack.display());
-    stack.reverse();
-    console.log("Stack after reverse (a->b->c->null):", stack.display());
-}
+// Test 7: dequeue remaining
+console.log(q.dequeue()); // 20
+console.log(q.dequeue()); // 30
+console.log(q.display()); // 'queue is empty'
 
-runLinkedListStackTests();
+// Test 8: check isEmpty after dequeues
+console.log(q.isEmpty()); // true
