@@ -606,112 +606,449 @@
 
 //queue based on linked list
 
-class LinkedList{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// class LinkedList{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
 
-class Queue{
-    constructor(){
-        this.head = null
-        this.size = 0
+// class Queue{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
+
+//     isEmpty(){
+//         return this.size == 0
+//     }
+
+//     enqueue(value){
+//         const node = new LinkedList(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
+
+//             while(temp.next){
+//                 temp = temp.next
+//             }
+
+//             temp.next = node
+//         }
+//         this.size++
+//     }
+
+//     dequeue(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+//         return this.head.value
+//     }
+
+//     display(){
+//         if(this.isEmpty()){
+//             return 'queue is empty'
+//         }
+//         else{
+//             let temp = this.head
+//             let list = ''
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
+
+//             list += 'null'
+
+//             return list
+//         }
+//     }
+// }
+
+
+// const q = new Queue();
+
+// // Test 1: isEmpty on new queue
+// console.log(q.isEmpty()); // true
+
+// // Test 2: dequeue on empty queue
+// console.log(q.dequeue()); // 'queue is empty'
+
+// // Test 3: peek on empty queue
+// console.log(q.peek()); // 'queue is empty'
+
+// // Test 4: enqueue elements
+// q.enqueue(10);
+// q.enqueue(20);
+// q.enqueue(30);
+// console.log(q.display()); // "10->20->30->null"
+
+// // Test 5: peek should return first element
+// console.log(q.peek()); // 10
+
+// // Test 6: dequeue first element
+// console.log(q.dequeue()); // 10
+// console.log(q.display()); // "20->30->null"
+
+// // Test 7: dequeue remaining
+// console.log(q.dequeue()); // 20
+// console.log(q.dequeue()); // 30
+// console.log(q.display()); // 'queue is empty'
+
+// // Test 8: check isEmpty after dequeues
+// console.log(q.isEmpty()); // true
+
+
+
+//hashtable basic implementation
+
+// class Hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+
+//         return total % this.size
+//     }
+
+//     insert(key,value){
+//         let index = this.hash(key)
+//         this.table[index] = value
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+
+//         if(this.table[index] != -1){
+//             this.table[index] = undefined
+//             return 'removed'
+//         }
+//     }
+
+//     get(key){
+//         let index = this.hash(key)
+
+//         return this.table[index] || 'undefined'
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+// }
+
+
+// let ht = new Hashtable(10);
+// ht.insert("apple", 100);
+// ht.insert("banana", 200);
+
+// console.log(ht.get("apple"));  // 100
+// console.log(ht.get("banana")); // 200
+// ht.print(); 
+// // Expected: prints both keys if no collision occurred
+
+// let ht2 = new Hashtable(5); // Small size to force collisions
+// ht2.insert("ab", 1);
+// ht2.insert("ba", 2);
+
+// console.log(ht2.get("ab")); // May return 2 (overwritten) due to collision
+// console.log(ht2.get("ba")); // 2
+// ht2.print();
+// // Expected: Only one value remains at that index because collision overwrote the other
+
+
+//hashtable handle collision
+
+class Hashtable{
+    constructor(size){
+        this.table = new Array(size)
+        this.size = size
     }
 
-    isEmpty(){
-        return this.size == 0
+    hash(key){
+        let total = 0
+        for(let i=0;i<key.length;i++){
+            total += key.charCodeAt(i)
+        }
+
+        return total % this.size
     }
 
-    enqueue(value){
-        const node = new LinkedList(value)
-        if(this.isEmpty()){
-            this.head = node
+    set(key,value){
+        let index = this.hash(key)
+
+        let bucket = this.table[index]
+
+        if(!bucket){
+            this.table[index] = [[key,value]]
         }else{
-            let temp = this.head
+            let nextPlace = bucket.find((item)=>item[0] == key)
 
-            while(temp.next){
-                temp = temp.next
+            if(nextPlace){
+                nextPlace[1] = value
+            }else{
+                bucket.push([key,value])
             }
-
-            temp.next = node
-        }
-        this.size++
-    }
-
-    dequeue(){
-        if(this.isEmpty()){
-            return 'queue is empty'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
         }
     }
 
-    peek(){
-        if(this.isEmpty()){
-            return 'queue is empty'
+
+    get(key){
+        let index = this.hash(key)
+
+        let bucket = this.table[index]
+
+        if(bucket){
+            let search = bucket.find((item)=>item[0] == key)
+
+            return search ? search[1] : undefined
         }
-        return this.head.value
+        return undefined
     }
 
-    display(){
-        if(this.isEmpty()){
-            return 'queue is empty'
-        }
-        else{
-            let temp = this.head
-            let list = ''
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
+    remove(key){
+        let index = this.hash(key)
+
+        let bucket = this.table[index]
+
+        if(bucket){
+            let valIndex = bucket.findIndex((item)=>item[0]==key)
+
+            if(valIndex != -1){
+                bucket.splice(valIndex,1)
+                return 'removed'
             }
-
-            list += 'null'
-
-            return list
+            else{
+                return 'no index'
+            }
         }
+    }
+
+    print(){
+        for(let i=0;i<this.table.length;i++){
+            if(this.table[i]){
+                console.log(i,this.table[i])
+            }
+        }
+    }
+
+
+    findDuplicatesFromTable(){
+        let valMap = {}
+
+        for(let i=0;i<this.table.length;i++){
+            let bucket = this.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+
+                    if(valMap[value]){
+                        valMap[value]++
+                    }else{
+                        valMap[value] = 1
+                    }
+                }
+            }
+        }
+
+        let duplicates = []
+        
+        for(let key in valMap){
+            if(valMap[key] > 1){
+                duplicates.push(key)
+            }
+        }
+        return duplicates
+    }
+
+    removeDuplicatesFromTable(){
+        let seen = {}
+        for(let i=0;i<this.table.length;i++){
+            let bucket = this.table[i]
+            if(bucket){
+                let newBucket = []
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    if(!seen[value]){
+                        seen[value] = true
+                        newBucket.push([key,value])
+                    }
+                }
+                this.table[i] = newBucket.length > 0 ? newBucket : this.table[i]
+            }
+        }
+    }
+
+
+    FindDuplicatesFromInput(input){
+        let givenInput = Array.isArray(input) ? input : input.split('')
+        let table = new Hashtable(50)
+
+        for(let i=0;i<givenInput.length;i++){
+            let val = givenInput[i].toString()
+            let count = table.get(val)||0
+            table.set(val,count+1)
+        }
+
+        let duplicates = []
+
+        for(let i=0;i<table.table.length;i++){
+            let bucket = table.table[i]
+
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    if(value > 1){
+                        duplicates.push(key)
+                    }
+                }
+            }
+        }
+
+        return Array.isArray(input) ? duplicates : duplicates.join('')
+    }
+
+    RemoveDuplicatesFromInput(input){
+        let given = Array.isArray(input) ? input : input.split('')
+        let tempTable = new Hashtable(50)
+        
+        for(let i=0;i<given.length;i++){
+            let val = given[i].toString()
+            let count = tempTable.get(val) || 0
+            tempTable.set(val,count+1)
+        }
+
+        let unique = []
+
+        for(let i=0;i<tempTable.table.length;i++){
+            let bucket = tempTable.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    if(value == 1){
+                        unique.push(key)
+                    }
+                }
+            }
+        }
+
+        return Array.isArray(input) ? unique : unique.join('')
+    }
+
+    nthMostFrequencey(arr,n){
+        let given = Array.isArray(arr) ? arr : arr.split('')
+        let temp = new Hashtable(50)
+        for(let i=0;i<given.length;i++){
+            let val = given[i].toString()
+            let count = temp.get(val) || 0
+            temp.set(val,count+1)
+        }
+        let result = []
+        for(let i=0;i<temp.table.length;i++){
+            let bucket = temp.table[i]
+            if(bucket){
+                for(let j=0;j<bucket.length;j++){
+                    let [key,value] = bucket[j]
+                    result.push([key,value])
+                }
+            }
+        }
+
+        result.sort((a,b)=>b[1]-a[1])
+
+        return result[n-1] || 'undefined'
     }
 }
 
 
-const q = new Queue();
 
-// Test 1: isEmpty on new queue
-console.log(q.isEmpty()); // true
 
-// Test 2: dequeue on empty queue
-console.log(q.dequeue()); // 'queue is empty'
+let ht = new Hashtable(10);
 
-// Test 3: peek on empty queue
-console.log(q.peek()); // 'queue is empty'
+// ---------- Basic Insert, Get, Remove ----------
+console.log("---- Basic Insert & Get ----");
+ht.set("apple", 1);
+ht.set("banana", 2);
+ht.set("grape", 3);
+console.log(ht.get("apple"));   // 1
+console.log(ht.get("banana"));  // 2
+console.log(ht.get("grape"));   // 3
 
-// Test 4: enqueue elements
-q.enqueue(10);
-q.enqueue(20);
-q.enqueue(30);
-console.log(q.display()); // "10->20->30->null"
+console.log("---- Update Value ----");
+ht.set("apple", 10);
+console.log(ht.get("apple"));   // 10 (updated)
 
-// Test 5: peek should return first element
-console.log(q.peek()); // 10
+console.log("---- Remove Key ----");
+console.log(ht.remove("banana")); // removed
+console.log(ht.get("banana"));    // undefined
 
-// Test 6: dequeue first element
-console.log(q.dequeue()); // 10
-console.log(q.display()); // "20->30->null"
+// ---------- Collision Handling ----------
+console.log("---- Collision Handling ----");
+let smallHT = new Hashtable(5);
+smallHT.set("ab", 100);
+smallHT.set("ba", 200); // Collides with "ab"
+console.log(smallHT.get("ab"));  // 100
+console.log(smallHT.get("ba"));  // 200
+smallHT.print();
 
-// Test 7: dequeue remaining
-console.log(q.dequeue()); // 20
-console.log(q.dequeue()); // 30
-console.log(q.display()); // 'queue is empty'
+// ---------- Duplicates in Table ----------
+console.log("---- Duplicates in Table ----");
+ht.set("k1", "x");
+ht.set("k2", "y");
+ht.set("k3", "x"); // Duplicate value "x"
+console.log(ht.findDuplicatesFromTable()); // ["x"]
 
-// Test 8: check isEmpty after dequeues
-console.log(q.isEmpty()); // true
+console.log("---- Remove Duplicates From Table ----");
+ht.removeDuplicatesFromTable();
+ht.print(); // Only one key with value "x" remains
+
+// ---------- Duplicates from Input ----------
+console.log("---- Duplicates from String Input ----");
+let dups1 = ht.FindDuplicatesFromInput("programming");
+console.log(dups1); // e.g. "rgm" (order may vary)
+
+console.log("---- Duplicates from Array Input ----");
+let dups2 = ht.FindDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
+console.log(dups2); // [2, 4]
+
+// ---------- Remove Duplicates from Input ----------
+console.log("---- Remove Duplicates from String Input ----");
+let unique1 = ht.RemoveDuplicatesFromInput("programming");
+console.log(unique1); // e.g. "poain" (letters occurring once)
+
+console.log("---- Remove Duplicates from Array Input ----");
+let unique2 = ht.RemoveDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
+console.log(unique2); // [1, 3]
+
+// ---------- Nth Most Frequent ----------
+console.log("---- Nth Most Frequent ----");
+console.log(ht.nthMostFrequencey("mississippi", 1)); // most frequent, e.g. ["i", 4]
+console.log(ht.nthMostFrequencey("mississippi", 2)); // second most frequent, e.g. ["s", 4]
+console.log(ht.nthMostFrequencey("mississippi", 3)); // e.g. ["p", 2]
