@@ -786,269 +786,482 @@
 
 //hashtable handle collision
 
-class Hashtable{
-    constructor(size){
-        this.table = new Array(size)
-        this.size = size
+// class Hashtable{
+//     constructor(size){
+//         this.table = new Array(size)
+//         this.size = size
+//     }
+
+//     hash(key){
+//         let total = 0
+//         for(let i=0;i<key.length;i++){
+//             total += key.charCodeAt(i)
+//         }
+
+//         return total % this.size
+//     }
+
+//     set(key,value){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(!bucket){
+//             this.table[index] = [[key,value]]
+//         }else{
+//             let nextPlace = bucket.find((item)=>item[0] == key)
+
+//             if(nextPlace){
+//                 nextPlace[1] = value
+//             }else{
+//                 bucket.push([key,value])
+//             }
+//         }
+//     }
+
+
+//     get(key){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let search = bucket.find((item)=>item[0] == key)
+
+//             return search ? search[1] : undefined
+//         }
+//         return undefined
+//     }
+
+//     remove(key){
+//         let index = this.hash(key)
+
+//         let bucket = this.table[index]
+
+//         if(bucket){
+//             let valIndex = bucket.findIndex((item)=>item[0]==key)
+
+//             if(valIndex != -1){
+//                 bucket.splice(valIndex,1)
+//                 return 'removed'
+//             }
+//             else{
+//                 return 'no index'
+//             }
+//         }
+//     }
+
+//     print(){
+//         for(let i=0;i<this.table.length;i++){
+//             if(this.table[i]){
+//                 console.log(i,this.table[i])
+//             }
+//         }
+//     }
+
+
+//     findDuplicatesFromTable(){
+//         let valMap = {}
+
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+
+//                     if(valMap[value]){
+//                         valMap[value]++
+//                     }else{
+//                         valMap[value] = 1
+//                     }
+//                 }
+//             }
+//         }
+
+//         let duplicates = []
+        
+//         for(let key in valMap){
+//             if(valMap[key] > 1){
+//                 duplicates.push(key)
+//             }
+//         }
+//         return duplicates
+//     }
+
+//     removeDuplicatesFromTable(){
+//         let seen = {}
+//         for(let i=0;i<this.table.length;i++){
+//             let bucket = this.table[i]
+//             if(bucket){
+//                 let newBucket = []
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(!seen[value]){
+//                         seen[value] = true
+//                         newBucket.push([key,value])
+//                     }
+//                 }
+//                 this.table[i] = newBucket.length > 0 ? newBucket : this.table[i]
+//             }
+//         }
+//     }
+
+
+//     FindDuplicatesFromInput(input){
+//         let givenInput = Array.isArray(input) ? input : input.split('')
+//         let table = new Hashtable(50)
+
+//         for(let i=0;i<givenInput.length;i++){
+//             let val = givenInput[i].toString()
+//             let count = table.get(val)||0
+//             table.set(val,count+1)
+//         }
+
+//         let duplicates = []
+
+//         for(let i=0;i<table.table.length;i++){
+//             let bucket = table.table[i]
+
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(value > 1){
+//                         duplicates.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return Array.isArray(input) ? duplicates : duplicates.join('')
+//     }
+
+//     RemoveDuplicatesFromInput(input){
+//         let given = Array.isArray(input) ? input : input.split('')
+//         let tempTable = new Hashtable(50)
+        
+//         for(let i=0;i<given.length;i++){
+//             let val = given[i].toString()
+//             let count = tempTable.get(val) || 0
+//             tempTable.set(val,count+1)
+//         }
+
+//         let unique = []
+
+//         for(let i=0;i<tempTable.table.length;i++){
+//             let bucket = tempTable.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     if(value == 1){
+//                         unique.push(key)
+//                     }
+//                 }
+//             }
+//         }
+
+//         return Array.isArray(input) ? unique : unique.join('')
+//     }
+
+//     nthMostFrequencey(arr,n){
+//         let given = Array.isArray(arr) ? arr : arr.split('')
+//         let temp = new Hashtable(50)
+//         for(let i=0;i<given.length;i++){
+//             let val = given[i].toString()
+//             let count = temp.get(val) || 0
+//             temp.set(val,count+1)
+//         }
+//         let result = []
+//         for(let i=0;i<temp.table.length;i++){
+//             let bucket = temp.table[i]
+//             if(bucket){
+//                 for(let j=0;j<bucket.length;j++){
+//                     let [key,value] = bucket[j]
+//                     result.push([key,value])
+//                 }
+//             }
+//         }
+
+//         result.sort((a,b)=>b[1]-a[1])
+
+//         return result[n-1] || 'undefined'
+//     }
+// }
+
+
+
+
+// let ht = new Hashtable(10);
+
+// // ---------- Basic Insert, Get, Remove ----------
+// console.log("---- Basic Insert & Get ----");
+// ht.set("apple", 1);
+// ht.set("banana", 2);
+// ht.set("grape", 3);
+// console.log(ht.get("apple"));   // 1
+// console.log(ht.get("banana"));  // 2
+// console.log(ht.get("grape"));   // 3
+
+// console.log("---- Update Value ----");
+// ht.set("apple", 10);
+// console.log(ht.get("apple"));   // 10 (updated)
+
+// console.log("---- Remove Key ----");
+// console.log(ht.remove("banana")); // removed
+// console.log(ht.get("banana"));    // undefined
+
+// // ---------- Collision Handling ----------
+// console.log("---- Collision Handling ----");
+// let smallHT = new Hashtable(5);
+// smallHT.set("ab", 100);
+// smallHT.set("ba", 200); // Collides with "ab"
+// console.log(smallHT.get("ab"));  // 100
+// console.log(smallHT.get("ba"));  // 200
+// smallHT.print();
+
+// // ---------- Duplicates in Table ----------
+// console.log("---- Duplicates in Table ----");
+// ht.set("k1", "x");
+// ht.set("k2", "y");
+// ht.set("k3", "x"); // Duplicate value "x"
+// console.log(ht.findDuplicatesFromTable()); // ["x"]
+
+// console.log("---- Remove Duplicates From Table ----");
+// ht.removeDuplicatesFromTable();
+// ht.print(); // Only one key with value "x" remains
+
+// // ---------- Duplicates from Input ----------
+// console.log("---- Duplicates from String Input ----");
+// let dups1 = ht.FindDuplicatesFromInput("programming");
+// console.log(dups1); // e.g. "rgm" (order may vary)
+
+// console.log("---- Duplicates from Array Input ----");
+// let dups2 = ht.FindDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
+// console.log(dups2); // [2, 4]
+
+// // ---------- Remove Duplicates from Input ----------
+// console.log("---- Remove Duplicates from String Input ----");
+// let unique1 = ht.RemoveDuplicatesFromInput("programming");
+// console.log(unique1); // e.g. "poain" (letters occurring once)
+
+// console.log("---- Remove Duplicates from Array Input ----");
+// let unique2 = ht.RemoveDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
+// console.log(unique2); // [1, 3]
+
+// // ---------- Nth Most Frequent ----------
+// console.log("---- Nth Most Frequent ----");
+// console.log(ht.nthMostFrequencey("mississippi", 1)); // most frequent, e.g. ["i", 4]
+// console.log(ht.nthMostFrequencey("mississippi", 2)); // second most frequent, e.g. ["s", 4]
+// console.log(ht.nthMostFrequencey("mississippi", 3)); // e.g. ["p", 2]
+
+//tree
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.left = null
+        this.right = null
+    }
+}
+
+class Bst{
+    constructor(){
+        this.root = null
     }
 
-    hash(key){
-        let total = 0
-        for(let i=0;i<key.length;i++){
-            total += key.charCodeAt(i)
-        }
-
-        return total % this.size
+    isEmpty(){
+        return this.root == null
     }
 
-    set(key,value){
-        let index = this.hash(key)
+    insert(value){
+        const node = new Node(value)
 
-        let bucket = this.table[index]
-
-        if(!bucket){
-            this.table[index] = [[key,value]]
+        if(this.isEmpty()){
+            this.root = node
         }else{
-            let nextPlace = bucket.find((item)=>item[0] == key)
+            this.insertNode(this.root,node)
+        }
+    }
 
-            if(nextPlace){
-                nextPlace[1] = value
+    insertNode(root,node){
+        if(node.value < root.value){
+            if(root.left == null){
+                root.left = node
             }else{
-                bucket.push([key,value])
+                this.insertNode(root.left,node)
+            }
+        }else{
+            if(root.right == null){
+                root.right = node
+            }else{
+                this.insertNode(root.right,node)
             }
         }
     }
 
-
-    get(key){
-        let index = this.hash(key)
-
-        let bucket = this.table[index]
-
-        if(bucket){
-            let search = bucket.find((item)=>item[0] == key)
-
-            return search ? search[1] : undefined
+    search(root,value){
+        if(!root){
+            return false
         }
-        return undefined
-    }
 
-    remove(key){
-        let index = this.hash(key)
-
-        let bucket = this.table[index]
-
-        if(bucket){
-            let valIndex = bucket.findIndex((item)=>item[0]==key)
-
-            if(valIndex != -1){
-                bucket.splice(valIndex,1)
-                return 'removed'
-            }
-            else{
-                return 'no index'
-            }
+        if(root.value == value){
+            return true
+        }
+        else if(value < root.value){
+            return this.search(root.left,value)
+        }else{
+            return this.search(root.right,value)
         }
     }
 
-    print(){
-        for(let i=0;i<this.table.length;i++){
-            if(this.table[i]){
-                console.log(i,this.table[i])
-            }
+    preOrder(root){
+        if(root){
+            console.log(root.value)
+            this.preOrder(root.left)
+            this.preOrder(root.right)
         }
     }
 
+    inOrder(root){
+        if(root){
+            this.inOrder(root.left)
+            console.log(root.value)
+            this.inOrder(root.right)
+        }
+    }
 
-    findDuplicatesFromTable(){
-        let valMap = {}
+    postOrder(root){
+        if(root){
+            this.postOrder(root.left)
+            this.postOrder(root.right)
+            console.log(root.value)
+        }
+    }
 
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
+    levelOrder(root){
+        let queue = []
+        queue.push(root)
 
-                    if(valMap[value]){
-                        valMap[value]++
-                    }else{
-                        valMap[value] = 1
-                    }
+        while(queue.length){
+            let cur = queue.shift()
+
+            if(cur){
+                console.log(cur.value)
+
+                if(cur.left){
+                    queue.push(cur.left)
+                }
+
+                if(cur.right){
+                    queue.push(cur.right)
                 }
             }
         }
-
-        let duplicates = []
-        
-        for(let key in valMap){
-            if(valMap[key] > 1){
-                duplicates.push(key)
-            }
-        }
-        return duplicates
     }
 
-    removeDuplicatesFromTable(){
-        let seen = {}
-        for(let i=0;i<this.table.length;i++){
-            let bucket = this.table[i]
-            if(bucket){
-                let newBucket = []
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(!seen[value]){
-                        seen[value] = true
-                        newBucket.push([key,value])
-                    }
-                }
-                this.table[i] = newBucket.length > 0 ? newBucket : this.table[i]
-            }
+    min(root){
+        if(!root){
+            return null
         }
+
+        while(root.left){
+            root = root.left
+        }
+
+        return root.value
     }
 
-
-    FindDuplicatesFromInput(input){
-        let givenInput = Array.isArray(input) ? input : input.split('')
-        let table = new Hashtable(50)
-
-        for(let i=0;i<givenInput.length;i++){
-            let val = givenInput[i].toString()
-            let count = table.get(val)||0
-            table.set(val,count+1)
+    max(root){
+        if(!root){
+            return null
         }
 
-        let duplicates = []
-
-        for(let i=0;i<table.table.length;i++){
-            let bucket = table.table[i]
-
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(value > 1){
-                        duplicates.push(key)
-                    }
-                }
-            }
+        while(root.right){
+            root = root.right
         }
 
-        return Array.isArray(input) ? duplicates : duplicates.join('')
+        return root.value
     }
 
-    RemoveDuplicatesFromInput(input){
-        let given = Array.isArray(input) ? input : input.split('')
-        let tempTable = new Hashtable(50)
-        
-        for(let i=0;i<given.length;i++){
-            let val = given[i].toString()
-            let count = tempTable.get(val) || 0
-            tempTable.set(val,count+1)
-        }
-
-        let unique = []
-
-        for(let i=0;i<tempTable.table.length;i++){
-            let bucket = tempTable.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    if(value == 1){
-                        unique.push(key)
-                    }
-                }
-            }
-        }
-
-        return Array.isArray(input) ? unique : unique.join('')
+    delete(value){
+       this.root = this.deleteNode(this.root,value)
     }
 
-    nthMostFrequencey(arr,n){
-        let given = Array.isArray(arr) ? arr : arr.split('')
-        let temp = new Hashtable(50)
-        for(let i=0;i<given.length;i++){
-            let val = given[i].toString()
-            let count = temp.get(val) || 0
-            temp.set(val,count+1)
+    deleteNode(root,value){
+
+        if(!root){
+            return null
         }
-        let result = []
-        for(let i=0;i<temp.table.length;i++){
-            let bucket = temp.table[i]
-            if(bucket){
-                for(let j=0;j<bucket.length;j++){
-                    let [key,value] = bucket[j]
-                    result.push([key,value])
-                }
+
+        if(value < root.value){
+            root.left = this.deleteNode(root.left,value)
+        }
+        else if(value > root.value){
+            root.right = this.deleteNode(root.right,value)
+        }
+        else{
+            if(!root.left && !root.right){
+                return null
             }
+
+            if(!root.left){
+                return root.right
+            }
+
+            if(!root.right){
+                return root.left
+            }
+
+            root.value = this.min(root.right)
+            root.right = this.deleteNode(root.right,root.value)
         }
-
-        result.sort((a,b)=>b[1]-a[1])
-
-        return result[n-1] || 'undefined'
+        return root
     }
 }
 
 
 
 
-let ht = new Hashtable(10);
 
-// ---------- Basic Insert, Get, Remove ----------
-console.log("---- Basic Insert & Get ----");
-ht.set("apple", 1);
-ht.set("banana", 2);
-ht.set("grape", 3);
-console.log(ht.get("apple"));   // 1
-console.log(ht.get("banana"));  // 2
-console.log(ht.get("grape"));   // 3
+const bst = new Bst();
 
-console.log("---- Update Value ----");
-ht.set("apple", 10);
-console.log(ht.get("apple"));   // 10 (updated)
+// Insert nodes
+bst.insert(10);
+bst.insert(5);
+bst.insert(15);
+bst.insert(3);
+bst.insert(7);
+bst.insert(12);
+bst.insert(18);
 
-console.log("---- Remove Key ----");
-console.log(ht.remove("banana")); // removed
-console.log(ht.get("banana"));    // undefined
+console.log("InOrder Traversal (Should be sorted):");
+bst.inOrder(bst.root);  // Output: 3, 5, 7, 10, 12, 15, 18
 
-// ---------- Collision Handling ----------
-console.log("---- Collision Handling ----");
-let smallHT = new Hashtable(5);
-smallHT.set("ab", 100);
-smallHT.set("ba", 200); // Collides with "ab"
-console.log(smallHT.get("ab"));  // 100
-console.log(smallHT.get("ba"));  // 200
-smallHT.print();
+console.log("PreOrder Traversal:");
+bst.preOrder(bst.root); // Output: 10, 5, 3, 7, 15, 12, 18
 
-// ---------- Duplicates in Table ----------
-console.log("---- Duplicates in Table ----");
-ht.set("k1", "x");
-ht.set("k2", "y");
-ht.set("k3", "x"); // Duplicate value "x"
-console.log(ht.findDuplicatesFromTable()); // ["x"]
+console.log("PostOrder Traversal:");
+bst.postOrder(bst.root); // Output: 3, 7, 5, 12, 18, 15, 10
 
-console.log("---- Remove Duplicates From Table ----");
-ht.removeDuplicatesFromTable();
-ht.print(); // Only one key with value "x" remains
+console.log("LevelOrder Traversal:");
+bst.levelOrder(bst.root); // Output: 10, 5, 15, 3, 7, 12, 18
 
-// ---------- Duplicates from Input ----------
-console.log("---- Duplicates from String Input ----");
-let dups1 = ht.FindDuplicatesFromInput("programming");
-console.log(dups1); // e.g. "rgm" (order may vary)
+console.log("Search 7:", bst.search(bst.root, 7));  // true
+console.log("Search 20:", bst.search(bst.root, 20)); // false
 
-console.log("---- Duplicates from Array Input ----");
-let dups2 = ht.FindDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
-console.log(dups2); // [2, 4]
+console.log("Min Value:", bst.min(bst.root)); // 3
+console.log("Max Value:", bst.max(bst.root)); // 18
 
-// ---------- Remove Duplicates from Input ----------
-console.log("---- Remove Duplicates from String Input ----");
-let unique1 = ht.RemoveDuplicatesFromInput("programming");
-console.log(unique1); // e.g. "poain" (letters occurring once)
+// Delete leaf node
+bst.delete(3);
+console.log("After deleting 3 (leaf):");
+bst.inOrder(bst.root); // 5, 7, 10, 12, 15, 18
 
-console.log("---- Remove Duplicates from Array Input ----");
-let unique2 = ht.RemoveDuplicatesFromInput([1, 2, 2, 3, 4, 4]);
-console.log(unique2); // [1, 3]
+// Delete node with one child
+bst.delete(15);
+console.log("After deleting 15 (one child):");
+bst.inOrder(bst.root); // 5, 7, 10, 12, 18
 
-// ---------- Nth Most Frequent ----------
-console.log("---- Nth Most Frequent ----");
-console.log(ht.nthMostFrequencey("mississippi", 1)); // most frequent, e.g. ["i", 4]
-console.log(ht.nthMostFrequencey("mississippi", 2)); // second most frequent, e.g. ["s", 4]
-console.log(ht.nthMostFrequencey("mississippi", 3)); // e.g. ["p", 2]
+// Delete root node
+bst.delete(10);
+console.log("After deleting 10 (root):");
+bst.inOrder(bst.root); // 5, 7, 12, 18
