@@ -1058,8 +1058,8 @@
 class Node{
     constructor(value){
         this.value = value
-        this.right = null
         this.left = null
+        this.right = null
     }
 }
 
@@ -1069,11 +1069,12 @@ class Bst{
     }
 
     isEmpty(){
-        return this.root == null
+        return this.root === null
     }
 
     insert(value){
         const node = new Node(value)
+
         if(this.isEmpty()){
             this.root = node
         }else{
@@ -1205,8 +1206,7 @@ class Bst{
         if(!root){
             return null
         }
-
-        if(value < root.value){
+        else if(value < root.value){
             root.left = this.deleteNode(root.left,value)
         }
         else if(value > root.value){
@@ -1231,7 +1231,7 @@ class Bst{
         return root
     }
 
-    isPrime(value){
+    isPrimse(value){
         if(value <= 1){
             return false
         }
@@ -1245,19 +1245,30 @@ class Bst{
         return true
     }
 
-    findPrimes(root,result = []){
+    findPrimes(root,result=[]){
         if(!root){
             return null
         }
 
         if(root){
             this.findPrimes(root.left,result)
-            if(this.isPrime(root.value)){
+            if(this.isPrimse(root.value)){
                 result.push(root.value)
             }
             this.findPrimes(root.right,result)
         }
-        return result
+    }
+
+    isBst(root,min=null,max=null){
+        if(!root){
+            return true
+        }
+
+        if((min != null && root.value <= min) || (max != null && root.value >= max)){
+            return false
+        }
+
+        return this.isBst(root.left,min,root.value) && this.isBst(root.right,root.value,max)
     }
 
     isIdentical(tree1,tree2){
@@ -1269,55 +1280,260 @@ class Bst{
             return false
         }
 
-        return tree1.value == tree2.value && this.isIdentical(tree1.left,tree2.left) && this.isIdentical(tree1.right,tree2.right)
+        return tree1.value === tree2.value && this.isIdentical(tree1.left,tree2.left) && this.isIdentical(tree1.right,tree2.right)
     }
 
-    isBST(root,min=null,max=null){
+    findHeight(root){
         if(!root){
-            return true
+            return null
         }
 
-        if((min!=null && root.value <= min) || (max != null && root.value >= max)){
-            return false
+        let queue = []
+        queue.push(root)
+        let height = 0
+
+        while(queue.length){
+            let nodeCount = queue.length
+            height++
+
+            while(nodeCount > 0){
+                let cur = queue.shift()
+
+                if(cur){
+                    if(cur.left){
+                        queue.push(cur.left)
+                    }
+
+                    if(cur.right){
+                        queue.push(cur.right)
+                    }
+                }
+                nodeCount--
+            }
+        }
+        return height
+    }
+
+    inOrderTraversal(root,result=[]){
+        if(!root){
+            return  null
         }
 
-        return this.isBST(root.left,root.value,max) && this.isBST(root.right,min,root.value)
+
+        if(root){
+            this.inOrderTraversal(root.left,result)
+            result.push(root.value)
+            this.inOrderTraversal(root.right,result)
+        }
+        return result
+    }
+
+    findKthSmallest(root,k){
+        let result = this.inOrderTraversal(root)
+        if(k > result.length){
+            return 'invalid k'
+        }else{
+            return result[k-1] || null
+        }
+    }
+
+    findKthLargest(root,k){
+        let result = this.inOrderTraversal(root)
+        if(k > result.length){
+            return 'invalid k'
+        }else{
+            return result[result.length-k] || null
+        }
+    }
+
+    closestValue(root,value){
+        let result = this.inOrderTraversal(root)
+        let closest = null
+        for(let i=0;i<result.length;i++){
+            if(result[i] >= value){
+                closest = result[i]
+                break
+            }
+        }
+        return closest
+    }
+
+    successor(root,value){
+        let result = this.inOrderTraversal(root)
+        let successor = null
+        for(let i=0;i<result.length;i++){
+            if(result[i] == value){
+                if(i+1 < result.length){
+                    successor = result[i+1]
+                    break
+                }
+            }
+        }
+        return successor
+    }
+
+    predecessor(root,value){
+        let result = this.inOrderTraversal(root)
+        let predecessor = null
+
+        for(let i=0;i<result.length;i++){
+            if(result[i] == value){
+                if(i-1 >= 0){
+                    predecessor = result[i-1]
+                    break
+                }
+            }
+        }
+
+        return predecessor
+    }
+
+    removeDuplicates(root){
+        if(!root){
+            return null
+        }
+        let unique = new Set()
+
+        function inOrder(root){
+            this.inOrder(root.left)
+            unique.add(root.value)
+            this.inOrder(root.right)
+        }
+
+        inOrder(root)
+
+        this.root = null
+
+        unique.forEach((val)=>{
+            this.insert(val)
+        })
+    }
+
+    findParents(root,value){
+        if(!root){
+            return null
+        }
+
+        let parent = null
+
+        if(root){
+            this.findParents(root.left,value)
+
+            if(root.left && root.left.value == value){
+                parent = root.value
+            }
+
+            if(root.right && root.right.value == value){
+                parent = root.value
+            }
+
+            this.findParents(root.right,value)
+        }
+
+        return parent
+    }
+
+    findChildren(root,value){
+        if(!root){
+            return null
+        }
+        else if(root.value == value){
+            const children = {
+                leftChildren : root.left ? root.left.value : null,
+                rightchildren : root.right ? root.right.value : null
+            }
+
+            return children
+        }
+        else if(value < root.value){
+            return this.findChildren(root.left,value)
+        }
+        else{
+            return this.findChildren(root.right,value)
+        }
+    }
+
+    findSiblings(root,value){
+        if(!root){
+            return null
+        }
+        let sibling = null
+        if(root){
+            this.findSiblings(root.left,value)
+
+            if(root.left && root.left.value == value){
+                sibling = root.right ? root.right.value : null
+            }
+
+            if(root.right && root.right.value == value){
+                sibling = root.left ? root.left.value : null
+            }
+
+            this.findSiblings(root.right,value)
+        }
+
+        return sibling
+    }
+
+
+    findLeafNode(root,result=[]){
+        if(root){
+            if(!root.left && !root.right){
+                result.push(root.value)
+            }
+            this.findLeafNode(root.left,result)
+            this.findLeafNode(root.right,result)
+        }
+        return result
     }
 }
 
+
 const bst = new Bst();
 
-// Test Insert
+// Insert nodes
 bst.insert(10);
 bst.insert(5);
 bst.insert(15);
 bst.insert(3);
 bst.insert(7);
-console.log("InOrder:", bst.inOrder(bst.root)); 
-// Expected: 3, 5, 7, 10, 15
+bst.insert(12);
+bst.insert(18);
 
-// Test Search
-console.log("Search 7:", bst.search(bst.root,7)); // true
-console.log("Search 20:", bst.search(bst.root,20)); // null
+// Traversals
+console.log("InOrder:");
+bst.inOrder(bst.root); // 3 5 7 10 12 15 18
 
-// Test Min/Max
+console.log("PreOrder:");
+bst.preOrder(bst.root); // 10 5 3 7 15 12 18
+
+console.log("PostOrder:");
+bst.postOrder(bst.root); // 3 7 5 12 18 15 10
+
+// Search
+console.log("Search 7:", bst.search(bst.root, 7)); // true
+console.log("Search 20:", bst.search(bst.root, 20)); // null
+
+// Min & Max
 console.log("Min:", bst.min(bst.root)); // 3
-console.log("Max:", bst.max(bst.root)); // 15
+console.log("Max:", bst.max(bst.root)); // 18
 
-// Test isBST
-console.log("Is BST:", bst.isBST(bst.root)); // true
+// Kth Smallest & Largest
+console.log("3rd Smallest:", bst.findKthSmallest(bst.root, 3)); // 7
+console.log("2nd Largest:", bst.findKthLargest(bst.root, 2)); // 15
 
-// Test Find Primes
-console.log("Primes:", bst.findPrimes(bst.root)); // [3,5,7]
+// Closest Value
+console.log("Closest to 13:", bst.closestValue(bst.root, 13)); // 15
 
-// Test Delete (delete leaf, node with one child, node with two children)
-bst.delete(3); // delete leaf
-bst.delete(15); // delete leaf
-bst.delete(5); // delete node with one child
-console.log("InOrder after deletions:", bst.inOrder(bst.root));
+// Successor & Predecessor
+console.log("Successor of 12:", bst.successor(bst.root, 12)); // 15
+console.log("Predecessor of 12:", bst.predecessor(bst.root, 12)); // 10
 
-// Test Identical Trees
-const bst2 = new Bst();
-bst2.insert(10);
-bst2.insert(7);
-console.log("Identical:", bst.isIdentical(bst.root, bst2.root)); // false or true based on remaining tree
+// Leaf Nodes
+console.log("Leaf Nodes:", bst.findLeafNode(bst.root)); // [3, 7, 12, 18]
+
+// Height
+console.log("Height:", bst.findHeight(bst.root)); // 3
+
+// Check BST Validity
+console.log("Is BST:", bst.isBst(bst.root)); // true
