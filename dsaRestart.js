@@ -1231,7 +1231,7 @@ class Bst{
         return root
     }
 
-    isPrimse(value){
+    isPrime(value){
         if(value <= 1){
             return false
         }
@@ -1252,11 +1252,12 @@ class Bst{
 
         if(root){
             this.findPrimes(root.left,result)
-            if(this.isPrimse(root.value)){
+            if(this.isPrime(root.value)){
                 result.push(root.value)
             }
             this.findPrimes(root.right,result)
         }
+        return result
     }
 
     isBst(root,min=null,max=null){
@@ -1395,9 +1396,12 @@ class Bst{
         let unique = new Set()
 
         function inOrder(root){
-            this.inOrder(root.left)
-            unique.add(root.value)
-            this.inOrder(root.right)
+            if(root){
+
+                inOrder(root.left)
+                unique.add(root.value)
+                inOrder(root.right)
+            }
         }
 
         inOrder(root)
@@ -1486,54 +1490,341 @@ class Bst{
         }
         return result
     }
+
+    findAnscestor(root,value,result=[]){
+        if(!root){
+            return null
+        }
+        result.push(root.value)
+        if(root.value == value){
+            return result
+        }
+        else if(value < root.value){
+            return this.findAnscestor(root.left,value,result)
+        }else{
+            return this.findAnscestor(root.right,value,result)
+        }
+    }
+
+    findDescendants(root,value){
+        if(!root){
+            return null
+        }
+
+        if(root){
+            if(root.value == value){
+                let result = this.collectDescendants(root)
+                return result
+            }
+            else if(value < root.value){
+                return this.findDescendants(root.left,value)
+            }
+            else{
+                return this.findDescendants(root.right,value)
+            }
+        }
+    }
+
+    collectDescendants(root,result=[]){
+        if(root){
+            result.push(root.value)
+            this.collectDescendants(root.left,result)
+            this.collectDescendants(root.right,result)
+        }
+        return result
+    }
+
+    findDegree(root,value){
+        if(!root){
+            return null
+        }
+
+        if(root){
+            if(root.value == value){
+                let degree = 0
+
+                if(root.left){
+                    degree++
+                }
+                if(root.right){
+                    degree++
+                }
+
+                return degree
+            }
+            else if(value < root.value){
+                return this.findDegree(root.left,value)
+            }
+            else{
+                return this.findDegree(root.right,value)
+            }
+        }
+    }
+
+    findDepth(root,value){
+        if(!root){
+            return null
+        }
+        let depth = 0
+        while(root){
+            if(value < root.value){
+                root = root.left
+                depth++
+            }
+            else if(value > root.value){
+                root = root.right
+                depth++
+            }else{
+                return depth
+            }
+        }
+    }
+
+    findDistance(root,value){
+        if(!root){
+            return null
+        }
+
+        let distance = 0
+
+        while(root){
+            if(value < root.value){
+                root = root.left
+                distance++
+            }
+            else if(value > root.value){
+                root = root.right
+                distance++
+            }
+            else{
+                return distance
+            }
+        }
+    }
+
+    findPath(root,value){
+        if(!root){
+            return null
+        }
+        let path  = []
+        while(root){
+            path.push(root.value)
+            if(value < root.value){
+                root = root.left
+            }
+            else if(value > root.value){
+                root = root.right
+            }
+            else{
+                return path
+            }
+        }
+    }
+
+    findLCA(root,n1,n2){
+        if(!root){
+            return null
+        }
+
+        while(root){
+            if(n1 < root.value && n2 < root.value){
+                root = root.left
+            }
+            else if(n1 > root.value && n2 > root.value){
+                root = root.right
+            }
+            else{
+                return root
+            }
+        }
+    }
+
+    findDistanceBetweenTwoNode(root,n1,n2){
+        let lca = this.findLCA(root,n1,n2)
+        if(!lca){
+            return null
+        }
+
+        let distance1 = this.findDistance(lca,n1)
+        let distance2 = this.findDistance(lca,n2)
+        return distance1 + distance2
+    }
+
+    findPathBetweenTwoNodes(root,n1,n2){
+        let lca = this.findLCA(root,n1,n2)
+
+        if(!lca){
+            return null
+        }
+
+        let path1 = this.findPath(lca,n1)
+        let path2 = this.findPath(lca,n2)
+
+        return [...path1.reverse(),...path2.slice(1)]
+    }
+
+    oneChildNode(root,result=[]){
+        if(root){
+            if((root.left && !root.right) || (root.right && !root.left)){
+                result.push(root.value)
+            }
+            this.oneChildNode(root.left,result)
+            this.oneChildNode(root.right,result)
+        }
+
+        return result
+    }
+
+    onlyLeftNode(root,result=[]){
+        if(root){
+            if(!root.right && root.left){
+                result.push(root.value)
+            }
+            this.onlyLeftNode(root.left,result)
+            this.onlyLeftNode(root.right,result)
+        }
+        return result
+    }
+
+    onlyRightNode(root,result=[]){
+        if(root){
+            if(!root.left && root.right){
+                result.push(root.value)
+            }
+            this.onlyRightNode(root.left,result)
+            this.onlyRightNode(root.right,result)
+        }
+
+        return result
+    }
+
+    noOfNodes(root){
+        if(!root){
+            return null
+        }
+
+        let queue = []
+        queue.push(root)
+        let count = 0
+        while(queue.length){
+            let cur = queue.shift()
+            if(cur){
+                if(cur.left){
+                    queue.push(cur.left)
+                }
+
+                if(cur.right){
+                    queue.push(cur.right)
+                }
+                count++
+            }
+        }
+
+        return count
+    }
+
+    onlyLeftCount(root){
+        if(!root){
+            return 0
+        }
+            let count = 0
+            if(root.left && !root.right){
+                count = 1
+            }
+            return count + this.onlyLeftCount(root.left) + this.onlyLeftCount(root.right)
+    }
+
+    onlyRightCount(root){
+        if(!root){
+            return 0
+        }
+
+        let count = 0
+        if(!root.left && root.right){
+            count = 1
+        }
+
+        return count + this.onlyRightCount(root.left) + this.onlyRightCount(root.right)
+    }
+
+    onlyoneChildCount(root){
+        if(!root){
+            return 0
+        }
+
+        let count = 0
+
+        if(!root.left && !root.right){
+            count = 1
+        }
+
+        return count + this.onlyoneChildCount(root.left) + this.onlyoneChildCount(root.right)
+    }
 }
 
 
-const bst = new Bst();
+// Create BST instance
+const tree = new Bst();
 
 // Insert nodes
-bst.insert(10);
-bst.insert(5);
-bst.insert(15);
-bst.insert(3);
-bst.insert(7);
-bst.insert(12);
-bst.insert(18);
+[10, 5, 15, 3, 7, 12, 18, 7].forEach(v => tree.insert(v));
 
-// Traversals
-console.log("InOrder:");
-bst.inOrder(bst.root); // 3 5 7 10 12 15 18
+console.log("=== Traversals ===");
+tree.preOrder(tree.root);  // Preorder
+tree.inOrder(tree.root);   // Inorder
+tree.postOrder(tree.root); // Postorder
+tree.levelOrder(tree.root); // Level order
 
-console.log("PreOrder:");
-bst.preOrder(bst.root); // 10 5 3 7 15 12 18
+console.log("\n=== Basic Operations ===");
+console.log("Search 7:", tree.search(tree.root, 7));
+console.log("Search 20:", tree.search(tree.root, 20));
+console.log("Min:", tree.min(tree.root));
+console.log("Max:", tree.max(tree.root));
 
-console.log("PostOrder:");
-bst.postOrder(bst.root); // 3 7 5 12 18 15 10
+console.log("\n=== Kth Operations ===");
+console.log("3rd Smallest:", tree.findKthSmallest(tree.root, 3));
+console.log("2nd Largest:", tree.findKthLargest(tree.root, 2));
 
-// Search
-console.log("Search 7:", bst.search(bst.root, 7)); // true
-console.log("Search 20:", bst.search(bst.root, 20)); // null
+console.log("\n=== Closest / Successor / Predecessor ===");
+console.log("Closest to 8:", tree.closestValue(tree.root, 8));
+console.log("Successor of 7:", tree.successor(tree.root, 7));
+console.log("Predecessor of 7:", tree.predecessor(tree.root, 7));
 
-// Min & Max
-console.log("Min:", bst.min(bst.root)); // 3
-console.log("Max:", bst.max(bst.root)); // 18
+console.log("\n=== Prime Numbers in Tree ===");
+console.log("Primes:", tree.findPrimes(tree.root));
 
-// Kth Smallest & Largest
-console.log("3rd Smallest:", bst.findKthSmallest(bst.root, 3)); // 7
-console.log("2nd Largest:", bst.findKthLargest(bst.root, 2)); // 15
+console.log("\n=== Structural Properties ===");
+console.log("Height:", tree.findHeight(tree.root));
+console.log("Is BST?:", tree.isBst(tree.root));
 
-// Closest Value
-console.log("Closest to 13:", bst.closestValue(bst.root, 13)); // 15
+console.log("\n=== Parent / Children / Sibling Relations ===");
+console.log("Parent of 7:", tree.findParents(tree.root, 7));
+console.log("Children of 10:", tree.findChildren(tree.root, 10));
+console.log("Sibling of 3:", tree.findSiblings(tree.root, 3));
 
-// Successor & Predecessor
-console.log("Successor of 12:", bst.successor(bst.root, 12)); // 15
-console.log("Predecessor of 12:", bst.predecessor(bst.root, 12)); // 10
+console.log("\n=== Ancestors & Descendants ===");
+console.log("Ancestors of 12:", tree.findAnscestor(tree.root, 12));
+console.log("Descendants of 5:", tree.findDescendants(tree.root, 5));
 
-// Leaf Nodes
-console.log("Leaf Nodes:", bst.findLeafNode(bst.root)); // [3, 7, 12, 18]
+console.log("\n=== Degree, Depth, Path ===");
+console.log("Degree of 10:", tree.findDegree(tree.root, 10));
+console.log("Depth of 18:", tree.findDepth(tree.root, 18));
+console.log("Path to 12:", tree.findPath(tree.root, 12));
 
-// Height
-console.log("Height:", bst.findHeight(bst.root)); // 3
+console.log("\n=== LCA & Distance ===");
+console.log("LCA of 3 and 7:", tree.findLCA(tree.root, 3, 7).value);
+console.log("Distance between 3 and 7:", tree.findDistanceBetweenTwoNode(tree.root, 3, 7));
+console.log("Path between 3 and 12:", tree.findPathBetweenTwoNodes(tree.root, 3, 12));
 
-// Check BST Validity
-console.log("Is BST:", bst.isBst(bst.root)); // true
+console.log("\n=== Leaf & One/Left/Right Child Nodes ===");
+console.log("Leaf Nodes:", tree.findLeafNode(tree.root));
+console.log("One Child Nodes:", tree.oneChildNode(tree.root));
+console.log("Only Left Child Nodes:", tree.onlyLeftNode(tree.root));
+console.log("Only Right Child Nodes:", tree.onlyRightNode(tree.root));
+
+console.log("\n=== Count Nodes ===");
+console.log("Total Nodes:", tree.noOfNodes(tree.root));
+
+console.log("\n=== Remove Duplicates ===");
+tree.removeDuplicates(tree.root);
+tree.inOrder(tree.root); // Print after removing duplicates
