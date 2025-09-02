@@ -72,6 +72,7 @@ class trie{
         for(let char in node.children){
             this.collectWord(node.children[char],word+char,list)
         }
+        
     }
 
     print(){
