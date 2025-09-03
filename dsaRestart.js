@@ -2171,6 +2171,152 @@
 // runTests();
 
 
+//trie
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+//         return node.isEndOfWord
+//     }
+
+//     startsWith(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+
+//             node = node.children[char]
+//         }
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return []
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         return this.collectWord(node,word)
+//     }
+
+//     collectWord(node,word,list=[]){
+//         if(node.isEndOfWord){
+//             list.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWord(node.children[char],word+char,list)
+//         }
+
+//         return list
+//     }
+
+//     print(){
+//         return this.collectWord(this.root,'')
+//     }
+
+//     delete(word){
+//         let node = this.root
+//         let path = []
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             path.push([node,char])
+//             node = node.children[char]
+//         }
+
+//         if(node.isEndOfWord){
+//             node.isEndOfWord = false
+//         }
+
+//         for(let i=path.length-1;i>=0;i--){
+//             let [parentNode,char] = path[i]
+//             let childrenNode = parentNode.children[char]
+
+//             if(Object.keys(childrenNode.children).length > 0 || childrenNode.isEndOfWord){
+//                 break
+//             }
+
+//             delete parentNode.children[char]
+//         }
+
+//         return true
+//     }
+// }
+
+// let trie = new Trie()
+
+// // Insert words
+// trie.insert("apple")
+// trie.insert("app")
+// trie.insert("bat")
+// trie.insert("ball")
+
+// console.log(trie.search("apple"))   // true
+// console.log(trie.search("app"))     // true
+// console.log(trie.search("appl"))    // false
+// console.log(trie.startsWith("ap"))  // true
+// console.log(trie.startsWith("ba"))  // true
+// console.log(trie.startsWith("ca"))  // false
+
+// console.log(trie.autoComplete("ap")) // ["app", "apple"]
+// console.log(trie.autoComplete("ba")) // ["ball", "bat"]
+
+// console.log(trie.print()) // ["app", "apple", "ball", "bat"]
+
+// // Delete words
+// console.log(trie.delete("app"))    // true
+// console.log(trie.search("app"))    // false
+// console.log(trie.search("apple"))  // true (still exists)
+
+// console.log(trie.delete("apple"))  // true
+// console.log(trie.search("apple"))  // false
+
+// console.log(trie.print()) // ["ball", "bat"]
+
+
+//suffix trie
+
 class Node{
     constructor(){
         this.children = {}
@@ -2178,21 +2324,25 @@ class Node{
     }
 }
 
-class Trie{
+class SuffixTrie{
     constructor(){
         this.root = new Node()
     }
 
+    buildSuffixTrie(word){
+        for(let i=0;i<word.length;i++){
+            this.insert(word.slice(i))
+        }
+    }
+
     insert(word){
         let node = this.root
-
         for(let char of word){
             if(!node.children[char]){
                 node.children[char] = new Node()
             }
             node = node.children[char]
         }
-
         node.isEndOfWord = true
     }
 
@@ -2203,129 +2353,23 @@ class Trie{
             if(!node.children[char]){
                 return false
             }
-
-            node = node.children[char]
-        }
-
-        return node.isEndOfWord
-    }
-
-    startsWith(prefix){
-        let node = this.root
-
-        for(let char of prefix){
-            if(!node.children[char]){
-                return false
-            }
-
             node = node.children[char]
         }
 
         return true
     }
-
-    autoComplete(word){
-        let node = this.root
-
-        for(let char of word){
-            if(!node.children[char]){
-                return []
-            }
-            node = node.children[char]
-        }
-
-        let result = this.collectWords(node,word)
-        return result
-    }
-
-    collectWords(node,word,list=[]){
-        if(node.isEndOfWord){
-            list.push(word)
-        }
-
-        for(let char in node.children){
-            this.collectWords(node.children[char],word+char,list)
-        }
-
-        return list
-    }
-
-    print(){
-        let allWords = this.collectWords(this.root,'')
-        return allWords
-    }
-
-    delete(word){
-        let node = this.root
-        let path = []
-        for(let char of word){
-            if(!node.children[char]){
-                return false
-            }
-            path.push([node,char])
-            node = node.children[char]
-        }
-
-        if(!node.isEndOfWord){
-            return false
-        }
-
-        if(node.isEndOfWord){
-            node.isEndOfWord = false
-        }
-
-        for(let i=path.length-1;i>=0;i--){
-            let [parentNode,char] = path[i]
-            let childNode = parentNode.children[char]
-
-            if(Object.keys(childNode.children).length > 0 || childNode.isEndOfWord){
-                break
-            }
-
-            delete parentNode.children[char]
-        }
-        return true
-    }
 }
 
 
-function runTests() {
-    let trie = new Trie();
+let trie = new SuffixTrie()
+trie.buildSuffixTrie("banana")
 
-    // Insert words
-    trie.insert("apple");
-    trie.insert("app");
-    trie.insert("apricot");
-    trie.insert("bat");
-    trie.insert("ball");
-
-    console.log("Search Tests:");
-    console.log(trie.search("apple"));    // true
-    console.log(trie.search("app"));      // true
-    console.log(trie.search("apricot"));  // true
-    console.log(trie.search("apri"));     // false
-
-    console.log("Prefix Tests:");
-    console.log(trie.startsWith("ap"));   // true
-    console.log(trie.startsWith("ba"));   // true
-    console.log(trie.startsWith("cat"));  // false
-
-    console.log("AutoComplete Tests:");
-    console.log(trie.autoComplete("ap")); // ['apple', 'app', 'apricot']
-    console.log(trie.autoComplete("ba")); // ['bat', 'ball']
-    console.log(trie.autoComplete("cat"));// []
-
-    console.log("Print All Words:");
-    console.log(trie.print()); // ['apple', 'app', 'apricot', 'bat', 'ball']
-
-    console.log("Delete Tests:");
-    console.log(trie.delete("apple"));  // true
-    console.log(trie.search("apple"));  // false
-    console.log(trie.print()); // ['app', 'apricot', 'bat', 'ball']
-
-    console.log(trie.delete("notfound")); // false
-    console.log(trie.delete("ball"));     // true
-    console.log(trie.print()); // ['app', 'apricot', 'bat']
-}
-
-runTests();
+console.log(trie.search("ban"))     // true   (prefix of "banana")
+console.log(trie.search("ana"))     // true   (substring of "banana")
+console.log(trie.search("nana"))    // true   (suffix of "banana")
+console.log(trie.search("banana"))  // true   (whole word)
+console.log(trie.search("a"))       // true   (single char suffix)
+console.log(trie.search("nan"))     // true   (substring "nan")
+console.log(trie.search("bana"))    // true   (prefix)
+console.log(trie.search("apple"))   // false  (not in "banana")
+console.log(trie.search("nab"))     // false  (wrong order)
