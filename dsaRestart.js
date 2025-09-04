@@ -2317,6 +2317,66 @@
 
 //suffix trie
 
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class SuffixTrie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     buildSuffixTrie(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node = this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+
+//         return true
+//     }
+// }
+
+
+// let trie = new SuffixTrie()
+// trie.buildSuffixTrie("banana")
+
+// console.log(trie.search("ban"))     // true   (prefix of "banana")
+// console.log(trie.search("ana"))     // true   (substring of "banana")
+// console.log(trie.search("nana"))    // true   (suffix of "banana")
+// console.log(trie.search("banana"))  // true   (whole word)
+// console.log(trie.search("a"))       // true   (single char suffix)
+// console.log(trie.search("nan"))     // true   (substring "nan")
+// console.log(trie.search("bana"))    // true   (prefix)
+// console.log(trie.search("apple"))   // false  (not in "banana")
+// console.log(trie.search("nab"))     // false  (wrong order)
+
+
+//operations in trie
+
 class Node{
     constructor(){
         this.children = {}
@@ -2324,52 +2384,105 @@ class Node{
     }
 }
 
-class SuffixTrie{
+class Trie{
     constructor(){
         this.root = new Node()
     }
 
-    buildSuffixTrie(word){
-        for(let i=0;i<word.length;i++){
-            this.insert(word.slice(i))
-        }
-    }
-
     insert(word){
         let node = this.root
+
         for(let char of word){
             if(!node.children[char]){
                 node.children[char] = new Node()
             }
             node = node.children[char]
         }
+
         node.isEndOfWord = true
     }
 
-    search(word){
+    countWords(){
+        let queue = []
+        queue.push(this.root)
+        let count = 0
+        while(queue.length){
+            let node = queue.shift()
+
+            if(node.isEndOfWord){
+                count++
+            }
+
+            for(let char in node.children){
+                queue.push(node.children[char])
+            }
+        }
+
+        return count
+    }
+
+    longestPrefix(word){
         let node = this.root
+        let prefix = ''
+        for(let char of word){
+            if(!node.children[char]){
+                break
+            }
+
+            prefix += char
+            node = node.children[char]
+        }
+        return prefix
+    }
+
+    countPrefix(word){
+        let node = this.root
+        let count = 0
 
         for(let char of word){
             if(!node.children[char]){
-                return false
+                break
             }
+
+            count++
             node = node.children[char]
         }
 
-        return true
+        return count
     }
 }
 
+let trie = new Trie()
 
-let trie = new SuffixTrie()
-trie.buildSuffixTrie("banana")
+// Insert words
+trie.insert("apple")
+trie.insert("app")
+trie.insert("ape")
+trie.insert("bat")
+trie.insert("bath")
+trie.insert("batman")
+trie.insert("cat")
 
-console.log(trie.search("ban"))     // true   (prefix of "banana")
-console.log(trie.search("ana"))     // true   (substring of "banana")
-console.log(trie.search("nana"))    // true   (suffix of "banana")
-console.log(trie.search("banana"))  // true   (whole word)
-console.log(trie.search("a"))       // true   (single char suffix)
-console.log(trie.search("nan"))     // true   (substring "nan")
-console.log(trie.search("bana"))    // true   (prefix)
-console.log(trie.search("apple"))   // false  (not in "banana")
-console.log(trie.search("nab"))     // false  (wrong order)
+console.log("Total words inserted:", trie.countWords())
+// ✅ Expected: 7
+
+console.log("Longest prefix of 'application':", trie.longestPrefix("application"))
+// ✅ Expected: "appl"
+
+console.log("Longest prefix of 'banana':", trie.longestPrefix("banana"))
+// ✅ Expected: "ba"
+
+console.log("Count of prefix in 'application':", trie.countPrefix("application"))
+// ✅ Expected: 4 (a → p → p → l)
+
+console.log("Count of prefix in 'batmobile':", trie.countPrefix("batmobile"))
+// ✅ Expected: 4 (b → a → t → m)
+
+console.log("Count of prefix in 'dog':", trie.countPrefix("dog"))
+// ✅ Expected: 0 (no match)
+
+console.log("Longest prefix of 'bathtub':", trie.longestPrefix("bathtub"))
+// ✅ Expected: "bath"
+
+console.log("Longest prefix of 'caterpillar':", trie.longestPrefix("caterpillar"))
+// ✅ Expected: "cat"
