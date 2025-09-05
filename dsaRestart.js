@@ -2377,112 +2377,303 @@
 
 //operations in trie
 
-class Node{
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     countWords(){
+//         let queue = []
+//         queue.push(this.root)
+//         let count = 0
+//         while(queue.length){
+//             let node = queue.shift()
+
+//             if(node.isEndOfWord){
+//                 count++
+//             }
+
+//             for(let char in node.children){
+//                 queue.push(node.children[char])
+//             }
+//         }
+
+//         return count
+//     }
+
+//     longestPrefix(word){
+//         let node = this.root
+//         let prefix = ''
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 break
+//             }
+
+//             prefix += char
+//             node = node.children[char]
+//         }
+//         return prefix
+//     }
+
+//     countPrefix(word){
+//         let node = this.root
+//         let count = 0
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 break
+//             }
+
+//             count++
+//             node = node.children[char]
+//         }
+
+//         return count
+//     }
+// }
+
+// let trie = new Trie()
+
+// // Insert words
+// trie.insert("apple")
+// trie.insert("app")
+// trie.insert("ape")
+// trie.insert("bat")
+// trie.insert("bath")
+// trie.insert("batman")
+// trie.insert("cat")
+
+// console.log("Total words inserted:", trie.countWords())
+// // ✅ Expected: 7
+
+// console.log("Longest prefix of 'application':", trie.longestPrefix("application"))
+// // ✅ Expected: "appl"
+
+// console.log("Longest prefix of 'banana':", trie.longestPrefix("banana"))
+// // ✅ Expected: "ba"
+
+// console.log("Count of prefix in 'application':", trie.countPrefix("application"))
+// // ✅ Expected: 4 (a → p → p → l)
+
+// console.log("Count of prefix in 'batmobile':", trie.countPrefix("batmobile"))
+// // ✅ Expected: 4 (b → a → t → m)
+
+// console.log("Count of prefix in 'dog':", trie.countPrefix("dog"))
+// // ✅ Expected: 0 (no match)
+
+// console.log("Longest prefix of 'bathtub':", trie.longestPrefix("bathtub"))
+// // ✅ Expected: "bath"
+
+// console.log("Longest prefix of 'caterpillar':", trie.longestPrefix("caterpillar"))
+// // ✅ Expected: "cat"
+
+//Graph
+
+class Graph{
     constructor(){
-        this.children = {}
-        this.isEndOfWord = false
-    }
-}
-
-class Trie{
-    constructor(){
-        this.root = new Node()
+        this.adjacencyList = {}
     }
 
-    insert(word){
-        let node = this.root
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            this.adjacencyList[vertex] = new Set()
+        }
+    }
 
-        for(let char of word){
-            if(!node.children[char]){
-                node.children[char] = new Node()
-            }
-            node = node.children[char]
+    addEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            this.addVertex(vertex1)
         }
 
-        node.isEndOfWord = true
+        if(!this.adjacencyList[vertex2]){
+            this.addVertex(vertex2)
+        }
+
+        this.adjacencyList[vertex1].add(vertex2)
+        this.adjacencyList[vertex2].add(vertex1)
     }
 
-    countWords(){
+    hasEdge(vertex1,vertex2){
+        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+    }
+
+    print(){
+        for(let vertex in this.adjacencyList){
+            console.log(`${vertex} => ${[...this.adjacencyList[vertex]]}`)
+        }
+    }
+
+    removeEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            return 'vertex1 not found'
+        }
+
+        if(!this.adjacencyList[vertex2]){
+            return "vertex2 not found"
+        }
+
+        this.adjacencyList[vertex1].delete(vertex2)
+        this.adjacencyList[vertex2].delete(vertex1)
+    }
+
+    removeVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            return 'vertex not found'
+        }
+
+        for(let vertices of this.adjacencyList[vertex]){
+            this.removeEdge(vertex,vertices)
+        }
+
+        delete this.adjacencyList[vertex]
+    }
+
+    bfs(start){
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
         let queue = []
-        queue.push(this.root)
-        let count = 0
+        queue.push(start)
+
         while(queue.length){
-            let node = queue.shift()
-
-            if(node.isEndOfWord){
-                count++
-            }
-
-            for(let char in node.children){
-                queue.push(node.children[char])
-            }
+            let vertex = queue.shift()
+            console.log(vertex)
+            this.adjacencyList[vertex].forEach((neighbor)=>{
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push(neighbor)
+                }
+            })
         }
-
-        return count
     }
 
-    longestPrefix(word){
-        let node = this.root
-        let prefix = ''
-        for(let char of word){
-            if(!node.children[char]){
-                break
-            }
+    dfs(start,visitedNode=new Set()){
+        visitedNode.add(start)
+        console.log(start)
 
-            prefix += char
-            node = node.children[char]
-        }
-        return prefix
+        this.adjacencyList[start].forEach((neighbor)=>{
+            if(!visitedNode.has(neighbor)){
+                this.dfs(neighbor,visitedNode)
+            }
+        })
     }
 
-    countPrefix(word){
-        let node = this.root
-        let count = 0
+    bfsCycleDetection(start){
+        let visitedNode = new Set()
+        visitedNode.add(start)
 
-        for(let char of word){
-            if(!node.children[char]){
-                break
+        let queue = []
+        queue.push({vertex:start,parent:null})
+
+        while(queue.length){
+            let {vertex,parent} = queue.shift()
+
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push({vertex:neighbor,parent:vertex})
+                }
+                else if(neighbor != parent){
+                    console.log("cycle detected")
+                    return
+                }
             }
-
-            count++
-            node = node.children[char]
         }
 
-        return count
+        return 'cycle not found'
+    }
+
+    dfsCycleDetection(start,visitedNode = new Set(),parent = null){
+        visitedNode.add(start)
+
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+                    return true
+                }
+            }
+            else if(neighbor != parent){
+                return true
+            }
+        }
+
+        return false
     }
 }
 
-let trie = new Trie()
+// ------------------- TEST SCRIPT -------------------
+let g = new Graph()
 
-// Insert words
-trie.insert("apple")
-trie.insert("app")
-trie.insert("ape")
-trie.insert("bat")
-trie.insert("bath")
-trie.insert("batman")
-trie.insert("cat")
+// Add edges (graph is auto-created with vertices)
+g.addEdge("A", "B")
+g.addEdge("A", "C")
+g.addEdge("B", "D")
+g.addEdge("C", "E")
+g.addEdge("D", "E")  // creates a cycle
+g.addEdge("F", "G")  // disjoint component
 
-console.log("Total words inserted:", trie.countWords())
-// ✅ Expected: 7
+console.log("\nGraph structure:")
+g.print()
+// Expected:
+// A => B,C
+// B => A,D
+// C => A,E
+// D => B,E
+// E => C,D
+// F => G
+// G => F
 
-console.log("Longest prefix of 'application':", trie.longestPrefix("application"))
-// ✅ Expected: "appl"
+console.log("\nHas Edge Tests:")
+console.log("A-B:", g.hasEdge("A", "B"))  // true
+console.log("A-D:", g.hasEdge("A", "D"))  // false
+console.log("F-G:", g.hasEdge("F", "G"))  // true
 
-console.log("Longest prefix of 'banana':", trie.longestPrefix("banana"))
-// ✅ Expected: "ba"
+console.log("\nBFS from A:")
+g.bfs("A")
+// Expected order (one possibility): A B C D E
 
-console.log("Count of prefix in 'application':", trie.countPrefix("application"))
-// ✅ Expected: 4 (a → p → p → l)
+console.log("\nDFS from A:")
+g.dfs("A")
+// Expected order (one possibility): A B D E C
 
-console.log("Count of prefix in 'batmobile':", trie.countPrefix("batmobile"))
-// ✅ Expected: 4 (b → a → t → m)
+console.log("\nCycle Detection BFS:")
+console.log(g.bfsCycleDetection("A"))
+// Expected: cycle detected → returns true
 
-console.log("Count of prefix in 'dog':", trie.countPrefix("dog"))
-// ✅ Expected: 0 (no match)
+console.log("\nCycle Detection DFS:")
+console.log(g.dfsCycleDetection("A"))
+// Expected: true
 
-console.log("Longest prefix of 'bathtub':", trie.longestPrefix("bathtub"))
-// ✅ Expected: "bath"
+console.log("\nRemoving edge D-E:")
+g.removeEdge("D", "E")
+g.print()
+// Expected: D and E no longer connected
 
-console.log("Longest prefix of 'caterpillar':", trie.longestPrefix("caterpillar"))
-// ✅ Expected: "cat"
+console.log("\nRemoving vertex C:")
+g.removeVertex("C")
+g.print()
+// Expected: vertex C and its edges removed
+
+console.log("\nCycle Detection after removals:")
+console.log(g.bfsCycleDetection("A")) // likely no cycle
+console.log(g.dfsCycleDetection("A")) // likely false
