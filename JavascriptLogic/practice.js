@@ -163,7 +163,6 @@
 // for(let key in obj){
 //   let parts = key.split('.')
 //   let current = result
-
 //   for(let i=0;i<parts.length;i++){
 //     let part = parts[i]
 //     if(i == parts.length-1){
@@ -178,59 +177,6 @@
 // }
 
 // console.log(result)
-
-
-// let result = {}
-
-// for(let key in obj){
-//   let parts = key.split('.')
-//   let current = result
-
-//   for(let i=0;i<parts.length;i++){
-//     let part = parts[i]
-//     if(i == parts.length-1){
-//       current[part] = obj[key]
-//     }else{
-//       if(!current[part]){
-//         current[part] = {}
-//       }
-//       current = current[part]
-//     }
-//   }
-// }
-// console.log(result)
-
-// 5. Convert Array of Objects to Nested Object Tree
-// ✅ Goal: Convert flat list with parent IDs into a nested structure.
-
-// Input:
-
-// let arrObj = [
-//   { id: 1, name: 'A', parent: null },
-//   { id: 2, name: 'B', parent: 1 },
-//   { id: 3, name: 'C', parent: 1 },
-//   { id: 4, name: 'D', parent: 2 }
-// ]
-
-// Output:
-// {
-//   id: 1,
-//   name: 'A',
-//   children: [
-//     {
-//       id: 2,
-//       name: 'B',
-//       children: [
-//         { id: 4, name: 'D', children: [] }
-//       ]
-//     },
-//     {
-//       id: 3,
-//       name: 'C',
-//       children: []
-//     }
-//   ]
-// }
 
 
 const orders = [
@@ -267,87 +213,3 @@ for(let [customer,items] of customerMap){
 }
 
 console.log(mergedList)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//output
-
-// [
-//   { customer: "Alice", items: ["apple", "banana", "orange"] },
-//   { customer: "Bob", items: ["banana", "orange"] },
-//   { customer: "Charlie", items: ["apple", "banana"] }
-// ]
-
-// let final = []
-// for(let i=0;i<orders.length;i++){
-//   let newObj = {}
-
-//   let name = orders[i].customer
-//   let items = orders[i].items
-
-//   for(let j=i+1;j<orders.length;j++){
-//     if(name == orders[j].customer){
-//       let fruits = orders[j].items
-//       for(let k=0;k<fruits.length;k++){
-//         if(!items.includes(fruits[k])){
-//           items.push(fruits[k])
-//         }
-//       }
-//     }
-//   }
-  
-//   newObj['customer'] = name
-//   newObj['fruits'] = items
-
-//   let customerNames = []
-//   for(let val of final){
-//     customerNames.push(val.customer)
-//   }
-
-//   if(!customerNames.includes(newObj.customer)){
-//     final.push(newObj)
-//   }
-// }
-
-// console.log(final)
-
-
-// let customerMap = new Map()
-
-// for(let order of orders){
-//   if(!customerMap.has(order.customer)){
-//     customerMap.set(order.customer,new Set(order.items))
-//   }else{
-//     let itemSet = customerMap.get(order.customer)
-//     order.items.forEach((val)=>{
-//       itemSet.add(val)
-//     })
-//   }
-// }
-
-// console.log(customerMap)
-
-// let final = []
-
-// for(let [customer,items] of customerMap){
-//   final.push({
-//     customer,
-//     items:[...items]
-//   })
-// }
-
-// console.log(final)
