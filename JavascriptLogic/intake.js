@@ -809,36 +809,46 @@
 
 // console.log(result)
 
-const orders = [
-  { id: 1, customer: "Alice", items: ["apple", "banana"] },
-  { id: 2, customer: "Bob", items: ["banana", "orange"] },
-  { id: 3, customer: "Alice", items: ["orange"] },
-  { id: 4, customer: "Charlie", items: ["apple", "apple","banana"]}
-];
+// const orders = [
+//   { id: 1, customer: "Alice", items: ["apple", "banana"] },
+//   { id: 2, customer: "Bob", items: ["banana", "orange"] },
+//   { id: 3, customer: "Alice", items: ["orange"] },
+//   { id: 4, customer: "Charlie", items: ["apple", "apple","banana"]}
+// ];
 
 
-let takeFreq = new Map()
+// let takeFreq = new Map()
 
-for(let val of orders){
-    if(!takeFreq.has(val.customer)){
-        takeFreq.set(val.customer,new Set(val.items))
-    }else{
-        const takeItems = takeFreq.get(val.customer)
-        val.items.forEach((val)=>{
-            takeItems.add(val)
-        })
+// for(let val of orders){
+//     if(!takeFreq.has(val.customer)){
+//         takeFreq.set(val.customer,new Set(val.items))
+//     }else{
+//         const takeItems = takeFreq.get(val.customer)
+//         val.items.forEach((val)=>{
+//             takeItems.add(val)
+//         })
+//     }
+// }
+
+// console.log(takeFreq)
+
+// let finalArr = []
+
+// for(let [customer,items] of takeFreq){
+//     finalArr.push({
+//         customer,
+//         items:[...items]
+//     })
+// }
+
+// console.log(finalArr)
+
+
+function createObject(name,age){
+    return {
+        name:name,
+        age:age
     }
 }
 
-console.log(takeFreq)
-
-let finalArr = []
-
-for(let [customer,items] of takeFreq){
-    finalArr.push({
-        customer,
-        items:[...items]
-    })
-}
-
-console.log(finalArr)
+console.log(createObject('ahamathbasha',20))
