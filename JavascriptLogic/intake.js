@@ -844,11 +844,288 @@
 // console.log(finalArr)
 
 
-function createObject(name,age){
+// function createObject(name,age){
+//     return {
+//         name:name,
+//         age:age
+//     }
+// }
+
+// console.log(createObject('ahamathbasha',20))
+
+
+
+// function deepCopy(obj){
+//     if(obj == null && typeof obj != 'object'){
+//         return obj
+//     }
+
+//     const copy = Array.isArray(obj) ? [] : {}
+
+//     for(let key in obj){
+//         copy[key] = deepCopy(obj[key])
+//     }
+
+//     return copy
+// }
+
+
+// function deepFreeze(obj){
+//     let propNames = Object.getOwnPropertyNames(obj)
+
+//     for(let val of propNames){
+//         const value = obj[val]
+
+//         if(value && typeof value === 'object'){
+//             deepFreeze(value)
+//         }
+//     }
+
+//     return Object.freeze(obj)
+// }
+
+
+// function factorial(n){
+//     let fact = 1
+
+//     for(let i=1;i<=n;i++){
+//         fact *= i
+//     }
+
+//     return fact
+// }
+
+
+// const memoization = (fn) => {
+//     let cache = {}
+//     return function(args){
+//         let input = args
+//         if(input in cache){
+//             return cache[input]
+//         }else{
+//             let result = fn(input)
+//             cache[input] = result
+//             return result 
+//         }
+//     }
+// }
+
+
+
+
+
+// let obj = {
+//   a: {
+//     b: {
+//       c: 1
+//     }
+//   },
+//   d: 2
+// }
+
+// function flatObj(obj,parentKey="",result={}){
+//     for(let key in obj){
+//         const fullpath = parentKey ? `${parentKey}.${key}` : `${key}`
+//         if(typeof obj[key] == 'object'){
+//             flatObj(obj[key],fullpath,result)
+//         }else{
+//             result[fullpath] = obj[key]
+//         }
+//     }
+//     return result
+// }
+
+// console.log(flatObj(obj))
+
+
+// let obj2 ={
+//   "a.b.c": 1,
+//   "d": 2
+// }
+
+
+// let result = {}
+
+// for(let key in obj2){
+//     let parts = key.split('.')
+//     let current = result
+
+//     for(let i=0;i<parts.length;i++){
+//         if(i == parts.length-1){
+//             current[parts[i]] = obj2[key]
+//         }
+//         if(!current[parts[i]]){
+//             current[parts[i]] = {} 
+//         }
+//         current = current[parts[i]]
+//     }
+// }
+
+// console.log(result)
+
+
+// const orders = [
+//   { id: 1, customer: "Alice", items: ["apple", "banana"] },
+//   { id: 2, customer: "Bob", items: ["banana", "orange"] },
+//   { id: 3, customer: "Alice", items: ["orange"] },
+//   { id: 4, customer: "Charlie", items: ["apple", "apple","banana"]}
+// ];
+
+
+// let customerMap = new Map()
+
+// for(let val of orders){
+//     if(!customerMap.has(val.customer)){
+//         customerMap.set(val.customer,new Set(val.items))
+//     }else{
+//         let takeItems = customerMap.get(val.customer)
+//         val.items.forEach((val)=>{
+//             takeItems.add(val)
+//         })
+//     }
+// }
+
+// console.log(customerMap)
+
+// let finalOutput = []
+
+// for(let [customer,items] of customerMap){
+//     finalOutput.push({
+//         customer,
+//         items:[...items]
+//     })
+// }
+
+// console.log(finalOutput)
+
+
+// const GettingSetting = {
+//     firstName : "Manick",
+//     lastName :"basha",
+
+//     get fullName(){
+//         return this.firstName + this.lastName
+//     },
+
+//     set fullName(name){
+//         let given = name.split(' ')
+//         this.firstName = given[0]
+//         this.lastName = given[1]
+//     }
+// }
+
+// console.log(GettingSetting.fullName)
+
+// GettingSetting.fullName='ahamath basha'
+
+// console.log(GettingSetting.fullName)
+
+
+// const objDemo = {
+//     name : "ahamathbasha",
+//     age : 20
+// }
+
+// const handler = {
+//     get (target,prop){
+//         return prop in target ? target[prop] : 'prop is not found'
+//     },
+
+
+//     set(target,prop,value){
+//         if(prop == 'name'){
+//             target[prop] = value
+//         }
+
+//         if(prop == 'age'){
+//             target[prop] = value
+//         }
+//     }
+// }
+
+// const proxyObj = new Proxy(objDemo,handler)
+
+// console.log(proxyObj.name)
+
+// proxyObj.age = 22
+
+// console.log(proxyObj)
+// console.log(objDemo)
+
+
+// function sum(a){
+//     return function(b){
+//         return function(c){
+//             return a+b+c
+//         }
+//     }
+// }
+
+// const evaluate = sum(1)(2)(3)
+
+// console.log(evaluate)
+
+
+// function *generator(start,end){
+
+//     while(start <= end){
+//         yield start
+//         start += 1
+//     }
+// }
+
+
+// const printAlternateEven = generator(1,100)
+
+// for(let i=1;i<=100;i++){
+//     if(i%2 != 0){
+//         printAlternateEven.next()
+//     }else{
+//         console.log(printAlternateEven.next().value)
+//     }
+// }
+
+// function *gen(){
+//     let count = 100
+
+//     while(count != 0){
+//         yield count
+//         count -= 2
+//     }
+// }
+
+// const alternateEven = gen()
+
+// for(let i=1;i<=50;i++){
+//     if(i % 2 == 0){
+//         alternateEven.next()
+//     }else{
+//         console.log(alternateEven.next().value)
+//     }
+// }
+
+
+function closureEx(){
+    let count = 0
+
+    return function(){
+        count++
+        return count
+    }
+}
+
+const value = closureEx()
+
+console.log(value())
+console.log(value())
+
+function factory(name,age){
     return {
         name:name,
         age:age
     }
 }
 
-console.log(createObject('ahamathbasha',20))
+const obj = factory('basha',20)
+
+console.log(obj)
