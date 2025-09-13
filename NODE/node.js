@@ -75,11 +75,8 @@
 // const server = http.createServer((req,res)=>{
 //     const parseUrl = url.parse(req.url,true)
 //     const pathName = parseUrl.pathname
-
 //     res.writeHead(200,{'content-type':'text/plain'})
-
 //     res.write(pathName)
-
 //     res.end()
 // })
 

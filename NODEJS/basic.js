@@ -414,16 +414,17 @@
 // const app=express()
 // app.use(cookieParser())
 
-// app.get('/set-cookie',(req,res)=>{
+// app.get('/setCookie',(req,res)=>{
 //     res.cookie('username','ahamathbasha',{maxAge:86400000})
 //     res.write("cookie set")
 //     res.end("finsish")
 // })
 
-// app.get('/get-cookie',(req,res)=>{
+// app.get('/getCookie',(req,res)=>{
 //     const username=req.cookies.username
 //     res.send(username)
 // })
+
 // app.listen(3000,()=>{
 //     console.log("server is running")
 // })
@@ -557,6 +558,8 @@
 // .then((data)=>console.log(data))
 // .catch((error)=>console.log(error))
 
+
+
 // const express=require('express')
 // const app=express()
 
@@ -591,11 +594,12 @@
 // .get((req,res)=>res.send("hello route"))
 // .post((req,res)=>res.send("hello post"))
 
-
-
 // app.listen(3000,()=>{
 //     console.log("server is running")
 // })
+
+
+
 
 // const express=require('express')
 // const app=express()
@@ -753,7 +757,6 @@
 //     console.log(`${req.method} and ${req.url}`)
 //     next()
 // })
-
 
 // app.use(loggerMiddleware)
 
@@ -1215,12 +1218,15 @@
 // })
 
 const fs = require('fs');
+
 setTimeout(() => {
   console.log("1. setTimeout (Timers Phase)");
 }, 0);
+
 setImmediate(() => {
   console.log("2. setImmediate (Check Phase)");
 });
+
 fs.readFile(__filename, () => {
   console.log("3. fs.readFile (Poll Phase)");
   setImmediate(() => {

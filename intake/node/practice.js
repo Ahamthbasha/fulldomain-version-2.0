@@ -1,26 +1,37 @@
-// const express = require('express')
-// const app = express()
-
-// app.get("/basha",((req,res)=>{
-//     res.send("eppadi irukkeenga anna")
-// }))
-
-// app.listen(3000,()=>{
-//     console.log("server is running")
-// })
-
-// file operations
-
+//file operations
 // const fs = require('fs')
+// const utils = require('util')
 
-// fs.writeFile('abcd.txt','hello basha',(err)=>{
-//     if(err){
-//         console.log("err",err)
+// const readFile = utils.promisify(fs.readFile)
+
+// async function readFile1(){
+//     try {
+//         const result = await readFile('newFile.txt')
+//         console.log(result.toString())
+//     } catch (error) {
+//         throw error
 //     }
-//     console.log("writing")
+// }
+
+// readFile1()
+
+// fs.writeFile("newFile.txt",'basha bhaii',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+
+//     console.log('writed')
 // })
 
-// fs.readFile('abcd.txt',(err,data)=>{
+
+// fs.appendFile('hello.txt','\n basha you are good typer',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+//     console.log('file appended')
+// })
+
+// fs.readFile("newFile.txt",(err,data)=>{
 //     if(err){
 //         console.log(err)
 //     }
@@ -30,64 +41,62 @@
 //     }
 // })
 
-// fs.rename('abcd.txt','text.txt',(err)=>{
+// fs.rename('hello.txt','newFile.txt',(err)=>{
 //     if(err){
 //         console.log(err)
 //     }
-//     console.log("renamed text")
+//     console.log('renamed')
 // })
 
-// fs.unlink('text.txt',(err)=>{
+// fs.unlink('write.txt',(err)=>{
 //     if(err){
 //         console.log(err)
 //     }
-//     console.log('deleted')
 // })
+// console.log("successfully deleted")
 
-// fs.appendFile('abcd.txt',"\nhow are you",(err)=>{
-//     if(err){
-//         console.log(err)
-//     }
-//     console.log('appended')
-// })
+// const checkExistOrNot = fs.existsSync('output2.txt')
+// console.log(checkExistOrNot)
 
-// const checkOrNot = fs.existsSync('abcd.txt')
-// console.log(checkOrNot)
+//const fs promise
 
-// const { read } = require('fs')
 // const fs = require('fs/promises')
 
-// const readIt = fs.readFile('abcd.txt')
+// const read = fs.readFile("newFile.txt")
 
 
-// async function readFile(){
+// async function readTheFile(){
 //     try {
-//         const result = await readIt
+//         const result = await read
 //         console.log(result.toString())
 //     } catch (error) {
 //         throw error
 //     }
 // }
 
-// readFile()
+// readTheFile()
 
 //streams
 
 // const fs = require('fs')
 
-// const readStream = fs.createReadStream('abcd.txt')
+// const read = fs.createReadStream('newFile.txt')
 
-// readStream.on('data',(chunk)=>{
+// read.on('data',(chunk)=>{
 //     console.log(chunk.toString())
 // })
 
-// const writeStream = fs.createWriteStream('write.txt')
+// const write = fs.createWriteStream('writeStream.txt')
 
-// writeStream.write('hello basha')
+// write.write("hello world")
 
-// writeStream.end(()=>{
-//     console.log('writing completed')
-// })
+// write.end()
+
+// console.log("writed stream ended")
+
+
+//duplex stream
+
 
 // const {Duplex} = require('stream')
 
@@ -97,7 +106,7 @@
 //         this.data = ""
 //     }
 
-//     _read(size){
+//     _read(read){
 //         this.push(this.data)
 //         this.push(null)
 //     }
@@ -110,87 +119,396 @@
 
 // const d = new MyDuplex()
 
-// d.write("hello mariyam")
+// d.write("hello world how are you \n who are you")
 
 // d.on('data',(chunk)=>{
 //     console.log(chunk.toString())
 // })
 
+
+//Transform Stream
+
 // const {Transform} = require('stream')
 
 // class MyTransform extends Transform{
 //     _transform(chunk,encoding,callback){
-//         const upperChunk = chunk.toString().toUpperCase()
-//         this.push(upperChunk)
+//         const upperchunk = chunk.toString().toUpperCase()
+//         this.push(upperchunk)
 //         callback()
 //     }
 // }
-
 // const t = new MyTransform()
+// const readStream = fs.createReadStream('newFile.txt')
+// const writeStream = fs.createWriteStream("transform.txt")
 
-// const r = fs.createReadStream("abcd.txt")
-// const w = fs.createWriteStream("output2.txt")
-
-// r
+// readStream
 // .pipe(t)
-// .pipe(w)
-// .on('finish',()=>{
-//     console.log('completed')
+// .pipe(writeStream)
+
+// console.log('stream transformation ended')
+
+
+//childProcess
+
+// const {exec, execFile, spawn, fork} = require('child_process')
+// const { error } = require('console')
+// const { StringDecoder } = require('string_decoder')
+
+// exec('dir',(stderr,stdout,error)=>{
+//     if(error){
+//         console.log(error)
+//     }
+
+//     if(stderr){
+//         console.log(stderr)
+//     }
+
+//     if(stdout){
+//         console.log(stdout)
+//     }
 // })
 
 
-const {exec, execFile, spawn, fork} = require('child_process')
-const { error } = require('console')
-const { stderr } = require('process')
+// execFile('node',['practice2.js'],(stderr,stdout,error)=>{
+//     if(error){
+//         console.log(error)
+//     }
 
-exec('dir',(stderr,stdout,error)=>{
-    if(stderr){
-        console.log(stderr)
-    }
+//     if(stderr){
+//         console.log(stderr)
+//     }
 
-    if(error){
-        console.log(error)
-    }
+//     if(stdout){
+//         console.log(stdout)
+//     }
+// })
 
-    if(stdout){
-        console.log(stdout)
-    }
+// const spawnIt = spawn('cmd.exe',['/c','dir'])
+
+// spawnIt.stdout.on('data',(chunk)=>{
+//     console.log(chunk.toString())
+// })
+
+// spawnIt.stderr.on('data',(chunk)=>{
+//     console.log(chunk.toString())
+// })
+
+// spawnIt.on('close',(code)=>{
+//     console.log(`${code} exited successfully`)
+// })
+
+// //fork
+
+// const parent = fork('practice2.js')
+
+// parent.on('message',(msg)=>{
+//     console.log("parent received message",msg)
+// })
+
+// parent.send('hello basha')
+
+
+//events
+
+// const event = require('events')
+
+// class MyEvent extends event{}
+
+// const e = new MyEvent()
+
+// const greetFn = (name)=>{
+//     console.log('my name is ', name)
+// }
+
+// e.on('greet',greetFn)
+
+// e.emit('greet','billa')
+
+// e.removeListener('greet',greetFn)
+
+// //emitting only one time
+
+// const greetingVicky = (name)=>{
+//     console.log(`thank you ${name}`)
+// }
+
+// e.once('greetVicky',greetingVicky)
+
+// e.emit('greetVicky','vignesh')
+
+
+//connectingMongoDB
+
+// const mongoose = require('mongoose')
+
+// const db = async()=>{
+//     try {
+//         const result = await mongoose.connect('mongodb://127.0.0.1:27017/bashaDB')
+//         console.log('mongodb connected')
+//     } catch (error) {
+//         console.log('error connecting to mongodb',error)
+//     }
+// }
+
+
+// const express = require('express')
+// const app = express()
+
+// db()
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//write five times dates
+
+// const fs = require('fs')
+
+// for(let i=1;i<=5;i++){
+//     fs.writeFile(`write${i}.txt`,new Date().toString(),(err)=>{
+//         if(err){
+//             console.log(err)
+//         }
+//     })
+// }
+
+//create server using http
+
+// const http = require('http')
+
+// const server = http.createServer((req,res)=>{
+//     res.write('basha')
+//     res.end()
+// })
+
+// server.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//localModule(relative path)
+
+// const greet = require('./practice2')
+
+// console.log(greet("basha"))
+
+//router level middleware
+
+// const express = require('express')
+// const app = express()
+// const userRouter = require("./practice2")
+
+// app.use('/user',userRouter)
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+
+//timers
+
+// setTimeout(()=>{
+//     console.log("hello")
+// },1000)
+
+// setImmediate(()=>{
+//     console.log("I am priotiry")
+// },2000)
+
+// const interval=setInterval(()=>{
+//     console.log("hello")
+// },3000)
+
+// setTimeout(()=>{
+//     clearInterval(interval)
+// },4000)
+
+//crypto
+
+// const crypto = require('crypto')
+
+// const password = "My Name Is Billa"
+
+// const result = crypto.createHash('sha256').update(password).digest('hex')
+// console.log(result)
+
+// const random = crypto.randomBytes(16).toString('hex')
+// console.log(random)
+
+//dns
+
+// const dns = require('dns')
+
+// dns.lookup('google.com',(error,hostname,address)=>{
+//     if(error){
+//         console.log(error)
+//     }
+//     console.log(hostname)
+//     console.log(address)
+// })
+
+// dns.reverse('8.8.8.8',(error,hostname)=>{
+//     if(error){
+//         console.log(error)
+//     }
+//     console.log(hostname)
+// })
+
+// params
+
+// const express = require('express')
+// const app = express()
+
+// app.use((req,res,next)=>{
+//     console.log(req.method)
+//     next()
+// })
+
+// app.get("/basha/:id",(req,res)=>{
+//     res.send(`basha id is ${req.params.id}`)
+// })
+
+// app.get("/bashaQuery",(req,res)=>{
+//     let name = req.query.name
+//     res.send(name)
+// })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+//block get method request middleware
+
+// const express = require('express')
+// const app = express()
+
+// app.use((req,res,next)=>{
+//     if(req.method === 'GET'){
+//         res.status(403).json({message:"Get method is restricted"})
+//     }else{
+//         next()
+//     }
+// })
+
+// app.get('/getRequest',(req,res)=>{
+//     res.send('basha')
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//error handling middleware
+
+// const express = require('express')
+// const app = express()
+
+// app.get('/basha',(req,res)=>{
+//     res.send('basha')
+// })
+
+// app.use((err,req,res,next)=>{
+//     console.log(err)
+//     res.status(500).json({message:err.message})
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+
+//middleware function
+
+// const express = require('express')
+// const app = express()
+
+// const loggerMiddleware = ((req,res,next)=>{
+//     console.log(`method is ${req.method}.url is ${req.url}`)
+//     next()
+// })
+
+// app.use(loggerMiddleware)
+
+// app.get('/basha',(req,res)=>{
+//     res.send('basha')
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+// const fs = require('fs');
+
+// setTimeout(() => {
+//   console.log("1. setTimeout (Timers Phase)");
+// }, 100);
+
+// setImmediate(() => {
+//   console.log("2. setImmediate (Check Phase)");
+// });
+
+// fs.readFile(__filename, () => {
+//   console.log("3. fs.readFile (Poll Phase)");
+//   setImmediate(() => {
+//     console.log("4. Inside I/O: setImmediate (Check Phase)");
+//   });
+//   setTimeout(() => {
+//     console.log("5. Inside I/O: setTimeout (Timers Phase)");
+//   }, 0);
+// });
+// console.log("6. Synchronous Log");
+
+//check file exist if exist update with current date otherwise tell there is not found
+
+// const express = require('express')
+// const app = express()
+// const fs = require('fs')
+
+// app.get('/check/:file',(req,res)=>{
+//     const fileName = req.params.file
+
+//     let check = fs.existsSync(fileName)
+
+//     if(check){
+//         fs.writeFile(fileName,new Date().toString(),(err)=>{
+//             if(err){
+//                 res.send(err)
+//             }
+//         })
+
+//         res.status(200).json({message:"file is updated"})
+//     }else{
+//         res.status(404).json({message:"it is not found"})
+//     }
+// })
+
+// app.listen(3000,()=>{
+//     console.log('server is running')
+// })
+
+//router middleware
+
+const express = require('express')
+const app = express()
+const fs = require('fs')
+
+const router = express.Router()
+
+const routerLevel = router.use((req,res,next)=>{
+    const a = parseInt(req.query.a)
+    const b = parseInt(req.query.b)
+
+    fs.writeFile('sum.txt',(a+b).toString(),(err)=>{
+        if(err){
+            console.log(err)
+        }
+    })
+    next()
 })
 
-
-execFile('node',['practice2.js'],(stderr,stdout,error)=>{
-    if(error){
-        console.log(error)
-    }
-
-    if(stderr){
-        console.log(stderr)
-    }
-
-    if(stdout){
-        console.log(stdout)
-    }
+app.get('/addTwoNumbers',routerLevel,(req,res)=>{
+    res.send('hello')
 })
 
-
-const childProcess = spawn('cmd.exe',['/c','dir'])
-
-childProcess.stdout.on('data',(chunk)=>{
-    console.log(chunk.toString())
+app.listen(3000,()=>{
+    console.log('server is running')
 })
-
-childProcess.stderr.on('data',(chunk)=>{
-    console.log(chunk.toString())
-})
-
-childProcess.on('close',(code)=>{
-    console.log(code)
-})
-
-const parent = fork('practice2.js')
-
-parent.on('message',(msg)=>{
-    console.log('parent receiving child message',msg)
-})
-
-parent.send("hello child")

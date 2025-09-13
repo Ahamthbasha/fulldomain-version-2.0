@@ -43,9 +43,7 @@
 // const fs = require('fs')
 
 // router.use("/addTwoNo",(req,res,next)=>{
-
 //     const  {first,second} = req.query
-
 //     let a = Number(first)
 //     let b = Number(second)
 //     let total =a+b
