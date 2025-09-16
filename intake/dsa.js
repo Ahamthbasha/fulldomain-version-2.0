@@ -1797,170 +1797,314 @@
 
 //maxHeap
 
-class MaxHeap{
+// class MaxHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftChild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightChild(index){
+//         return this.getRightChildIndex(index) < this.heap.length 
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     insert(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length-1
+
+//         while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+//             this.swap(index,this.getParentIndex(index))
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         let val = this.heap[0]
+//         this.heap[0] = this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown()
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+
+//         while(this.hasLeftChild(index)){
+//             let largest = this.getLeftChildIndex(index)
+
+//             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+//                 largest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] >= this.heap[largest]){
+//                 break
+//             }else{
+//                 this.swap(index,largest)
+//             }
+
+//             index = largest
+//         }
+//     }
+
+//     heapSort(arr){
+//         let temp = new MaxHeap()
+//         for(let i=0;i<arr.length;i++){
+//             temp.insert(arr[i])
+//         }
+
+//         let sortedArr = []
+
+//         while(temp.heap.length){
+//             sortedArr.push(temp.remove())
+//         }
+
+//         return sortedArr.reverse()
+//     }
+
+//     findKthSmallest(arr,k){
+//         let temp = new MaxHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             temp.insert(arr[i])
+//             if(temp.heap.length > k){
+//                 temp.remove()
+//             }
+//         }
+
+//         return temp.peek()
+//     }
+// }
+
+// function runTests() {
+//     let heap = new MaxHeap();
+
+//     console.log("=== Basic Heap Operations ===");
+//     heap.insert(10);
+//     heap.insert(20);
+//     heap.insert(5);
+//     heap.insert(30);
+
+//     console.log("Peek (should be 30):", heap.peek());  // 30
+//     console.log("Remove (should be 30):", heap.remove()); // 30
+//     console.log("Peek after remove (should be 20):", heap.peek()); // 20
+
+//     console.log("=== Heap Sort ===");
+//     let arr = [5, 3, 8, 1, 2];
+//     console.log("Original:", arr);
+//     console.log("Heap Sort Result:", heap.heapSort(arr)); // [1,2,3,5,8]
+
+//     console.log("=== findKthSmallest ===");
+//     let arr2 = [7, 10, 4, 3, 20, 15];
+//     console.log("Array:", arr2);
+//     console.log("1st smallest (should be 3):", heap.findKthSmallest(arr2, 1));
+//     console.log("2nd smallest (should be 4):", heap.findKthSmallest(arr2, 2));
+//     console.log("3rd smallest (should be 7):", heap.findKthSmallest(arr2, 3));
+//     console.log("4th smallest (should be 10):", heap.findKthSmallest(arr2, 4));
+
+//     console.log("=== Edge Cases ===");
+//     let emptyHeap = new MaxHeap();
+//     console.log("Peek empty:", emptyHeap.peek()); // "heap is empty"
+//     console.log("Remove empty:", emptyHeap.remove()); // "heap is empty"
+// }
+
+// runTests();
+
+//trie
+
+class Node{
     constructor(){
-        this.heap = []
+        this.children = {}
+        this.isEndOfWord = false
+    }
+}
+class Trie{
+    constructor(){
+        this.root = new Node()
     }
 
-    isEmpty(){
-        return this.heap.length == 0
-    }
-
-    getParentIndex(index){
-        return Math.floor((index-1)/2)
-    }
-
-    getLeftChildIndex(index){
-        return 2 * index + 1
-    }
-
-    getRightChildIndex(index){
-        return 2 * index + 2
-    }
-
-    getParent(index){
-        return this.heap[this.getParentIndex(index)]
-    }
-
-    getLeftChild(index){
-        return this.heap[this.getLeftChildIndex(index)]
-    }
-
-    getRightChild(index){
-        return this.heap[this.getRightChildIndex(index)]
-    }
-
-    hasParent(index){
-        return this.getParentIndex(index) >= 0
-    }
-
-    hasLeftChild(index){
-        return this.getLeftChildIndex(index) < this.heap.length
-    }
-
-    hasRightChild(index){
-        return this.getRightChildIndex(index) < this.heap.length 
-    }
-
-    swap(index1,index2){
-        let temp = this.heap[index1]
-        this.heap[index1] = this.heap[index2]
-        this.heap[index2] = temp
-    }
-
-    peek(){
-        if(this.isEmpty()){
-            return 'heap is empty'
+    insert(word){
+        let node = this.root
+        for(let char of word){
+            if(!node.children[char]){
+                node.children[char] = new Node()
+            }
+            node = node.children[char]
         }
 
-        return this.heap[0]
+        node.isEndOfWord = true
     }
 
-    insert(value){
-        this.heap.push(value)
-        this.heapifyUp()
-    }
-
-    heapifyUp(){
-        let index = this.heap.length-1
-
-        while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
-            this.swap(index,this.getParentIndex(index))
-            index = this.getParentIndex(index)
+    search(word){
+        let node = this.root
+        for(let char of word){
+            if(!node.children[char]){
+                return false
+            }
+            node = node.children[char]
         }
+        return node.isEndOfWord
     }
 
-    remove(){
-        if(this.isEmpty()){
-            return 'heap is empty'
-        }
+    startsWith(prefix){
+        let node = this.root
 
-        let val = this.heap[0]
-        this.heap[0] = this.heap[this.heap.length-1]
-        this.heap.pop()
-        this.heapifyDown()
-        return val
-    }
-
-    heapifyDown(){
-        let index = 0
-
-        while(this.hasLeftChild(index)){
-            let largest = this.getLeftChildIndex(index)
-
-            if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
-                largest = this.getRightChildIndex(index)
+        for(let char of prefix){
+            if(!node.children[char]){
+                return false
             }
 
-            if(this.heap[index] >= this.heap[largest]){
+            node = node.children[char]
+        }
+
+        return true
+    }
+
+    autoComplete(word){
+        let node = this.root
+
+        for(let char of word){
+            if(!node.children[char]){
+                return []
+            }
+            node = node.children[char]
+        }
+
+        return this.collectWord(node,word)
+    }
+
+    collectWord(node,word,result=[]){
+        if(node.isEndOfWord){
+            result.push(word)
+        }
+
+        for(let char in node.children){
+            this.collectWord(node.children[char],word+char,result)
+        }
+
+        return result
+    }
+
+    print(){
+        return this.collectWord(this.root,"")
+    }
+
+    delete(word){
+        let node = this.root
+        let path = []
+        for(let char of word){
+            if(!node.children[char]){
+                return 'no matching'
+            }
+
+            path.push([node,char])
+            node = node.children[char]
+        }
+
+        if(node.isEndOfWord){
+            node.isEndOfWord = false
+        }
+
+        for(let i=word.length-1;i>=0;i--){
+            let [parentNode,char] = path[i]
+
+            let childNode = parentNode.children[char]
+
+            if(Object.keys(childNode).length > 0 || childNode.isEndOfWord){
                 break
-            }else{
-                this.swap(index,largest)
             }
 
-            index = largest
+            delete parentNode.children[char]
         }
-    }
-
-    heapSort(arr){
-        let temp = new MaxHeap()
-        for(let i=0;i<arr.length;i++){
-            temp.insert(arr[i])
-        }
-
-        let sortedArr = []
-
-        while(temp.heap.length){
-            sortedArr.push(temp.remove())
-        }
-
-        return sortedArr.reverse()
-    }
-
-    findKthSmallest(arr,k){
-        let temp = new MaxHeap()
-
-        for(let i=0;i<arr.length;i++){
-            temp.insert(arr[i])
-            if(temp.heap.length > k){
-                temp.remove()
-            }
-        }
-
-        return temp.peek()
     }
 }
 
 function runTests() {
-    let heap = new MaxHeap();
+    let trie = new Trie();
 
-    console.log("=== Basic Heap Operations ===");
-    heap.insert(10);
-    heap.insert(20);
-    heap.insert(5);
-    heap.insert(30);
+    console.log("=== Insert & Search ===");
+    trie.insert("apple");
+    console.log(trie.search("apple"));   // true
+    console.log(trie.search("app"));     // false
+    console.log(trie.startsWith("app")); // true
 
-    console.log("Peek (should be 30):", heap.peek());  // 30
-    console.log("Remove (should be 30):", heap.remove()); // 30
-    console.log("Peek after remove (should be 20):", heap.peek()); // 20
+    trie.insert("app");
+    console.log(trie.search("app"));     // true
 
-    console.log("=== Heap Sort ===");
-    let arr = [5, 3, 8, 1, 2];
-    console.log("Original:", arr);
-    console.log("Heap Sort Result:", heap.heapSort(arr)); // [1,2,3,5,8]
+    console.log("=== AutoComplete ===");
+    trie.insert("apricot");
+    trie.insert("banana");
+    console.log(trie.autoComplete("ap")); // ["apple", "app", "apricot"]
 
-    console.log("=== findKthSmallest ===");
-    let arr2 = [7, 10, 4, 3, 20, 15];
-    console.log("Array:", arr2);
-    console.log("1st smallest (should be 3):", heap.findKthSmallest(arr2, 1));
-    console.log("2nd smallest (should be 4):", heap.findKthSmallest(arr2, 2));
-    console.log("3rd smallest (should be 7):", heap.findKthSmallest(arr2, 3));
-    console.log("4th smallest (should be 10):", heap.findKthSmallest(arr2, 4));
+    console.log("=== Print All Words ===");
+    console.log(trie.print()); // ["apple", "app", "apricot", "banana"]
 
-    console.log("=== Edge Cases ===");
-    let emptyHeap = new MaxHeap();
-    console.log("Peek empty:", emptyHeap.peek()); // "heap is empty"
-    console.log("Remove empty:", emptyHeap.remove()); // "heap is empty"
+    console.log("=== Delete ===");
+    trie.delete("app");
+    console.log(trie.search("app"));     // false
+    console.log(trie.search("apple"));   // true
+    console.log(trie.autoComplete("ap")); // ["apple", "apricot"]
+
+    trie.delete("apple");
+    console.log(trie.search("apple"));   // false
+    console.log(trie.autoComplete("ap")); // ["apricot"]
+
+    console.log(trie.delete("notfound")); // "no matching"
 }
 
 runTests();
