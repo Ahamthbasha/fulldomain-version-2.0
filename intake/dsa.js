@@ -2478,323 +2478,469 @@
 
 //linkedlist
 
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
-    }
-}
+// class Node{
+//     constructor(value){
+//         this.value = value
+//         this.next = null
+//     }
+// }
 
-class LinkedList{
-    constructor(){
-        this.head = null
-        this.size = 0
-    }
+// class LinkedList{
+//     constructor(){
+//         this.head = null
+//         this.size = 0
+//     }
 
-    isEmpty(){
-        return this.size == 0
-    }
+//     isEmpty(){
+//         return this.size == 0
+//     }
 
-    prepend(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-        }
-        else{
-            node.next = this.head
-            this.head = node
-        }
-        this.size++
-    }
+//     prepend(value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//         }
+//         else{
+//             node.next = this.head
+//             this.head = node
+//         }
+//         this.size++
+//     }
 
-    append(value){
-        const node = new Node(value)
+//     append(value){
+//         const node = new Node(value)
 
-        if(this.isEmpty()){
-            this.head = node
-        }else{
-            let temp = this.head
+//         if(this.isEmpty()){
+//             this.head = node
+//         }else{
+//             let temp = this.head
 
-            while(temp.next){
-                temp = temp.next
-            }
+//             while(temp.next){
+//                 temp = temp.next
+//             }
 
-            temp.next = node
-        }
+//             temp.next = node
+//         }
 
-        this.size++
-    }
+//         this.size++
+//     }
 
-    insert(index,value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-            this.size++
-        }
-        else if(index < 0 || index > this.size){
-            return 'invalid index'
-        }
-        else if(index == 0){
-            this.prepend(value)
-        }
-        else if(index == this.size){
-            this.append(value)
-        }
-        else{
-            let temp = this.head
+//     insert(index,value){
+//         const node = new Node(value)
+//         if(this.isEmpty()){
+//             this.head = node
+//             this.size++
+//         }
+//         else if(index < 0 || index > this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             this.prepend(value)
+//         }
+//         else if(index == this.size){
+//             this.append(value)
+//         }
+//         else{
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
 
-            node.next = temp.next
-            temp.next = node
+//             node.next = temp.next
+//             temp.next = node
 
-            this.size++
-        }
-    }
+//             this.size++
+//         }
+//     }
 
-    removeFromStart(){
-        if(this.isEmpty()){
-            return 'list is empty nothing to remove'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-    }
+//     removeFromStart(){
+//         if(this.isEmpty()){
+//             return 'list is empty nothing to remove'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeFromEnd(){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else if(this.size == 1){
-            let val = this.head.value
-            this.head = null
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeFromEnd(){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else if(this.size == 1){
+//             let val = this.head.value
+//             this.head = null
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp.next.next){
-                temp = temp.next
-            }
+//             while(temp.next.next){
+//                 temp = temp.next
+//             }
 
-            let val = temp.next.value
+//             let val = temp.next.value
 
-            temp.next = null
-            this.size--
-            return val
-        }
-    }
+//             temp.next = null
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeByIndex(index){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else if(index < 0 || index >= this.size){
-            return 'invalid index'
-        }
-        else if(index == 0){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByIndex(index){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else if(index < 0 || index >= this.size){
+//             return 'invalid index'
+//         }
+//         else if(index == 0){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            for(let i=0;i<index-1;i++){
-                temp = temp.next
-            }
+//             for(let i=0;i<index-1;i++){
+//                 temp = temp.next
+//             }
 
-            let val = temp.next.value
-            temp.next = temp.next.next
-            this.size--
-            return val
-        }
-    }
+//             let val = temp.next.value
+//             temp.next = temp.next.next
+//             this.size--
+//             return val
+//         }
+//     }
 
-    removeByValue(value){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else if(this.head.value == value){
-            let val = this.head.value
-            this.head = this.head.next
-            this.size--
-            return val
-        }
-        else{
-            let temp = this.head
+//     removeByValue(value){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else if(this.head.value == value){
+//             let val = this.head.value
+//             this.head = this.head.next
+//             this.size--
+//             return val
+//         }
+//         else{
+//             let temp = this.head
 
-            while(temp.next && temp.next.value != value){
-                temp = temp.next
-            }
+//             while(temp.next && temp.next.value != value){
+//                 temp = temp.next
+//             }
 
-            if(temp.next == null){
-                return 'value not found'
-            }else{
-                let val = temp.next.value
-                temp.next = temp.next.next
-                this.size--
-                return val
-            }
-        }
-    }
+//             if(temp.next == null){
+//                 return 'value not found'
+//             }else{
+//                 let val = temp.next.value
+//                 temp.next = temp.next.next
+//                 this.size--
+//                 return val
+//             }
+//         }
+//     }
 
-    search(value){
-        if(this.isEmpty()){
-            return 'list is empty'
-        }
-        else{
-            let temp = this.head
-            let i = 0
+//     search(value){
+//         if(this.isEmpty()){
+//             return 'list is empty'
+//         }
+//         else{
+//             let temp = this.head
+//             let i = 0
 
-            while(temp){
-                if(temp.value == value){
-                    return i
-                }
-                temp = temp.next
-                i++
-            }
+//             while(temp){
+//                 if(temp.value == value){
+//                     return i
+//                 }
+//                 temp = temp.next
+//                 i++
+//             }
 
-            return 'value not found list'
-        }
-    }
+//             return 'value not found list'
+//         }
+//     }
 
-    reverse(){
-        let prev = null
-        let cur = this.head
+//     reverse(){
+//         let prev = null
+//         let cur = this.head
 
-        while(cur){
-            let next = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next
-        }
+//         while(cur){
+//             let next = cur.next
+//             cur.next = prev
+//             prev = cur
+//             cur = next
+//         }
 
-        this.head = prev
-    }
+//         this.head = prev
+//     }
 
 
-    makeCircular(){
-        if(this.isEmpty()){
-            return
-        }
-        let temp = this.head
+//     makeCircular(){
+//         if(this.isEmpty()){
+//             return
+//         }
+//         let temp = this.head
 
-        while(temp.next){
-            temp = temp.next
-        }
+//         while(temp.next){
+//             temp = temp.next
+//         }
 
-        temp.next = this.head
-    }
+//         temp.next = this.head
+//     }
 
-    checkCycle(){
-        let slow = this.head
-        let fast = this.head
+//     checkCycle(){
+//         let slow = this.head
+//         let fast = this.head
 
-        while(fast && fast.next){
-            slow = slow.next
-            fast = fast.next.next
+//         while(fast && fast.next){
+//             slow = slow.next
+//             fast = fast.next.next
 
-            if(slow == fast){
-                return 'cycle detected'
-            }
-        }
+//             if(slow == fast){
+//                 return 'cycle detected'
+//             }
+//         }
 
-        return 'cycle not detected'
-    }
+//         return 'cycle not detected'
+//     }
 
-    print(){
-        if(this.isEmpty()){
-            return 'linkedlist empty'
-        }
-        else{
-            let temp = this.head
+//     print(){
+//         if(this.isEmpty()){
+//             return 'linkedlist empty'
+//         }
+//         else{
+//             let temp = this.head
 
-            let list = ''
+//             let list = ''
             
-            while(temp){
-                list += temp.value + '->'
-                temp = temp.next
-            }
+//             while(temp){
+//                 list += temp.value + '->'
+//                 temp = temp.next
+//             }
 
-            list += 'null'
+//             list += 'null'
 
-            return list
-        }
-    }
-}
+//             return list
+//         }
+//     }
+// }
 
 
-const list = new LinkedList();
+// const list = new LinkedList();
 
-console.log("---- Initial Checks ----");
-console.log("Is Empty:", list.isEmpty()); // true
-console.log("Print:", list.print()); // linkedlist empty
+// console.log("---- Initial Checks ----");
+// console.log("Is Empty:", list.isEmpty()); // true
+// console.log("Print:", list.print()); // linkedlist empty
 
-console.log("\n---- Prepend & Append ----");
-list.prepend(10);
-list.prepend(20);
-list.append(30);
-list.append(40);
-console.log("Print:", list.print()); // 20->10->30->40->null
-console.log("Size:", list.size); // 4
+// console.log("\n---- Prepend & Append ----");
+// list.prepend(10);
+// list.prepend(20);
+// list.append(30);
+// list.append(40);
+// console.log("Print:", list.print()); // 20->10->30->40->null
+// console.log("Size:", list.size); // 4
 
-console.log("\n---- Insert ----");
-list.insert(0, 5); // insert at head
-list.insert(5, 50); // insert at end
-list.insert(3, 25); // insert in middle
-console.log("Print:", list.print()); // 5->20->10->25->30->40->50->null
-console.log("Size:", list.size); // 7
-console.log("Invalid Insert:", list.insert(100, 99)); // invalid index
+// console.log("\n---- Insert ----");
+// list.insert(0, 5); // insert at head
+// list.insert(5, 50); // insert at end
+// list.insert(3, 25); // insert in middle
+// console.log("Print:", list.print()); // 5->20->10->25->30->40->50->null
+// console.log("Size:", list.size); // 7
+// console.log("Invalid Insert:", list.insert(100, 99)); // invalid index
 
-console.log("\n---- Remove From Start ----");
-console.log("Removed:", list.removeFromStart()); // 5
-console.log("Print:", list.print()); // 20->10->25->30->40->50->null
+// console.log("\n---- Remove From Start ----");
+// console.log("Removed:", list.removeFromStart()); // 5
+// console.log("Print:", list.print()); // 20->10->25->30->40->50->null
 
-console.log("\n---- Remove From End ----");
-console.log("Removed:", list.removeFromEnd()); // 50
-console.log("Print:", list.print()); // 20->10->25->30->40->null
+// console.log("\n---- Remove From End ----");
+// console.log("Removed:", list.removeFromEnd()); // 50
+// console.log("Print:", list.print()); // 20->10->25->30->40->null
 
-console.log("\n---- Remove By Index ----");
-console.log("Removed:", list.removeByIndex(2)); // removes 25
-console.log("Print:", list.print()); // 20->10->30->40->null
-console.log("Invalid Index:", list.removeByIndex(100)); // invalid index
+// console.log("\n---- Remove By Index ----");
+// console.log("Removed:", list.removeByIndex(2)); // removes 25
+// console.log("Print:", list.print()); // 20->10->30->40->null
+// console.log("Invalid Index:", list.removeByIndex(100)); // invalid index
 
-console.log("\n---- Remove By Value ----");
-console.log("Removed:", list.removeByValue(30)); // 30
-console.log("Print:", list.print()); // 20->10->40->null
-console.log("Not Found:", list.removeByValue(99)); // value not found
+// console.log("\n---- Remove By Value ----");
+// console.log("Removed:", list.removeByValue(30)); // 30
+// console.log("Print:", list.print()); // 20->10->40->null
+// console.log("Not Found:", list.removeByValue(99)); // value not found
 
-console.log("\n---- Search ----");
-console.log("Search 20:", list.search(20)); // 0
-console.log("Search 40:", list.search(40)); // 2
-console.log("Search 99:", list.search(99)); // value not found list
+// console.log("\n---- Search ----");
+// console.log("Search 20:", list.search(20)); // 0
+// console.log("Search 40:", list.search(40)); // 2
+// console.log("Search 99:", list.search(99)); // value not found list
 
-console.log("\n---- Reverse ----");
-list.reverse();
-console.log("Print:", list.print()); // 40->10->20->null
+// console.log("\n---- Reverse ----");
+// list.reverse();
+// console.log("Print:", list.print()); // 40->10->20->null
 
-console.log("\n---- Cycle Detection ----");
-list.makeCircular();
-console.log("Cycle Check:", list.checkCycle()); // cycle detected
+// console.log("\n---- Cycle Detection ----");
+// list.makeCircular();
+// console.log("Cycle Check:", list.checkCycle()); // cycle detected
 
-// To test cycle breaking, re-create a fresh list
-const list2 = new LinkedList();
-list2.append(1);
-list2.append(2);
-list2.append(3);
-console.log("Print new list:", list2.print()); // 1->2->3->null
-console.log("Cycle Check:", list2.checkCycle()); // cycle not detected
+// // To test cycle breaking, re-create a fresh list
+// const list2 = new LinkedList();
+// list2.append(1);
+// list2.append(2);
+// list2.append(3);
+// console.log("Print new list:", list2.print()); // 1->2->3->null
+// console.log("Cycle Check:", list2.checkCycle()); // cycle not detected
+
+
+//reverse arr by recursion
+
+// function revArr(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+
+//     let start = arr[0]
+//     let end = arr.slice(1)
+
+//     return revArr(end).concat(start)
+// }
+
+// console.log(revArr([1,2,3,4,5]))
+
+
+// function revStr(str){
+//     if(str.length < 2){
+//         return str
+//     }
+
+//     let start = str[0]
+//     let end = str.slice(1)
+//     return revStr(end) + start
+// }
+
+// console.log(revStr('abcd'))
+
+//factorial
+
+// function fact(no){
+//     if(no === 1){
+//         return  no
+//     }
+
+//     return  no * fact(no-1)
+// }
+
+// console.log(fact(5))
+
+//fibonocci
+
+// function fibonocci(no){
+//     if(no <= 1){
+//         return no
+//     }
+
+//     return fibonocci(no-1) + fibonocci(no-2)
+// }
+
+// console.log(fibonocci(8))
+
+
+//generate fibonocci sequence
+
+// function generateFibonocciSequenc(limit,a=0,b=1,count=1){
+
+//     if(limit <= 0){
+//         return
+//     }
+
+//     console.log(a)
+
+//     if(count < limit){
+//         generateFibonocciSequenc(limit,b,a+b,count+1)
+//     }
+// }
+
+// generateFibonocciSequenc(5)
+
+
+// let a = 0
+// let b = 1
+// for(let i=0;i<5;i++){
+//     if(i==0 || i==1){
+//         console.log(i)
+//     }else{
+//         c=a+b
+//         a=b
+//         b=c
+//         console.log(c)
+//     }
+// }
+
+//array sum
+
+// function sumArray(arr){
+//     if(arr.length == 0){
+//         return 0
+//     }
+
+//     let start = arr[0]
+//     let end = arr.slice(1)
+
+//     return start + sumArray(end)
+// }
+
+// console.log(sumArray([1,2,3,4,5]))
+
+//sumOfDigits
+
+// function sumOfDigits(no){
+//     if(no == 0){
+//         return 0
+//     }
+//     return (no % 10) + sumOfDigits(Math.floor(no/10))
+// }
+
+// console.log(sumOfDigits(115))
+
+//flatArray using recursion
+
+// function flatArray(arr){
+//     let result = []
+//     for(let i=0;i<arr.length;i++){
+//         let take = arr[i]
+//         if(Array.isArray(take)){
+//             let flattedArr = flatArray(take)
+//             for(let j=0;j<flattedArr.length;j++){
+//                 result.push(arr[j])
+//             }
+//         }else{
+//             result.push(arr[i])
+//         }
+//     }
+//     return result
+// }
+
+// console.log(flatArray([2, 4, 5, [4, [9, [9, [0, 4]]]], 5, [4, [44, 5]]]))
+
+//sum of n
+
+// function sumOfN(n){
+//     if(n == 0){
+//         return 0
+//     }
+
+//     return n + sumOfN(n-1)
+// }
+
+// console.log(sumOfN(5))
+
+//Descending
+

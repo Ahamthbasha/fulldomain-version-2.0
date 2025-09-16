@@ -22,9 +22,7 @@
 //         console.log(no)
 //         return 
 //     }
-
 //     printNo(no-1)
-
 //     console.log(no)
 // }
 
