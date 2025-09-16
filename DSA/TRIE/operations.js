@@ -23,45 +23,45 @@ class trie{
         node.isEndOfWord=true
     }
 
-    countWord(){
-        let queue=[]
-        queue.push(this.root)
-        let c=0
-        while(queue.length){
-            let node=queue.shift()
+    // countWord(){
+    //     let queue=[]
+    //     queue.push(this.root)
+    //     let c=0
+    //     while(queue.length){
+    //         let node=queue.shift()
 
-            if(node.isEndOfWord){
-                c++
-            }
+    //         if(node.isEndOfWord){
+    //             c++
+    //         }
 
-            for(let char in node.children){
-                queue.push(node.children[char])
-            }
-        }
-        return c
-    }
+    //         for(let char in node.children){
+    //             queue.push(node.children[char])
+    //         }
+    //     }
+    //     return c
+    // }
 
-    longestPrefix(word){
-        let node=this.root
-        let longestPrefix=''
-        let currentPrefix=''
+    // longestPrefix(word){
+    //     let node=this.root
+    //     let longestPrefix=''
+    //     let currentPrefix=''
 
-        for(let char of word){
-            if(!node.children[char]){
-                break
-            }
+    //     for(let char of word){
+    //         if(!node.children[char]){
+    //             break
+    //         }
 
-            node=node.children[char]
+    //         node=node.children[char]
 
-            currentPrefix+=char
+    //         currentPrefix+=char
 
-            if(node.isEndOfWord){
-                longestPrefix=currentPrefix
-                break
-            }
-        }
-        return longestPrefix
-    }
+    //         if(node.isEndOfWord){
+    //             longestPrefix=currentPrefix
+    //             break
+    //         }
+    //     }
+    //     return longestPrefix
+    // }
 
     countPrefix(word){
         let node=this.root

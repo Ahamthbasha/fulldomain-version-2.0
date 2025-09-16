@@ -1967,144 +1967,511 @@
 
 //trie
 
-class Node{
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+//         return node.isEndOfWord
+//     }
+
+//     startsWith(prefix){
+//         let node = this.root
+
+//         for(let char of prefix){
+//             if(!node.children[char]){
+//                 return false
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         return true
+//     }
+
+//     autoComplete(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return []
+//             }
+//             node = node.children[char]
+//         }
+
+//         return this.collectWord(node,word)
+//     }
+
+//     collectWord(node,word,result=[]){
+//         if(node.isEndOfWord){
+//             result.push(word)
+//         }
+
+//         for(let char in node.children){
+//             this.collectWord(node.children[char],word+char,result)
+//         }
+
+//         return result
+//     }
+
+//     print(){
+//         return this.collectWord(this.root,"")
+//     }
+
+//     delete(word){
+//         let node = this.root
+//         let path = []
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return 'no matching'
+//             }
+
+//             path.push([node,char])
+//             node = node.children[char]
+//         }
+
+//         if(node.isEndOfWord){
+//             node.isEndOfWord = false
+//         }
+
+//         for(let i=word.length-1;i>=0;i--){
+//             let [parentNode,char] = path[i]
+
+//             let childNode = parentNode.children[char]
+
+//             if(Object.keys(childNode).length > 0 || childNode.isEndOfWord){
+//                 break
+//             }
+
+//             delete parentNode.children[char]
+//         }
+//     }
+// }
+
+// function runTests() {
+//     let trie = new Trie();
+
+//     console.log("=== Insert & Search ===");
+//     trie.insert("apple");
+//     console.log(trie.search("apple"));   // true
+//     console.log(trie.search("app"));     // false
+//     console.log(trie.startsWith("app")); // true
+
+//     trie.insert("app");
+//     console.log(trie.search("app"));     // true
+
+//     console.log("=== AutoComplete ===");
+//     trie.insert("apricot");
+//     trie.insert("banana");
+//     console.log(trie.autoComplete("ap")); // ["apple", "app", "apricot"]
+
+//     console.log("=== Print All Words ===");
+//     console.log(trie.print()); // ["apple", "app", "apricot", "banana"]
+
+//     console.log("=== Delete ===");
+//     trie.delete("app");
+//     console.log(trie.search("app"));     // false
+//     console.log(trie.search("apple"));   // true
+//     console.log(trie.autoComplete("ap")); // ["apple", "apricot"]
+
+//     trie.delete("apple");
+//     console.log(trie.search("apple"));   // false
+//     console.log(trie.autoComplete("ap")); // ["apricot"]
+
+//     console.log(trie.delete("notfound")); // "no matching"
+// }
+
+// runTests();
+
+
+//suffix Trie
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class SuffixTrie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     buildSuffixTrie(word){
+//         for(let i=0;i<word.length;i++){
+//             this.insert(word.slice(i))
+//         }
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     search(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 return false
+//             }
+//             node = node.children[char]
+//         }
+
+//         return true
+//     }
+// }
+
+
+// function runTests() {
+//     let trie = new SuffixTrie();
+//     trie.buildSuffixTrie("banana");
+
+//     console.log("=== Substring Search in 'banana' ===");
+//     console.log(trie.search("ana"));     // true (substring)
+//     console.log(trie.search("nana"));    // true (suffix & substring)
+//     console.log(trie.search("banana"));  // true (whole string)
+//     console.log(trie.search("ban"));     // true (prefix of whole word)
+//     console.log(trie.search("apple"));   // false (not present)
+//     console.log(trie.search("nab"));     // false (not present)
+//     console.log(trie.search("a"));       // true (last character exists)
+//     console.log(trie.search(""));        // true (empty string is always valid path)
+// }
+
+// runTests();
+
+
+//trie operation
+
+// class Node{
+//     constructor(){
+//         this.children = {}
+//         this.isEndOfWord = false
+//     }
+// }
+
+// class Trie{
+//     constructor(){
+//         this.root = new Node()
+//     }
+
+//     insert(word){
+//         let node = this.root
+
+//         for(let char of word){
+//             if(!node.children[char]){
+//                 node.children[char] = new Node()
+//             }
+//             node = node.children[char]
+//         }
+
+//         node.isEndOfWord = true
+//     }
+
+//     countWord(){
+//         let queue = []
+
+//         queue.push(this.root)
+
+//         let count = 0
+
+//         while(queue.length){
+//             const cur = queue.shift()
+
+//             if(cur.isEndOfWord){
+//                 count++
+//             }
+
+//             for(let char in cur.children){
+//                 queue.push(cur.children[char])
+//             }
+//         }
+
+//         return count
+//     }
+
+//     longestPrefix(str){
+//         let node = this.root
+//         let longestPrefix = ''
+//         for(let char of str){
+//             if(!node.children[char]){
+//                 break
+//             }
+//             longestPrefix += char
+//             node = node.children[char]
+//         }
+
+//         return longestPrefix
+//     }
+
+//     countPrefix(prefix){
+//         let node  = this.root
+//         let c = 0
+//         for(let char of prefix){
+//             if(!node.children[char]){
+//                 break
+//             }
+//             c++
+//             node = node.children[char]
+//         }
+
+//         return c
+//     }
+// }
+
+
+// function runTests() {
+//     let trie = new Trie();
+//     trie.insert("car");
+//     trie.insert("cat");
+//     trie.insert("can");
+//     trie.insert("dog");
+//     trie.insert("dove");
+
+//     console.log("=== Count words ===");
+//     console.log(trie.countWord()); // 5
+
+//     console.log("=== Longest prefix ===");
+//     console.log(trie.longestPrefix("castle")); // "ca"
+//     console.log(trie.longestPrefix("doge"));   // "dog"
+//     console.log(trie.longestPrefix("zebra"));  // "" (no match)
+
+//     console.log("=== Count prefix (length matched) ===");
+//     console.log(trie.countPrefix("ca"));   // 2 ("c" and "a" matched)
+//     console.log(trie.countPrefix("car"));  // 3 (all matched)
+//     console.log(trie.countPrefix("cab"));  // 2 (stops at "ca")
+//     console.log(trie.countPrefix("z"));    // 0 (no match)
+// }
+
+// runTests();
+
+
+//graph
+
+class Graph{
     constructor(){
-        this.children = {}
-        this.isEndOfWord = false
-    }
-}
-class Trie{
-    constructor(){
-        this.root = new Node()
+        this.adjacencyList = {}
     }
 
-    insert(word){
-        let node = this.root
-        for(let char of word){
-            if(!node.children[char]){
-                node.children[char] = new Node()
-            }
-            node = node.children[char]
+    addVertex(vertex){
+        if(!this.adjacencyList[vertex]){
+            this.adjacencyList[vertex] = new Set()
         }
-
-        node.isEndOfWord = true
     }
 
-    search(word){
-        let node = this.root
-        for(let char of word){
-            if(!node.children[char]){
-                return false
-            }
-            node = node.children[char]
+    addEdges(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            this.addVertex(vertex1)
         }
-        return node.isEndOfWord
+
+        if(!this.adjacencyList[vertex2]){
+            this.addVertex(vertex2)
+        }
+
+        this.adjacencyList[vertex1].add(vertex2)
+        this.adjacencyList[vertex2].add(vertex1)
     }
 
-    startsWith(prefix){
-        let node = this.root
-
-        for(let char of prefix){
-            if(!node.children[char]){
-                return false
-            }
-
-            node = node.children[char]
+    hasEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            return 'vertex1 is not found'
         }
 
-        return true
-    }
-
-    autoComplete(word){
-        let node = this.root
-
-        for(let char of word){
-            if(!node.children[char]){
-                return []
-            }
-            node = node.children[char]
+        if(!this.adjacencyList[vertex2]){
+            return 'vertex2 is not found'
         }
 
-        return this.collectWord(node,word)
-    }
-
-    collectWord(node,word,result=[]){
-        if(node.isEndOfWord){
-            result.push(word)
-        }
-
-        for(let char in node.children){
-            this.collectWord(node.children[char],word+char,result)
-        }
-
-        return result
+        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
     }
 
     print(){
-        return this.collectWord(this.root,"")
+        for(let vertex in this.adjacencyList){
+            console.log(`${vertex} -> ${[...this.adjacencyList[vertex]]}`)
+        }
     }
 
-    delete(word){
-        let node = this.root
-        let path = []
-        for(let char of word){
-            if(!node.children[char]){
-                return 'no matching'
+    removeEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1]){
+            return "vertex1 is not found"
+        }
+
+        if(!this.adjacencyList[vertex2]){
+            return "vertex2 is not found"
+        }
+
+        this.adjacencyList[vertex1].delete(vertex2)
+        this.adjacencyList[vertex2].delete(vertex1)
+    }
+
+    removeVertex(vertex){
+        for(let vertices of this.adjacencyList[vertex]){
+            this.removeEdge(vertices,vertex)
+        }
+
+        delete this.adjacencyList[vertex]
+    }
+
+    bfs(start){
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
+        let queue = []
+        queue.push(start)
+
+        while(queue.length){
+            const vertex = queue.shift()
+
+            console.log(vertex)
+
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push(neighbor)
+                }
             }
-
-            path.push([node,char])
-            node = node.children[char]
         }
+    }
 
-        if(node.isEndOfWord){
-            node.isEndOfWord = false
-        }
+    dfs(start,visitedNode = new Set()){
+        visitedNode.add(start)
 
-        for(let i=word.length-1;i>=0;i--){
-            let [parentNode,char] = path[i]
+        console.log(start)
 
-            let childNode = parentNode.children[char]
-
-            if(Object.keys(childNode).length > 0 || childNode.isEndOfWord){
-                break
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                this.dfs(neighbor,visitedNode)
             }
-
-            delete parentNode.children[char]
         }
+    }
+
+    bfsCycleDetection(start){
+        let queue = []
+        queue.push({vertex:start,parent:null})
+
+        let visitedNode = new Set()
+        visitedNode.add(start)
+
+        while(queue.length){
+            let {vertex,parent} = queue.shift()
+
+            for(let neighbor of this.adjacencyList[vertex]){
+                if(!visitedNode.has(neighbor)){
+                    visitedNode.add(neighbor)
+                    queue.push({vertex:neighbor,parent:parent})
+                }
+                else if(neighbor != parent){
+                    return 'cycle detected'
+                }
+            }
+        }
+
+        return 'cycle not found'
+    }
+
+    dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+        visitedNode.add(start)
+
+        for(let neighbor of this.adjacencyList[start]){
+            if(!visitedNode.has(neighbor)){
+                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+                    return true
+                }
+            }
+            else if(neighbor != parent){
+                return true
+            }
+        }
+
+        return false
     }
 }
 
 function runTests() {
-    let trie = new Trie();
+    const graph = new Graph();
 
-    console.log("=== Insert & Search ===");
-    trie.insert("apple");
-    console.log(trie.search("apple"));   // true
-    console.log(trie.search("app"));     // false
-    console.log(trie.startsWith("app")); // true
+    // Add vertices and edges
+    graph.addEdges("A", "B");
+    graph.addEdges("A", "C");
+    graph.addEdges("B", "D");
+    graph.addEdges("C", "E");
+    graph.addEdges("E", "F");
+    graph.addEdges("F", "C"); // introduces a cycle
 
-    trie.insert("app");
-    console.log(trie.search("app"));     // true
+    console.log("=== Graph Print ===");
+    graph.print();
+    // Expected:
+    // A -> B,C
+    // B -> A,D
+    // C -> A,E,F
+    // D -> B
+    // E -> C,F
+    // F -> E,C
 
-    console.log("=== AutoComplete ===");
-    trie.insert("apricot");
-    trie.insert("banana");
-    console.log(trie.autoComplete("ap")); // ["apple", "app", "apricot"]
+    console.log("=== Has Edge ===");
+    console.log(graph.hasEdge("A", "B")); // true
+    console.log(graph.hasEdge("A", "D")); // false
 
-    console.log("=== Print All Words ===");
-    console.log(trie.print()); // ["apple", "app", "apricot", "banana"]
+    console.log("=== BFS from A ===");
+    graph.bfs("A"); 
+    // Expected order: A, B, C, D, E, F
 
-    console.log("=== Delete ===");
-    trie.delete("app");
-    console.log(trie.search("app"));     // false
-    console.log(trie.search("apple"));   // true
-    console.log(trie.autoComplete("ap")); // ["apple", "apricot"]
+    console.log("=== DFS from A ===");
+    graph.dfs("A");
+    // Expected DFS order (may vary): A, B, D, C, E, F
 
-    trie.delete("apple");
-    console.log(trie.search("apple"));   // false
-    console.log(trie.autoComplete("ap")); // ["apricot"]
+    console.log("=== BFS Cycle Detection ===");
+    console.log(graph.bfsCycleDetection("A")); 
+    // Expected: "cycle detected"
 
-    console.log(trie.delete("notfound")); // "no matching"
+    console.log("=== DFS Cycle Detection ===");
+    console.log(graph.dfsCycleDetection("A")); 
+    // Expected: true
+
+    console.log("=== Remove Edge (C-F) ===");
+    graph.removeEdge("C", "F");
+    graph.print();
+    // Edge C-F should be gone
+
+    console.log("=== Remove Vertex D ===");
+    graph.removeVertex("D");
+    graph.print();
+    // Vertex D should be removed completely
 }
 
 runTests();
