@@ -2284,194 +2284,517 @@
 
 //graph
 
-class Graph{
+// class Graph{
+//     constructor(){
+//         this.adjacencyList = {}
+//     }
+
+//     addVertex(vertex){
+//         if(!this.adjacencyList[vertex]){
+//             this.adjacencyList[vertex] = new Set()
+//         }
+//     }
+
+//     addEdges(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             this.addVertex(vertex1)
+//         }
+
+//         if(!this.adjacencyList[vertex2]){
+//             this.addVertex(vertex2)
+//         }
+
+//         this.adjacencyList[vertex1].add(vertex2)
+//         this.adjacencyList[vertex2].add(vertex1)
+//     }
+
+//     hasEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             return 'vertex1 is not found'
+//         }
+
+//         if(!this.adjacencyList[vertex2]){
+//             return 'vertex2 is not found'
+//         }
+
+//         return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+//     }
+
+//     print(){
+//         for(let vertex in this.adjacencyList){
+//             console.log(`${vertex} -> ${[...this.adjacencyList[vertex]]}`)
+//         }
+//     }
+
+//     removeEdge(vertex1,vertex2){
+//         if(!this.adjacencyList[vertex1]){
+//             return "vertex1 is not found"
+//         }
+
+//         if(!this.adjacencyList[vertex2]){
+//             return "vertex2 is not found"
+//         }
+
+//         this.adjacencyList[vertex1].delete(vertex2)
+//         this.adjacencyList[vertex2].delete(vertex1)
+//     }
+
+//     removeVertex(vertex){
+//         for(let vertices of this.adjacencyList[vertex]){
+//             this.removeEdge(vertices,vertex)
+//         }
+
+//         delete this.adjacencyList[vertex]
+//     }
+
+//     bfs(start){
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
+
+//         let queue = []
+//         queue.push(start)
+
+//         while(queue.length){
+//             const vertex = queue.shift()
+
+//             console.log(vertex)
+
+//             for(let neighbor of this.adjacencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push(neighbor)
+//                 }
+//             }
+//         }
+//     }
+
+//     dfs(start,visitedNode = new Set()){
+//         visitedNode.add(start)
+
+//         console.log(start)
+
+//         for(let neighbor of this.adjacencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 this.dfs(neighbor,visitedNode)
+//             }
+//         }
+//     }
+
+//     bfsCycleDetection(start){
+//         let queue = []
+//         queue.push({vertex:start,parent:null})
+
+//         let visitedNode = new Set()
+//         visitedNode.add(start)
+
+//         while(queue.length){
+//             let {vertex,parent} = queue.shift()
+
+//             for(let neighbor of this.adjacencyList[vertex]){
+//                 if(!visitedNode.has(neighbor)){
+//                     visitedNode.add(neighbor)
+//                     queue.push({vertex:neighbor,parent:parent})
+//                 }
+//                 else if(neighbor != parent){
+//                     return 'cycle detected'
+//                 }
+//             }
+//         }
+
+//         return 'cycle not found'
+//     }
+
+//     dfsCycleDetection(start,visitedNode=new Set(),parent=null){
+//         visitedNode.add(start)
+
+//         for(let neighbor of this.adjacencyList[start]){
+//             if(!visitedNode.has(neighbor)){
+//                 if(this.dfsCycleDetection(neighbor,visitedNode,start)){
+//                     return true
+//                 }
+//             }
+//             else if(neighbor != parent){
+//                 return true
+//             }
+//         }
+
+//         return false
+//     }
+// }
+
+// function runTests() {
+//     const graph = new Graph();
+
+//     // Add vertices and edges
+//     graph.addEdges("A", "B");
+//     graph.addEdges("A", "C");
+//     graph.addEdges("B", "D");
+//     graph.addEdges("C", "E");
+//     graph.addEdges("E", "F");
+//     graph.addEdges("F", "C"); // introduces a cycle
+
+//     console.log("=== Graph Print ===");
+//     graph.print();
+//     // Expected:
+//     // A -> B,C
+//     // B -> A,D
+//     // C -> A,E,F
+//     // D -> B
+//     // E -> C,F
+//     // F -> E,C
+
+//     console.log("=== Has Edge ===");
+//     console.log(graph.hasEdge("A", "B")); // true
+//     console.log(graph.hasEdge("A", "D")); // false
+
+//     console.log("=== BFS from A ===");
+//     graph.bfs("A"); 
+//     // Expected order: A, B, C, D, E, F
+
+//     console.log("=== DFS from A ===");
+//     graph.dfs("A");
+//     // Expected DFS order (may vary): A, B, D, C, E, F
+
+//     console.log("=== BFS Cycle Detection ===");
+//     console.log(graph.bfsCycleDetection("A")); 
+//     // Expected: "cycle detected"
+
+//     console.log("=== DFS Cycle Detection ===");
+//     console.log(graph.dfsCycleDetection("A")); 
+//     // Expected: true
+
+//     console.log("=== Remove Edge (C-F) ===");
+//     graph.removeEdge("C", "F");
+//     graph.print();
+//     // Edge C-F should be gone
+
+//     console.log("=== Remove Vertex D ===");
+//     graph.removeVertex("D");
+//     graph.print();
+//     // Vertex D should be removed completely
+// }
+
+// runTests();
+
+//linkedlist
+
+class Node{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class LinkedList{
     constructor(){
-        this.adjacencyList = {}
+        this.head = null
+        this.size = 0
     }
 
-    addVertex(vertex){
-        if(!this.adjacencyList[vertex]){
-            this.adjacencyList[vertex] = new Set()
+    isEmpty(){
+        return this.size == 0
+    }
+
+    prepend(value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+        }
+        else{
+            node.next = this.head
+            this.head = node
+        }
+        this.size++
+    }
+
+    append(value){
+        const node = new Node(value)
+
+        if(this.isEmpty()){
+            this.head = node
+        }else{
+            let temp = this.head
+
+            while(temp.next){
+                temp = temp.next
+            }
+
+            temp.next = node
+        }
+
+        this.size++
+    }
+
+    insert(index,value){
+        const node = new Node(value)
+        if(this.isEmpty()){
+            this.head = node
+            this.size++
+        }
+        else if(index < 0 || index > this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            this.prepend(value)
+        }
+        else if(index == this.size){
+            this.append(value)
+        }
+        else{
+            let temp = this.head
+
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+
+            node.next = temp.next
+            temp.next = node
+
+            this.size++
         }
     }
 
-    addEdges(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            this.addVertex(vertex1)
+    removeFromStart(){
+        if(this.isEmpty()){
+            return 'list is empty nothing to remove'
         }
-
-        if(!this.adjacencyList[vertex2]){
-            this.addVertex(vertex2)
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
         }
-
-        this.adjacencyList[vertex1].add(vertex2)
-        this.adjacencyList[vertex2].add(vertex1)
+        else{
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
     }
 
-    hasEdge(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            return 'vertex1 is not found'
+    removeFromEnd(){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else if(this.size == 1){
+            let val = this.head.value
+            this.head = null
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next.next){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+
+            temp.next = null
+            this.size--
+            return val
+        }
+    }
+
+    removeByIndex(index){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else if(index < 0 || index >= this.size){
+            return 'invalid index'
+        }
+        else if(index == 0){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            for(let i=0;i<index-1;i++){
+                temp = temp.next
+            }
+
+            let val = temp.next.value
+            temp.next = temp.next.next
+            this.size--
+            return val
+        }
+    }
+
+    removeByValue(value){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else if(this.head.value == value){
+            let val = this.head.value
+            this.head = this.head.next
+            this.size--
+            return val
+        }
+        else{
+            let temp = this.head
+
+            while(temp.next && temp.next.value != value){
+                temp = temp.next
+            }
+
+            if(temp.next == null){
+                return 'value not found'
+            }else{
+                let val = temp.next.value
+                temp.next = temp.next.next
+                this.size--
+                return val
+            }
+        }
+    }
+
+    search(value){
+        if(this.isEmpty()){
+            return 'list is empty'
+        }
+        else{
+            let temp = this.head
+            let i = 0
+
+            while(temp){
+                if(temp.value == value){
+                    return i
+                }
+                temp = temp.next
+                i++
+            }
+
+            return 'value not found list'
+        }
+    }
+
+    reverse(){
+        let prev = null
+        let cur = this.head
+
+        while(cur){
+            let next = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next
         }
 
-        if(!this.adjacencyList[vertex2]){
-            return 'vertex2 is not found'
+        this.head = prev
+    }
+
+
+    makeCircular(){
+        if(this.isEmpty()){
+            return
+        }
+        let temp = this.head
+
+        while(temp.next){
+            temp = temp.next
         }
 
-        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
+        temp.next = this.head
+    }
+
+    checkCycle(){
+        let slow = this.head
+        let fast = this.head
+
+        while(fast && fast.next){
+            slow = slow.next
+            fast = fast.next.next
+
+            if(slow == fast){
+                return 'cycle detected'
+            }
+        }
+
+        return 'cycle not detected'
     }
 
     print(){
-        for(let vertex in this.adjacencyList){
-            console.log(`${vertex} -> ${[...this.adjacencyList[vertex]]}`)
+        if(this.isEmpty()){
+            return 'linkedlist empty'
         }
-    }
+        else{
+            let temp = this.head
 
-    removeEdge(vertex1,vertex2){
-        if(!this.adjacencyList[vertex1]){
-            return "vertex1 is not found"
-        }
-
-        if(!this.adjacencyList[vertex2]){
-            return "vertex2 is not found"
-        }
-
-        this.adjacencyList[vertex1].delete(vertex2)
-        this.adjacencyList[vertex2].delete(vertex1)
-    }
-
-    removeVertex(vertex){
-        for(let vertices of this.adjacencyList[vertex]){
-            this.removeEdge(vertices,vertex)
-        }
-
-        delete this.adjacencyList[vertex]
-    }
-
-    bfs(start){
-        let visitedNode = new Set()
-        visitedNode.add(start)
-
-        let queue = []
-        queue.push(start)
-
-        while(queue.length){
-            const vertex = queue.shift()
-
-            console.log(vertex)
-
-            for(let neighbor of this.adjacencyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push(neighbor)
-                }
+            let list = ''
+            
+            while(temp){
+                list += temp.value + '->'
+                temp = temp.next
             }
+
+            list += 'null'
+
+            return list
         }
-    }
-
-    dfs(start,visitedNode = new Set()){
-        visitedNode.add(start)
-
-        console.log(start)
-
-        for(let neighbor of this.adjacencyList[start]){
-            if(!visitedNode.has(neighbor)){
-                this.dfs(neighbor,visitedNode)
-            }
-        }
-    }
-
-    bfsCycleDetection(start){
-        let queue = []
-        queue.push({vertex:start,parent:null})
-
-        let visitedNode = new Set()
-        visitedNode.add(start)
-
-        while(queue.length){
-            let {vertex,parent} = queue.shift()
-
-            for(let neighbor of this.adjacencyList[vertex]){
-                if(!visitedNode.has(neighbor)){
-                    visitedNode.add(neighbor)
-                    queue.push({vertex:neighbor,parent:parent})
-                }
-                else if(neighbor != parent){
-                    return 'cycle detected'
-                }
-            }
-        }
-
-        return 'cycle not found'
-    }
-
-    dfsCycleDetection(start,visitedNode=new Set(),parent=null){
-        visitedNode.add(start)
-
-        for(let neighbor of this.adjacencyList[start]){
-            if(!visitedNode.has(neighbor)){
-                if(this.dfsCycleDetection(neighbor,visitedNode,start)){
-                    return true
-                }
-            }
-            else if(neighbor != parent){
-                return true
-            }
-        }
-
-        return false
     }
 }
 
-function runTests() {
-    const graph = new Graph();
 
-    // Add vertices and edges
-    graph.addEdges("A", "B");
-    graph.addEdges("A", "C");
-    graph.addEdges("B", "D");
-    graph.addEdges("C", "E");
-    graph.addEdges("E", "F");
-    graph.addEdges("F", "C"); // introduces a cycle
+const list = new LinkedList();
 
-    console.log("=== Graph Print ===");
-    graph.print();
-    // Expected:
-    // A -> B,C
-    // B -> A,D
-    // C -> A,E,F
-    // D -> B
-    // E -> C,F
-    // F -> E,C
+console.log("---- Initial Checks ----");
+console.log("Is Empty:", list.isEmpty()); // true
+console.log("Print:", list.print()); // linkedlist empty
 
-    console.log("=== Has Edge ===");
-    console.log(graph.hasEdge("A", "B")); // true
-    console.log(graph.hasEdge("A", "D")); // false
+console.log("\n---- Prepend & Append ----");
+list.prepend(10);
+list.prepend(20);
+list.append(30);
+list.append(40);
+console.log("Print:", list.print()); // 20->10->30->40->null
+console.log("Size:", list.size); // 4
 
-    console.log("=== BFS from A ===");
-    graph.bfs("A"); 
-    // Expected order: A, B, C, D, E, F
+console.log("\n---- Insert ----");
+list.insert(0, 5); // insert at head
+list.insert(5, 50); // insert at end
+list.insert(3, 25); // insert in middle
+console.log("Print:", list.print()); // 5->20->10->25->30->40->50->null
+console.log("Size:", list.size); // 7
+console.log("Invalid Insert:", list.insert(100, 99)); // invalid index
 
-    console.log("=== DFS from A ===");
-    graph.dfs("A");
-    // Expected DFS order (may vary): A, B, D, C, E, F
+console.log("\n---- Remove From Start ----");
+console.log("Removed:", list.removeFromStart()); // 5
+console.log("Print:", list.print()); // 20->10->25->30->40->50->null
 
-    console.log("=== BFS Cycle Detection ===");
-    console.log(graph.bfsCycleDetection("A")); 
-    // Expected: "cycle detected"
+console.log("\n---- Remove From End ----");
+console.log("Removed:", list.removeFromEnd()); // 50
+console.log("Print:", list.print()); // 20->10->25->30->40->null
 
-    console.log("=== DFS Cycle Detection ===");
-    console.log(graph.dfsCycleDetection("A")); 
-    // Expected: true
+console.log("\n---- Remove By Index ----");
+console.log("Removed:", list.removeByIndex(2)); // removes 25
+console.log("Print:", list.print()); // 20->10->30->40->null
+console.log("Invalid Index:", list.removeByIndex(100)); // invalid index
 
-    console.log("=== Remove Edge (C-F) ===");
-    graph.removeEdge("C", "F");
-    graph.print();
-    // Edge C-F should be gone
+console.log("\n---- Remove By Value ----");
+console.log("Removed:", list.removeByValue(30)); // 30
+console.log("Print:", list.print()); // 20->10->40->null
+console.log("Not Found:", list.removeByValue(99)); // value not found
 
-    console.log("=== Remove Vertex D ===");
-    graph.removeVertex("D");
-    graph.print();
-    // Vertex D should be removed completely
-}
+console.log("\n---- Search ----");
+console.log("Search 20:", list.search(20)); // 0
+console.log("Search 40:", list.search(40)); // 2
+console.log("Search 99:", list.search(99)); // value not found list
 
-runTests();
+console.log("\n---- Reverse ----");
+list.reverse();
+console.log("Print:", list.print()); // 40->10->20->null
+
+console.log("\n---- Cycle Detection ----");
+list.makeCircular();
+console.log("Cycle Check:", list.checkCycle()); // cycle detected
+
+// To test cycle breaking, re-create a fresh list
+const list2 = new LinkedList();
+list2.append(1);
+list2.append(2);
+list2.append(3);
+console.log("Print new list:", list2.print()); // 1->2->3->null
+console.log("Cycle Check:", list2.checkCycle()); // cycle not detected
