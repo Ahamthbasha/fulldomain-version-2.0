@@ -1623,3 +1623,344 @@
 // // []
 
 //heap
+
+// class MinHeap{
+//     constructor(){
+//         this.heap = []
+//     }
+
+//     isEmpty(){
+//         return this.heap.length == 0
+//     }
+    
+//     getParentIndex(index){
+//         return Math.floor((index-1)/2)
+//     }
+
+//     getLeftChildIndex(index){
+//         return 2 * index + 1
+//     }
+
+//     getRightChildIndex(index){
+//         return 2 * index + 2
+//     }
+
+//     getParent(index){
+//         return this.heap[this.getParentIndex(index)]
+//     }
+
+//     getLeftChild(index){
+//         return this.heap[this.getLeftChildIndex(index)]
+//     }
+
+//     getRightChild(index){
+//         return this.heap[this.getRightChildIndex(index)]
+//     }
+
+//     hasParent(index){
+//         return this.getParentIndex(index) >= 0
+//     }
+
+//     hasLeftchild(index){
+//         return this.getLeftChildIndex(index) < this.heap.length
+//     }
+
+//     hasRightchild(index){
+//         return this.getRightChildIndex(index) < this.heap.length
+//     }
+
+//     swap(index1,index2){
+//         let temp = this.heap[index1]
+//         this.heap[index1] = this.heap[index2]
+//         this.heap[index2] = temp
+//     }
+
+//     peek(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         return this.heap[0]
+//     }
+
+//     push(value){
+//         this.heap.push(value)
+//         this.heapifyUp()
+//     }
+
+//     heapifyUp(){
+//         let index = this.heap.length-1
+
+//         while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+//             this.swap(index,this.getParentIndex(index))
+//             index = this.getParentIndex(index)
+//         }
+//     }
+
+//     remove(){
+//         if(this.isEmpty()){
+//             return 'heap is empty'
+//         }
+
+//         let val = this.heap[0]
+//         this.heap[0] = this.heap[this.heap.length-1]
+//         this.heap.pop()
+//         this.heapifyDown()
+//         return val
+//     }
+
+//     heapifyDown(){
+//         let index = 0
+
+//         while(this.hasLeftchild(index)){
+//             let smallest = this.getLeftChildIndex(index)
+
+//             if(this.hasRightchild(index) && this.getRightChild(index) < this.getLeftChild(index)){
+//                 smallest = this.getRightChildIndex(index)
+//             }
+
+//             if(this.heap[index] <= this.heap[smallest]){
+//                 break
+//             }else{
+//                 this.swap(index,smallest)
+//             }
+
+//             index = smallest
+//         }
+//     }
+
+//     heapSort(arr){
+//         let temp = new MinHeap
+
+//         for(let i=0;i<arr.length;i++){
+//             temp.push(arr[i])
+//         }
+
+//         let sorted = []
+
+//         while(temp.heap.length){
+//             sorted.push(temp.remove())
+//         }
+
+//         return sorted
+//     }
+
+//     findKthLargest(arr,k){
+//         let temp = new MinHeap()
+
+//         for(let i=0;i<arr.length;i++){
+//             temp.push(arr[i])
+
+//             if(temp.heap.length > k){
+//                 temp.remove()
+//             }
+//         }
+
+//         return temp.peek()
+//     }
+// }
+
+// const heap = new MinHeap();
+
+// // Test 1: push + peek
+// heap.push(10);
+// heap.push(5);
+// heap.push(20);
+// heap.push(3);
+// console.log("Peek (should be 3):", heap.peek());  
+// // Expected: 3
+
+// // Test 2: remove
+// console.log("Remove:", heap.remove());  
+// // Expected: 3
+// console.log("Peek after remove:", heap.peek());  
+// // Expected: 5
+
+// // Test 3: heapSort
+// const arr = [9, 3, 7, 1, 8, 2];
+// console.log("Heap Sort:", heap.heapSort(arr));  
+// // Expected: [1,2,3,7,8,9]
+
+// // Test 4: findKthLargest
+// console.log("2nd Largest in [9,3,7,1,8,2]:", heap.findKthLargest(arr,2));  
+// // Expected: 8
+// console.log("3rd Largest in [9,3,7,1,8,2]:", heap.findKthLargest(arr,3));  
+// // Expected: 7
+
+// // Test 5: remove all elements
+// const h2 = new MinHeap();
+// [4,1,6,2].forEach(v => h2.push(v));
+// while(!h2.isEmpty()){
+//     console.log("Removing:", h2.remove());
+// }
+// // Expected order: 1,2,4,6
+
+//maxHeap
+
+class MaxHeap{
+    constructor(){
+        this.heap = []
+    }
+
+    isEmpty(){
+        return this.heap.length == 0
+    }
+
+    getParentIndex(index){
+        return Math.floor((index-1)/2)
+    }
+
+    getLeftChildIndex(index){
+        return 2 * index + 1
+    }
+
+    getRightChildIndex(index){
+        return 2 * index + 2
+    }
+
+    getParent(index){
+        return this.heap[this.getParentIndex(index)]
+    }
+
+    getLeftChild(index){
+        return this.heap[this.getLeftChildIndex(index)]
+    }
+
+    getRightChild(index){
+        return this.heap[this.getRightChildIndex(index)]
+    }
+
+    hasParent(index){
+        return this.getParentIndex(index) >= 0
+    }
+
+    hasLeftChild(index){
+        return this.getLeftChildIndex(index) < this.heap.length
+    }
+
+    hasRightChild(index){
+        return this.getRightChildIndex(index) < this.heap.length 
+    }
+
+    swap(index1,index2){
+        let temp = this.heap[index1]
+        this.heap[index1] = this.heap[index2]
+        this.heap[index2] = temp
+    }
+
+    peek(){
+        if(this.isEmpty()){
+            return 'heap is empty'
+        }
+
+        return this.heap[0]
+    }
+
+    insert(value){
+        this.heap.push(value)
+        this.heapifyUp()
+    }
+
+    heapifyUp(){
+        let index = this.heap.length-1
+
+        while(this.hasParent(index) && this.getParent(index) < this.heap[index]){
+            this.swap(index,this.getParentIndex(index))
+            index = this.getParentIndex(index)
+        }
+    }
+
+    remove(){
+        if(this.isEmpty()){
+            return 'heap is empty'
+        }
+
+        let val = this.heap[0]
+        this.heap[0] = this.heap[this.heap.length-1]
+        this.heap.pop()
+        this.heapifyDown()
+        return val
+    }
+
+    heapifyDown(){
+        let index = 0
+
+        while(this.hasLeftChild(index)){
+            let largest = this.getLeftChildIndex(index)
+
+            if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
+                largest = this.getRightChildIndex(index)
+            }
+
+            if(this.heap[index] >= this.heap[largest]){
+                break
+            }else{
+                this.swap(index,largest)
+            }
+
+            index = largest
+        }
+    }
+
+    heapSort(arr){
+        let temp = new MaxHeap()
+        for(let i=0;i<arr.length;i++){
+            temp.insert(arr[i])
+        }
+
+        let sortedArr = []
+
+        while(temp.heap.length){
+            sortedArr.push(temp.remove())
+        }
+
+        return sortedArr.reverse()
+    }
+
+    findKthSmallest(arr,k){
+        let temp = new MaxHeap()
+
+        for(let i=0;i<arr.length;i++){
+            temp.insert(arr[i])
+            if(temp.heap.length > k){
+                temp.remove()
+            }
+        }
+
+        return temp.peek()
+    }
+}
+
+function runTests() {
+    let heap = new MaxHeap();
+
+    console.log("=== Basic Heap Operations ===");
+    heap.insert(10);
+    heap.insert(20);
+    heap.insert(5);
+    heap.insert(30);
+
+    console.log("Peek (should be 30):", heap.peek());  // 30
+    console.log("Remove (should be 30):", heap.remove()); // 30
+    console.log("Peek after remove (should be 20):", heap.peek()); // 20
+
+    console.log("=== Heap Sort ===");
+    let arr = [5, 3, 8, 1, 2];
+    console.log("Original:", arr);
+    console.log("Heap Sort Result:", heap.heapSort(arr)); // [1,2,3,5,8]
+
+    console.log("=== findKthSmallest ===");
+    let arr2 = [7, 10, 4, 3, 20, 15];
+    console.log("Array:", arr2);
+    console.log("1st smallest (should be 3):", heap.findKthSmallest(arr2, 1));
+    console.log("2nd smallest (should be 4):", heap.findKthSmallest(arr2, 2));
+    console.log("3rd smallest (should be 7):", heap.findKthSmallest(arr2, 3));
+    console.log("4th smallest (should be 10):", heap.findKthSmallest(arr2, 4));
+
+    console.log("=== Edge Cases ===");
+    let emptyHeap = new MaxHeap();
+    console.log("Peek empty:", emptyHeap.peek()); // "heap is empty"
+    console.log("Remove empty:", emptyHeap.remove()); // "heap is empty"
+}
+
+runTests();
