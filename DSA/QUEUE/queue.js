@@ -57,7 +57,7 @@
 //     }
 
 //     isEmpty(){
-//         return this.rear - this.front === 0
+//         return this.rear === this.front
 //     }
 
 //     getSize(){
