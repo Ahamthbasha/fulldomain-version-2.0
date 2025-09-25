@@ -7,15 +7,15 @@ for(let i=0;i<arr.length;i++){
     let count = 0
     for(let j=i+1;j<arr.length;j++){
         if(arr[i] == arr[j]){
-            count ++
+            count++
         }
     }
 
-    if((arr[i]%2 != 0 && count > 1)){
+    if((arr[i] % 2 != 0) && (count >= 1)){
         let alreadyExist = false
 
         for(let k=0;k<oddNo.length;k++){
-            if(arr[i] == k[i]){
+            if(arr[i] == oddNo[k]){
                 alreadyExist = true
                 break
             }
@@ -26,5 +26,6 @@ for(let i=0;i<arr.length;i++){
         }
     }
 }
+
 
 console.log(oddNo)
