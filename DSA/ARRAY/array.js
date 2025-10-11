@@ -335,38 +335,65 @@ let arr=[[1,2,-3],[-11,2,3], [8,-10,2]]
 // console.log(arr)
 
 
-function bubbleSort(arr){
-    let swapped = true
-    while(swapped){
-        swapped = false
-        for(let i=0;i<arr.length-1;i++){
-            if(arr[i] > arr[i+1]){
-                let temp = arr[i]
-                arr[i] = arr[i+1]
-                arr[i+1] = temp
-                swapped = true
-            }
-        }
-    }
+// function bubbleSort(arr){
+//     let swapped = true
+//     while(swapped){
+//         swapped = false
+//         for(let i=0;i<arr.length-1;i++){
+//             if(arr[i] > arr[i+1]){
+//                 let temp = arr[i]
+//                 arr[i] = arr[i+1]
+//                 arr[i+1] = temp
+//                 swapped = true
+//             }
+//         }
+//     }
 
-    return arr
-}
+//     return arr
+// }
 
-function quickSort(arr){
+// function quickSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
+//     let pivot = arr[arr.length-1]
+//     let leftArr = []
+//     let rightArr = []
+
+//     for(let i=0;i<arr.length-1;i++){
+//         if(arr[i] < pivot){
+//             leftArr.push(arr[i])
+//         }else{
+//             rightArr.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+// }
+
+function mergeSort(arr){
     if(arr.length < 2){
         return arr
     }
-    let pivot = arr[arr.length-1]
-    let leftArr = []
-    let rightArr = []
 
-    for(let i=0;i<arr.length-1;i++){
-        if(arr[i] < pivot){
-            leftArr.push(arr[i])
+    let mid = Math.floor(arr.length/2)
+    let leftArr = arr.slice(0,mid)
+    let rightArr = arr.slice(mid)
+
+    return merge(mergeSort(leftArr),mergeSort(rightArr))
+}
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
         }else{
-            rightArr.push(arr[i])
+            sortedArr.push(rightArr.shift())
         }
     }
 
-    return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
+    return sortedArr.concat(leftArr,rightArr)
 }
+
