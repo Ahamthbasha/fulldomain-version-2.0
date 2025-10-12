@@ -371,29 +371,48 @@ let arr=[[1,2,-3],[-11,2,3], [8,-10,2]]
 //     return [...quickSort(leftArr),pivot,...quickSort(rightArr)]
 // }
 
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr
-    }
+// function mergeSort(arr){
+//     if(arr.length < 2){
+//         return arr
+//     }
 
-    let mid = Math.floor(arr.length/2)
-    let leftArr = arr.slice(0,mid)
-    let rightArr = arr.slice(mid)
+//     let mid = Math.floor(arr.length/2)
+//     let leftArr = arr.slice(0,mid)
+//     let rightArr = arr.slice(mid)
 
-    return merge(mergeSort(leftArr),mergeSort(rightArr))
-}
+//     return merge(mergeSort(leftArr),mergeSort(rightArr))
+// }
 
-function merge(leftArr,rightArr){
-    let sortedArr = []
+// function merge(leftArr,rightArr){
+//     let sortedArr = []
 
-    while(leftArr.length && rightArr.length){
-        if(leftArr[0] < rightArr[0]){
-            sortedArr.push(leftArr.shift())
-        }else{
-            sortedArr.push(rightArr.shift())
+//     while(leftArr.length && rightArr.length){
+//         if(leftArr[0] < rightArr[0]){
+//             sortedArr.push(leftArr.shift())
+//         }else{
+//             sortedArr.push(rightArr.shift())
+//         }
+//     }
+
+//     return sortedArr.concat(leftArr,rightArr)
+// }
+
+
+
+function insertionSort(arr){
+    for(let i=1;i<arr.length;i++){
+        let j = i-1
+        let cur = arr[i]
+
+        while(j >= 0 && arr[j] > cur){
+            arr[j+1] = arr[j]
+            j--
         }
+
+        arr[j+1] = cur
     }
 
-    return sortedArr.concat(leftArr,rightArr)
+    return arr
 }
 
+console.log(insertionSort([5, 2, 4, 6, 1, 3]));
