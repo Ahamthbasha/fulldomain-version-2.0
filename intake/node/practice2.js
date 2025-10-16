@@ -13,15 +13,23 @@
 // module.exports = sayHello
 
 
-const express = require('express')
-const router = express.Router()
+// const express = require('express')
+// const router = express.Router()
 
-router.get('/hello',(req,res)=>{
-    res.send("hello world")
-})
+// router.get('/hello',(req,res)=>{
+//     res.send("hello world")
+// })
 
-router.get('/:id',(req,res)=>{
-    res.send(`user id is ${req.params.id}`)
-})
+// router.get('/:id',(req,res)=>{
+//     res.send(`user id is ${req.params.id}`)
+// })
 
-module.exports = router
+// module.exports = router
+
+// console.log('god bless u maamey')
+
+
+// process.on('message',(mssg)=>{
+//     console.log('received message from parent:',mssg)
+//     process.send("hello parent")
+// })
