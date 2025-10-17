@@ -4533,3 +4533,34 @@
 
 
 // Practical :  Longest repeating character. Input:   “etrrrtutraaaaa”, Output : "aaaaa"
+
+
+
+function mergeSort(arr){
+    if(arr.length < 2){
+        return arr
+    }
+
+    let mid = Math.floor(arr.length/2)
+    let firstHalf = arr.slice(0,mid)
+    let secondHalf = arr.slice(mid)
+
+    return merge(mergeSort(firstHalf),mergeSort(secondHalf))
+}
+
+
+function merge(leftArr,rightArr){
+    let sortedArr = []
+    while(leftArr.length && rightArr.length){
+        if(leftArr[0] < rightArr[0]){
+            sortedArr.push(leftArr.shift())
+        }else{
+            sortedArr.push(rightArr.shift())
+        }
+    }
+
+    return sortedArr.concat(leftArr,rightArr)
+}
+
+
+console.log(mergeSort([9,10,2,1,8,3,-10]))

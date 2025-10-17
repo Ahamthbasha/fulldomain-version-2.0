@@ -68,15 +68,29 @@
 
 //USE CONTEXT
 
+// import React from 'react'
+// import Hooks from './component/Hooks'
+
+// const App = () => {
+//   return (
+//     <div>
+//       {/* <GiveBorder/> */}
+
+//       <Hooks/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
 import React from 'react'
-import Hooks from './component/Hooks'
+import { EnhancedOne } from './component/HOC/HOC'
 
 const App = () => {
   return (
     <div>
-      {/* <GiveBorder/> */}
-
-      <Hooks/>
+      <EnhancedOne />
     </div>
   )
 }

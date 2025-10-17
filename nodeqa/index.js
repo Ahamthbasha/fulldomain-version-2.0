@@ -1,4 +1,4 @@
-const fs = require('fs')
+// const fs = require('fs')
 
 // fs.writeFile('hello.txt','I watched the Retro',(err)=>{
 //     if(err){
@@ -310,6 +310,32 @@ const fs = require('fs')
 //         next()
 //     }
 // })
+
+// app.listen(3000,()=>{
+//     console.log("server is running")
+// })
+
+
+
+// Create an Express route that accepts two numbers as query parameters and displays their sum on a web page
+
+// const express = require('express')
+
+// const app = express()
+
+// app.get("/sumTwoNo",(req,res)=>{
+
+//     try {
+//         const {first,second} = req.query
+//         const sum = Number(first) + Number(second)
+//         res.send(`${sum}`)
+//     } catch (error) {
+//         console.log(error)
+//         res.send(error)
+//     }
+
+// })
+
 
 // app.listen(3000,()=>{
 //     console.log("server is running")
