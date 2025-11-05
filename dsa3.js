@@ -2033,42 +2033,148 @@
 // console.log(list.search(10)); // 'list is empty'
 
 
-function smallest(arr){
+// function smallest(arr){
     
-    const result = arr.reduce((acc,cur)=>{
-        if([acc.first,acc.second,acc.third,acc.fourth].includes(cur)){
-            return acc
-        }
+//     const result = arr.reduce((acc,cur)=>{
+//         if([acc.first,acc.second,acc.third,acc.fourth].includes(cur)){
+//             return acc
+//         }
 
-        if( cur < acc.first){
-            acc.fourth = acc.third
-            acc.third = acc.second
-            acc.second = acc.first
-            acc.first = cur
-        }
-        else if(cur < acc.second){
-            acc.fourth = acc.third
-            acc.third = acc.second
-            acc.second = cur
-        }
-        else if(cur < acc.third){
-            acc.fourth = acc.third
-            acc.third = cur
-        }
-        else if(cur < acc.fourth){
-            acc.fourth = cur
-        }
+//         if( cur < acc.first){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = acc.first
+//             acc.first = cur
+//         }
+//         else if(cur < acc.second){
+//             acc.fourth = acc.third
+//             acc.third = acc.second
+//             acc.second = cur
+//         }
+//         else if(cur < acc.third){
+//             acc.fourth = acc.third
+//             acc.third = cur
+//         }
+//         else if(cur < acc.fourth){
+//             acc.fourth = cur
+//         }
 
-        return acc
-    },{
-        first:Infinity,
-        second:Infinity,
-        third:Infinity,
-        fourth:Infinity
-    })
+//         return acc
+//     },{
+//         first:Infinity,
+//         second:Infinity,
+//         third:Infinity,
+//         fourth:Infinity
+//     })
 
-    return result
+//     return result
+// }
+
+// console.log(smallest([5, 2, 1, 3, 4, 1, 2])); 
+// // Output: [1, 2, 3, 4]
+
+
+
+
+
+
+//MinHeap
+
+class MinHeap{
+    constructor(){
+        this.heap = []
+    }
+
+    isEmpty(){
+        return this.heap.length == 0
+    }
+
+    getParentIndex(index){
+        return Math.floor((index-1)/2)
+    }
+
+    getLeftChildIndex(index){
+        return 2 * index + 1
+    }
+
+    getRightChildIndex(index){
+        return 2 * index + 2
+    }
+
+    getParent(index){
+        return this.heap[this.getParentIndex(index)]
+    }
+
+    getLeftChild(index){
+        return this.heap[this.getLeftChildIndex(index)]
+    }
+
+    getRightChild(index){
+        return this.heap[this.getRightChildIndex(index)]
+    }
+
+    hasParent(index){
+        return this.getParentIndex(index) >= 0
+    }
+
+    hasLeftChild(index){
+        return this.getLeftChildIndex(index) < this.heap.length
+    }
+
+    hasRightChild(index){
+        return this.getRightChildIndex(index) < this.heap.length
+    }
+
+    swap(index1,index2){
+        let temp = this.heap[index1]
+        this.heap[index1] = this.heap[index2]
+        this.heap[index2] = temp
+    }
+
+    push(value){
+        this.heap.push(value)
+        this.heapifyUp()
+    }
+
+    heapifyUp(){
+        let index = this.heap.length - 1
+
+        while(this.hasParent(index) && this.getParent(index) > this.heap[index]){
+            this.swap(index,this.getParentIndex(index))
+            index = this.getParentIndex(index)
+        }
+    }
+
+    pop(){
+        if(this.heap.length == 0){
+            return null
+        }
+        else{
+            let val = this.heap[0]
+            this.heap[0] = this.heap[this.heap.length-1]
+            this.heap.pop()
+            this.heapifyDown()
+            return val
+        }
+    }
+
+    heapifyDown(){
+        let index = 0
+
+        while(this.hasLeftChild(index)){
+            let smallest = this.getLeftChildIndex(index)
+
+            if(this.hasRightChild(index) && this.getRightChild(index) < this.getRightChild(index)){
+                smallest = this.getRightChildIndex(index)
+            }
+
+            if(this.heap[index] <= this.heap[smallest]){
+                break
+            }else{
+                this.swap(index,smallest)
+            }
+
+            index = smallest
+        }
+    }
 }
-
-console.log(smallest([5, 2, 1, 3, 4, 1, 2])); 
-// Output: [1, 2, 3, 4]
