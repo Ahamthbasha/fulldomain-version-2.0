@@ -155,16 +155,80 @@ const path = require('path')
 
 // mergeContent(files)
 
-fs.readFile("output.txt","utf-8",(err,data)=>{
+// fs.readFile("output.txt","utf-8",(err,data)=>{
+//     if(err){
+//         console.log(err)
+//         return
+//     }
+
+//     if(data){
+//     let wordCount = data.split(/\s+/)
+//     console.log(wordCount.length)
+//     let line = data.split(/\n/)
+//     console.log(line.length)
+//     }
+// })
+
+
+//rename
+
+// let folder = path.join(__dirname)
+
+// fs.readdir(folder,(err,files)=>{
+//     if(err){
+//         console.log(err)
+//         return
+//     }
+
+//     let txtFiles = files.filter((val)=>path.extname(val) == ".txt")
+
+//     txtFiles.forEach((val)=>{
+//         console.log(val)
+//         let renameSplit= val.split('.')
+//         let rename = `${renameSplit[0]}.bak`
+//         fs.rename(val,rename,(err)=>{
+//             if(err){
+//                 console.log(err)
+//                 return
+//             }
+//         })
+//         console.log("renamed")
+//     })
+// })
+
+
+
+//delete file
+
+let folder = path.join(__dirname)
+
+let currentDay = Date.now()
+let days = 1
+fs.readdir(folder,(err,files)=>{
     if(err){
         console.log(err)
         return
     }
 
-    if(data){
-    let wordCount = data.split(/\s+/)
-    console.log(wordCount.length)
-    let line = data.split(/\n/)
-    console.log(line.length)
-    }
+    files.forEach((val)=>{
+        fs.stat(val,(err,stats)=>{
+            if(err){
+                console.log(err)
+                return
+            }
+            let getFileStats = stats.mtimeMs
+            let getDaysDiff = currentDay - getFileStats
+            let diff = getDaysDiff / 1000 * 60 * 60 * 24
+
+            if(diff > days){
+                fs.unlink(val,(err)=>{
+                    if(err){
+                        throw err
+                    }
+
+                    console.log("deleted")
+                })
+            }
+        })
+    })
 })
