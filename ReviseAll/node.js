@@ -200,35 +200,109 @@ const path = require('path')
 
 //delete file
 
-let folder = path.join(__dirname)
+// let folder = path.join(__dirname)
 
-let currentDay = Date.now()
-let days = 1
-fs.readdir(folder,(err,files)=>{
-    if(err){
-        console.log(err)
-        return
+// let currentDay = Date.now()
+// let days = 1
+// fs.readdir(folder,(err,files)=>{
+//     if(err){
+//         console.log(err)
+//         return
+//     }
+
+//     files.forEach((val)=>{
+//         fs.stat(val,(err,stats)=>{
+//             if(err){
+//                 console.log(err)
+//                 return
+//             }
+//             let getFileStats = stats.mtimeMs
+//             let getDaysDiff = currentDay - getFileStats
+//             let diff = getDaysDiff / 1000 * 60 * 60 * 24
+
+//             if(diff > days){
+//                 fs.unlink(val,(err)=>{
+//                     if(err){
+//                         throw err
+//                     }
+
+//                     console.log("deleted")
+//                 })
+//             }
+//         })
+//     })
+// })
+
+
+
+//COPY FILE CONTENT
+
+// fs.copyFile('data.txt','destination.txt',(err)=>{
+//     if(err){
+//         console.log(err)
+//         return
+//     }
+
+//     console.log("file copied")
+// })
+
+//log message whenever a file is modified
+
+// fs.watch('data.txt',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+// })
+
+// const fsPromise = require('fs/promises')
+
+// async function readFile(file){
+//     try {
+//         const result = await fsPromise.readFile(file,'utf-8')
+//         console.log(result)
+//     } catch (error) {
+//         throw error
+//     }
+// }
+
+// readFile('data.txt')
+
+// async function writeFile(fileName,data){
+//     try {
+//         await fsPromise.writeFile(fileName,data.toString())
+//         console.log("writed")
+//     } catch (error) {
+//         throw error
+//     }
+// }
+
+// writeFile("date1.txt",new Date())
+
+//folder
+
+const fsPromise = require('fs/promises')
+let folder = path.join(__dirname,"logs")
+
+async function createFolderWriteFilesRead(){
+    try {
+        await fsPromise.mkdir(folder)
+        
+        for(let i=1;i<=5;i++){
+            await fsPromise.writeFile(path.join(folder,`logs${i}.txt`),new Date().toString())
+            console.log(`log${i}.txt writed`)
+        }
+
+        let files = await fsPromise.readdir(folder)
+
+        files.sort()
+
+        for(let file of files){
+            const data = await fsPromise.readFile(path.join(folder,file),'utf-8')
+            console.log(`${file}:\n${data}`)
+        }
+    } catch (error) {
+        throw error
     }
+}
 
-    files.forEach((val)=>{
-        fs.stat(val,(err,stats)=>{
-            if(err){
-                console.log(err)
-                return
-            }
-            let getFileStats = stats.mtimeMs
-            let getDaysDiff = currentDay - getFileStats
-            let diff = getDaysDiff / 1000 * 60 * 60 * 24
-
-            if(diff > days){
-                fs.unlink(val,(err)=>{
-                    if(err){
-                        throw err
-                    }
-
-                    console.log("deleted")
-                })
-            }
-        })
-    })
-})
+createFolderWriteFilesRead()
